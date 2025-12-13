@@ -1,0 +1,3 @@
+[submodule "materialmodel-terraform"]
+	path = materialmodel-terraform
+	url = git@github.com:MaterialModel/materialmodel-terraform.git
