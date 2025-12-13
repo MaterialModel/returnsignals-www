@@ -1,0 +1,164 @@
+name: Deploy to GCP
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: materialmodel-prod
+  NODE_VERSION: '24'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write  # Required for Workload Identity Federation
+      pull-requests: write  # Required for PR comments
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Get secrets and build
+        run: |
+          # Get secrets directly from Secret Manager
+          GA_ID=$(gcloud secrets versions access latest --secret="returnsignals-www-ga-id" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
+          POSTHOG_KEY=$(gcloud secrets versions access latest --secret="returnsignals-www-posthog-key" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
+          DD_APP_ID=$(gcloud secrets versions access latest --secret="datadog-rum-returnsignals-application-id" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
+          DD_CLIENT_TOKEN=$(gcloud secrets versions access latest --secret="datadog-rum-returnsignals-client-token" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
+
+          # Build with environment variables directly set
+          PUBLIC_GA_ID="$GA_ID" \
+          PUBLIC_POSTHOG_KEY="$POSTHOG_KEY" \
+          PUBLIC_DATADOG_APPLICATION_ID="$DD_APP_ID" \
+          PUBLIC_DATADOG_CLIENT_TOKEN="$DD_CLIENT_TOKEN" \
+          PUBLIC_DATADOG_SITE="us3.datadoghq.com" \
+          PUBLIC_DATADOG_SERVICE="returnsignals-www" \
+          PUBLIC_DATADOG_ENV="${{ github.ref == 'refs/heads/main' && 'production' || 'test' }}" \
+          PUBLIC_BUILD_VERSION="${{ github.sha }}" \
+          npm run build
+
+      - name: Deploy to GCS
+        run: |
+          # Deploy to appropriate bucket based on event type
+          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
+            # Main branch deploys to www.returnsignals.com
+            BUCKET="materialmodel-prod-returnsignals-www"
+            URL="https://www.returnsignals.com"
+          else
+            # PRs deploy to test-www.returnsignals.com
+            BUCKET="materialmodel-prod-test-returnsignals-www"
+            URL="https://test-www.returnsignals.com"
+          fi
+
+          # Sync files to bucket
+          gsutil -m rsync -r -d dist/ gs://${BUCKET}/
+
+          # Set cache headers for different file types
+          # Static assets - cache for 1 year (immutable with fingerprinting)
+          for pattern in "**.js" "**.css" "**.jpg" "**.jpeg" "**.png" "**.gif" "**.svg" "**.woff" "**.woff2" "**.ttf" "**.eot"; do
+            gsutil -m setmeta -h "Cache-Control:public, max-age=31536000, immutable" gs://${BUCKET}/${pattern} || true
+          done
+
+          # HTML files - shorter cache for content updates
+          gsutil -m setmeta -h "Cache-Control:public, max-age=300, must-revalidate" gs://${BUCKET}/**.html || true
+
+          # Index page - no cache
+          gsutil setmeta -h "Cache-Control:no-cache, no-store, must-revalidate" gs://${BUCKET}/index.html || true
+
+          echo "Deployment complete: ${URL}"
+
+      - name: Invalidate CDN Cache
+        run: |
+          # Both production and test deployments use the same URL map
+          URL_MAP="materialmodel-com-url-map"
+
+          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "Invalidating CDN cache for production deployment (www.returnsignals.com)..."
+          else
+            echo "Invalidating CDN cache for test deployment (test-www.returnsignals.com)..."
+          fi
+
+          # Invalidate the CDN cache for all paths
+          gcloud compute url-maps invalidate-cdn-cache $URL_MAP --path "/*" --project=${{ env.PROJECT_ID }}
+          echo "CDN cache invalidated for $URL_MAP"
+
+          # Wait a moment for cache invalidation to propagate
+          sleep 5
+
+      - name: Comment PR with preview URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const previewUrl = `https://test-www.returnsignals.com`;
+
+            // Find and update existing comment or create new one
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('Preview deployment ready')
+            );
+
+            const commentBody = `**Preview deployment ready!**
+
+            View your changes at: ${previewUrl}
+
+            ---
+            *Changes are available immediately. Main branch deploys to www.returnsignals.com.*`;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: commentBody
+              });
+            }
