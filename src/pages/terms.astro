@@ -1,5 +1,4 @@
 ---
-import PostHogLayout from '@layouts/PostHogLayout.astro'
 import LegalLayout from '@layouts/LegalLayout.astro'
 
 const title = 'Terms of Service: Return Signals'
@@ -9,13 +8,12 @@ const lastUpdated = 'December 13, 2025'
 const companyInfo = {
   name: 'Material Model, Inc. (d/b/a Return Signals)',
   address: '2261 Market Street STE 85311, San Francisco, CA 94114',
-  email: 'hello@returnsignals.com',
+  email: 'hello@materialmodel.com',
   website: 'https://www.returnsignals.com',
 }
 ---
 
-<PostHogLayout>
-  <LegalLayout {title} {description} url="/terms" {lastUpdated}>
+<LegalLayout {title} {description} url="/terms" {lastUpdated}>
     <h2>1. Agreement to Terms</h2>
     <p>
       By accessing or using Return Signals' services ("Service"), you agree to be bound by these
@@ -160,7 +158,7 @@ const companyInfo = {
       <li>Role-based access controls and audit logging</li>
       <li>Regular backups with configurable retention periods</li>
     </ul>
-    <p>You may request deletion of your data at any time by contacting hello@returnsignals.com.</p>
+    <p>You may request deletion of your data at any time by contacting hello@materialmodel.com.</p>
 
     <h2>10. Third-Party Services</h2>
     <p>
@@ -259,4 +257,3 @@ const companyInfo = {
       agreements. In case of conflict, the enterprise agreement terms shall prevail.
     </p>
   </LegalLayout>
-</PostHogLayout>

@@ -4,25 +4,25 @@ const features = [
     title: 'Scrap at customer',
     description: 'Damaged beyond resale? Skip the return entirely.',
     roi: 'Save shipping costs',
-    icon: 'fi-rr-trash',
+    icon: 'trash.svg',
   },
   {
     title: 'Smart routing',
     description: 'Send to restock or repair before it hits your hub.',
     roi: 'Reduce handling costs',
-    icon: 'fi-rr-route',
+    icon: 'route.svg',
   },
   {
     title: 'Root cause analysis',
     description: 'Learn why items come back. Fix the source.',
     roi: 'Prevent future returns',
-    icon: 'fi-rr-chart-histogram',
+    icon: 'chart-histogram.svg',
   },
   {
     title: 'Fraud prevention',
     description: 'Block abusive returns before they ship.',
     roi: 'Stop fraudulent returns',
-    icon: 'fi-rr-shield-check',
+    icon: 'shield-check.svg',
   },
 ]
 ---
@@ -36,7 +36,7 @@ const features = [
         {
           features.map((feature) => (
             <div class="group p-6 rounded-2xl bg-white/40 backdrop-blur-xl border border-white/30 hover:bg-white/50 transition-all duration-300">
-              <i class={`fi ${feature.icon} text-3xl text-gray-700 mb-3 block`} />
+              <img src={`/icons/${feature.icon}`} alt="" class="w-8 h-8 text-gray-700 mb-3" />
               <h3 class="text-lg font-semibold text-primary mb-1.5">{feature.title}</h3>
               <p class="text-secondary text-sm mb-2">{feature.description}</p>
               <p class="text-xs font-medium text-gray-600 italic">{feature.roi}</p>

@@ -1,14 +1,13 @@
 ---
-import PostHogLayout from '@layouts/PostHogLayout.astro'
 import BaseLayout from '@layouts/BaseLayout.astro'
+import ParallaxLayout from '@layouts/ParallaxLayout.astro'
 ---
-
-<PostHogLayout>
-  <BaseLayout
-    title="Page Not Found - Return Signals"
-    description="The page you're looking for doesn't exist."
-    noindex={true}
-  >
+<BaseLayout
+  title="Page Not Found - Return Signals"
+  description="The page you're looking for doesn't exist."
+  noindex={true}
+>
+  <ParallaxLayout>
     <main class="min-h-screen flex items-center justify-center">
       <div class="container-lg text-center">
         <h1 class="text-6xl sm:text-7xl font-bold text-primary mb-4">404</h1>
@@ -19,5 +18,5 @@ import BaseLayout from '@layouts/BaseLayout.astro'
         <a href="/" class="btn btn-primary"> Go Home </a>
       </div>
     </main>
-  </BaseLayout>
-</PostHogLayout>
+  </ParallaxLayout>
+</BaseLayout>

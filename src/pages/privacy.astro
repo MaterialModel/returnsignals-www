@@ -1,5 +1,4 @@
 ---
-import PostHogLayout from '@layouts/PostHogLayout.astro'
 import LegalLayout from '@layouts/LegalLayout.astro'
 
 const title = 'Privacy Policy: Return Signals'
@@ -9,13 +8,12 @@ const lastUpdated = 'December 13, 2025'
 const companyInfo = {
   name: 'Material Model, Inc. (d/b/a Return Signals)',
   address: '2261 Market Street STE 85311, San Francisco, CA 94114',
-  email: 'privacy@returnsignals.com',
+  email: 'privacy@materialmodel.com',
   website: 'https://www.returnsignals.com',
 }
 ---
 
-<PostHogLayout>
-  <LegalLayout {title} {description} url="/privacy" {lastUpdated}>
+<LegalLayout {title} {description} url="/privacy" {lastUpdated}>
     <p>
       Material Model, Inc., doing business as Return Signals ("Return Signals", "we", "us", "our")
       is committed to protecting your privacy and ensuring the security of your personal
@@ -125,7 +123,7 @@ const companyInfo = {
     </ul>
     <p>
       You may request immediate deletion of your data at any time by contacting us at
-      privacy@returnsignals.com.
+      privacy@materialmodel.com.
     </p>
 
     <h2>7. Your Privacy Rights</h2>
@@ -145,7 +143,7 @@ const companyInfo = {
       <li><strong>Withdrawal:</strong> Revoke consent for processing activities</li>
     </ul>
     <p>
-      To exercise any of these rights, please contact us at privacy@returnsignals.com. We will
+      To exercise any of these rights, please contact us at privacy@materialmodel.com. We will
       respond within 30 days.
     </p>
 
@@ -192,7 +190,7 @@ const companyInfo = {
       </li>
       <li>Right to non-discrimination for exercising privacy rights</li>
     </ul>
-    <p>To make a CCPA request, email us at privacy@returnsignals.com.</p>
+    <p>To make a CCPA request, email us at privacy@materialmodel.com.</p>
 
     <h2>12. European Privacy Rights (GDPR)</h2>
     <p>
@@ -243,9 +241,8 @@ const companyInfo = {
 
     <p class="mt-6">
       For general inquiries, you may also contact us at <a
-        href="mailto:hello@returnsignals.com"
-        class="text-blue-600 hover:underline">hello@returnsignals.com</a
+        href="mailto:hello@materialmodel.com"
+        class="text-blue-600 hover:underline">hello@materialmodel.com</a
       >.
     </p>
   </LegalLayout>
-</PostHogLayout>
