@@ -25,14 +25,17 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Favicons -->
+    <!-- Favicons - adaptive SVG switches between light/dark mode -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-48x48.png" type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
     {
       !noDefaultSEO && (
         <SEO title={title} description={description} url={url} image={image} noindex={noindex} />
       )
     }
-    <PostHog />
     <Fragment set:html={ga4Script(import.meta.env.PUBLIC_GA_ID)} />
     <script>
       import { initializeDatadog } from '@utils/datadog'
@@ -43,6 +46,43 @@ const {
     </script>
   </head>
   <body class="min-h-screen bg-surface-base text-primary antialiased">
+    <!-- Global background covering entire page with subtle parallax -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+      <div id="site-bg-inner" class="absolute -inset-10 sm:-inset-16 will-change-transform">
+        <picture>
+          <source media="(min-width: 640px)" srcset="/images/background/background-wide.jpg" />
+          <img
+            src="/images/background/background-mobile.jpg"
+            alt=""
+            class="h-full w-full object-cover"
+          />
+        </picture>
+        <div class="absolute inset-0 bg-gradient-to-b from-white/15 via-white/10 to-transparent">
+        </div>
+      </div>
+    </div>
     <slot />
+    <script>
+      // Global subtle parallax for background
+      const bg = document.getElementById('site-bg-inner')
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+      if (bg && !(reduceMotion && reduceMotion.matches)) {
+        let ticking = false
+        const maxOffset = 120 // px cap
+        const factor = 0.06
+        const onScroll = () => {
+          if (ticking) return
+          ticking = true
+          requestAnimationFrame(() => {
+            const y = window.scrollY || 0
+            const offset = Math.max(-maxOffset, Math.min(maxOffset, y * factor))
+            bg.style.transform = `translate3d(0, ${offset}px, 0)`
+            ticking = false
+          })
+        }
+        window.addEventListener('scroll', onScroll, { passive: true })
+        onScroll()
+      }
+    </script>
   </body>
 </html>

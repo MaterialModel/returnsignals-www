@@ -1,19 +1,22 @@
 ---
+import PostHogLayout from '@layouts/PostHogLayout.astro'
 import BaseLayout from '@layouts/BaseLayout.astro'
+import Header from '@components/shared/Header.astro'
+import Footer from '@components/shared/Footer.astro'
+import Hero from '@components/Hero.astro'
+import Features from '@components/Features.astro'
 ---
 
-<BaseLayout
-  title="Return Signals"
-  description="Return Signals - Coming Soon"
->
-  <main class="min-h-screen flex items-center justify-center">
-    <div class="container-lg text-center">
-      <h1 class="text-5xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-primary mb-6">
-        Return Signals
-      </h1>
-      <p class="text-xl sm:text-2xl text-secondary max-w-2xl mx-auto">
-        Coming Soon
-      </p>
-    </div>
-  </main>
-</BaseLayout>
+<PostHogLayout>
+  <BaseLayout
+    title="Decide returns before they ship. | Return Signals"
+    description="Use customer photo and video evidence to make item-level return decisions early — avoid unnecessary shipping, route items correctly, and reduce return abuse."
+  >
+    <Header />
+    <main>
+      <Hero />
+      <Features />
+      <Footer />
+    </main>
+  </BaseLayout>
+</PostHogLayout>

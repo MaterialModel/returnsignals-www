@@ -1,0 +1,59 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro'
+import Header from '@components/shared/Header.astro'
+import Footer from '@components/shared/Footer.astro'
+
+export interface Props {
+  title: string
+  description: string
+  url: string
+  lastUpdated?: string
+}
+
+const { title, description, url, lastUpdated } = Astro.props
+---
+
+<BaseLayout {title} {description} {url}>
+  <Header />
+  <div class="bg-gradient-to-b from-surface-base to-surface-subtle min-h-screen pt-20">
+    <section class="py-8 sm:py-20">
+      <div class="container-narrow">
+        <div class="prose prose-slate max-w-none">
+          {
+            lastUpdated && (
+              <>
+                <h1 class="page-title mb-4">{title.split(' : ')[0]}</h1>
+                <p class="text-sm text-tertiary mb-8">Last updated: {lastUpdated}</p>
+              </>
+            )
+          }
+          {!lastUpdated && <h1 class="page-title mb-8">{title.split(' : ')[0]}</h1>}
+          <slot />
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .prose :global(h2) {
+    @apply text-2xl font-semibold text-primary mt-12 mb-4;
+  }
+  .prose :global(h3) {
+    @apply text-lg font-semibold text-primary mt-6 mb-3;
+  }
+  .prose :global(p) {
+    @apply text-secondary leading-relaxed mb-4;
+  }
+  .prose :global(ul) {
+    @apply list-disc list-inside space-y-2 mb-6 text-secondary;
+  }
+  .prose :global(ul li) {
+    @apply leading-relaxed;
+  }
+  .prose :global(a) {
+    @apply text-accent-primary hover:underline;
+  }
+</style>
