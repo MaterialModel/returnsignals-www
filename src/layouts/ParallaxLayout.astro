@@ -4,10 +4,7 @@ interface Props {
   parallaxMaxOffset?: number
 }
 
-const {
-  parallaxFactor = 0.06,
-  parallaxMaxOffset = 120,
-} = Astro.props
+const { parallaxFactor = 0.06, parallaxMaxOffset = 120 } = Astro.props
 ---
 
 <!-- Global background covering entire page with subtle parallax -->
@@ -21,8 +18,7 @@ const {
         class="h-full w-full object-cover"
       />
     </picture>
-    <div class="absolute inset-0 bg-gradient-to-b from-white/15 via-white/10 to-transparent">
-    </div>
+    <div class="absolute inset-0 bg-gradient-to-b from-white/15 via-white/10 to-transparent"></div>
   </div>
 </div>
 
