@@ -16,7 +16,11 @@
       'kern' 1,
       'liga' 1,
       'calt' 1;
+    /* Use dynamic viewport height where supported to avoid iOS white gaps */
     min-height: 100vh;
+    @supports (height: 100dvh) {
+      min-height: 100dvh;
+    }
     overflow-x: hidden; /* prevent accidental horizontal page scroll on mobile */
   }
 
@@ -34,6 +38,21 @@
   p {
     @apply text-base leading-relaxed text-secondary;
   }
+}
+
+/* Viewport utilities: dvh fallback for full-height sections */
+.min-h-vh-fix {
+  min-height: 100vh;
+}
+@supports (height: 100dvh) {
+  .min-h-vh-fix {
+    min-height: 100dvh;
+  }
+}
+
+/* Safe area helpers for notched screens */
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
 }
 
 /* Container utilities */

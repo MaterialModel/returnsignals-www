@@ -8,7 +8,7 @@ interface Props {
 const { class: className = '', bg = 'bg-transparent', isFirst = false } = Astro.props
 
 // If first section, no need to subtract header since header is inside the hero
-const heightClass = 'min-h-screen'
+const heightClass = 'min-h-vh-fix'
 ---
 
 <section class={`relative ${bg} ${heightClass} flex flex-col ${className}`}>
