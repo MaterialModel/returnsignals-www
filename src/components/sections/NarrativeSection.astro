@@ -7,6 +7,7 @@
  */
 
 import SMSMockup from '@components/ui/SMSMockup.astro'
+import NarrativeImage from '@components/ui/NarrativeImage.astro'
 
 interface Message {
   type: 'incoming' | 'outgoing' | 'image'
@@ -30,45 +31,28 @@ const { header, story, messages, narrativeImage, narrativeImageAlt, callout, cla
   Astro.props
 ---
 
-<section {id} class={`bg-surface-base py-10 sm:py-12 ${className}`}>
+<section {id} class={`bg-surface-base py-12 sm:py-16 ${className}`}>
   <div class="container-lg">
-    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-medium text-primary mb-6 text-center animate-on-scroll">
-      {header}
-    </h2>
-
-    <!-- Scrub zone: page stays pinned; messages progress with scroll -->
+    <!-- Scrub zone: title + content pin together with fixed spacing -->
     <div
       class="sms-scrub-zone relative max-w-6xl mx-auto"
-      style={`--sms-steps: ${messages.length}; --sms-step: 120px; --sms-hold: 160px; min-height: calc(100vh + var(--sms-step) * var(--sms-steps) + var(--sms-hold));`}
+      style={`--title-offset: 72px; --title-gap: 16px; --sms-steps: ${messages.length}; --sms-step: 120px; --sms-hold: 24px; min-height: calc(100vh + var(--sms-step) * var(--sms-steps) + var(--sms-hold));`}
     >
       <div class="sticky top-0">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <!-- Spacer to position title below top -->
+        <div style="height: var(--title-offset)"></div>
+        <h2 class="text-xl sm:text-2xl lg:text-3xl font-medium text-primary text-center">
+          {header}
+        </h2>
+        <div class="mt-[var(--title-gap)] grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center">
           <!-- SMS Mockup (pinned) -->
           <div class="order-2 lg:order-1">
             <SMSMockup {messages} />
           </div>
 
-          <!-- Narrative Image (pinned, height synced to phone) -->
+          <!-- Narrative Image (pinned) -->
           <div class="order-1 lg:order-2">
-            <div data-narrative-img-box class="relative w-full overflow-hidden">
-              <img
-                data-narrative-img
-                src={narrativeImage}
-                alt={narrativeImageAlt}
-                loading="lazy"
-                class="block h-full w-auto max-w-full mx-auto object-contain"
-                style="mask-image: radial-gradient(ellipse 95% 90% at center, black 30%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 95% 90% at center, black 30%, transparent 70%);"
-              />
-              <!-- Restored story overlay on top of narrative image -->
-              <div class="absolute inset-x-12 sm:inset-x-16" style="top: 33%;">
-                <p
-                  class="text-sm leading-relaxed italic font-medium text-center"
-                  style="font-family: Georgia, 'Times New Roman', serif; color: #1F2937; text-shadow: 0 0 16px rgba(255,255,255,1), 0 0 32px rgba(255,255,255,0.95), 0 0 48px rgba(255,255,255,0.9), 0 0 64px rgba(255,255,255,0.8), 0 0 80px rgba(255,255,255,0.6), 4px 4px 8px rgba(255,255,255,0.95), -4px -4px 8px rgba(255,255,255,0.95), 4px -4px 8px rgba(255,255,255,0.95), -4px 4px 8px rgba(255,255,255,0.95);"
-                >
-                  {story}
-                </p>
-              </div>
-            </div>
+            <NarrativeImage src={narrativeImage} alt={narrativeImageAlt} story={story} />
           </div>
         </div>
       </div>
@@ -76,7 +60,7 @@ const { header, story, messages, narrativeImage, narrativeImageAlt, callout, cla
 
     {
       callout && (
-        <div class="mt-12 p-4 bg-accent-muted border-l-4 border-accent-primary rounded-r max-w-4xl mx-auto animate-on-scroll">
+        <div class="mt-6 p-4 bg-accent-muted border-l-4 border-accent-primary rounded-r max-w-4xl mx-auto animate-on-scroll">
           <p class="text-sm text-secondary italic">{callout}</p>
         </div>
       )
@@ -84,25 +68,3 @@ const { header, story, messages, narrativeImage, narrativeImageAlt, callout, cla
   </div>
 </section>
 
-<script>
-  // Sync narrative image height to match the phone mock height within this section
-  document.addEventListener('DOMContentLoaded', () => {
-    const section = document.currentScript.closest('section')
-    if (!section) return
-    const phone = section.querySelector('.sms-frame')
-    const imgBox = section.querySelector('[data-narrative-img-box]')
-    if (!phone || !imgBox) return
-
-    const sync = () => {
-      const h = phone.getBoundingClientRect().height
-      imgBox.style.height = `${Math.max(200, Math.round(h))}px`
-    }
-    sync()
-    if ('ResizeObserver' in window) {
-      const ro = new ResizeObserver(sync)
-      ro.observe(phone)
-    }
-    window.addEventListener('resize', sync)
-  })
-  
-</script>

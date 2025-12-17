@@ -44,7 +44,7 @@ const bobMessages: Message[] = [
   { type: 'outgoing' as const, text: 'Can you send a quick photo of the seam under the arm?' },
   {
     type: 'image' as const,
-    imageSrc: '/images/narrative/shirt-with-bad-seam.png',
+    imageSrc: '/images/narrative/shirt-with-bad-seam.jpg',
     imageAlt: 'Photo of shirt seam defect',
   },
   { type: 'outgoing' as const, text: "Thanks—this looks like a seam defect. Want an exchange?" },
@@ -58,7 +58,7 @@ const priyaMessages: Message[] = [
   { type: 'outgoing' as const, text: 'Can you send a quick photo so I can see?' },
   {
     type: 'image' as const,
-    imageSrc: '/images/narrative/torn-pruple-legging.png',
+    imageSrc: '/images/narrative/torn-pruple-legging.jpg',
     imageAlt: 'Photo of torn leggings',
   },
   {
@@ -91,7 +91,7 @@ const priyaMessages: Message[] = [
         header="Sometimes customers just need a quick fix."
         story="Jacky buys a wrap dress. It arrives. She gets a text asking how it fits. She hasn't tried it on yet, so Return Signals schedules a follow-up. When she tries it, the neckline gaps more than she hoped. Return Signals suggests a couple quick options—adjust the tie/fit or use fashion tape or a discreet pin. It works—she avoids returning the item and feels cared for."
         messages={jackyMessages}
-        narrativeImage="/images/narrative/woman-in-wrap-dress.png"
+        narrativeImage="/images/narrative/woman-in-wrap-dress.jpg"
         narrativeImageAlt="Woman wearing wrap dress"
         callout="Even for this sub-return event, feedback is captured and aggregated."
       />
@@ -102,7 +102,7 @@ const priyaMessages: Message[] = [
         header="Sometimes, text is not enough."
         story="Bob buys a gym shirt. Looks great—until a 5-mile run leaves a painful mark. Return Signals asks a couple diagnostic questions, suspects a seam defect, and requests a photo. After visual confirmation, it offers an exchange. A costly return becomes a targeted exchange instead."
         messages={bobMessages}
-        narrativeImage="/images/narrative/man-running.png"
+        narrativeImage="/images/narrative/man-running.jpg"
         narrativeImageAlt="Man running in athletic wear"
       />
 
@@ -112,7 +112,7 @@ const priyaMessages: Message[] = [
         header="At-customer disposition means cheaper reverse logistics."
         story="Priya buys low-cost leggings. They arrive with a tear along the waistband seam. She wants to return them. Return Signals asks for a quick photo, confirms the damage, and ships a replacement immediately. Because the item can't be resold, Priya is asked to dispose of it (scrap at customer). Priya gets a fast resolution without a hassle, and the vendor avoids reverse logistics fees and processing time."
         messages={priyaMessages}
-        narrativeImage="/images/narrative/priya-in-leggings.png"
+        narrativeImage="/images/narrative/priya-in-leggings.jpg"
         narrativeImageAlt="Woman wearing athletic leggings"
       />
 
