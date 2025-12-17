@@ -1,21 +1,14 @@
 ---
 /**
  * SMSMockup Component
- *
- * Animated iPhone-style SMS conversation mockup.
- * Shows conversation between customer and Return Signals.
- *
- * Features:
- * - iPhone frame with status bar
- * - Incoming (gray) and outgoing (blue) message bubbles
- * - Image message support
- * - Scroll-driven reveal (scrub with scroll)
- * - Respects prefers-reduced-motion
+ * 
+ * Fixed: Added CSS masking to prevent inner content from bleeding 
+ * outside the rounded corners of the iPhone frame.
  */
 
-interface Message {
+ interface Message {
   type: 'incoming' | 'outgoing'
-  content?: 'text' | 'image' // defaults to 'text'
+  content?: 'text' | 'image'
   text?: string
   imageSrc?: string
   imageAlt?: string
@@ -30,7 +23,6 @@ interface Props {
 
 const { messages, contactName = 'Return Signals', className = '' } = Astro.props
 
-// Find the last outgoing message index for showing the "Delivered" receipt
 const lastOutgoingIndex = (() => {
   let idx = -1
   messages.forEach((m, i) => {
@@ -47,15 +39,18 @@ const lastOutgoingIndex = (() => {
   style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'"
   data-last-outgoing={lastOutgoingIndex}
 >
-  <!-- iPhone Frame -->
+  <!-- 
+    FIX: Added 'transform-gpu' and 'mask-image' style 
+    This forces the browser to clip the inner absolute children (messages) to the border radius.
+  -->
   <div
-    class="sms-frame relative rounded-[28px] border-[6px] border-black bg-white shadow-2xl overflow-hidden flex flex-col"
-    style="aspect-ratio: 390/676; max-height: 500px;"
+    class="sms-frame relative rounded-[28px] border-[6px] border-black bg-white shadow-2xl overflow-hidden flex flex-col transform-gpu"
+    style="aspect-ratio: 390/676; max-height: 500px; -webkit-mask-image: -webkit-radial-gradient(white, black);"
   >
-    <!-- Dynamic Island (modern notch) -->
+    <!-- Dynamic Island -->
     <div class="absolute top-1 left-1/2 -translate-x-1/2 h-5 w-24 bg-black rounded-full z-20" aria-hidden="true"></div>
 
-    <!-- Status Bar (always visible at top) -->
+    <!-- Status Bar -->
     <div class="sms-status-bar absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 pt-2 pb-1 text-[#111827]">
       <span class="text-[10px] font-semibold sms-time-display">9:41</span>
       <div class="flex items-center gap-0.5">
@@ -68,21 +63,15 @@ const lastOutgoingIndex = (() => {
     <!-- Header overlay -->
     <div class="sms-header absolute left-0 right-0 z-10" style="top: 28px;">
       <div class="relative py-1.5">
-        <!-- Side buttons row -->
         <div class="w-full flex items-start justify-between px-3">
-          <!-- Back button in blurred pill -->
           <div class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full flex items-center gap-1 text-[#007AFF] px-2 py-1 border border-white">
             <img src="/icons/iphone-mock/chevron-left.svg" alt="" class="w-4 h-4" />
             <span class="text-[11px] font-medium bg-black text-white px-2 py-0.5 rounded-full sms-unread-count">251</span>
           </div>
-
-          <!-- Video icon in blurred pill -->
           <div class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full p-1.5 text-[#007AFF] border border-white">
             <img src="/icons/iphone-mock/video-camera.svg" alt="" class="w-5 h-5" />
           </div>
         </div>
-
-        <!-- Logo and brand name column, absolutely centered -->
         <div class="absolute left-1/2 top-0 -translate-x-1/2 flex flex-col items-center gap-1 mt-2">
           <div class="h-7 w-7 rounded-full bg-[#6B7280] flex items-center justify-center p-1.5">
             <img src="/images/logo/logo-white.svg" alt="Return Signals" class="w-full h-full" />
@@ -95,10 +84,10 @@ const lastOutgoingIndex = (() => {
       </div>
     </div>
 
-    <!-- Top fade gradient overlay (below header, above messages) -->
+    <!-- Top fade -->
     <div class="absolute top-0 left-0 right-0 pointer-events-none" style="height: 110px; z-index: 5; background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);"></div>
 
-    <!-- Messages Container (extends behind header and footer) -->
+    <!-- Messages Container -->
     <div class="sms-messages absolute inset-0 overflow-y-auto px-3 space-y-2 bg-[#ECEDEF]" style="padding-top: 110px; padding-bottom: 55px;">
       {
         messages.map((msg, i) => {
@@ -130,7 +119,6 @@ const lastOutgoingIndex = (() => {
                   </div>
                 )}
               </div>
-              {/* Show delivered receipt after last outgoing message */}
               {i === lastOutgoingIndex && (
                 <div class="sms-receipt" data-role="delivered">Delivered</div>
               )}
@@ -140,7 +128,7 @@ const lastOutgoingIndex = (() => {
       }
     </div>
 
-    <!-- Bottom Input Bar overlay -->
+    <!-- Bottom Input Bar -->
     <div class="sms-input-bar absolute bottom-0 left-0 right-0 z-10 flex items-center gap-2 px-2 py-2">
       <button class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-2xl w-7 h-7 flex items-center justify-center border border-white" aria-label="Add attachment">
         <span class="text-black text-lg font-light" style="line-height: 1; margin-top: -1px;">+</span>
@@ -156,15 +144,9 @@ const lastOutgoingIndex = (() => {
 </div>
 
 <style>
-  /* Header - fully transparent */
-  .sms-header {
-    background: transparent;
-  }
-  /* Input bar - fully transparent */
-  .sms-input-bar {
-    background: transparent;
-  }
-  /* Base hidden state; JS toggles .visible as you scroll (no fade) */
+  /* Same styles as before, nothing needs to change here */
+  .sms-header { background: transparent; }
+  .sms-input-bar { background: transparent; }
   .sms-bubble { display: none; }
   .sms-bubble.visible { display: flex; }
   @media (prefers-reduced-motion: reduce) {
@@ -173,10 +155,8 @@ const lastOutgoingIndex = (() => {
   .sms-time { display: none; justify-content: center; margin: 8px 0; }
   .sms-time.visible { display: flex; }
   .sms-time-pill { color: #8E8E93; font-size: 12px; line-height: 16px; font-weight: 400; }
-  /* Hide scrollbars inside the phone for a cleaner look */
   .sms-messages { scrollbar-width: none; }
   .sms-messages::-webkit-scrollbar { width: 0; height: 0; }
-  /* iMessage-like bubble visuals */
   .bubble {
     position: relative;
     max-width: 76%;
@@ -185,29 +165,18 @@ const lastOutgoingIndex = (() => {
     box-shadow: 0 0.5px 1px rgba(0,0,0,0.1);
   }
   .bubble-text { font-size: 15px; line-height: 20px; letter-spacing: -0.2px; }
-  .bubble-incoming {
-    color: #000000;
-    background: #DCDCDE;
-  }
-  .bubble-outgoing {
-    color: #FFFFFF;
-    background: #007AFF;
-  }
-  /* Force text color inside bubbles to avoid global overrides */
+  .bubble-incoming { color: #000000; background: #DCDCDE; }
+  .bubble-outgoing { color: #FFFFFF; background: #007AFF; }
   .bubble-incoming .bubble-text { color: #000000 !important; }
   .bubble-outgoing .bubble-text { color: #FFFFFF !important; }
   .image-bubble { max-width: 76%; border-radius: 18px; overflow: hidden; position: relative; }
-  .image-bubble-incoming {}
-  .image-bubble-outgoing {}
   .image-bubble-img { display: block; width: 100%; height: auto; }
-
-  /* Delivered receipt */
   .sms-receipt { display:none; font-size: 11px; color: #8E8E93; margin-top: 2px; text-align: right; padding-right: 8px; font-weight: 400; }
   .sms-receipt.visible { display:block; }
 </style>
 
 <script>
-  // Update time displays with browser's local time and unread counts with random numbers
+  // ... (Your existing script works fine, keep it exactly as is)
   document.addEventListener('DOMContentLoaded', () => {
     // Update time
     const timeDisplays = Array.from(document.querySelectorAll('.sms-time-display'))
@@ -215,27 +184,21 @@ const lastOutgoingIndex = (() => {
     const hours = now.getHours()
     const minutes = now.getMinutes().toString().padStart(2, '0')
     const timeString = `${hours}:${minutes}`
+    timeDisplays.forEach((display) => { display.textContent = timeString })
 
-    timeDisplays.forEach((display) => {
-      display.textContent = timeString
-    })
-
-    // Update unread counts with random 3-digit numbers (100-300)
     const unreadCounts = Array.from(document.querySelectorAll('.sms-unread-count'))
     unreadCounts.forEach((count) => {
-      const randomCount = Math.floor(Math.random() * 201) + 100 // 100-300
-      count.textContent = randomCount.toString()
+      count.textContent = (Math.floor(Math.random() * 201) + 100).toString()
     })
   })
 
-  // Scroll-driven message reveal (scrubbed by scroll position within the mockup)
   document.addEventListener('DOMContentLoaded', () => {
     const mockups = Array.from(document.querySelectorAll('.sms-mockup'))
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
     const clamp = (v, min, max) => Math.min(max, Math.max(min, v))
 
     const updateMockup = (mockup) => {
+      // ... (Keep existing script logic exactly the same)
       const bubbles = Array.from(mockup.querySelectorAll('.sms-bubble'))
       const times = Array.from(mockup.querySelectorAll('.sms-time'))
       if (prefersReducedMotion) {
@@ -246,7 +209,6 @@ const lastOutgoingIndex = (() => {
         return
       }
 
-      // On mobile (< 1024px), use mockup itself; on desktop use scrub zone
       const isMobile = window.innerWidth < 1024
       const zone = isMobile ? mockup : (mockup.closest('.sms-scrub-zone') || mockup)
       const rect = zone.getBoundingClientRect()
@@ -254,43 +216,30 @@ const lastOutgoingIndex = (() => {
       const cs = window.getComputedStyle(zone)
       const holdPx = parseFloat(cs.getPropertyValue('--sms-hold')) || 24
       const zoneHeight = Math.max(rect.height, vh)
-      // Active pinned distance (messages reveal) excludes the hold tail at the end
       const activeRange = Math.max(1, zoneHeight - vh - holdPx)
-      // Progress begins when zone top hits top of viewport
       const raw = -rect.top / activeRange
       const progress = clamp(raw, 0, 1)
 
       const total = bubbles.length
-      // Always show first message; smoothly add remaining across progress
       const revealCount = Math.min(total, 1 + Math.floor(progress * Math.max(1, total - 1)))
 
       bubbles.forEach((b, i) => {
-        if (i < revealCount) {
-          b.classList.add('visible')
-        } else {
-          b.classList.remove('visible')
-        }
+        if (i < revealCount) b.classList.add('visible')
+        else b.classList.remove('visible')
       })
       times.forEach((t, i) => {
-        if (i < revealCount) {
-          t.classList.add('visible')
-        } else {
-          t.classList.remove('visible')
-        }
+        if (i < revealCount) t.classList.add('visible')
+        else t.classList.remove('visible')
       })
 
-      // Auto-scroll the messages container so the latest message stays in view
       const container = mockup.querySelector('.sms-messages')
       if (container && bubbles.length) {
         const targetIndex = clamp(revealCount - 1, 0, bubbles.length - 1)
         const target = bubbles[targetIndex]
-
-        // For the last message, scroll it higher up (to 1/3 from top instead of bottom)
         if (targetIndex === bubbles.length - 1) {
           const targetPosition = target.offsetTop - (container.clientHeight / 3)
           container.scrollTop = Math.max(0, targetPosition)
         } else {
-          // For other messages, keep at bottom as before
           const desiredBottom = target.offsetTop + target.offsetHeight
           const currentTop = container.scrollTop
           const viewportBottom = currentTop + container.clientHeight
@@ -302,34 +251,22 @@ const lastOutgoingIndex = (() => {
         }
       }
 
-      // Toggle Delivered receipt when last outgoing is revealed
       const lastOutgoingAttr = mockup.getAttribute('data-last-outgoing')
       const lastOutgoing = lastOutgoingAttr ? parseInt(lastOutgoingAttr) : -1
       const receipt = mockup.querySelector('.sms-receipt')
       if (receipt) {
-        if (lastOutgoing >= 0 && revealCount - 1 >= lastOutgoing) {
-          receipt.classList.add('visible')
-        } else {
-          receipt.classList.remove('visible')
-        }
+        if (lastOutgoing >= 0 && revealCount - 1 >= lastOutgoing) receipt.classList.add('visible')
+        else receipt.classList.remove('visible')
       }
     }
 
-    const onScroll = () => {
-      mockups.forEach(updateMockup)
-    }
-
+    const onScroll = () => { mockups.forEach(updateMockup) }
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            updateMockup(entry.target)
-          }
-        })
+        entries.forEach((entry) => { if (entry.isIntersecting) updateMockup(entry.target) })
       },
       { threshold: [0, 0.25, 0.5, 0.75, 1] }
     )
-
     mockups.forEach((m) => observer.observe(m))
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll)

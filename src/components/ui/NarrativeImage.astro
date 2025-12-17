@@ -25,17 +25,18 @@ const {
       class="block h-full w-full object-cover object-top"
       style="mask-image: linear-gradient(to bottom, white var(--fade-start, 58%), transparent 100%); -webkit-mask-image: linear-gradient(to bottom, white var(--fade-start, 58%), transparent 100%);"
     />
-    <div class="absolute inset-x-8 sm:inset-x-12 top-1/2 -translate-y-1/2">
-      <p
-        class="leading-relaxed italic font-medium text-center"
-        style="font-family: Georgia, 'Times New Roman', serif;
-        color: #1F2937;
-        text-shadow: 0 0 20px rgba(255,255,255,1), 0 0 40px rgba(255,255,255,0.8), 4px 4px 8px rgba(255,255,255,0.9), -4px -4px 8px rgba(255,255,255,0.9);
-        font-size: 1.3rem;
-        line-height: 1.5;"
-      >
-        {story}
-      </p>
+    <div class="absolute inset-x-8 sm:inset-x-12 bottom-8">
+      <div class="bg-white/75 backdrop-blur-md rounded-2xl px-4 py-3 border border-white">
+        <p
+          class="leading-relaxed italic font-medium text-center"
+          style="font-family: Georgia, 'Times New Roman', serif;
+          color: #1F2937;
+          font-size: 0.875rem;
+          line-height: 1.5;"
+        >
+          {story}
+        </p>
+      </div>
     </div>
   </div>
 </div>
