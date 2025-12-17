@@ -1,22 +1,142 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro'
-import ParallaxLayout from '@layouts/ParallaxLayout.astro'
 import Header from '@components/shared/Header.astro'
 import Footer from '@components/shared/Footer.astro'
 import Hero from '@components/Hero.astro'
-import Features from '@components/Features.astro'
+import ProblemSection from '@components/sections/ProblemSection.astro'
+import ParallaxContainer from '@components/ui/ParallaxContainer.astro'
+import WhatIfSection from '@components/sections/WhatIfSection.astro'
+import NarrativeSection from '@components/sections/NarrativeSection.astro'
+import HowItWorksSection from '@components/sections/HowItWorksSection.astro'
+import BenefitsSection from '@components/sections/BenefitsSection.astro'
+import FeaturesSection from '@components/sections/FeaturesSection.astro'
+import CTASection from '@components/sections/CTASection.astro'
+import FAQSection from '@components/sections/FAQSection.astro'
+
+// Message type definition
+type Message = {
+  type: 'incoming' | 'outgoing' | 'image'
+  text?: string
+  imageSrc?: string
+  imageAlt?: string
+}
+
+// CTA URL (update this to your external form link)
+const ctaUrl = 'https://form.typeform.com/to/sJUkURjA'
+
+// Narrative 1: Jacky - Prevent the return
+const jackyMessages: Message[] = [
+  { type: 'outgoing' as const, text: "Hey Jacky, how's your new wrap dress?" },
+  { type: 'incoming' as const, text: "Haven't tried it yet—next week" },
+  { type: 'outgoing' as const, text: "No problem! I'll check back in a few days." },
+  { type: 'incoming' as const, text: 'Neckline gaps more than I hoped' },
+  {
+    type: 'outgoing' as const,
+    text: 'Try adjusting the tie for a snugger fit. A small pin or fashion tape can also help!',
+  },
+  { type: 'incoming' as const, text: 'That worked—thanks!' },
+]
+
+// Narrative 2: Bob - Photo inspection
+const bobMessages: Message[] = [
+  { type: 'outgoing' as const, text: "Hi Bob, how's the gym shirt working out?" },
+  { type: 'incoming' as const, text: 'Looks great but left a painful mark after my 5-mile run' },
+  { type: 'outgoing' as const, text: 'Can you send a quick photo of the seam under the arm?' },
+  {
+    type: 'image' as const,
+    imageSrc: '/images/narrative/shirt-with-bad-seam.png',
+    imageAlt: 'Photo of shirt seam defect',
+  },
+  { type: 'outgoing' as const, text: "Thanks—this looks like a seam defect. Want an exchange?" },
+  { type: 'incoming' as const, text: 'Yes please!' },
+]
+
+// Narrative 3: Priya - At-customer disposition
+const priyaMessages: Message[] = [
+  { type: 'outgoing' as const, text: 'Hey Priya, how are your new leggings?' },
+  { type: 'incoming' as const, text: "There's a tear along the waistband seam" },
+  { type: 'outgoing' as const, text: 'Can you send a quick photo so I can see?' },
+  {
+    type: 'image' as const,
+    imageSrc: '/images/narrative/torn-pruple-legging.png',
+    imageAlt: 'Photo of torn leggings',
+  },
+  {
+    type: 'outgoing' as const,
+    text: "Confirmed damage. We'll ship a replacement immediately. You can dispose of the damaged pair.",
+  },
+  { type: 'incoming' as const, text: 'Perfect, thank you!' },
+]
 ---
 
 <BaseLayout
-  title="Decide returns before they ship."
-  description="Use customer photos and videos to make item-level return decisions early. Avoid unnecessary shipping, route items correctly, and reduce return abuse."
+  title="A post-purchase concierge for every order | Return Signals"
+  description="Return Signals uses AI over SMS to check in after delivery, resolve issues quickly, and reduce avoidable returns—with structured feedback for brands."
 >
-  <ParallaxLayout>
-    <Header />
-    <main>
-      <Hero />
-      <Features />
-      <Footer />
-    </main>
-  </ParallaxLayout>
+  <Header />
+
+  <main id="main-content">
+    <!-- PARALLAX SECTIONS (1-3): Hero + Problem + What If -->
+    <ParallaxContainer>
+      <Hero {ctaUrl} />
+      <ProblemSection />
+      <WhatIfSection />
+    </ParallaxContainer>
+
+    <!-- WHITE BACKGROUND SECTIONS (4-12) -->
+
+      <!-- SECTION 4: Narrative - Jacky (Prevent Return) -->
+      <NarrativeSection
+        id="narrative-jacky"
+        header="Sometimes customers just need a quick fix."
+        story="Jacky buys a wrap dress. It arrives. She gets a text asking how it fits. She hasn't tried it on yet, so Return Signals schedules a follow-up. When she tries it, the neckline gaps more than she hoped. Return Signals suggests a couple quick options—adjust the tie/fit or use fashion tape or a discreet pin. It works—she avoids returning the item and feels cared for."
+        messages={jackyMessages}
+        narrativeImage="/images/narrative/woman-in-wrap-dress.png"
+        narrativeImageAlt="Woman wearing wrap dress"
+        callout="Even for this sub-return event, feedback is captured and aggregated."
+      />
+
+      <!-- SECTION 5: Narrative - Bob (Photo Inspection) -->
+      <NarrativeSection
+        id="narrative-bob"
+        header="Sometimes, text is not enough."
+        story="Bob buys a gym shirt. Looks great—until a 5-mile run leaves a painful mark. Return Signals asks a couple diagnostic questions, suspects a seam defect, and requests a photo. After visual confirmation, it offers an exchange. A costly return becomes a targeted exchange instead."
+        messages={bobMessages}
+        narrativeImage="/images/narrative/man-running.png"
+        narrativeImageAlt="Man running in athletic wear"
+      />
+
+      <!-- SECTION 6: Narrative - Priya (At-Customer Disposition) -->
+      <NarrativeSection
+        id="narrative-priya"
+        header="At-customer disposition means cheaper reverse logistics."
+        story="Priya buys low-cost leggings. They arrive with a tear along the waistband seam. She wants to return them. Return Signals asks for a quick photo, confirms the damage, and ships a replacement immediately. Because the item can't be resold, Priya is asked to dispose of it (scrap at customer). Priya gets a fast resolution without a hassle, and the vendor avoids reverse logistics fees and processing time."
+        messages={priyaMessages}
+        narrativeImage="/images/narrative/priya-in-leggings.png"
+        narrativeImageAlt="Woman wearing athletic leggings"
+      />
+
+      <!-- SECTION 7: How It Works -->
+      <HowItWorksSection />
+
+      <!-- SECTION 8: Benefits (Two Columns) -->
+      <BenefitsSection />
+
+      <!-- SECTION 9: Features Snapshot -->
+      <FeaturesSection />
+
+      <!-- SECTION 10: CTA / Design Partners -->
+      <CTASection {ctaUrl} />
+
+      <!-- SECTION 11: FAQ -->
+      <FAQSection />
+
+    <!-- SECTION 12: Footer -->
+    <Footer />
+  </main>
 </BaseLayout>
+
+<!-- Import scroll animations utility -->
+<script>
+  import '@utils/scroll-animations'
+</script>

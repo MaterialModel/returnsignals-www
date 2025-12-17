@@ -147,3 +147,77 @@
 .page-title {
   @apply text-4xl sm:text-5xl font-normal text-primary;
 }
+
+/* Scroll-triggered animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children animations */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+
+.stagger-children.is-visible > *:nth-child(1) {
+  transition-delay: 0s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(2) {
+  transition-delay: 0.1s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(3) {
+  transition-delay: 0.2s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(4) {
+  transition-delay: 0.3s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(5) {
+  transition-delay: 0.4s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(6) {
+  transition-delay: 0.5s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(7) {
+  transition-delay: 0.6s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(8) {
+  transition-delay: 0.7s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll,
+  .stagger-children > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

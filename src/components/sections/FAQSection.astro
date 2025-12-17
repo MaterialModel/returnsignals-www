@@ -1,0 +1,54 @@
+---
+/**
+ * FAQSection
+ *
+ * Section 11: FAQ accordion
+ * Pre-product friendly questions and answers
+ */
+
+import FAQAccordion from '@components/ui/FAQAccordion.astro'
+
+interface Props {
+  className?: string
+}
+
+const { className = '' } = Astro.props
+
+// FAQ data
+const faqs = [
+  {
+    question: 'Is this a chatbot?',
+    answer:
+      "It's a post-purchase concierge over SMS that's tied to the order and focused on resolution (not generic Q&A).",
+  },
+  {
+    question: 'What channels do you support?',
+    answer: 'Starting with SMS + photo. (Email support is on the roadmap.)',
+  },
+  {
+    question: 'How do you handle edge cases?',
+    answer:
+      'We collect context up front and can escalate to a human when needed. The system is designed to handle common issues autonomously while knowing when to hand off.',
+  },
+  {
+    question: 'How do you decide scrap vs return vs exchange?',
+    answer:
+      'Based on vendor policy and item economics, informed by at-customer visual inspection. You set the rules, we execute them intelligently.',
+  },
+  {
+    question: 'What do brands get out of this besides fewer returns?',
+    answer:
+      'Earlier SKU-level signals and structured feedback before issues show up as returns or negative reviews. This helps you fix problems upstream.',
+  },
+]
+---
+
+<section class={`bg-surface-base py-20 sm:py-32 ${className}`}>
+  <div class="container-lg">
+    <h2 class="section-title text-center mb-12 animate-on-scroll">
+      Frequently asked questions
+    </h2>
+
+    <FAQAccordion {faqs} />
+  </div>
+</section>

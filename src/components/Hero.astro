@@ -1,30 +1,33 @@
 ---
 import FullViewportSection from '@layouts/FullViewportSection.astro'
+
+interface Props {
+  ctaUrl: string
+}
+
+const { ctaUrl } = Astro.props
 ---
 
 <FullViewportSection isFirst={true}>
-  <div class="relative text-center pt-24 sm:pt-32">
+  <div class="relative text-center pt-8 sm:pt-12">
     <div class="mx-auto max-w-4xl">
-      <h1 class="section-title px-4">Decide returns before they ship</h1>
+      <h1 class="section-title px-4">A post-purchase concierge for every order</h1>
 
       <p class="section-description px-4 mt-8 sm:mt-10 text-lg w-full md:w-2/3 mx-auto">
-        Return Signals uses customer-provided photos and videos to make item-level return decisions
-        early, so retailers can avoid unnecessary shipping, route items correctly, and reduce return
-        abuse.
+        Return Signals uses AI over SMS (and photos when needed) to check in after delivery, resolve
+        issues quickly, and reduce avoidable returns—with structured feedback for brands.
       </p>
 
-      <div class="flex items-center justify-center gap-3 sm:gap-4 mt-12 sm:mt-14">
+      <div class="flex items-center justify-center gap-3 sm:gap-4 mt-12 sm:mt-14 flex-wrap">
         <a
-          href="https://form.typeform.com/to/sJUkURjA"
+          href={ctaUrl}
           target="_blank"
-          rel="noopener"
-          class="btn btn-primary">Join waitlist</a
+          rel="noopener noreferrer"
+          class="btn btn-primary">Request pilot</a
         >
         <a
-          href="https://calendar.app.google/74H4hvemxJshBmPv5"
-          target="_blank"
-          rel="noopener"
-          class="btn btn-secondary">Talk to us</a
+          href="#narrative-jacky"
+          class="btn btn-secondary">Read the narrative</a
         >
       </div>
     </div>

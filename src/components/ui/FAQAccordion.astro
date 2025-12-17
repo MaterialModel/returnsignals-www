@@ -1,0 +1,111 @@
+---
+/**
+ * FAQAccordion Component
+ *
+ * Accessible accordion for FAQ questions
+ *
+ * Features:
+ * - Expandable/collapsible FAQ items
+ * - Keyboard accessible (Enter/Space to toggle)
+ * - ARIA attributes for screen readers
+ * - Smooth height transitions
+ * - One-at-a-time expansion (optional)
+ */
+
+interface FAQ {
+  question: string
+  answer: string
+}
+
+interface Props {
+  faqs: FAQ[]
+  className?: string
+  allowMultiple?: boolean // Allow multiple panels open at once
+}
+
+const { faqs, className = '', allowMultiple = false } = Astro.props
+---
+
+<div class={`faq-accordion space-y-4 max-w-3xl mx-auto ${className}`} role="region" aria-label="Frequently Asked Questions">
+  {
+    faqs.map((faq, i) => (
+      <div class="faq-item border-b border-border last:border-b-0 pb-4 animate-on-scroll">
+        <button
+          class="faq-button w-full text-left flex justify-between items-center py-3 text-lg font-medium text-primary hover:text-accent-primary transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2 rounded"
+          aria-expanded="false"
+          aria-controls={`faq-panel-${i}`}
+          id={`faq-button-${i}`}
+          data-allow-multiple={allowMultiple}
+        >
+          <span class="flex-grow pr-4">{faq.question}</span>
+          <svg
+            class="faq-icon w-5 h-5 transition-transform duration-300 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div
+          class="faq-panel overflow-hidden transition-all duration-300 ease-in-out"
+          style="max-height: 0;"
+          id={`faq-panel-${i}`}
+          aria-labelledby={`faq-button-${i}`}
+          role="region"
+        >
+          <div class="pt-2 pb-2 text-secondary leading-relaxed">
+            {faq.answer}
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  // FAQ Accordion interaction
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.faq-button')
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const panel = button.nextElementSibling as HTMLElement
+        const icon = button.querySelector('.faq-icon') as HTMLElement
+        const isExpanded = button.getAttribute('aria-expanded') === 'true'
+        const allowMultiple = button.getAttribute('data-allow-multiple') === 'true'
+
+        // Close other panels if allowMultiple is false
+        if (!allowMultiple && !isExpanded) {
+          buttons.forEach((otherButton) => {
+            if (otherButton !== button) {
+              const otherPanel = otherButton.nextElementSibling as HTMLElement
+              const otherIcon = otherButton.querySelector('.faq-icon') as HTMLElement
+              otherButton.setAttribute('aria-expanded', 'false')
+              otherPanel.style.maxHeight = '0'
+              otherIcon.style.transform = 'rotate(0deg)'
+            }
+          })
+        }
+
+        // Toggle current panel
+        button.setAttribute('aria-expanded', String(!isExpanded))
+        if (isExpanded) {
+          panel.style.maxHeight = '0'
+          icon.style.transform = 'rotate(0deg)'
+        } else {
+          panel.style.maxHeight = `${panel.scrollHeight}px`
+          icon.style.transform = 'rotate(180deg)'
+        }
+      })
+
+      // Keyboard support
+      button.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          button.click()
+        }
+      })
+    })
+  })
+</script>

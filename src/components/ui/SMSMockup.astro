@@ -1,0 +1,289 @@
+---
+/**
+ * SMSMockup Component
+ *
+ * Animated iPhone-style SMS conversation mockup.
+ * Shows conversation between customer and Return Signals.
+ *
+ * Features:
+ * - iPhone frame with status bar
+ * - Incoming (gray) and outgoing (blue) message bubbles
+ * - Image message support
+ * - Scroll-driven reveal (scrub with scroll)
+ * - Respects prefers-reduced-motion
+ */
+
+interface Message {
+  type: 'incoming' | 'outgoing' | 'image'
+  text?: string
+  imageSrc?: string
+  imageAlt?: string
+  timestamp?: string
+  from?: 'incoming' | 'outgoing'
+}
+
+interface Props {
+  messages: Message[]
+  contactName?: string
+  className?: string
+}
+
+const { messages, contactName = 'Return Signals', className = '' } = Astro.props
+
+// Find the last outgoing message index for showing the "Delivered" receipt
+const lastOutgoingIndex = (() => {
+  let idx = -1
+  messages.forEach((m, i) => {
+    if (m.type === 'outgoing' || (m.type === 'image' && m.from === 'outgoing')) idx = i
+  })
+  return idx
+})()
+---
+
+<div
+  class={`sms-mockup mx-auto w-[260px] sm:w-[300px] md:w-[340px] ${className}`}
+  role="img"
+  aria-label={`SMS conversation with ${contactName}`}
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'"
+  data-last-outgoing={lastOutgoingIndex}
+>
+  <!-- iPhone Frame -->
+  <div
+    class="sms-frame relative rounded-[28px] border-[6px] border-black bg-white shadow-2xl overflow-hidden flex flex-col"
+    style="aspect-ratio: 390/844"
+  >
+    <!-- Notch -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 h-6 w-28 bg-black rounded-b-2xl z-10" aria-hidden="true"></div>
+    <!-- Status Bar -->
+    <div class="sms-status-bar shrink-0 flex items-center justify-between px-6 pt-4 pb-2 bg-white text-[#111827]">
+      <span class="text-xs font-semibold text-primary">9:41</span>
+      <div class="flex items-center gap-1">
+        <!-- Signal icon -->
+        <svg class="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 24 24">
+          <rect x="1" y="16" width="4" height="8" rx="1"></rect>
+          <rect x="7" y="12" width="4" height="12" rx="1"></rect>
+          <rect x="13" y="8" width="4" height="16" rx="1"></rect>
+          <rect x="19" y="4" width="4" height="20" rx="1"></rect>
+        </svg>
+        <!-- WiFi icon -->
+        <svg class="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 21c-.5 0-1-.2-1.4-.6-.8-.8-.8-2 0-2.8.8-.8 2-.8 2.8 0 .8.8.8 2 0 2.8-.4.4-.9.6-1.4.6zm-5.7-5.7c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4 1.6-1.6 3.7-2.5 5.9-2.5s4.3.9 5.9 2.5c.4.4.4 1 0 1.4-.4.4-1 .4-1.4 0-1.2-1.2-2.8-1.9-4.5-1.9s-3.3.7-4.5 1.9zm-2.8-2.8c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4C5.4 8.1 8.6 6.5 12 6.5s6.6 1.6 9.9 4.6c.4.4.4 1 0 1.4-.4.4-1 .4-1.4 0C17.8 10.1 15 8.5 12 8.5s-5.8 1.6-8.5 4z"
+          ></path>
+        </svg>
+        <!-- Battery icon -->
+        <svg class="w-6 h-3 text-primary" fill="none" viewBox="0 0 24 12">
+          <rect x="0" y="1" width="18" height="10" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
+          <rect x="2" y="3" width="14" height="6" rx="1" fill="currentColor"></rect>
+          <rect x="19" y="4" width="3" height="4" rx="1" fill="currentColor"></rect>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="sms-header shrink-0 flex items-center justify-between px-4 py-2.5 bg-white border-b border-gray-200">
+      <div class="flex items-center gap-1 text-[#0A84FF]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        <span class="text-[15px]">Messages</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="h-8 w-8 rounded-full bg-[#D1D5DB] flex items-center justify-center text-[13px] text-[#111827]">RS</div>
+        <span class="text-[15px] font-semibold text-[#111827]">{contactName}</span>
+      </div>
+      <div class="text-[#0A84FF]">
+        <div class="h-7 w-7 rounded-full border border-[#0A84FF] flex items-center justify-center text-[13px]">i</div>
+      </div>
+    </div>
+
+    <!-- Messages Container -->
+    <div class="sms-messages flex-1 min-h-0 overflow-y-auto px-3 pt-4 pb-6 space-y-1.5 bg-white">
+      {
+        messages.map((msg, i) => {
+          const isOutgoing = msg.type === 'outgoing' || (msg.type === 'image' && msg.from === 'outgoing')
+          return (
+            <Fragment>
+              {msg.timestamp && (
+                <div class="sms-time" data-message-index={i}>
+                  <span class="sms-time-pill">{msg.timestamp}</span>
+                </div>
+              )}
+              <div
+                class={`sms-bubble ${isOutgoing ? 'justify-end' : 'justify-start'}`}
+                data-message-index={i}
+              >
+                {msg.type === 'image' ? (
+                  <div class={`image-bubble ${isOutgoing ? 'image-bubble-outgoing' : 'image-bubble-incoming'}`}>
+                    <img
+                      src={msg.imageSrc}
+                      alt={msg.imageAlt || 'Uploaded image'}
+                      loading="lazy"
+                      class="image-bubble-img"
+                    />
+                  </div>
+                ) : (
+                  <div class={isOutgoing ? 'bubble bubble-outgoing' : 'bubble bubble-incoming'}>
+                    <p class="bubble-text">{msg.text}</p>
+                  </div>
+                )}
+              </div>
+            </Fragment>
+          )
+        })
+      }
+      <!-- Delivered receipt (appears after last outgoing when revealed) -->
+      <div class="sms-receipt" data-role="delivered">Delivered</div>
+    </div>
+
+    <!-- Home indicator -->
+    <div class="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 h-1.5 w-28 bg-black/80 rounded-full" aria-hidden="true"></div>
+  </div>
+</div>
+
+<style>
+  /* Base hidden state; JS toggles .visible as you scroll (no fade) */
+  .sms-bubble { display: none; }
+  .sms-bubble.visible { display: flex; }
+  @media (prefers-reduced-motion: reduce) {
+    .sms-bubble { display: flex !important; }
+  }
+  .sms-time { display: none; justify-content: center; }
+  .sms-time.visible { display: flex; }
+  .sms-time-pill { background: rgba(60, 60, 67, 0.12); color: #4B5563; font-size: 12px; line-height: 18px; padding: 2px 8px; border-radius: 14px; }
+  /* Hide scrollbars inside the phone for a cleaner look */
+  .sms-messages { scrollbar-width: none; }
+  .sms-messages::-webkit-scrollbar { width: 0; height: 0; }
+  /* iMessage-like bubble visuals */
+  .bubble {
+    position: relative;
+    max-width: 76%;
+    padding: 10px 12px;
+    border-radius: 18px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  }
+  .bubble-text { font-size: 17px; line-height: 22px; letter-spacing: 0; }
+  .bubble-incoming {
+    color: #000000; /* pure black text */
+    background: #E9E9EB; /* away messages (light gray) */
+  }
+  .bubble-outgoing {
+    color: #FFFFFF; /* pure white text */
+    background: #2E9DFB; /* your messages */
+  }
+  /* Force text color inside bubbles to avoid global overrides */
+  .bubble-incoming .bubble-text { color: #000000 !important; }
+  .bubble-outgoing .bubble-text { color: #FFFFFF !important; }
+  .image-bubble { max-width: 76%; border-radius: 18px; overflow: hidden; position: relative; }
+  .image-bubble-incoming {}
+  .image-bubble-outgoing {}
+  .image-bubble-img { display: block; width: 100%; height: auto; }
+
+  /* No tails: bubbles are simple rounded rectangles */
+  .sms-receipt { display:none; font-size: 12px; color: #6B7280; margin-top: 6px; text-align: right; padding-right: 8px; }
+  .sms-receipt.visible { display:block; }
+</style>
+
+<script>
+  // Scroll-driven message reveal (scrubbed by scroll position within the mockup)
+  document.addEventListener('DOMContentLoaded', () => {
+    const mockups = Array.from(document.querySelectorAll('.sms-mockup'))
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const clamp = (v, min, max) => Math.min(max, Math.max(min, v))
+
+    const updateMockup = (mockup) => {
+      const bubbles = Array.from(mockup.querySelectorAll('.sms-bubble'))
+      const times = Array.from(mockup.querySelectorAll('.sms-time'))
+      if (prefersReducedMotion) {
+        bubbles.forEach((b) => b.classList.add('visible'))
+        times.forEach((t) => t.classList.add('visible'))
+        const container = mockup.querySelector('.sms-messages')
+        if (container) container.scrollTop = container.scrollHeight
+        return
+      }
+
+      const zone = mockup.closest('.sms-scrub-zone') || mockup
+      const rect = zone.getBoundingClientRect()
+      const vh = window.innerHeight || 1
+      const zoneHeight = Math.max(rect.height, vh)
+      const holdPx = (() => {
+        const style = window.getComputedStyle(zone)
+        const holdVar = style.getPropertyValue('--sms-hold').trim()
+        const parsed = parseFloat(holdVar)
+        return isNaN(parsed) ? 160 : parsed
+      })()
+      // Active pinned distance (messages reveal) excludes the hold tail at the end
+      const activeRange = Math.max(1, zoneHeight - vh - holdPx)
+      // Progress begins when zone top hits top of viewport (sticky engaged)
+      const raw = -rect.top / activeRange
+      const progress = clamp(raw, 0, 1)
+
+      const total = bubbles.length
+      // Always show first message; smoothly add remaining across progress
+      const revealCount = Math.min(total, 1 + Math.floor(progress * Math.max(1, total - 1)))
+
+      bubbles.forEach((b, i) => {
+        if (i < revealCount) {
+          b.classList.add('visible')
+        } else {
+          b.classList.remove('visible')
+        }
+      })
+      times.forEach((t, i) => {
+        if (i < revealCount) {
+          t.classList.add('visible')
+        } else {
+          t.classList.remove('visible')
+        }
+      })
+
+      // Auto-scroll the messages container so the latest message stays in view
+      const container = mockup.querySelector('.sms-messages')
+      if (container && bubbles.length) {
+        const targetIndex = clamp(revealCount - 1, 0, bubbles.length - 1)
+        const target = bubbles[targetIndex]
+        const desiredBottom = target.offsetTop + target.offsetHeight
+        const currentTop = container.scrollTop
+        const viewportBottom = currentTop + container.clientHeight
+        if (desiredBottom > viewportBottom) {
+          container.scrollTop = desiredBottom - container.clientHeight
+        } else if (target.offsetTop < currentTop) {
+          container.scrollTop = target.offsetTop
+        }
+      }
+
+      // Toggle Delivered receipt when last outgoing is revealed
+      const lastOutgoingAttr = mockup.getAttribute('data-last-outgoing')
+      const lastOutgoing = lastOutgoingAttr ? parseInt(lastOutgoingAttr) : -1
+      const receipt = mockup.querySelector('.sms-receipt')
+      if (receipt) {
+        if (lastOutgoing >= 0 && revealCount - 1 >= lastOutgoing) {
+          receipt.classList.add('visible')
+        } else {
+          receipt.classList.remove('visible')
+        }
+      }
+    }
+
+    const onScroll = () => {
+      mockups.forEach(updateMockup)
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            updateMockup(entry.target)
+          }
+        })
+      },
+      { threshold: [0, 0.25, 0.5, 0.75, 1] }
+    )
+
+    mockups.forEach((m) => observer.observe(m))
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    onScroll()
+  })
+</script>

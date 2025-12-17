@@ -1,0 +1,45 @@
+---
+/**
+ * ProblemSection
+ *
+ * Section 2: "Post-purchase is a blind spot"
+ * Describes the problem with current post-purchase experience
+ * Transparent background (parallax still visible)
+ */
+
+interface Props {
+  className?: string
+}
+
+const { className = '' } = Astro.props
+---
+
+<section class={`py-20 sm:py-32 ${className}`}>
+  <div class="container-narrow">
+    <h2 class="section-title text-center mb-6 animate-on-scroll">
+      Post-purchase is a blind spot.
+    </h2>
+
+    <div class="space-y-6 max-w-3xl mx-auto">
+      <p class="text-lg text-secondary leading-relaxed text-center animate-on-scroll">
+        After delivery, most brands either go quiet or send generic marketing, leaving customers on
+        their own to figure out fit, care, defects, damage, and "is this normal?"
+      </p>
+
+      <p class="text-lg text-secondary leading-relaxed text-center animate-on-scroll">
+        When something does go wrong, it's reactive and fragmented—customers navigate support
+        queues and confusing return flows just to reach a reasonable outcome.
+      </p>
+    </div>
+
+    <!-- Optional callout box -->
+    <div
+      class="mt-12 p-6 bg-white/40 backdrop-blur-xl border border-white/30 rounded-lg max-w-2xl mx-auto animate-on-scroll"
+    >
+      <p class="text-base text-secondary italic leading-relaxed text-center">
+        Vendors don't get clean, early signals. They learn too late—when returns spike, reviews
+        turn negative, or support volume increases.
+      </p>
+    </div>
+  </div>
+</section>

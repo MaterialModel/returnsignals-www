@@ -1,0 +1,50 @@
+---
+/**
+ * HowItWorksSection
+ *
+ * Section 7: "How Return Signals works"
+ * 4-step process cards with flow indicators
+ */
+
+import HowItWorksSteps from '@components/ui/HowItWorksSteps.astro'
+
+interface Props {
+  className?: string
+}
+
+const { className = '' } = Astro.props
+
+// Steps data
+const steps = [
+  {
+    title: 'Check in after delivery',
+    description: 'Proactive SMS that feels human and low-effort.',
+  },
+  {
+    title: "Follow up on customer's timeline",
+    description: 'Snooze, schedule, and lightweight questions.',
+  },
+  {
+    title: 'Resolve issues (text + photo)',
+    description: 'Quick troubleshooting when possible; photo confirmation when needed.',
+  },
+  {
+    title: 'Choose the right outcome',
+    description:
+      'Exchange, return, scrap at customer, ship for rework, or restock—based on policy and item economics.',
+  },
+]
+---
+
+<section class={`bg-surface-base py-20 sm:py-32 ${className}`}>
+  <div class="container-lg">
+    <h2 class="section-title text-center mb-6 animate-on-scroll">How Return Signals works</h2>
+
+    <p class="section-description text-center max-w-2xl mx-auto mb-16 animate-on-scroll">
+      It's not magic; it's a workflow designed to resolve issues efficiently and keep customers
+      happy.
+    </p>
+
+    <HowItWorksSteps {steps} />
+  </div>
+</section>

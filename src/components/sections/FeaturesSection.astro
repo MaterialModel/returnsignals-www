@@ -1,0 +1,45 @@
+---
+/**
+ * FeaturesSection
+ *
+ * Section 9: "What we do (today and near-term)"
+ * Feature snapshot with note about design partners
+ */
+
+import FeatureList from '@components/ui/FeatureList.astro'
+
+interface Props {
+  className?: string
+}
+
+const { className = '' } = Astro.props
+
+// Features data
+const features = [
+  'Proactive SMS check-ins after delivery',
+  "Customer-driven timing (snooze / schedule follow ups)",
+  'Guided diagnostics (a few targeted questions)',
+  'Troubleshooting and care guidance to prevent avoidable returns',
+  'Photo capture via SMS for suspected defects/damage',
+  'At-customer visual inspection to confirm issues',
+  'Policy-aware outcomes (exchange / return / replacement / scrap)',
+  'Vendor analytics: early signals + SKU-level insights',
+]
+
+const note =
+  "We're building this with design partners. If you're working through high return rates, we'd like to talk."
+---
+
+<section class={`bg-surface-base py-20 sm:py-32 ${className}`}>
+  <div class="container-lg">
+    <h2 class="section-title text-center mb-6 animate-on-scroll">
+      What we do (today and near-term)
+    </h2>
+
+    <p class="section-description text-center max-w-2xl mx-auto mb-12 animate-on-scroll">
+      Real features, not aspirations. We're continuously improving based on partner feedback.
+    </p>
+
+    <FeatureList {features} {note} />
+  </div>
+</section>

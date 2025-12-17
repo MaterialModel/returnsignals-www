@@ -1,0 +1,50 @@
+---
+/**
+ * WhatIfSection
+ *
+ * Section 3: "Now we can do better"
+ * Bridge from problem to solution with before/after comparison
+ * Transparent background here (parallax visible). White resumes after this section.
+ */
+
+import BeforeAfterComparison from '@components/ui/BeforeAfterComparison.astro'
+
+interface Props {
+  className?: string
+}
+
+const { className = '' } = Astro.props
+
+// Before/After flow data
+const beforeSteps = [
+  { label: 'Customer has issue' },
+  { label: 'Navigate Help Center' },
+  { label: 'Submit Ticket' },
+  { label: 'Wait for response' },
+  { label: 'Process return shipment' },
+]
+
+const afterSteps = [
+  { label: 'Customer contacted proactively' },
+  { label: 'Issue diagnosed via SMS/photo' },
+  { label: 'Smart resolution (fix, exchange, scrap)' },
+]
+---
+
+<section class={`py-20 sm:py-32 ${className}`}>
+  <div class="container-lg">
+    <h2 class="section-title text-center mb-6 animate-on-scroll">Now we can do better.</h2>
+
+    <p class="section-description text-center max-w-2xl mx-auto mb-16 animate-on-scroll">
+      With AI, brands can provide a high-touch concierge to every purchase—without staffing an army
+      of support agents.
+    </p>
+
+    <BeforeAfterComparison
+      beforeLabel="Before"
+      {beforeSteps}
+      afterLabel="After"
+      {afterSteps}
+    />
+  </div>
+</section>
