@@ -10,10 +10,12 @@ import SMSMockup from '@components/ui/SMSMockup.astro'
 import NarrativeImage from '@components/ui/NarrativeImage.astro'
 
 interface Message {
-  type: 'incoming' | 'outgoing' | 'image'
+  type: 'incoming' | 'outgoing'
+  content?: 'text' | 'image' // defaults to 'text'
   text?: string
   imageSrc?: string
   imageAlt?: string
+  timestamp?: string
 }
 
 interface Props {
@@ -25,10 +27,20 @@ interface Props {
   callout?: string
   className?: string
   id?: string
+  phoneOnLeft?: boolean // If true, phone is on left; if false, image is on left
 }
 
-const { header, story, messages, narrativeImage, narrativeImageAlt, callout, className = '', id } =
-  Astro.props
+const {
+  header,
+  story,
+  messages,
+  narrativeImage,
+  narrativeImageAlt,
+  callout,
+  className = '',
+  id,
+  phoneOnLeft = true,
+} = Astro.props
 ---
 
 <section {id} class={`bg-surface-base py-12 sm:py-16 ${className}`}>
@@ -36,7 +48,7 @@ const { header, story, messages, narrativeImage, narrativeImageAlt, callout, cla
     <!-- Scrub zone: title + content pin together with fixed spacing -->
     <div
       class="sms-scrub-zone relative max-w-6xl mx-auto"
-      style={`--title-offset: 72px; --title-gap: 16px; --sms-steps: ${messages.length}; --sms-step: 120px; --sms-hold: 24px; min-height: calc(100vh + var(--sms-step) * var(--sms-steps) + var(--sms-hold));`}
+      style={`--title-offset: 72px; --title-gap: 48px; --sms-steps: ${messages.length}; --sms-step: 60px; --sms-hold: 24px; min-height: calc(100vh + var(--sms-step) * var(--sms-steps) + var(--sms-hold));`}
     >
       <div class="sticky top-0">
         <!-- Spacer to position title below top -->
@@ -44,14 +56,14 @@ const { header, story, messages, narrativeImage, narrativeImageAlt, callout, cla
         <h2 class="text-xl sm:text-2xl lg:text-3xl font-medium text-primary text-center">
           {header}
         </h2>
-        <div class="mt-[var(--title-gap)] grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center">
+        <div class="mt-[var(--title-gap)] grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 items-center">
           <!-- SMS Mockup (pinned) -->
-          <div class="order-2 lg:order-1">
+          <div class={`order-2 ${phoneOnLeft ? 'lg:order-1' : 'lg:order-2'}`}>
             <SMSMockup {messages} />
           </div>
 
           <!-- Narrative Image (pinned) -->
-          <div class="order-1 lg:order-2">
+          <div class={`order-1 ${phoneOnLeft ? 'lg:order-2' : 'lg:order-1'}`}>
             <NarrativeImage src={narrativeImage} alt={narrativeImageAlt} story={story} />
           </div>
         </div>

@@ -15,10 +15,12 @@ import FAQSection from '@components/sections/FAQSection.astro'
 
 // Message type definition
 type Message = {
-  type: 'incoming' | 'outgoing' | 'image'
+  type: 'incoming' | 'outgoing'
+  content?: 'text' | 'image' // defaults to 'text'
   text?: string
   imageSrc?: string
   imageAlt?: string
+  timestamp?: string
 }
 
 // CTA URL (update this to your external form link)
@@ -26,46 +28,48 @@ const ctaUrl = 'https://form.typeform.com/to/sJUkURjA'
 
 // Narrative 1: Jacky - Prevent the return
 const jackyMessages: Message[] = [
-  { type: 'outgoing' as const, text: "Hey Jacky, how's your new wrap dress?" },
-  { type: 'incoming' as const, text: "Haven't tried it yet—next week" },
-  { type: 'outgoing' as const, text: "No problem! I'll check back in a few days." },
-  { type: 'incoming' as const, text: 'Neckline gaps more than I hoped' },
+  { type: 'incoming' as const, text: "Hey Jacky, how's your new wrap dress?" },
+  { type: 'outgoing' as const, text: "Haven't tried it yet—next week" },
+  { type: 'incoming' as const, text: "No problem! I'll check back in a few days." },
+  { type: 'outgoing' as const, text: 'Neckline gaps more than I hoped' },
   {
-    type: 'outgoing' as const,
+    type: 'incoming' as const,
     text: 'Try adjusting the tie for a snugger fit. A small pin or fashion tape can also help!',
   },
-  { type: 'incoming' as const, text: 'That worked—thanks!' },
+  { type: 'outgoing' as const, text: 'That worked—thanks!' },
 ]
 
 // Narrative 2: Bob - Photo inspection
 const bobMessages: Message[] = [
-  { type: 'outgoing' as const, text: "Hi Bob, how's the gym shirt working out?" },
-  { type: 'incoming' as const, text: 'Looks great but left a painful mark after my 5-mile run' },
-  { type: 'outgoing' as const, text: 'Can you send a quick photo of the seam under the arm?' },
+  { type: 'incoming' as const, text: "Hi Bob, how's the gym shirt working out?" },
+  { type: 'outgoing' as const, text: 'Looks great but left a painful mark after my 5-mile run' },
+  { type: 'incoming' as const, text: 'Can you send a quick photo of the seam under the arm?' },
   {
-    type: 'image' as const,
+    type: 'outgoing' as const,
+    content: 'image' as const,
     imageSrc: '/images/narrative/shirt-with-bad-seam.jpg',
     imageAlt: 'Photo of shirt seam defect',
   },
-  { type: 'outgoing' as const, text: "Thanks—this looks like a seam defect. Want an exchange?" },
-  { type: 'incoming' as const, text: 'Yes please!' },
+  { type: 'incoming' as const, text: "Thanks—this looks like a seam defect. Want an exchange?" },
+  { type: 'outgoing' as const, text: 'Yes please!' },
 ]
 
 // Narrative 3: Priya - At-customer disposition
 const priyaMessages: Message[] = [
-  { type: 'outgoing' as const, text: 'Hey Priya, how are your new leggings?' },
-  { type: 'incoming' as const, text: "There's a tear along the waistband seam" },
-  { type: 'outgoing' as const, text: 'Can you send a quick photo so I can see?' },
+  { type: 'incoming' as const, text: 'Hey Priya, how are your new leggings?' },
+  { type: 'outgoing' as const, text: "There's a tear along the waistband seam" },
+  { type: 'incoming' as const, text: 'Can you send a quick photo so I can see?' },
   {
-    type: 'image' as const,
+    type: 'outgoing' as const,
+    content: 'image' as const,
     imageSrc: '/images/narrative/torn-pruple-legging.jpg',
     imageAlt: 'Photo of torn leggings',
   },
   {
-    type: 'outgoing' as const,
+    type: 'incoming' as const,
     text: "Confirmed damage. We'll ship a replacement immediately. You can dispose of the damaged pair.",
   },
-  { type: 'incoming' as const, text: 'Perfect, thank you!' },
+  { type: 'outgoing' as const, text: 'Perfect, thank you!' },
 ]
 ---
 
@@ -88,6 +92,7 @@ const priyaMessages: Message[] = [
       <!-- SECTION 4: Narrative - Jacky (Prevent Return) -->
       <NarrativeSection
         id="narrative-jacky"
+        phoneOnLeft={true}
         header="Sometimes customers just need a quick fix."
         story="Jacky buys a wrap dress. It arrives. She gets a text asking how it fits. She hasn't tried it on yet, so Return Signals schedules a follow-up. When she tries it, the neckline gaps more than she hoped. Return Signals suggests a couple quick options—adjust the tie/fit or use fashion tape or a discreet pin. It works—she avoids returning the item and feels cared for."
         messages={jackyMessages}
@@ -99,6 +104,7 @@ const priyaMessages: Message[] = [
       <!-- SECTION 5: Narrative - Bob (Photo Inspection) -->
       <NarrativeSection
         id="narrative-bob"
+        phoneOnLeft={false}
         header="Sometimes, text is not enough."
         story="Bob buys a gym shirt. Looks great—until a 5-mile run leaves a painful mark. Return Signals asks a couple diagnostic questions, suspects a seam defect, and requests a photo. After visual confirmation, it offers an exchange. A costly return becomes a targeted exchange instead."
         messages={bobMessages}
@@ -109,6 +115,7 @@ const priyaMessages: Message[] = [
       <!-- SECTION 6: Narrative - Priya (At-Customer Disposition) -->
       <NarrativeSection
         id="narrative-priya"
+        phoneOnLeft={true}
         header="At-customer disposition means cheaper reverse logistics."
         story="Priya buys low-cost leggings. They arrive with a tear along the waistband seam. She wants to return them. Return Signals asks for a quick photo, confirms the damage, and ships a replacement immediately. Because the item can't be resold, Priya is asked to dispose of it (scrap at customer). Priya gets a fast resolution without a hassle, and the vendor avoids reverse logistics fees and processing time."
         messages={priyaMessages}
