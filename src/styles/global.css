@@ -13,9 +13,9 @@
   body {
     @apply bg-surface-base text-primary;
     font-feature-settings:
-      'kern' 1,
-      'liga' 1,
-      'calt' 1;
+      "kern" 1,
+      "liga" 1,
+      "calt" 1;
     /* Use dynamic viewport height where supported to avoid iOS white gaps */
     min-height: 100vh;
     @supports (height: 100dvh) {
@@ -113,7 +113,11 @@
 
 /* Subtle background pattern */
 .gradient-fade {
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0.5) 0%, rgba(248, 250, 252, 0) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(248, 250, 252, 0.5) 0%,
+    rgba(248, 250, 252, 0) 100%
+  );
 }
 
 /* Simple icon container */

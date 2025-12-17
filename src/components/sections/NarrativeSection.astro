@@ -4,28 +4,28 @@
  * FIXED: Wrapper widths now match component internal constraints perfectly.
  */
 
- import SMSMockup from '@components/ui/SMSMockup.astro'
-import NarrativeImage from '@components/ui/NarrativeImage.astro'
+import SMSMockup from "@components/ui/SMSMockup.astro";
+import NarrativeImage from "@components/ui/NarrativeImage.astro";
 
 interface Message {
-  type: 'incoming' | 'outgoing'
-  content?: 'text' | 'image'
-  text?: string
-  imageSrc?: string
-  imageAlt?: string
-  timestamp?: string
+  type: "incoming" | "outgoing";
+  content?: "text" | "image";
+  text?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  timestamp?: string;
 }
 
 interface Props {
-  header: string
-  story: string
-  messages: Message[]
-  narrativeImage: string
-  narrativeImageAlt: string
-  callout?: string
-  className?: string
-  id?: string
-  phoneOnLeft?: boolean
+  header: string;
+  story: string;
+  messages: Message[];
+  narrativeImage: string;
+  narrativeImageAlt: string;
+  callout?: string;
+  className?: string;
+  id?: string;
+  phoneOnLeft?: boolean;
 }
 
 const {
@@ -35,10 +35,10 @@ const {
   narrativeImage,
   narrativeImageAlt,
   callout,
-  className = '',
+  className = "",
   id,
   phoneOnLeft = true,
-} = Astro.props
+} = Astro.props;
 ---
 
 <section {id} class={`bg-surface-base py-12 sm:py-16 ${className}`}>
@@ -49,34 +49,40 @@ const {
     >
       <div class="sticky top-0">
         <div style="height: var(--title-offset)"></div>
-        <h2 class="text-2xl sm:text-3xl lg:text-5xl font-semibold text-primary text-center max-w-4xl mx-auto">
+        <h2
+          class="text-2xl sm:text-3xl lg:text-5xl font-semibold text-primary text-center max-w-4xl mx-auto"
+        >
           {header}
         </h2>
-        
-        <div class="mt-[var(--title-gap)] mx-auto flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-center lg:gap-24 relative m-0 p-0">
-          
+
+        <div
+          class="mt-[var(--title-gap)] mx-auto flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-center lg:gap-24 relative m-0 p-0"
+        >
           <!-- SMS Mockup Wrapper -->
           <!-- 
              FIX: Changed width from w-[352px] to w-[290px].
              Math: max-height: 500px * (390/676 aspect ratio) ≈ 288.4px.
              Rounding to 290px removes the "ghost space" causing the misalignment.
           -->
-          <div class={`order-2 ${phoneOnLeft ? 'lg:order-1' : 'lg:order-2'} flex-none w-[290px]`}>
+          <div
+            class={`order-2 ${phoneOnLeft ? "lg:order-1" : "lg:order-2"} flex-none w-[290px]`}
+          >
             <!-- Added !w-full to ensure it fills the new tighter wrapper -->
             <SMSMockup {messages} className="!mx-0 !w-full" />
           </div>
 
           <!-- Narrative Image Wrapper -->
           <!-- Kept at 500px to match image height (Square) -->
-          <div class={`order-1 ${phoneOnLeft ? 'lg:order-2' : 'lg:order-1'} flex-none w-full max-w-sm sm:max-w-md lg:w-[500px]`}>
-            <NarrativeImage 
-               src={narrativeImage} 
-               alt={narrativeImageAlt} 
-               story={story}
-               className="w-full h-full"
+          <div
+            class={`order-1 ${phoneOnLeft ? "lg:order-2" : "lg:order-1"} flex-none w-full max-w-sm sm:max-w-md lg:w-[500px]`}
+          >
+            <NarrativeImage
+              src={narrativeImage}
+              alt={narrativeImageAlt}
+              story={story}
+              className="w-full h-full"
             />
           </div>
-
         </div>
       </div>
     </div>
@@ -84,7 +90,9 @@ const {
     {
       callout && (
         <div class="mt-16 max-w-3xl mx-auto animate-on-scroll">
-          <p class="text-base sm:text-lg text-secondary italic leading-relaxed text-center">{callout}</p>
+          <p class="text-base sm:text-lg text-secondary italic leading-relaxed text-center">
+            {callout}
+          </p>
         </div>
       )
     }

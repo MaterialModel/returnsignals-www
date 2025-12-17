@@ -1,6 +1,6 @@
 // Google Analytics 4 script generator
 export function ga4Script(measurementId: string | undefined): string {
-  if (!measurementId) return ''
+  if (!measurementId) return "";
 
   return `
     <script async src="https://www.googletagmanager.com/gtag/js?id=${measurementId}"></script>
@@ -10,5 +10,5 @@ export function ga4Script(measurementId: string | undefined): string {
       gtag('js', new Date());
       gtag('config', '${measurementId}');
     </script>
-  `
+  `;
 }

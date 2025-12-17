@@ -1,16 +1,16 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro'
-import Header from '@components/shared/Header.astro'
-import Footer from '@components/shared/Footer.astro'
-import Hero from '@components/sections/Hero.astro'
-import ProblemSection from '@components/sections/ProblemSection.astro'
-import ParallaxContainer from '@components/ui/ParallaxContainer.astro'
-import NarrativeSections from '@components/sections/NarrativeSections.astro'
-import HowItWorksSection from '@components/sections/HowItWorksSection.astro'
-import FAQSection from '@components/sections/FAQSection.astro'
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/shared/Header.astro";
+import Footer from "@components/shared/Footer.astro";
+import Hero from "@components/sections/Hero.astro";
+import ProblemSection from "@components/sections/ProblemSection.astro";
+import ParallaxContainer from "@components/ui/ParallaxContainer.astro";
+import NarrativeSections from "@components/sections/NarrativeSections.astro";
+import HowItWorksSection from "@components/sections/HowItWorksSection.astro";
+import FAQSection from "@components/sections/FAQSection.astro";
 
 // CTA URL (update this to your external form link)
-const ctaUrl = 'https://form.typeform.com/to/sJUkURjA'
+const ctaUrl = "https://form.typeform.com/to/sJUkURjA";
 ---
 
 <BaseLayout
@@ -28,14 +28,14 @@ const ctaUrl = 'https://form.typeform.com/to/sJUkURjA'
 
     <!-- WHITE BACKGROUND SECTIONS (4-12) -->
 
-      <!-- SECTIONS 4-6: Narrative Sections -->
-      <NarrativeSections />
+    <!-- SECTIONS 4-6: Narrative Sections -->
+    <NarrativeSections />
 
-      <!-- SECTION 7: How It Works -->
-      <HowItWorksSection />
+    <!-- SECTION 7: How It Works -->
+    <HowItWorksSection />
 
-      <!-- SECTION 8: FAQ -->
-      <FAQSection />
+    <!-- SECTION 8: FAQ -->
+    <FAQSection />
 
     <!-- SECTION 12: Footer -->
     <Footer />
@@ -44,5 +44,5 @@ const ctaUrl = 'https://form.typeform.com/to/sJUkURjA'
 
 <!-- Import scroll animations utility -->
 <script>
-  import '@utils/scroll-animations'
+  import "@utils/scroll-animations";
 </script>

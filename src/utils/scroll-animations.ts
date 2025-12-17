@@ -13,20 +13,24 @@
  */
 
 // Track elements that have already been animated (ensures one-way animation)
-const animatedElements = new WeakSet<Element>()
+const animatedElements = new WeakSet<Element>();
 
 export function initScrollAnimations() {
   // Check if user prefers reduced motion
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
 
   if (prefersReducedMotion) {
     // If user prefers reduced motion, immediately make all elements visible
-    const elements = document.querySelectorAll('.animate-on-scroll, .stagger-children')
+    const elements = document.querySelectorAll(
+      ".animate-on-scroll, .stagger-children",
+    );
     elements.forEach((el) => {
-      el.classList.add('is-visible')
-      animatedElements.add(el)
-    })
-    return
+      el.classList.add("is-visible");
+      animatedElements.add(el);
+    });
+    return;
   }
 
   // Create Intersection Observer
@@ -35,42 +39,44 @@ export function initScrollAnimations() {
       entries.forEach((entry) => {
         // Skip if already animated (ensures animation never reverses)
         if (animatedElements.has(entry.target)) {
-          return
+          return;
         }
 
         if (entry.isIntersecting) {
           // Mark as animated first to prevent any race conditions
-          animatedElements.add(entry.target)
+          animatedElements.add(entry.target);
 
           // Add visible class to trigger animation
-          entry.target.classList.add('is-visible')
+          entry.target.classList.add("is-visible");
 
           // Unobserve after animation to save memory
-          observer.unobserve(entry.target)
+          observer.unobserve(entry.target);
         }
-      })
+      });
     },
     {
       threshold: 0.15, // Trigger when 15% of element is visible
-      rootMargin: '0px 0px -10% 0px', // Trigger slightly before element reaches center
-    }
-  )
+      rootMargin: "0px 0px -10% 0px", // Trigger slightly before element reaches center
+    },
+  );
 
   // Observe all elements with animation classes
-  const elements = document.querySelectorAll('.animate-on-scroll, .stagger-children')
+  const elements = document.querySelectorAll(
+    ".animate-on-scroll, .stagger-children",
+  );
   elements.forEach((el) => {
     // Don't observe elements that are already animated
     if (!animatedElements.has(el)) {
-      observer.observe(el)
+      observer.observe(el);
     }
-  })
+  });
 }
 
 // Initialize after DOM is ready
-if (typeof window !== 'undefined') {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initScrollAnimations)
+if (typeof window !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initScrollAnimations);
   } else {
-    initScrollAnimations()
+    initScrollAnimations();
   }
 }

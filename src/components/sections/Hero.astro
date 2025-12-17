@@ -1,34 +1,40 @@
 ---
-import FullViewportSection from '@layouts/FullViewportSection.astro'
+import FullViewportSection from "@layouts/FullViewportSection.astro";
 
 interface Props {
-  ctaUrl: string
+  ctaUrl: string;
 }
 
-const { ctaUrl } = Astro.props
+const { ctaUrl } = Astro.props;
 ---
 
 <FullViewportSection isFirst={true}>
   <div class="relative text-center pt-8 sm:pt-12">
     <div class="mx-auto max-w-4xl">
-      <h1 class="section-title px-4">A post-purchase concierge for every order</h1>
+      <h1 class="section-title px-4">
+        A post-purchase concierge for every order
+      </h1>
 
-      <p class="section-description px-4 mt-8 sm:mt-10 text-lg w-full md:w-3/4 mx-auto">
-        Return Signals uses AI over SMS (and photos when needed) to check in after delivery, resolve
-        issues quickly, and reduce avoidable returns.<br />When returns are unaviodable, we use customer-provided photos to make 
+      <p
+        class="section-description px-4 mt-8 sm:mt-10 text-lg w-full md:w-3/4 mx-auto"
+      >
+        Return Signals uses AI over SMS (and photos when needed) to check in
+        after delivery, resolve issues quickly, and reduce avoidable returns.<br
+        />When returns are unaviodable, we use customer-provided photos to make
         intelligent item-level disposition decisions.
       </p>
 
-      <div class="flex items-center justify-center gap-3 sm:gap-4 mt-12 sm:mt-14 flex-wrap">
+      <div
+        class="flex items-center justify-center gap-3 sm:gap-4 mt-12 sm:mt-14 flex-wrap"
+      >
         <a
           href={ctaUrl}
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn-primary">Request pilot</a
         >
-        <a
-          href="#narrative-jacky"
-          class="btn btn-secondary">Read the narrative</a
+        <a href="#narrative-jacky" class="btn btn-secondary"
+          >Read the narrative</a
         >
       </div>
     </div>
@@ -38,6 +44,5 @@ const { ctaUrl } = Astro.props
       <span class="text-sm text-secondary">Backed by</span>
       <img src="/images/ycombinator.png" alt="Y Combinator" class="h-5" />
     </div>
-
   </div>
 </FullViewportSection>

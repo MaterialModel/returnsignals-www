@@ -6,14 +6,18 @@
  */
 
 interface Props {
-  className?: string
-  parallaxFactor?: number
-  parallaxMaxOffset?: number
+  className?: string;
+  parallaxFactor?: number;
+  parallaxMaxOffset?: number;
 }
 
-const { className = '', parallaxFactor = 0.06, parallaxMaxOffset = 120 } = Astro.props
+const {
+  className = "",
+  parallaxFactor = 0.06,
+  parallaxMaxOffset = 120,
+} = Astro.props;
 
-const parallaxId = `parallax-${Math.random().toString(36).substr(2, 9)}`
+const parallaxId = `parallax-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <div class={`relative ${className}`}>
@@ -28,7 +32,10 @@ const parallaxId = `parallax-${Math.random().toString(36).substr(2, 9)}`
         style={`height: calc(100vh + ${parallaxMaxOffset * 2}px); transform: translate3d(0, ${-parallaxMaxOffset}px, 0);`}
       >
         <picture>
-          <source media="(min-width: 640px)" srcset="/images/background/background-wide.jpg" />
+          <source
+            media="(min-width: 640px)"
+            srcset="/images/background/background-wide.jpg"
+          />
           <img
             src="/images/background/background-mobile.jpg"
             alt=""
@@ -36,11 +43,17 @@ const parallaxId = `parallax-${Math.random().toString(36).substr(2, 9)}`
           />
         </picture>
         <!-- Subtle top haze for readability -->
-        <div class="absolute inset-0 bg-gradient-to-b from-white/15 via-white/10 to-transparent"></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-white/15 via-white/10 to-transparent"
+        >
+        </div>
       </div>
     </div>
     <!-- Smooth transition to white at the end of the parallax group -->
-    <div class="pointer-events-none absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-b from-transparent to-white"></div>
+    <div
+      class="pointer-events-none absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-b from-transparent to-white"
+    >
+    </div>
   </div>
 
   <!-- Content slot -->
@@ -49,23 +62,26 @@ const parallaxId = `parallax-${Math.random().toString(36).substr(2, 9)}`
 
 <script define:vars={{ parallaxId, parallaxFactor, parallaxMaxOffset }}>
   // Subtle parallax effect
-  const bg = document.getElementById(parallaxId)
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const bg = document.getElementById(parallaxId);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   if (bg && !(reduceMotion && reduceMotion.matches)) {
-    let ticking = false
-    const baseOffset = -parallaxMaxOffset
+    let ticking = false;
+    const baseOffset = -parallaxMaxOffset;
     const onScroll = () => {
-      if (ticking) return
-      ticking = true
+      if (ticking) return;
+      ticking = true;
       requestAnimationFrame(() => {
-        const y = window.scrollY || 0
-        const offset = Math.max(-parallaxMaxOffset, Math.min(parallaxMaxOffset, y * parallaxFactor))
-        bg.style.transform = `translate3d(0, ${baseOffset + offset}px, 0)`
-        ticking = false
-      })
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
+        const y = window.scrollY || 0;
+        const offset = Math.max(
+          -parallaxMaxOffset,
+          Math.min(parallaxMaxOffset, y * parallaxFactor),
+        );
+        bg.style.transform = `translate3d(0, ${baseOffset + offset}px, 0)`;
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
   }
 </script>

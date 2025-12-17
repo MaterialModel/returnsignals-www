@@ -12,22 +12,24 @@
  */
 
 interface Step {
-  title: string
-  description: string
-  icon?: string // Path to SVG icon
+  title: string;
+  description: string;
+  icon?: string; // Path to SVG icon
 }
 
 interface Props {
-  steps: Step[]
-  className?: string
+  steps: Step[];
+  className?: string;
 }
 
-const { steps, className = '' } = Astro.props
+const { steps, className = "" } = Astro.props;
 ---
 
 <div class={`how-it-works-steps ${className}`}>
   <!-- Desktop: 1x4 horizontal row -->
-  <div class="hidden lg:flex items-start justify-center gap-6 max-w-7xl mx-auto">
+  <div
+    class="hidden lg:flex items-start justify-center gap-6 max-w-7xl mx-auto"
+  >
     {
       steps.map((step, i) => (
         <>
@@ -44,8 +46,12 @@ const { steps, className = '' } = Astro.props
                   </div>
                 )}
               </div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
-              <p class="text-sm text-gray-600 leading-relaxed">{step.description}</p>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                {step.title}
+              </h3>
+              <p class="text-sm text-gray-600 leading-relaxed">
+                {step.description}
+              </p>
             </div>
           </div>
 
@@ -89,8 +95,12 @@ const { steps, className = '' } = Astro.props
                 </div>
               )}
             </div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
-            <p class="text-sm text-gray-600 leading-relaxed">{step.description}</p>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              {step.title}
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              {step.description}
+            </p>
           </div>
         </div>
       ))
@@ -114,8 +124,12 @@ const { steps, className = '' } = Astro.props
                 </div>
               )}
             </div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
-            <p class="text-sm text-gray-600 leading-relaxed">{step.description}</p>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              {step.title}
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              {step.description}
+            </p>
           </div>
         </div>
       ))

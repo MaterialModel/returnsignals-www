@@ -7,22 +7,24 @@
  */
 
 interface Props {
-  ctaUrl: string
-  className?: string
+  ctaUrl: string;
+  className?: string;
 }
 
-const { ctaUrl, className = '' } = Astro.props
+const { ctaUrl, className = "" } = Astro.props;
 ---
 
 <section class={`bg-surface-base py-20 sm:py-32 ${className}`}>
   <div class="container-narrow">
     <div class="text-center max-w-2xl mx-auto">
-      <h2 class="section-title mb-6 animate-on-scroll">Looking for a few design partners.</h2>
+      <h2 class="section-title mb-6 animate-on-scroll">
+        Looking for a few design partners.
+      </h2>
 
       <p class="section-description mb-10 animate-on-scroll">
-        If you own CX, returns, or operations and want to reduce avoidable returns while improving
-        post-purchase experience, we'd like to learn how you handle this today and share what we're
-        building.
+        If you own CX, returns, or operations and want to reduce avoidable
+        returns while improving post-purchase experience, we'd like to learn how
+        you handle this today and share what we're building.
       </p>
 
       <div class="animate-on-scroll">

@@ -1,61 +1,82 @@
 ---
-import NarrativeSection from './NarrativeSection.astro'
+import NarrativeSection from "./NarrativeSection.astro";
 
 // Message type definition
 type Message = {
-  type: 'incoming' | 'outgoing'
-  content?: 'text' | 'image' // defaults to 'text'
-  text?: string
-  imageSrc?: string
-  imageAlt?: string
-  timestamp?: string
-}
+  type: "incoming" | "outgoing";
+  content?: "text" | "image"; // defaults to 'text'
+  text?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  timestamp?: string;
+};
 
 // Narrative 1: Jacky - Prevent the return
 const jackyMessages: Message[] = [
-  { type: 'incoming' as const, text: "Hey Jacky, how's your new wrap dress?" },
-  { type: 'outgoing' as const, text: "Haven't tried it yet—next week" },
-  { type: 'incoming' as const, text: "No problem! I'll check back in a few days." },
-  { type: 'outgoing' as const, text: 'Neckline gaps more than I hoped' },
+  { type: "incoming" as const, text: "Hey Jacky, how's your new wrap dress?" },
+  { type: "outgoing" as const, text: "Haven't tried it yet—next week" },
   {
-    type: 'incoming' as const,
-    text: 'Try adjusting the tie for a snugger fit. A small pin or fashion tape can also help!',
+    type: "incoming" as const,
+    text: "No problem! I'll check back in a few days.",
   },
-  { type: 'outgoing' as const, text: 'That worked—thanks!' },
-]
+  { type: "outgoing" as const, text: "Neckline gaps more than I hoped" },
+  {
+    type: "incoming" as const,
+    text: "Try adjusting the tie for a snugger fit. A small pin or fashion tape can also help!",
+  },
+  { type: "outgoing" as const, text: "That worked—thanks!" },
+];
 
 // Narrative 2: Bob - Photo inspection
 const bobMessages: Message[] = [
-  { type: 'incoming' as const, text: "Hi Bob, how's the gym shirt working out?" },
-  { type: 'outgoing' as const, text: 'Looks great but left a painful mark after my 5-mile run' },
-  { type: 'incoming' as const, text: 'Can you send a quick photo of the seam under the arm?' },
   {
-    type: 'outgoing' as const,
-    content: 'image' as const,
-    imageSrc: '/images/narrative/shirt-with-bad-seam.jpg',
-    imageAlt: 'Photo of shirt seam defect',
+    type: "incoming" as const,
+    text: "Hi Bob, how's the gym shirt working out?",
   },
-  { type: 'incoming' as const, text: "Thanks—this looks like a seam defect. Want an exchange?" },
-  { type: 'outgoing' as const, text: 'Yes please!' },
-]
+  {
+    type: "outgoing" as const,
+    text: "Looks great but left a painful mark after my 5-mile run",
+  },
+  {
+    type: "incoming" as const,
+    text: "Can you send a quick photo of the seam under the arm?",
+  },
+  {
+    type: "outgoing" as const,
+    content: "image" as const,
+    imageSrc: "/images/narrative/shirt-with-bad-seam.jpg",
+    imageAlt: "Photo of shirt seam defect",
+  },
+  {
+    type: "incoming" as const,
+    text: "Thanks—this looks like a seam defect. Want an exchange?",
+  },
+  { type: "outgoing" as const, text: "Yes please!" },
+];
 
 // Narrative 3: Priya - At-customer disposition
 const priyaMessages: Message[] = [
-  { type: 'incoming' as const, text: 'Hey Priya, how are your new leggings?' },
-  { type: 'outgoing' as const, text: "There's a tear along the waistband seam" },
-  { type: 'incoming' as const, text: 'Can you send a quick photo so I can see?' },
+  { type: "incoming" as const, text: "Hey Priya, how are your new leggings?" },
   {
-    type: 'outgoing' as const,
-    content: 'image' as const,
-    imageSrc: '/images/narrative/torn-pruple-legging.jpg',
-    imageAlt: 'Photo of torn leggings',
+    type: "outgoing" as const,
+    text: "There's a tear along the waistband seam",
   },
   {
-    type: 'incoming' as const,
+    type: "incoming" as const,
+    text: "Can you send a quick photo so I can see?",
+  },
+  {
+    type: "outgoing" as const,
+    content: "image" as const,
+    imageSrc: "/images/narrative/torn-pruple-legging.jpg",
+    imageAlt: "Photo of torn leggings",
+  },
+  {
+    type: "incoming" as const,
     text: "Confirmed damage. We'll ship a replacement immediately. You can dispose of the damaged pair.",
   },
-  { type: 'outgoing' as const, text: 'Perfect, thank you!' },
-]
+  { type: "outgoing" as const, text: "Perfect, thank you!" },
+];
 ---
 
 <!-- SECTION 4: Narrative - Jacky (Prevent Return) -->

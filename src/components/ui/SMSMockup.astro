@@ -1,35 +1,39 @@
 ---
 /**
  * SMSMockup Component
- * 
- * Fixed: Added CSS masking to prevent inner content from bleeding 
+ *
+ * Fixed: Added CSS masking to prevent inner content from bleeding
  * outside the rounded corners of the iPhone frame.
  */
 
- interface Message {
-  type: 'incoming' | 'outgoing'
-  content?: 'text' | 'image'
-  text?: string
-  imageSrc?: string
-  imageAlt?: string
-  timestamp?: string
+interface Message {
+  type: "incoming" | "outgoing";
+  content?: "text" | "image";
+  text?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  timestamp?: string;
 }
 
 interface Props {
-  messages: Message[]
-  contactName?: string
-  className?: string
+  messages: Message[];
+  contactName?: string;
+  className?: string;
 }
 
-const { messages, contactName = 'Return Signals', className = '' } = Astro.props
+const {
+  messages,
+  contactName = "Return Signals",
+  className = "",
+} = Astro.props;
 
 const lastOutgoingIndex = (() => {
-  let idx = -1
+  let idx = -1;
   messages.forEach((m, i) => {
-    if (m.type === 'outgoing') idx = i
-  })
-  return idx
-})()
+    if (m.type === "outgoing") idx = i;
+  });
+  return idx;
+})();
 ---
 
 <div
@@ -48,10 +52,16 @@ const lastOutgoingIndex = (() => {
     style="aspect-ratio: 390/676; max-height: 500px; -webkit-mask-image: -webkit-radial-gradient(white, black);"
   >
     <!-- Dynamic Island -->
-    <div class="absolute top-1 left-1/2 -translate-x-1/2 h-5 w-24 bg-black rounded-full z-20" aria-hidden="true"></div>
+    <div
+      class="absolute top-1 left-1/2 -translate-x-1/2 h-5 w-24 bg-black rounded-full z-20"
+      aria-hidden="true"
+    >
+    </div>
 
     <!-- Status Bar -->
-    <div class="sms-status-bar absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 pt-2 pb-1 text-[#111827]">
+    <div
+      class="sms-status-bar absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 pt-2 pb-1 text-[#111827]"
+    >
       <span class="text-[10px] font-semibold sms-time-display">9:41</span>
       <div class="flex items-center gap-0.5">
         <img src="/icons/iphone-mock/signal.svg" alt="" class="w-3 h-3" />
@@ -64,35 +74,71 @@ const lastOutgoingIndex = (() => {
     <div class="sms-header absolute left-0 right-0 z-10" style="top: 28px;">
       <div class="relative py-1.5">
         <div class="w-full flex items-start justify-between px-3">
-          <div class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full flex items-center gap-1 text-[#007AFF] px-2 py-1 border border-white">
-            <img src="/icons/iphone-mock/chevron-left.svg" alt="" class="w-4 h-4" />
-            <span class="text-[11px] font-medium bg-black text-white px-2 py-0.5 rounded-full sms-unread-count">251</span>
+          <div
+            class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full flex items-center gap-1 text-[#007AFF] px-2 py-1 border border-white"
+          >
+            <img
+              src="/icons/iphone-mock/chevron-left.svg"
+              alt=""
+              class="w-4 h-4"
+            />
+            <span
+              class="text-[11px] font-medium bg-black text-white px-2 py-0.5 rounded-full sms-unread-count"
+              >251</span
+            >
           </div>
-          <div class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full p-1.5 text-[#007AFF] border border-white">
-            <img src="/icons/iphone-mock/video-camera.svg" alt="" class="w-5 h-5" />
+          <div
+            class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full p-1.5 text-[#007AFF] border border-white"
+          >
+            <img
+              src="/icons/iphone-mock/video-camera.svg"
+              alt=""
+              class="w-5 h-5"
+            />
           </div>
         </div>
-        <div class="absolute left-1/2 top-0 -translate-x-1/2 flex flex-col items-center gap-1 mt-2">
-          <div class="h-7 w-7 rounded-full bg-[#6B7280] flex items-center justify-center p-1.5">
-            <img src="/images/logo/logo-white.svg" alt="Return Signals" class="w-full h-full" />
+        <div
+          class="absolute left-1/2 top-0 -translate-x-1/2 flex flex-col items-center gap-1 mt-2"
+        >
+          <div
+            class="h-7 w-7 rounded-full bg-[#6B7280] flex items-center justify-center p-1.5"
+          >
+            <img
+              src="/images/logo/logo-white.svg"
+              alt="Return Signals"
+              class="w-full h-full"
+            />
           </div>
-          <div class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-1 border border-white">
+          <div
+            class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-1 border border-white"
+          >
             <span class="text-[13px] font-semibold text-black">Brand</span>
-            <img src="/icons/iphone-mock/chevron-right.svg" alt="" class="w-1 h-2" />
+            <img
+              src="/icons/iphone-mock/chevron-right.svg"
+              alt=""
+              class="w-1 h-2"
+            />
           </div>
         </div>
       </div>
     </div>
 
     <!-- Top fade -->
-    <div class="absolute top-0 left-0 right-0 pointer-events-none" style="height: 110px; z-index: 5; background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);"></div>
+    <div
+      class="absolute top-0 left-0 right-0 pointer-events-none"
+      style="height: 110px; z-index: 5; background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);"
+    >
+    </div>
 
     <!-- Messages Container -->
-    <div class="sms-messages absolute inset-0 overflow-y-auto px-3 space-y-2 bg-[#ECEDEF]" style="padding-top: 110px; padding-bottom: 55px;">
+    <div
+      class="sms-messages absolute inset-0 overflow-y-auto px-3 space-y-2 bg-[#ECEDEF]"
+      style="padding-top: 110px; padding-bottom: 55px;"
+    >
       {
         messages.map((msg, i) => {
-          const isOutgoing = msg.type === 'outgoing'
-          const isImage = msg.content === 'image'
+          const isOutgoing = msg.type === "outgoing";
+          const isImage = msg.content === "image";
           return (
             <Fragment>
               {msg.timestamp && (
@@ -101,42 +147,67 @@ const lastOutgoingIndex = (() => {
                 </div>
               )}
               <div
-                class={`sms-bubble ${isOutgoing ? 'justify-end' : 'justify-start'}`}
+                class={`sms-bubble ${isOutgoing ? "justify-end" : "justify-start"}`}
                 data-message-index={i}
               >
                 {isImage ? (
-                  <div class={`image-bubble ${isOutgoing ? 'image-bubble-outgoing' : 'image-bubble-incoming'}`}>
+                  <div
+                    class={`image-bubble ${isOutgoing ? "image-bubble-outgoing" : "image-bubble-incoming"}`}
+                  >
                     <img
                       src={msg.imageSrc}
-                      alt={msg.imageAlt || 'Uploaded image'}
+                      alt={msg.imageAlt || "Uploaded image"}
                       loading="lazy"
                       class="image-bubble-img"
                     />
                   </div>
                 ) : (
-                  <div class={isOutgoing ? 'bubble bubble-outgoing' : 'bubble bubble-incoming'}>
+                  <div
+                    class={
+                      isOutgoing
+                        ? "bubble bubble-outgoing"
+                        : "bubble bubble-incoming"
+                    }
+                  >
                     <p class="bubble-text">{msg.text}</p>
                   </div>
                 )}
               </div>
               {i === lastOutgoingIndex && (
-                <div class="sms-receipt" data-role="delivered">Delivered</div>
+                <div class="sms-receipt" data-role="delivered">
+                  Delivered
+                </div>
               )}
             </Fragment>
-          )
+          );
         })
       }
     </div>
 
     <!-- Bottom Input Bar -->
-    <div class="sms-input-bar absolute bottom-0 left-0 right-0 z-10 flex items-center gap-2 px-2 py-2">
-      <button class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-2xl w-7 h-7 flex items-center justify-center border border-white" aria-label="Add attachment">
-        <span class="text-black text-lg font-light" style="line-height: 1; margin-top: -1px;">+</span>
+    <div
+      class="sms-input-bar absolute bottom-0 left-0 right-0 z-10 flex items-center gap-2 px-2 py-2"
+    >
+      <button
+        class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-2xl w-7 h-7 flex items-center justify-center border border-white"
+        aria-label="Add attachment"
+      >
+        <span
+          class="text-black text-lg font-light"
+          style="line-height: 1; margin-top: -1px;">+</span
+        >
       </button>
-      <div class="flex-1 bg-[#FAFAFA] backdrop-blur-md rounded-full px-3 py-1 flex items-center justify-between border border-white">
+      <div
+        class="flex-1 bg-[#FAFAFA] backdrop-blur-md rounded-full px-3 py-1 flex items-center justify-between border border-white"
+      >
         <span class="text-[15px] text-[#8E8E93]">iMessage</span>
         <button class="text-[#9CA3AF]" aria-label="Voice message">
-          <img src="/icons/iphone-mock/microphone.svg" alt="" class="w-4 h-4 opacity-60" style="filter: grayscale(0.3);" />
+          <img
+            src="/icons/iphone-mock/microphone.svg"
+            alt=""
+            class="w-4 h-4 opacity-60"
+            style="filter: grayscale(0.3);"
+          />
         </button>
       </div>
     </div>
@@ -145,150 +216,227 @@ const lastOutgoingIndex = (() => {
 
 <style>
   /* Same styles as before, nothing needs to change here */
-  .sms-header { background: transparent; }
-  .sms-input-bar { background: transparent; }
-  .sms-bubble { display: none; }
-  .sms-bubble.visible { display: flex; }
-  @media (prefers-reduced-motion: reduce) {
-    .sms-bubble { display: flex !important; }
+  .sms-header {
+    background: transparent;
   }
-  .sms-time { display: none; justify-content: center; margin: 8px 0; }
-  .sms-time.visible { display: flex; }
-  .sms-time-pill { color: #8E8E93; font-size: 12px; line-height: 16px; font-weight: 400; }
-  .sms-messages { scrollbar-width: none; }
-  .sms-messages::-webkit-scrollbar { width: 0; height: 0; }
+  .sms-input-bar {
+    background: transparent;
+  }
+  .sms-bubble {
+    display: none;
+  }
+  .sms-bubble.visible {
+    display: flex;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sms-bubble {
+      display: flex !important;
+    }
+  }
+  .sms-time {
+    display: none;
+    justify-content: center;
+    margin: 8px 0;
+  }
+  .sms-time.visible {
+    display: flex;
+  }
+  .sms-time-pill {
+    color: #8e8e93;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+  }
+  .sms-messages {
+    scrollbar-width: none;
+  }
+  .sms-messages::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
   .bubble {
     position: relative;
     max-width: 76%;
     padding: 8px 12px;
     border-radius: 18px;
-    box-shadow: 0 0.5px 1px rgba(0,0,0,0.1);
+    box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
   }
-  .bubble-text { font-size: 15px; line-height: 20px; letter-spacing: -0.2px; }
-  .bubble-incoming { color: #000000; background: #DCDCDE; }
-  .bubble-outgoing { color: #FFFFFF; background: #007AFF; }
-  .bubble-incoming .bubble-text { color: #000000 !important; }
-  .bubble-outgoing .bubble-text { color: #FFFFFF !important; }
-  .image-bubble { max-width: 76%; border-radius: 18px; overflow: hidden; position: relative; }
-  .image-bubble-img { display: block; width: 100%; height: auto; }
-  .sms-receipt { display:none; font-size: 11px; color: #8E8E93; margin-top: 2px; text-align: right; padding-right: 8px; font-weight: 400; }
-  .sms-receipt.visible { display:block; }
+  .bubble-text {
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: -0.2px;
+  }
+  .bubble-incoming {
+    color: #000000;
+    background: #dcdcde;
+  }
+  .bubble-outgoing {
+    color: #ffffff;
+    background: #007aff;
+  }
+  .bubble-incoming .bubble-text {
+    color: #000000 !important;
+  }
+  .bubble-outgoing .bubble-text {
+    color: #ffffff !important;
+  }
+  .image-bubble {
+    max-width: 76%;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+  }
+  .image-bubble-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .sms-receipt {
+    display: none;
+    font-size: 11px;
+    color: #8e8e93;
+    margin-top: 2px;
+    text-align: right;
+    padding-right: 8px;
+    font-weight: 400;
+  }
+  .sms-receipt.visible {
+    display: block;
+  }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     // Update time
-    const timeDisplays = Array.from(document.querySelectorAll('.sms-time-display'))
-    const now = new Date()
-    const hours = now.getHours()
-    const minutes = now.getMinutes().toString().padStart(2, '0')
-    const timeString = `${hours}:${minutes}`
-    timeDisplays.forEach((display) => { display.textContent = timeString })
+    const timeDisplays = Array.from(
+      document.querySelectorAll(".sms-time-display"),
+    );
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    const timeString = `${hours}:${minutes}`;
+    timeDisplays.forEach((display) => {
+      display.textContent = timeString;
+    });
 
-    const unreadCounts = Array.from(document.querySelectorAll('.sms-unread-count'))
+    const unreadCounts = Array.from(
+      document.querySelectorAll(".sms-unread-count"),
+    );
     unreadCounts.forEach((count) => {
-      count.textContent = (Math.floor(Math.random() * 201) + 100).toString()
-    })
-  })
+      count.textContent = (Math.floor(Math.random() * 201) + 100).toString();
+    });
+  });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const mockups = Array.from(document.querySelectorAll('.sms-mockup'))
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const clamp = (v, min, max) => Math.min(max, Math.max(min, v))
+  document.addEventListener("DOMContentLoaded", () => {
+    const mockups = Array.from(document.querySelectorAll(".sms-mockup"));
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 
     // Track the highest reveal count reached for each mockup (messages stay visible once shown)
-    const maxRevealReached = new WeakMap()
+    const maxRevealReached = new WeakMap();
     // Track which mockups have completed their animation (all messages revealed)
-    const completedMockups = new WeakSet()
+    const completedMockups = new WeakSet();
 
     const updateMockup = (mockup) => {
-      const bubbles = Array.from(mockup.querySelectorAll('.sms-bubble'))
-      const times = Array.from(mockup.querySelectorAll('.sms-time'))
-      const total = bubbles.length
+      const bubbles = Array.from(mockup.querySelectorAll(".sms-bubble"));
+      const times = Array.from(mockup.querySelectorAll(".sms-time"));
+      const total = bubbles.length;
 
       if (prefersReducedMotion) {
-        bubbles.forEach((b) => b.classList.add('visible'))
-        times.forEach((t) => t.classList.add('visible'))
-        const container = mockup.querySelector('.sms-messages')
-        if (container) container.scrollTop = container.scrollHeight
-        completedMockups.add(mockup)
-        return
+        bubbles.forEach((b) => b.classList.add("visible"));
+        times.forEach((t) => t.classList.add("visible"));
+        const container = mockup.querySelector(".sms-messages");
+        if (container) container.scrollTop = container.scrollHeight;
+        completedMockups.add(mockup);
+        return;
       }
 
       // If animation is complete, messages stay visible - don't recalculate
       if (completedMockups.has(mockup)) {
-        return
+        return;
       }
 
-      const isMobile = window.innerWidth < 1024
-      const zone = isMobile ? mockup : (mockup.closest('.sms-scrub-zone') || mockup)
-      const rect = zone.getBoundingClientRect()
-      const vh = window.innerHeight || 1
-      const cs = window.getComputedStyle(zone)
-      const holdPx = parseFloat(cs.getPropertyValue('--sms-hold')) || 24
-      const zoneHeight = Math.max(rect.height, vh)
-      const activeRange = Math.max(1, zoneHeight - vh - holdPx)
-      const raw = -rect.top / activeRange
-      const progress = clamp(raw, 0, 1)
+      const isMobile = window.innerWidth < 1024;
+      const zone = isMobile
+        ? mockup
+        : mockup.closest(".sms-scrub-zone") || mockup;
+      const rect = zone.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      const cs = window.getComputedStyle(zone);
+      const holdPx = parseFloat(cs.getPropertyValue("--sms-hold")) || 24;
+      const zoneHeight = Math.max(rect.height, vh);
+      const activeRange = Math.max(1, zoneHeight - vh - holdPx);
+      const raw = -rect.top / activeRange;
+      const progress = clamp(raw, 0, 1);
 
-      const calculatedRevealCount = Math.min(total, 1 + Math.floor(progress * Math.max(1, total - 1)))
+      const calculatedRevealCount = Math.min(
+        total,
+        1 + Math.floor(progress * Math.max(1, total - 1)),
+      );
 
       // Get the previous max and update to the higher value (messages only appear, never disappear)
-      const previousMax = maxRevealReached.get(mockup) || 0
-      const revealCount = Math.max(calculatedRevealCount, previousMax)
-      maxRevealReached.set(mockup, revealCount)
+      const previousMax = maxRevealReached.get(mockup) || 0;
+      const revealCount = Math.max(calculatedRevealCount, previousMax);
+      maxRevealReached.set(mockup, revealCount);
 
       // Only add 'visible' class, never remove it (one-way animation)
       bubbles.forEach((b, i) => {
-        if (i < revealCount) b.classList.add('visible')
-      })
+        if (i < revealCount) b.classList.add("visible");
+      });
       times.forEach((t, i) => {
-        if (i < revealCount) t.classList.add('visible')
-      })
+        if (i < revealCount) t.classList.add("visible");
+      });
 
-      const container = mockup.querySelector('.sms-messages')
+      const container = mockup.querySelector(".sms-messages");
       if (container && bubbles.length) {
-        const targetIndex = clamp(revealCount - 1, 0, bubbles.length - 1)
-        const target = bubbles[targetIndex]
+        const targetIndex = clamp(revealCount - 1, 0, bubbles.length - 1);
+        const target = bubbles[targetIndex];
         if (targetIndex === bubbles.length - 1) {
-          const targetPosition = target.offsetTop - (container.clientHeight / 3)
-          container.scrollTop = Math.max(0, targetPosition)
+          const targetPosition = target.offsetTop - container.clientHeight / 3;
+          container.scrollTop = Math.max(0, targetPosition);
         } else {
-          const desiredBottom = target.offsetTop + target.offsetHeight
-          const currentTop = container.scrollTop
-          const viewportBottom = currentTop + container.clientHeight
+          const desiredBottom = target.offsetTop + target.offsetHeight;
+          const currentTop = container.scrollTop;
+          const viewportBottom = currentTop + container.clientHeight;
           if (desiredBottom > viewportBottom) {
-            container.scrollTop = desiredBottom - container.clientHeight
+            container.scrollTop = desiredBottom - container.clientHeight;
           } else if (target.offsetTop < currentTop) {
-            container.scrollTop = target.offsetTop
+            container.scrollTop = target.offsetTop;
           }
         }
       }
 
-      const lastOutgoingAttr = mockup.getAttribute('data-last-outgoing')
-      const lastOutgoing = lastOutgoingAttr ? parseInt(lastOutgoingAttr) : -1
-      const receipt = mockup.querySelector('.sms-receipt')
+      const lastOutgoingAttr = mockup.getAttribute("data-last-outgoing");
+      const lastOutgoing = lastOutgoingAttr ? parseInt(lastOutgoingAttr) : -1;
+      const receipt = mockup.querySelector(".sms-receipt");
       if (receipt) {
         // Receipt also only appears, never disappears
-        if (lastOutgoing >= 0 && revealCount - 1 >= lastOutgoing) receipt.classList.add('visible')
+        if (lastOutgoing >= 0 && revealCount - 1 >= lastOutgoing)
+          receipt.classList.add("visible");
       }
 
       // Mark as completed once all messages are revealed
       if (revealCount >= total) {
-        completedMockups.add(mockup)
+        completedMockups.add(mockup);
       }
-    }
+    };
 
-    const onScroll = () => { mockups.forEach(updateMockup) }
+    const onScroll = () => {
+      mockups.forEach(updateMockup);
+    };
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => { if (entry.isIntersecting) updateMockup(entry.target) })
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) updateMockup(entry.target);
+        });
       },
-      { threshold: [0, 0.25, 0.5, 0.75, 1] }
-    )
-    mockups.forEach((m) => observer.observe(m))
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    onScroll()
-  })
+      { threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+    mockups.forEach((m) => observer.observe(m));
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+  });
 </script>

@@ -8,44 +8,46 @@
  */
 
 interface Props {
-  className?: string
+  className?: string;
 }
 
-const { className = '' } = Astro.props
+const { className = "" } = Astro.props;
 ---
 
 <section class={`pt-20 sm:pt-32 pb-32 sm:pb-48 lg:pb-64 ${className}`}>
   <div class="max-w-3xl mx-auto px-6 sm:px-8">
-
-    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-primary mb-12 animate-on-scroll">
+    <h2
+      class="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-primary mb-12 animate-on-scroll"
+    >
       Post-purchase is a blind spot.
     </h2>
 
     <!-- Editorial prose, left-aligned -->
     <div class="space-y-6 text-lg sm:text-xl text-secondary leading-relaxed">
       <p class="animate-on-scroll">
-        A customer gets their order. Maybe the neckline gaps. Maybe there's a loose thread.
-        Maybe it looks different than the photos. They're not sure if it's a defect or just
-        how it is.
+        A customer gets their order. Maybe the neckline gaps. Maybe there's a
+        loose thread. Maybe it looks different than the photos. They're not sure
+        if it's a defect or just how it is.
       </p>
 
       <p class="animate-on-scroll">
-        Most don't reach out. They return it—often a return that didn't need to happen—and
-        you see "didn't fit" in your data. By the time you notice a pattern, you've already
-        eaten the cost.
+        Most don't reach out. They return it—often a return that didn't need to
+        happen—and you see "didn't fit" in your data. By the time you notice a
+        pattern, you've already eaten the cost.
       </p>
 
       <p class="animate-on-scroll">
-        When someone does have a real problem—a tear, a seam defect—they describe it over
-        email. You can't see what they see. So you approve a return, pay to ship it back,
-        inspect it, confirm it can't be resold, and throw it away. You could have known that
-        from a photo before it ever left their house.
+        When someone does have a real problem—a tear, a seam defect—they
+        describe it over email. You can't see what they see. So you approve a
+        return, pay to ship it back, inspect it, confirm it can't be resold, and
+        throw it away. You could have known that from a photo before it ever
+        left their house.
       </p>
 
       <p class="animate-on-scroll">
-        Apparel returns run 25–35%. A lot of that is preventable—if you're not flying blind.
+        Apparel returns run 25–35%. A lot of that is preventable—if you're not
+        flying blind.
       </p>
     </div>
-
   </div>
 </section>
