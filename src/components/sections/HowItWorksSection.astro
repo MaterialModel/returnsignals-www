@@ -3,10 +3,8 @@
  * HowItWorksSection
  *
  * Section 7: "How Return Signals works"
- * 4-step process cards with flow indicators
+ * Typography-driven, no cards — just clean numbered steps
  */
-
-import HowItWorksSteps from '@components/ui/HowItWorksSteps.astro'
 
 interface Props {
   className?: string
@@ -14,37 +12,84 @@ interface Props {
 
 const { className = '' } = Astro.props
 
-// Steps data
 const steps = [
   {
     title: 'Check in after delivery',
-    description: 'Proactive SMS that feels human and low-effort.',
+    description: 'A proactive SMS that feels human, not automated. Low-effort for the customer.',
   },
   {
-    title: "Follow up on customer's timeline",
-    description: 'Snooze, schedule, and lightweight questions.',
+    title: "Follow up on their timeline",
+    description: "If they haven't tried it yet, no problem. Snooze, schedule, check back later.",
   },
   {
-    title: 'Resolve issues (text + photo)',
-    description: 'Quick troubleshooting when possible; photo confirmation when needed.',
+    title: 'Resolve issues with text + photo',
+    description: 'Quick troubleshooting when possible. Photo confirmation when needed to see what they see.',
   },
   {
-    title: 'Choose the right outcome',
-    description:
-      'Exchange, return, scrap at customer, ship for rework, or restock—based on policy and item economics.',
+    title: 'Route to the right outcome',
+    description: 'Exchange, return, scrap at customer, ship for rework, or restock—based on policy and item economics.',
   },
 ]
 ---
 
-<section class={`bg-surface-base py-20 sm:py-32 ${className}`}>
-  <div class="container-lg">
-    <h2 class="section-title text-center mb-6 animate-on-scroll">How Return Signals works</h2>
+<section class={`relative py-20 sm:py-32 overflow-hidden ${className}`}>
+  <!-- Subtle gradient background: white → hint of color → white -->
+  <div class="absolute inset-0 bg-surface-base"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/30 to-transparent"></div>
 
-    <p class="section-description text-center max-w-2xl mx-auto mb-16 animate-on-scroll">
-      It's not magic; it's a workflow designed to resolve issues efficiently and keep customers
-      happy.
+  <div class="relative max-w-4xl mx-auto px-6 sm:px-8">
+
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-primary mb-6 animate-on-scroll">
+      How it works
+    </h2>
+
+    <p class="text-lg text-secondary mb-16 max-w-2xl animate-on-scroll">
+      Not magic—just a workflow designed to resolve issues before they become returns.
     </p>
 
-    <HowItWorksSteps {steps} />
+    <!-- Steps as typography -->
+    <div class="space-y-12 sm:space-y-16">
+      {steps.map((step, i) => (
+        <div class="grid grid-cols-[auto,1fr] gap-6 sm:gap-8 animate-on-scroll">
+          <!-- Number -->
+          <div class="text-5xl sm:text-6xl font-light text-tertiary/50 leading-none pt-1">
+            {i + 1}
+          </div>
+
+          <!-- Content -->
+          <div>
+            <h3 class="text-xl sm:text-2xl font-medium text-primary mb-2">
+              {step.title}
+            </h3>
+            <p class="text-base sm:text-lg text-secondary leading-relaxed max-w-xl">
+              {step.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-16 sm:mt-20 animate-on-scroll">
+      <div class="inline-block bg-surface-base border border-border rounded-lg p-8 sm:p-12 shadow-soft">
+        <h3 class="text-2xl sm:text-3xl font-normal tracking-tight text-primary mb-4">
+          Want to pilot this?
+        </h3>
+
+        <p class="text-base sm:text-lg text-secondary mb-8 max-w-md mx-auto">
+          We're working with a few brands to refine the product. If you own post-purchase, let's talk.
+        </p>
+
+        <a
+          href="https://form.typeform.com/to/sJUkURjA"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary btn-lg"
+        >
+          Request pilot
+        </a>
+      </div>
+    </div>
+
   </div>
 </section>

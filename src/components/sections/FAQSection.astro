@@ -4,6 +4,7 @@
  *
  * Section 11: FAQ accordion
  * Pre-product friendly questions and answers
+ * Includes JSON-LD FAQPage structured data for SEO
  */
 
 import FAQAccordion from '@components/ui/FAQAccordion.astro'
@@ -23,7 +24,7 @@ const faqs = [
   },
   {
     question: 'What channels do you support?',
-    answer: 'Starting with SMS + photo. (Email support is on the roadmap.)',
+    answer: 'Starting with SMS + photo.',
   },
   {
     question: 'How do you handle edge cases?',
@@ -41,7 +42,24 @@ const faqs = [
       'Earlier SKU-level signals and structured feedback before issues show up as returns or negative reviews. This helps you fix problems upstream.',
   },
 ]
+
+// Generate JSON-LD FAQPage schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+}
 ---
+
+<!-- JSON-LD FAQPage structured data -->
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
 <section class={`bg-surface-base py-20 sm:py-32 ${className}`}>
   <div class="container-lg">

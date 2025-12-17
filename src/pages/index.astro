@@ -2,75 +2,15 @@
 import BaseLayout from '@layouts/BaseLayout.astro'
 import Header from '@components/shared/Header.astro'
 import Footer from '@components/shared/Footer.astro'
-import Hero from '@components/Hero.astro'
+import Hero from '@components/sections/Hero.astro'
 import ProblemSection from '@components/sections/ProblemSection.astro'
 import ParallaxContainer from '@components/ui/ParallaxContainer.astro'
-import WhatIfSection from '@components/sections/WhatIfSection.astro'
-import NarrativeSection from '@components/sections/NarrativeSection.astro'
+import NarrativeSections from '@components/sections/NarrativeSections.astro'
 import HowItWorksSection from '@components/sections/HowItWorksSection.astro'
-import BenefitsSection from '@components/sections/BenefitsSection.astro'
-import FeaturesSection from '@components/sections/FeaturesSection.astro'
-import CTASection from '@components/sections/CTASection.astro'
 import FAQSection from '@components/sections/FAQSection.astro'
-
-// Message type definition
-type Message = {
-  type: 'incoming' | 'outgoing'
-  content?: 'text' | 'image' // defaults to 'text'
-  text?: string
-  imageSrc?: string
-  imageAlt?: string
-  timestamp?: string
-}
 
 // CTA URL (update this to your external form link)
 const ctaUrl = 'https://form.typeform.com/to/sJUkURjA'
-
-// Narrative 1: Jacky - Prevent the return
-const jackyMessages: Message[] = [
-  { type: 'incoming' as const, text: "Hey Jacky, how's your new wrap dress?" },
-  { type: 'outgoing' as const, text: "Haven't tried it yet—next week" },
-  { type: 'incoming' as const, text: "No problem! I'll check back in a few days." },
-  { type: 'outgoing' as const, text: 'Neckline gaps more than I hoped' },
-  {
-    type: 'incoming' as const,
-    text: 'Try adjusting the tie for a snugger fit. A small pin or fashion tape can also help!',
-  },
-  { type: 'outgoing' as const, text: 'That worked—thanks!' },
-]
-
-// Narrative 2: Bob - Photo inspection
-const bobMessages: Message[] = [
-  { type: 'incoming' as const, text: "Hi Bob, how's the gym shirt working out?" },
-  { type: 'outgoing' as const, text: 'Looks great but left a painful mark after my 5-mile run' },
-  { type: 'incoming' as const, text: 'Can you send a quick photo of the seam under the arm?' },
-  {
-    type: 'outgoing' as const,
-    content: 'image' as const,
-    imageSrc: '/images/narrative/shirt-with-bad-seam.jpg',
-    imageAlt: 'Photo of shirt seam defect',
-  },
-  { type: 'incoming' as const, text: "Thanks—this looks like a seam defect. Want an exchange?" },
-  { type: 'outgoing' as const, text: 'Yes please!' },
-]
-
-// Narrative 3: Priya - At-customer disposition
-const priyaMessages: Message[] = [
-  { type: 'incoming' as const, text: 'Hey Priya, how are your new leggings?' },
-  { type: 'outgoing' as const, text: "There's a tear along the waistband seam" },
-  { type: 'incoming' as const, text: 'Can you send a quick photo so I can see?' },
-  {
-    type: 'outgoing' as const,
-    content: 'image' as const,
-    imageSrc: '/images/narrative/torn-pruple-legging.jpg',
-    imageAlt: 'Photo of torn leggings',
-  },
-  {
-    type: 'incoming' as const,
-    text: "Confirmed damage. We'll ship a replacement immediately. You can dispose of the damaged pair.",
-  },
-  { type: 'outgoing' as const, text: 'Perfect, thank you!' },
-]
 ---
 
 <BaseLayout
@@ -84,58 +24,17 @@ const priyaMessages: Message[] = [
     <ParallaxContainer>
       <Hero {ctaUrl} />
       <ProblemSection />
-      <WhatIfSection />
     </ParallaxContainer>
 
     <!-- WHITE BACKGROUND SECTIONS (4-12) -->
 
-      <!-- SECTION 4: Narrative - Jacky (Prevent Return) -->
-      <NarrativeSection
-        id="narrative-jacky"
-        phoneOnLeft={true}
-        header="Sometimes customers just need a quick fix."
-        story="Jacky buys a wrap dress. It arrives. She gets a text asking how it fits. She hasn't tried it on yet, so Return Signals schedules a follow-up. When she tries it, the neckline gaps more than she hoped. Return Signals suggests a couple quick options—adjust the tie/fit or use fashion tape or a discreet pin. It works—she avoids returning the item and feels cared for."
-        messages={jackyMessages}
-        narrativeImage="/images/narrative/woman-in-wrap-dress.jpg"
-        narrativeImageAlt="Woman wearing wrap dress"
-        callout="Even for this sub-return event, feedback is captured and aggregated."
-      />
-
-      <!-- SECTION 5: Narrative - Bob (Photo Inspection) -->
-      <NarrativeSection
-        id="narrative-bob"
-        phoneOnLeft={false}
-        header="Sometimes, text is not enough."
-        story="Bob buys a gym shirt. Looks great—until a 5-mile run leaves a painful mark. Return Signals asks a couple diagnostic questions, suspects a seam defect, and requests a photo. After visual confirmation, it offers an exchange. A costly return becomes a targeted exchange instead."
-        messages={bobMessages}
-        narrativeImage="/images/narrative/man-running.jpg"
-        narrativeImageAlt="Man running in athletic wear"
-      />
-
-      <!-- SECTION 6: Narrative - Priya (At-Customer Disposition) -->
-      <NarrativeSection
-        id="narrative-priya"
-        phoneOnLeft={true}
-        header="At-customer disposition means cheaper reverse logistics."
-        story="Priya buys low-cost leggings. They arrive with a tear along the waistband seam. She wants to return them. Return Signals asks for a quick photo, confirms the damage, and ships a replacement immediately. Because the item can't be resold, Priya is asked to dispose of it (scrap at customer). Priya gets a fast resolution without a hassle, and the vendor avoids reverse logistics fees and processing time."
-        messages={priyaMessages}
-        narrativeImage="/images/narrative/priya-in-leggings.jpg"
-        narrativeImageAlt="Woman wearing athletic leggings"
-      />
+      <!-- SECTIONS 4-6: Narrative Sections -->
+      <NarrativeSections />
 
       <!-- SECTION 7: How It Works -->
       <HowItWorksSection />
 
-      <!-- SECTION 8: Benefits (Two Columns) -->
-      <BenefitsSection />
-
-      <!-- SECTION 9: Features Snapshot -->
-      <FeaturesSection />
-
-      <!-- SECTION 10: CTA / Design Partners -->
-      <CTASection {ctaUrl} />
-
-      <!-- SECTION 11: FAQ -->
+      <!-- SECTION 8: FAQ -->
       <FAQSection />
 
     <!-- SECTION 12: Footer -->

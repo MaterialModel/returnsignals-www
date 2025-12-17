@@ -176,7 +176,6 @@ const lastOutgoingIndex = (() => {
 </style>
 
 <script>
-  // ... (Your existing script works fine, keep it exactly as is)
   document.addEventListener('DOMContentLoaded', () => {
     // Update time
     const timeDisplays = Array.from(document.querySelectorAll('.sms-time-display'))
@@ -197,15 +196,27 @@ const lastOutgoingIndex = (() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const clamp = (v, min, max) => Math.min(max, Math.max(min, v))
 
+    // Track the highest reveal count reached for each mockup (messages stay visible once shown)
+    const maxRevealReached = new WeakMap()
+    // Track which mockups have completed their animation (all messages revealed)
+    const completedMockups = new WeakSet()
+
     const updateMockup = (mockup) => {
-      // ... (Keep existing script logic exactly the same)
       const bubbles = Array.from(mockup.querySelectorAll('.sms-bubble'))
       const times = Array.from(mockup.querySelectorAll('.sms-time'))
+      const total = bubbles.length
+
       if (prefersReducedMotion) {
         bubbles.forEach((b) => b.classList.add('visible'))
         times.forEach((t) => t.classList.add('visible'))
         const container = mockup.querySelector('.sms-messages')
         if (container) container.scrollTop = container.scrollHeight
+        completedMockups.add(mockup)
+        return
+      }
+
+      // If animation is complete, messages stay visible - don't recalculate
+      if (completedMockups.has(mockup)) {
         return
       }
 
@@ -220,16 +231,19 @@ const lastOutgoingIndex = (() => {
       const raw = -rect.top / activeRange
       const progress = clamp(raw, 0, 1)
 
-      const total = bubbles.length
-      const revealCount = Math.min(total, 1 + Math.floor(progress * Math.max(1, total - 1)))
+      const calculatedRevealCount = Math.min(total, 1 + Math.floor(progress * Math.max(1, total - 1)))
 
+      // Get the previous max and update to the higher value (messages only appear, never disappear)
+      const previousMax = maxRevealReached.get(mockup) || 0
+      const revealCount = Math.max(calculatedRevealCount, previousMax)
+      maxRevealReached.set(mockup, revealCount)
+
+      // Only add 'visible' class, never remove it (one-way animation)
       bubbles.forEach((b, i) => {
         if (i < revealCount) b.classList.add('visible')
-        else b.classList.remove('visible')
       })
       times.forEach((t, i) => {
         if (i < revealCount) t.classList.add('visible')
-        else t.classList.remove('visible')
       })
 
       const container = mockup.querySelector('.sms-messages')
@@ -255,8 +269,13 @@ const lastOutgoingIndex = (() => {
       const lastOutgoing = lastOutgoingAttr ? parseInt(lastOutgoingAttr) : -1
       const receipt = mockup.querySelector('.sms-receipt')
       if (receipt) {
+        // Receipt also only appears, never disappears
         if (lastOutgoing >= 0 && revealCount - 1 >= lastOutgoing) receipt.classList.add('visible')
-        else receipt.classList.remove('visible')
+      }
+
+      // Mark as completed once all messages are revealed
+      if (revealCount >= total) {
+        completedMockups.add(mockup)
       }
     }
 

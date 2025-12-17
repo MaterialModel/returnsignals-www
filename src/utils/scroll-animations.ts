@@ -12,6 +12,9 @@
  * - Works with CSS transitions defined in global.css
  */
 
+// Track elements that have already been animated (ensures one-way animation)
+const animatedElements = new WeakSet<Element>()
+
 export function initScrollAnimations() {
   // Check if user prefers reduced motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -21,6 +24,7 @@ export function initScrollAnimations() {
     const elements = document.querySelectorAll('.animate-on-scroll, .stagger-children')
     elements.forEach((el) => {
       el.classList.add('is-visible')
+      animatedElements.add(el)
     })
     return
   }
@@ -29,7 +33,15 @@ export function initScrollAnimations() {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
+        // Skip if already animated (ensures animation never reverses)
+        if (animatedElements.has(entry.target)) {
+          return
+        }
+
         if (entry.isIntersecting) {
+          // Mark as animated first to prevent any race conditions
+          animatedElements.add(entry.target)
+
           // Add visible class to trigger animation
           entry.target.classList.add('is-visible')
 
@@ -47,7 +59,10 @@ export function initScrollAnimations() {
   // Observe all elements with animation classes
   const elements = document.querySelectorAll('.animate-on-scroll, .stagger-children')
   elements.forEach((el) => {
-    observer.observe(el)
+    // Don't observe elements that are already animated
+    if (!animatedElements.has(el)) {
+      observer.observe(el)
+    }
   })
 }
 

@@ -13,6 +13,8 @@
     "preview:test": "astro preview --host --port 4321",
     "lint": "eslint \"src/**/*.{js,ts,tsx,astro}\"",
     "lint:fix": "eslint \"src/**/*.{js,ts,tsx,astro}\" --fix",
+    "typecheck": "astro check",
+    "check": "npm run lint && npm run typecheck",
     "format": "prettier -w \"src/**/*.{ts,tsx,js,jsx,astro,css,md}\"",
     "generate-rewrites": "tsx scripts/generate-rewrites.ts"
   },
@@ -25,6 +27,7 @@
     "astro": "^5.16.4"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.6",
     "@tailwindcss/typography": "^0.5.10",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@typescript-eslint/parser": "^8.44.1",

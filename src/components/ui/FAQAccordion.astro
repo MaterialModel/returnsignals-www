@@ -31,7 +31,7 @@ const { faqs, className = '', allowMultiple = false } = Astro.props
     faqs.map((faq, i) => (
       <div class="faq-item border-b border-border last:border-b-0 pb-4 animate-on-scroll">
         <button
-          class="faq-button w-full text-left flex justify-between items-center py-3 text-lg font-medium text-primary hover:text-accent-primary transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2 rounded"
+          class="faq-button w-full text-left flex justify-between items-center py-3 text-lg font-medium text-primary focus:outline-none rounded"
           aria-expanded="false"
           aria-controls={`faq-panel-${i}`}
           id={`faq-button-${i}`}
@@ -54,7 +54,7 @@ const { faqs, className = '', allowMultiple = false } = Astro.props
           aria-labelledby={`faq-button-${i}`}
           role="region"
         >
-          <div class="pt-2 pb-2 text-secondary leading-relaxed">
+          <div class="pt-2 pb-2 text-primary leading-relaxed">
             {faq.answer}
           </div>
         </div>
