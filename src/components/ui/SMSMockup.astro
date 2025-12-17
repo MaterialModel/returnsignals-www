@@ -246,7 +246,9 @@ const lastOutgoingIndex = (() => {
         return
       }
 
-      const zone = mockup.closest('.sms-scrub-zone') || mockup
+      // On mobile (< 1024px), use mockup itself; on desktop use scrub zone
+      const isMobile = window.innerWidth < 1024
+      const zone = isMobile ? mockup : (mockup.closest('.sms-scrub-zone') || mockup)
       const rect = zone.getBoundingClientRect()
       const vh = window.innerHeight || 1
       const cs = window.getComputedStyle(zone)
