@@ -337,10 +337,18 @@ const lastOutgoingIndex = (() => {
     const startedMockups = new WeakSet();
 
     const revealAll = (mockup: HTMLElement) => {
-      const bubbles = Array.from(mockup.querySelectorAll(".sms-bubble")) as HTMLElement[];
-      const times = Array.from(mockup.querySelectorAll(".sms-time")) as HTMLElement[];
-      const receipt = mockup.querySelector(".sms-receipt") as HTMLElement | null;
-      const container = mockup.querySelector(".sms-messages") as HTMLElement | null;
+      const bubbles = Array.from(
+        mockup.querySelectorAll(".sms-bubble"),
+      ) as HTMLElement[];
+      const times = Array.from(
+        mockup.querySelectorAll(".sms-time"),
+      ) as HTMLElement[];
+      const receipt = mockup.querySelector(
+        ".sms-receipt",
+      ) as HTMLElement | null;
+      const container = mockup.querySelector(
+        ".sms-messages",
+      ) as HTMLElement | null;
 
       bubbles.forEach((b) => b.classList.add("visible"));
       times.forEach((t) => t.classList.add("visible"));
@@ -352,12 +360,20 @@ const lastOutgoingIndex = (() => {
       if (startedMockups.has(mockup)) return;
       startedMockups.add(mockup);
 
-      const bubbles = Array.from(mockup.querySelectorAll(".sms-bubble")) as HTMLElement[];
-      const times = Array.from(mockup.querySelectorAll(".sms-time")) as HTMLElement[];
-      const container = mockup.querySelector(".sms-messages") as HTMLElement | null;
+      const bubbles = Array.from(
+        mockup.querySelectorAll(".sms-bubble"),
+      ) as HTMLElement[];
+      const times = Array.from(
+        mockup.querySelectorAll(".sms-time"),
+      ) as HTMLElement[];
+      const container = mockup.querySelector(
+        ".sms-messages",
+      ) as HTMLElement | null;
       const lastOutgoingAttr = mockup.getAttribute("data-last-outgoing");
       const lastOutgoing = lastOutgoingAttr ? parseInt(lastOutgoingAttr) : -1;
-      const receipt = mockup.querySelector(".sms-receipt") as HTMLElement | null;
+      const receipt = mockup.querySelector(
+        ".sms-receipt",
+      ) as HTMLElement | null;
 
       if (prefersReducedMotion) {
         revealAll(mockup);

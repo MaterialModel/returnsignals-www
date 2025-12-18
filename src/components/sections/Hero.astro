@@ -13,26 +13,28 @@ const flowSteps = [
     id: "check-in",
     label: "Check in",
     description: "A proactive SMS that feels human, not automated.",
-    icon: "chat" as const
+    icon: "chat" as const,
   },
   {
     id: "follow-up",
     label: "Follow up",
-    description: "If they haven't tried it yet, no problem. We'll reach out again later.",
-    icon: "calendar" as const
+    description:
+      "If they haven't tried it yet, no problem. We'll reach out again later.",
+    icon: "calendar" as const,
   },
   {
     id: "resolve",
     label: "Resolve",
     description: "Quick troubleshooting with customer-provided photos.",
-    icon: "camera" as const
+    icon: "camera" as const,
   },
   {
     id: "route",
     label: "Route",
-    description: "Need to exchange or return? Use photo evidence to decide: scrap at customer, ship for rework, or restock.",
-    icon: "route" as const
-  }
+    description:
+      "Need to exchange or return? Use photo evidence to decide: scrap at customer, ship for rework, or restock.",
+    icon: "route" as const,
+  },
 ];
 ---
 
@@ -45,46 +47,50 @@ const flowSteps = [
       </h1>
 
       <p class="hero-tagline mt-6 px-4">
-        Return Signals uses AI over SMS and photos to reduce returns and improve reverse logistics.
+        Return Signals uses AI over SMS and photos to reduce returns and improve
+        reverse logistics.
       </p>
 
       <!-- Interactive Flow -->
       <div class="mt-8 sm:mt-10 px-4" id="hero-flow">
         <!-- Flow Navigation -->
         <div class="flow-container">
-          {flowSteps.map((step, index) => (
-            <>
-              <button
-                class={`flow-step ${index === 0 ? 'flow-step-active' : ''}`}
-                data-step={step.id}
-                aria-label={`View ${step.label} step`}
-              >
-                <div class="flow-icon">
-                  <HeroIcons name={step.icon} />
-                </div>
-                <span class="flow-label">{step.label}</span>
-              </button>
-              {index < flowSteps.length - 1 && (
-                <div class="flow-connector">
-                  <div class="flow-line"></div>
-                </div>
-              )}
-            </>
-          ))}
+          {
+            flowSteps.map((step, index) => (
+              <>
+                <button
+                  class={`flow-step ${index === 0 ? "flow-step-active" : ""}`}
+                  data-step={step.id}
+                  aria-label={`View ${step.label} step`}
+                >
+                  <div class="flow-icon">
+                    <HeroIcons name={step.icon} />
+                  </div>
+                  <span class="flow-label">{step.label}</span>
+                </button>
+                {index < flowSteps.length - 1 && (
+                  <div class="flow-connector">
+                    <div class="flow-line" />
+                  </div>
+                )}
+              </>
+            ))
+          }
         </div>
 
         <!-- Content panels -->
         <div class="flow-content mt-0">
-          {flowSteps.map((step, index) => (
-            <div
-              class={`flow-panel ${index === 0 ? 'flow-panel-active' : ''}`}
-              data-panel={step.id}
-            >
-              <p class="flow-description">{step.description}</p>
-            </div>
-          ))}
+          {
+            flowSteps.map((step, index) => (
+              <div
+                class={`flow-panel ${index === 0 ? "flow-panel-active" : ""}`}
+                data-panel={step.id}
+              >
+                <p class="flow-description">{step.description}</p>
+              </div>
+            ))
+          }
         </div>
-
       </div>
 
       <div
@@ -109,7 +115,7 @@ const flowSteps = [
 </FullViewportSection>
 
 <script>
-  const flowSteps = ['check-in', 'follow-up', 'resolve', 'route'];
+  const flowSteps = ["check-in", "follow-up", "resolve", "route"];
   let currentStep = 0;
   let autoplayInterval: ReturnType<typeof setInterval> | null = null;
   let isPaused = false;
@@ -119,24 +125,24 @@ const flowSteps = [
     currentStep = flowSteps.indexOf(stepId);
 
     // Update step buttons
-    document.querySelectorAll('.flow-step').forEach((btn) => {
-      const isActive = btn.getAttribute('data-step') === stepId;
-      btn.classList.toggle('flow-step-active', isActive);
+    document.querySelectorAll(".flow-step").forEach((btn) => {
+      const isActive = btn.getAttribute("data-step") === stepId;
+      btn.classList.toggle("flow-step-active", isActive);
     });
 
     // Update panels with animation
-    document.querySelectorAll('.flow-panel').forEach((panel) => {
-      const isActive = panel.getAttribute('data-panel') === stepId;
+    document.querySelectorAll(".flow-panel").forEach((panel) => {
+      const isActive = panel.getAttribute("data-panel") === stepId;
       if (isActive) {
-        panel.classList.add('flow-panel-active');
+        panel.classList.add("flow-panel-active");
       } else {
-        panel.classList.remove('flow-panel-active');
+        panel.classList.remove("flow-panel-active");
       }
     });
 
     // Update connector lines (fill up to current step)
-    document.querySelectorAll('.flow-connector').forEach((connector, index) => {
-      connector.classList.toggle('flow-connector-active', index < currentStep);
+    document.querySelectorAll(".flow-connector").forEach((connector, index) => {
+      connector.classList.toggle("flow-connector-active", index < currentStep);
     });
   }
 
@@ -154,9 +160,9 @@ const flowSteps = [
 
   function init() {
     // Click handlers for step buttons
-    document.querySelectorAll('.flow-step').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const stepId = btn.getAttribute('data-step');
+    document.querySelectorAll(".flow-step").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const stepId = btn.getAttribute("data-step");
         if (stepId) {
           setActiveStep(stepId);
           // Reset autoplay timer on click
@@ -166,12 +172,12 @@ const flowSteps = [
     });
 
     // Pause on hover
-    const flowContainer = document.getElementById('hero-flow');
+    const flowContainer = document.getElementById("hero-flow");
     if (flowContainer) {
-      flowContainer.addEventListener('mouseenter', () => {
+      flowContainer.addEventListener("mouseenter", () => {
         isPaused = true;
       });
-      flowContainer.addEventListener('mouseleave', () => {
+      flowContainer.addEventListener("mouseleave", () => {
         isPaused = false;
       });
     }
@@ -181,8 +187,8 @@ const flowSteps = [
   }
 
   // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
   } else {
     init();
   }

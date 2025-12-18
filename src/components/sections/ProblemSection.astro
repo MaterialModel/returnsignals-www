@@ -51,34 +51,39 @@ const items = [
     <!-- Header -->
     <div class="text-center mb-10 sm:mb-14">
       <h2 class="section-title mb-4">
-        Engage before the customer<br/>starts a return.
+        Engage before the customer<br />starts a return.
       </h2>
-      <p class="text-lg sm:text-xl text-primary leading-relaxed max-w-3xl mx-auto">
-        If a return is inevitable, use photo evidence to make intelligent item-level disposition decisions.
+      <p
+        class="text-lg sm:text-xl text-primary leading-relaxed max-w-3xl mx-auto"
+      >
+        If a return is inevitable, use photo evidence to make intelligent
+        item-level disposition decisions.
       </p>
     </div>
 
     <!-- Items -->
     <div class="items">
-      {items.map((item) => (
-        <div class="item">
-          <div class="item-stat">
-            <span class="stat-value">{item.stat}</span>
-            <span class="stat-note">{item.statNote}</span>
-          </div>
+      {
+        items.map((item) => (
+          <div class="item">
+            <div class="item-stat">
+              <span class="stat-value">{item.stat}</span>
+              <span class="stat-note">{item.statNote}</span>
+            </div>
 
-          <div class="item-content">
-            <div class="item-problem">
-              <h3 class="problem-title">{item.problem}</h3>
-              <p class="problem-desc">{item.problemDesc}</p>
-            </div>
-            <div class="item-solution">
-              <h3 class="solution-title">{item.solution}</h3>
-              <p class="solution-desc">{item.solutionDesc}</p>
+            <div class="item-content">
+              <div class="item-problem">
+                <h3 class="problem-title">{item.problem}</h3>
+                <p class="problem-desc">{item.problemDesc}</p>
+              </div>
+              <div class="item-solution">
+                <h3 class="solution-title">{item.solution}</h3>
+                <p class="solution-desc">{item.solutionDesc}</p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </FullViewportSection>
