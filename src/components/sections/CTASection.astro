@@ -2,8 +2,7 @@
 /**
  * CTASection
  *
- * Section 10: "Looking for a few design partners"
- * Final call-to-action with external form link
+ * "Want to pilot this?" call-to-action
  */
 
 interface Props {
@@ -16,31 +15,29 @@ const { ctaUrl, className = "" } = Astro.props;
 
 <section class={`bg-surface-base py-20 sm:py-32 ${className}`}>
   <div class="container-narrow">
-    <div class="text-center max-w-2xl mx-auto">
-      <h2 class="section-title mb-6 animate-on-scroll">
-        Looking for a few design partners.
-      </h2>
+    <div class="text-center animate-on-scroll">
+      <div
+        class="inline-block bg-surface-base border border-border rounded-lg p-8 sm:p-12 shadow-soft"
+      >
+        <h2
+          class="text-2xl sm:text-3xl font-normal tracking-tight text-primary mb-4"
+        >
+          Stop flying blind after delivery.
+        </h2>
 
-      <p class="section-description mb-10 animate-on-scroll">
-        If you own CX, returns, or operations and want to reduce avoidable
-        returns while improving post-purchase experience, we'd like to learn how
-        you handle this today and share what we're building.
-      </p>
+        <p class="text-base sm:text-lg text-secondary mb-8 max-w-md mx-auto">
+          We're onboarding a small group of apparel and DTC brands for early access.
+        </p>
 
-      <div class="animate-on-scroll">
         <a
           href={ctaUrl}
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn-primary btn-lg"
         >
-          Join Waitlisit
+          Get Early Access
         </a>
       </div>
-
-      <p class="text-sm text-tertiary mt-6 animate-on-scroll">
-        No spam. We'll only reach out about pilots / product updates.
-      </p>
     </div>
   </div>
 </section>

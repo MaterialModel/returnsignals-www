@@ -147,6 +147,112 @@
   @apply text-base sm:text-lg text-secondary leading-relaxed;
 }
 
+/* Hero-specific typography - distinct hierarchy */
+.hero-headline {
+  @apply text-3xl sm:text-4xl lg:text-5xl font-medium text-primary;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.hero-tagline {
+  @apply text-lg sm:text-xl text-primary leading-relaxed max-w-2xl mx-auto;
+  font-weight: 400;
+}
+
+.hero-detail {
+  @apply text-sm sm:text-base text-secondary leading-relaxed max-w-xl mx-auto;
+}
+
+/* Interactive Flow/Timeline */
+.flow-container {
+  @apply flex items-center justify-center gap-0 sm:gap-1;
+}
+
+.flow-step {
+  @apply flex flex-col items-center gap-1 sm:gap-2 cursor-pointer transition-all duration-300;
+  min-width: 60px;
+}
+
+@media (min-width: 640px) {
+  .flow-step {
+    min-width: 90px;
+  }
+}
+
+.flow-step:hover .flow-icon {
+  @apply border-secondary;
+  transform: scale(1.05);
+}
+
+.flow-icon {
+  @apply flex items-center justify-center w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-surface-base/90 text-secondary border-2 border-border transition-all duration-300;
+  backdrop-filter: blur(4px);
+}
+
+.flow-icon svg {
+  @apply w-4 h-4 sm:w-5 sm:h-5;
+}
+
+.flow-step-active .flow-icon {
+  @apply bg-surface-dark text-inverse border-transparent;
+  transform: scale(1.1);
+}
+
+.flow-label {
+  @apply text-[10px] sm:text-sm font-medium text-secondary transition-colors duration-300;
+}
+
+.flow-step-active .flow-label {
+  @apply text-primary font-semibold;
+}
+
+/* Connector lines between steps */
+.flow-connector {
+  @apply flex self-start;
+  margin-top: calc((2.25rem - 2px) / 2); /* center with h-9 icon */
+  margin-left: -2px;
+  margin-right: -2px;
+}
+
+@media (min-width: 640px) {
+  .flow-connector {
+    margin-top: calc((3rem - 2px) / 2); /* center with h-12 icon */
+    margin-left: -6px;
+    margin-right: -6px;
+  }
+}
+
+.flow-line {
+  @apply w-4 sm:w-10 bg-border transition-colors duration-500;
+  height: 1px;
+}
+
+.flow-connector-active .flow-line {
+  @apply bg-surface-dark;
+}
+
+/* Content panels */
+.flow-content {
+  @apply relative min-h-[80px];
+}
+
+.flow-panel {
+  @apply absolute inset-0 flex flex-col items-center justify-center opacity-0 transition-all duration-500;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.flow-panel-active {
+  @apply opacity-100;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.flow-description {
+  @apply text-base sm:text-lg text-secondary max-w-xl mx-auto leading-relaxed;
+}
+
+
 /* Page title (H1) utilities */
 .page-title {
   @apply text-4xl sm:text-5xl font-normal text-primary;
