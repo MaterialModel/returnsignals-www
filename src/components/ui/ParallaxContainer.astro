@@ -17,7 +17,7 @@ const {
   parallaxMaxOffset = 120,
 } = Astro.props;
 
-const parallaxId = `parallax-${Math.random().toString(36).substr(2, 9)}`;
+const parallaxId = `parallax-${Math.random().toString(36).substring(2, 11)}`;
 ---
 
 <div class={`relative ${className}`}>

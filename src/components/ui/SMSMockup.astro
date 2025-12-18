@@ -336,11 +336,11 @@ const lastOutgoingIndex = (() => {
 
     const startedMockups = new WeakSet();
 
-    const revealAll = (mockup) => {
-      const bubbles = Array.from(mockup.querySelectorAll(".sms-bubble"));
-      const times = Array.from(mockup.querySelectorAll(".sms-time"));
-      const receipt = mockup.querySelector(".sms-receipt");
-      const container = mockup.querySelector(".sms-messages");
+    const revealAll = (mockup: HTMLElement) => {
+      const bubbles = Array.from(mockup.querySelectorAll(".sms-bubble")) as HTMLElement[];
+      const times = Array.from(mockup.querySelectorAll(".sms-time")) as HTMLElement[];
+      const receipt = mockup.querySelector(".sms-receipt") as HTMLElement | null;
+      const container = mockup.querySelector(".sms-messages") as HTMLElement | null;
 
       bubbles.forEach((b) => b.classList.add("visible"));
       times.forEach((t) => t.classList.add("visible"));
@@ -348,16 +348,16 @@ const lastOutgoingIndex = (() => {
       if (container) container.scrollTop = container.scrollHeight;
     };
 
-    const startAutoplay = (mockup) => {
+    const startAutoplay = (mockup: HTMLElement) => {
       if (startedMockups.has(mockup)) return;
       startedMockups.add(mockup);
 
-      const bubbles = Array.from(mockup.querySelectorAll(".sms-bubble"));
-      const times = Array.from(mockup.querySelectorAll(".sms-time"));
-      const container = mockup.querySelector(".sms-messages");
+      const bubbles = Array.from(mockup.querySelectorAll(".sms-bubble")) as HTMLElement[];
+      const times = Array.from(mockup.querySelectorAll(".sms-time")) as HTMLElement[];
+      const container = mockup.querySelector(".sms-messages") as HTMLElement | null;
       const lastOutgoingAttr = mockup.getAttribute("data-last-outgoing");
       const lastOutgoing = lastOutgoingAttr ? parseInt(lastOutgoingAttr) : -1;
-      const receipt = mockup.querySelector(".sms-receipt");
+      const receipt = mockup.querySelector(".sms-receipt") as HTMLElement | null;
 
       if (prefersReducedMotion) {
         revealAll(mockup);
@@ -414,7 +414,7 @@ const lastOutgoingIndex = (() => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            startAutoplay(entry.target);
+            startAutoplay(entry.target as HTMLElement);
             observer.unobserve(entry.target);
           }
         });
@@ -422,6 +422,6 @@ const lastOutgoingIndex = (() => {
       { threshold: 0.5 }, // Start when 50% visible
     );
 
-    mockups.forEach((m) => observer.observe(m));
+    mockups.forEach((m) => observer.observe(m as Element));
   });
 </script>

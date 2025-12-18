@@ -110,10 +110,11 @@ const { faqs, className = "", allowMultiple = false } = Astro.props;
       });
 
       // Keyboard support
-      button.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
+      button.addEventListener("keydown", (e: Event) => {
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === "Enter" || keyEvent.key === " ") {
           e.preventDefault();
-          button.click();
+          (button as HTMLButtonElement).click();
         }
       });
     });
