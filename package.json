@@ -21,8 +21,6 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^5.1.0",
-    "@datadog/browser-logs": "^6.19.0",
-    "@datadog/browser-rum": "^6.19.0",
     "@flaticon/flaticon-uicons": "^3.3.1",
     "astro": "^5.16.4"
   },

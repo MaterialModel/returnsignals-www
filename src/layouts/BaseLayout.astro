@@ -47,13 +47,6 @@ const {
       )
     }
     <Fragment set:html={ga4Script(import.meta.env.PUBLIC_GA_ID)} />
-    <script>
-      import { initializeDatadog } from "@utils/datadog";
-
-      document.addEventListener("DOMContentLoaded", () => {
-        initializeDatadog();
-      });
-    </script>
   </head>
   <body class="min-h-vh-fix bg-surface-base text-primary antialiased">
     <slot />
