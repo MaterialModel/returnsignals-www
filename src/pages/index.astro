@@ -1,22 +1,41 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro'
-import ParallaxLayout from '@layouts/ParallaxLayout.astro'
-import Header from '@components/shared/Header.astro'
-import Footer from '@components/shared/Footer.astro'
-import Hero from '@components/Hero.astro'
-import Features from '@components/Features.astro'
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/shared/Header.astro";
+import Footer from "@components/shared/Footer.astro";
+import Hero from "@components/sections/Hero.astro";
+import ProblemSection from "@components/sections/ProblemSection.astro";
+import ParallaxContainer from "@components/ui/ParallaxContainer.astro";
+import NarrativeSections from "@components/sections/NarrativeSections.astro";
+import CTASection from "@components/sections/CTASection.astro";
+import FAQSection from "@components/sections/FAQSection.astro";
+
+// CTA URL (update this to your external form link)
+const ctaUrl = "https://calendar.app.google/rpRK3FXE425PPkaS7";
 ---
 
 <BaseLayout
-  title="Decide returns before they ship."
-  description="Use customer photos and videos to make item-level return decisions early. Avoid unnecessary shipping, route items correctly, and reduce return abuse."
+  title="A post-purchase concierge for every order"
+  description="Return Signals uses AI over SMS (and photos when needed) to check in after delivery, resolve issues quickly, and reduce avoidable returns. When returns are unaviodable, we use customer-provided photos to make intelligent item-level disposition decisions"
 >
-  <ParallaxLayout>
-    <Header />
-    <main>
-      <Hero />
-      <Features />
-      <Footer />
-    </main>
-  </ParallaxLayout>
+  <Header />
+
+  <main id="main-content">
+    <!-- PARALLAX SECTIONS (1-2): Hero + Problem-->
+    <ParallaxContainer>
+      <Hero {ctaUrl} />
+      <ProblemSection />
+    </ParallaxContainer>
+
+    <!-- WHITE BACKGROUND -->
+
+    <NarrativeSections />
+    <CTASection {ctaUrl} />
+    <FAQSection />
+  </main>
+  <Footer />
 </BaseLayout>
+
+<!-- Import scroll animations utility -->
+<script>
+  import "@utils/scroll-animations";
+</script>

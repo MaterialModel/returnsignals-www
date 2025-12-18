@@ -1,0 +1,122 @@
+---
+/**
+ * BenefitColumns Component
+ *
+ * Two-column layout showing benefits for customers and vendors
+ *
+ * Features:
+ * - Side-by-side columns on desktop
+ * - Stacked columns on mobile
+ * - Icon support for each benefit
+ * - Bullet list format
+ */
+
+interface Benefit {
+  text: string;
+  icon?: string; // Path to SVG icon
+}
+
+interface Props {
+  customerLabel: string;
+  customerBenefits: Benefit[];
+  vendorLabel: string;
+  vendorBenefits: Benefit[];
+  className?: string;
+}
+
+const {
+  customerLabel,
+  customerBenefits,
+  vendorLabel,
+  vendorBenefits,
+  className = "",
+} = Astro.props;
+---
+
+<div class={`benefit-columns ${className}`}>
+  <div
+    class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto"
+  >
+    <!-- Customer Benefits Column -->
+    <div class="animate-on-scroll">
+      <div class="card p-8 h-full">
+        <h3 class="text-xl font-semibold text-primary mb-6">{customerLabel}</h3>
+        <ul class="space-y-4">
+          {
+            customerBenefits.map((benefit) => (
+              <li class="flex items-start gap-3">
+                {benefit.icon ? (
+                  <div class="flex-shrink-0 w-6 h-6 mt-0.5">
+                    <img
+                      src={benefit.icon}
+                      alt=""
+                      class="w-full h-full text-accent-primary"
+                    />
+                  </div>
+                ) : (
+                  <svg
+                    class="flex-shrink-0 w-6 h-6 mt-0.5 text-accent-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                )}
+                <span class="text-base text-secondary leading-relaxed flex-grow">
+                  {benefit.text}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- Vendor Benefits Column -->
+    <div class="animate-on-scroll">
+      <div class="card p-8 h-full">
+        <h3 class="text-xl font-semibold text-primary mb-6">{vendorLabel}</h3>
+        <ul class="space-y-4">
+          {
+            vendorBenefits.map((benefit) => (
+              <li class="flex items-start gap-3">
+                {benefit.icon ? (
+                  <div class="flex-shrink-0 w-6 h-6 mt-0.5">
+                    <img
+                      src={benefit.icon}
+                      alt=""
+                      class="w-full h-full text-accent-primary"
+                    />
+                  </div>
+                ) : (
+                  <svg
+                    class="flex-shrink-0 w-6 h-6 mt-0.5 text-accent-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                )}
+                <span class="text-base text-secondary leading-relaxed flex-grow">
+                  {benefit.text}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

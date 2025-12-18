@@ -1,0 +1,85 @@
+---
+/**
+ * NarrativeSection
+ * FIXED: Wrapper widths now match component internal constraints perfectly.
+ */
+
+import SMSMockup from "@components/ui/SMSMockup.astro";
+import NarrativeImage from "@components/ui/NarrativeImage.astro";
+
+interface Message {
+  type: "incoming" | "outgoing";
+  content?: "text" | "image";
+  text?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  timestamp?: string;
+}
+
+interface Props {
+  header: string;
+  story: string;
+  messages: Message[];
+  narrativeImage: string;
+  narrativeImageAlt: string;
+  callout?: string;
+  className?: string;
+  id?: string;
+  phoneOnLeft?: boolean;
+}
+
+const {
+  header,
+  story,
+  messages,
+  narrativeImage,
+  narrativeImageAlt,
+  callout,
+  className = "",
+  id,
+  phoneOnLeft = true,
+} = Astro.props;
+---
+
+<section {id} class={`bg-surface-base py-12 sm:py-16 ${className}`}>
+  <div class="container-lg">
+    <div class="sms-scrub-zone relative max-w-6xl mx-auto">
+      <h2 class="section-title text-center max-w-4xl mx-auto px-4">
+        {header}
+      </h2>
+
+      <div
+        class="mt-8 sm:mt-10 lg:mt-12 mx-auto flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-center lg:gap-24"
+      >
+        <!-- SMS Mockup Wrapper -->
+        <div
+          class={`order-2 ${phoneOnLeft ? "lg:order-1" : "lg:order-2"} flex-none w-full flex justify-center lg:w-[290px]`}
+        >
+          <SMSMockup {messages} className="lg:!mx-0 lg:!w-full" />
+        </div>
+
+        <!-- Narrative Image Wrapper -->
+        <div
+          class={`order-1 ${phoneOnLeft ? "lg:order-2" : "lg:order-1"} flex-none w-full max-w-sm sm:max-w-md lg:w-[500px]`}
+        >
+          <NarrativeImage
+            src={narrativeImage}
+            alt={narrativeImageAlt}
+            story={story}
+            className="w-full h-full"
+          />
+        </div>
+      </div>
+    </div>
+
+    {
+      callout && (
+        <div class="mt-16 max-w-3xl mx-auto animate-on-scroll">
+          <p class="text-base sm:text-lg text-secondary italic leading-relaxed text-center">
+            {callout}
+          </p>
+        </div>
+      )
+    }
+  </div>
+</section>

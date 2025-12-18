@@ -1,14 +1,18 @@
 ---
 interface Props {
-  class?: string
-  bg?: string
-  isFirst?: boolean // If true, accounts for header space
+  class?: string;
+  bg?: string;
+  isFirst?: boolean; // If true, accounts for header space
 }
 
-const { class: className = '', bg = 'bg-transparent', isFirst = false } = Astro.props
+const {
+  class: className = "",
+  bg = "bg-transparent",
+  isFirst: _isFirst = false,
+} = Astro.props;
 
 // If first section, no need to subtract header since header is inside the hero
-const heightClass = 'min-h-vh-fix'
+const heightClass = "min-h-vh-fix";
 ---
 
 <section class={`relative ${bg} ${heightClass} flex flex-col ${className}`}>

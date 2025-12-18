@@ -1,0 +1,147 @@
+---
+import NarrativeSection from "./NarrativeSection.astro";
+
+// Message type definition
+type Message = {
+  type: "incoming" | "outgoing";
+  content?: "text" | "image"; // defaults to 'text'
+  text?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  timestamp?: string;
+};
+
+// Narrative 1: Jacky - Prevent the return
+const jackyMessages: Message[] = [
+  {
+    type: "incoming" as const,
+    text: "Hi Jacky! Quick check-in—how’s the new wrap dress fitting so far?",
+  },
+  {
+    type: "outgoing" as const,
+    text: "Haven’t tried it on yet.",
+  },
+  {
+    type: "incoming" as const,
+    text: "All good. I’ll follow up in a few days so we can make sure it’s perfect before you wear it.",
+  },
+  {
+    type: "incoming" as const,
+    text: "Checking back in—did you get a chance to try it on? Any fit issues I can help with?",
+  },
+  {
+    type: "outgoing" as const,
+    text: "Meh, the neckline gaps more than I expected. I'm not sure if I'll keep it.",
+  },
+  {
+    type: "incoming" as const,
+    text: "That’s a common wrap-dress thing. Try tightening the inner tie first for a snugger base. If it still gaps, a tiny strip of fashion tape (or a discreet pin) at the neckline usually fixes it in seconds.",
+  },
+  {
+    type: "outgoing" as const,
+    text: "Ok, a little bit of tape actually worked.",
+  },
+  {
+    type: "incoming" as const,
+    text: "Love to hear it. Enjoy wearing it!",
+  },
+];
+
+// Narrative 2: Bob - Photo inspection
+const bobMessages: Message[] = [
+  {
+    type: "incoming" as const,
+    text: "Hey Bob, how’s that gym shirt feeling on workouts and runs?",
+  },
+  {
+    type: "outgoing" as const,
+    text: "Just did a 5-mile run and it left a painful mark under my arm.",
+  },
+  {
+    type: "incoming" as const,
+    text: "Ouch—that shouldn’t happen. Can you snap a quick photo of the underarm seam/edge where it rubbed?",
+  },
+  {
+    type: "outgoing" as const,
+    content: "image" as const,
+    imageSrc: "/images/narrative/shirt-with-bad-seam.jpg",
+    imageAlt: "Photo of shirt seam defect",
+  },
+  {
+    type: "incoming" as const,
+    text: "Thanks! This looks like a seam defect. Want me to set up a fast exchange so you get a better one?",
+  },
+  { type: "outgoing" as const, text: "Yes." },
+  {
+    type: "incoming" as const,
+    text: "Done. You’ll get the exchange confirmation, and you’ll be back on the road without the rub.",
+  },
+];
+
+// Narrative 3: Priya - At-customer disposition
+const priyaMessages: Message[] = [
+  {
+    type: "incoming" as const,
+    text: "Hi Priya! How are the new leggings fitting?",
+  },
+  {
+    type: "outgoing" as const,
+    text: "The waistband seam is torn. Your quality sucks.",
+  },
+  {
+    type: "incoming" as const,
+    text: "I’m so sorry about that. Can you send a quick photo of the tear so I can confirm and fix this right away?",
+  },
+  {
+    type: "outgoing" as const,
+    content: "image" as const,
+    imageSrc: "/images/narrative/torn-pruple-legging.jpg",
+    imageAlt: "Photo of torn leggings",
+  },
+  {
+    type: "incoming" as const,
+    text: "Confirmed damage. I’m sending a replacement immediately. No need to ship the damaged pair back—please dispose of it.",
+  },
+  { type: "outgoing" as const, text: "Thanks, at least you're making it easy" },
+  {
+    type: "incoming" as const,
+    text: "Of course. You’ll see the replacement confirmation shortly.",
+  },
+];
+---
+
+<!-- SECTION 4: Narrative - Jacky (Prevent Return) -->
+<NarrativeSection
+  id="narrative-jacky"
+  phoneOnLeft={true}
+  header="Reduce returns by fixing the problem, not the order."
+  story="Jacky buys a wrap dress and gets a friendly fit check-in. She hasn’t tried it yet, so Return Signals schedules a follow-up. When the neckline gaps, we suggest a quick adjustment and a simple fix, avoiding a return."
+  messages={jackyMessages}
+  narrativeImage="/images/narrative/woman-in-wrap-dress.jpg"
+  narrativeImageAlt="Woman wearing wrap dress"
+  callout="Not “just checking in”, we diagnose common pre-return moments and convert them into the best outcome (keep, exchange, credit) while protecting margin and CX."
+/>
+
+<!-- SECTION 5: Narrative - Bob (Photo Inspection) -->
+<NarrativeSection
+  id="narrative-bob"
+  phoneOnLeft={false}
+  header="Make the right return decision, immediately"
+  story="Bob’s gym shirt looks great, until a run leaves a painful rub. Return Signals requests a quick photo, confirms a seam defect, and routes him straight to an exchange."
+  messages={bobMessages}
+  narrativeImage="/images/narrative/man-running.jpg"
+  narrativeImageAlt="Man running in athletic wear"
+  callout="At-customer visual triage that turns “maybe return” into the right disposition decision in minutes."
+/>
+
+<!-- SECTION 6: Narrative - Priya (At-Customer Disposition) -->
+<NarrativeSection
+  id="narrative-priya"
+  phoneOnLeft={true}
+  header="Decide disposition earlier. Spend less downstream."
+  story="Priya’s leggings arrive with a torn waistband seam. A quick photo confirms damage, so Return Signals ships a replacement and recommends at-customer disposal. Priya gets a fast resolution, and the brand avoids reverse logistics costs."
+  messages={priyaMessages}
+  narrativeImage="/images/narrative/priya-in-leggings.jpg"
+  narrativeImageAlt="Woman wearing athletic leggings"
+  callout="With at-customer visual inspection you get fewer shipments, fewer warehouse touches, and fewer refunds that should have been exchanges."
+/>

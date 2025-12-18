@@ -58,17 +58,10 @@ jobs:
           # Get secrets directly from Secret Manager
           GA_ID=$(gcloud secrets versions access latest --secret="returnsignals-www-ga-id" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
           POSTHOG_KEY=$(gcloud secrets versions access latest --secret="returnsignals-www-posthog-key" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
-          DD_APP_ID=$(gcloud secrets versions access latest --secret="datadog-rum-returnsignals-application-id" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
-          DD_CLIENT_TOKEN=$(gcloud secrets versions access latest --secret="datadog-rum-returnsignals-client-token" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
 
           # Build with environment variables directly set
           PUBLIC_GA_ID="$GA_ID" \
           PUBLIC_POSTHOG_KEY="$POSTHOG_KEY" \
-          PUBLIC_DATADOG_APPLICATION_ID="$DD_APP_ID" \
-          PUBLIC_DATADOG_CLIENT_TOKEN="$DD_CLIENT_TOKEN" \
-          PUBLIC_DATADOG_SITE="us3.datadoghq.com" \
-          PUBLIC_DATADOG_SERVICE="returnsignals-www" \
-          PUBLIC_DATADOG_ENV="${{ github.ref == 'refs/heads/main' && 'production' || 'test' }}" \
           PUBLIC_BUILD_VERSION="${{ github.sha }}" \
           npm run build
 

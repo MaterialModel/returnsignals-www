@@ -1,0 +1,138 @@
+---
+/**
+ * HowItWorksSteps Component
+ *
+ * Displays a 4-step process with numbered cards and flow indicators
+ *
+ * Features:
+ * - Responsive grid layout (1 col mobile, 2x2 tablet, 1x4 desktop)
+ * - Numbered steps
+ * - SVG icon support
+ * - Flow arrows between cards (desktop only)
+ */
+
+interface Step {
+  title: string;
+  description: string;
+  icon?: string; // Path to SVG icon
+}
+
+interface Props {
+  steps: Step[];
+  className?: string;
+}
+
+const { steps, className = "" } = Astro.props;
+---
+
+<div class={`how-it-works-steps ${className}`}>
+  <!-- Desktop: 1x4 horizontal row -->
+  <div
+    class="hidden lg:flex items-start justify-center gap-6 max-w-7xl mx-auto"
+  >
+    {
+      steps.map((step, i) => (
+        <>
+          <div class="flex-1 max-w-xs animate-on-scroll">
+            <div class="card p-6 h-full">
+              {/* Step number badge */}
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-xl shadow-lg">
+                  {i + 1}
+                </div>
+                {step.icon && (
+                  <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50">
+                    <img src={step.icon} alt="" class="w-6 h-6 text-gray-600" />
+                  </div>
+                )}
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                {step.title}
+              </h3>
+              <p class="text-sm text-gray-600 leading-relaxed">
+                {step.description}
+              </p>
+            </div>
+          </div>
+
+          {/* Arrow between cards (not after last card) */}
+          {i < steps.length - 1 && (
+            <div class="flex items-center pt-12">
+              <svg
+                class="w-6 h-6 text-accent-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7l5 5-5 5M6 12h12"
+                />
+              </svg>
+            </div>
+          )}
+        </>
+      ))
+    }
+  </div>
+
+  <!-- Tablet: 2x2 grid -->
+  <div class="hidden sm:grid lg:hidden grid-cols-2 gap-6 max-w-4xl mx-auto">
+    {
+      steps.map((step, i) => (
+        <div class="animate-on-scroll">
+          <div class="card p-6 h-full">
+            {/* Step number badge */}
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-xl shadow-lg">
+                {i + 1}
+              </div>
+              {step.icon && (
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50">
+                  <img src={step.icon} alt="" class="w-6 h-6 text-gray-600" />
+                </div>
+              )}
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              {step.title}
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              {step.description}
+            </p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Mobile: Single column -->
+  <div class="flex sm:hidden flex-col gap-6">
+    {
+      steps.map((step, i) => (
+        <div class="animate-on-scroll">
+          <div class="card p-6">
+            {/* Step number badge */}
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-xl shadow-lg">
+                {i + 1}
+              </div>
+              {step.icon && (
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50">
+                  <img src={step.icon} alt="" class="w-6 h-6 text-gray-600" />
+                </div>
+              )}
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              {step.title}
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              {step.description}
+            </p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>

@@ -10,7 +10,7 @@ This is the marketing website for Return Signals (returnsignals.com), built with
 - **Styling**: Tailwind CSS 3 with Typography plugin
 - **Infrastructure**: GCP (Cloud Storage + CDN + HTTPS Load Balancer)
 - **Infrastructure as Code**: Terraform (managed via materialmodel-terraform submodule)
-- **Analytics**: Google Analytics 4, PostHog, Datadog RUM
+- **Analytics**: Google Analytics 4, PostHog
 - **CI/CD**: GitHub Actions → GCS bucket deployment
 - **Node Version**: 24.x (strictly enforced)
 
@@ -23,7 +23,7 @@ src/
 ├── layouts/           # Page templates (BaseLayout)
 ├── pages/             # Route pages (SSG)
 ├── styles/            # Global CSS (Tailwind setup)
-└── utils/             # Utilities (analytics, datadog)
+└── utils/             # Utilities (analytics)
 
 public/                # Static assets, robots.txt
 materialmodel-terraform/ # Infrastructure
@@ -47,11 +47,6 @@ All client-side environment variables must start with `PUBLIC_`:
 
 - `PUBLIC_GA_ID` - Google Analytics 4 measurement ID
 - `PUBLIC_POSTHOG_KEY` - PostHog project API key for analytics
-- `PUBLIC_DATADOG_APPLICATION_ID` - Datadog application ID
-- `PUBLIC_DATADOG_CLIENT_TOKEN` - Datadog client token
-- `PUBLIC_DATADOG_SITE` - Datadog site (us3.datadoghog.com)
-- `PUBLIC_DATADOG_SERVICE` - Service name (returnsignals-www)
-- `PUBLIC_DATADOG_ENV` - Environment (production/test)
 - `PUBLIC_BUILD_VERSION` - Git commit SHA
 
 ## Architecture Patterns
@@ -65,7 +60,7 @@ All client-side environment variables must start with `PUBLIC_`:
 ### Data Flow
 
 - Static site generation (no client-side state management)
-- Analytics via GA4, PostHog, and Datadog RUM
+- Analytics via GA4 and PostHog
 - No backend API or database
 
 ### Performance Considerations

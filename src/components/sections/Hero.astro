@@ -1,0 +1,195 @@
+---
+import FullViewportSection from "@layouts/FullViewportSection.astro";
+import HeroIcons from "@components/icons/HeroIcons.astro";
+
+interface Props {
+  ctaUrl: string;
+}
+
+const { ctaUrl } = Astro.props;
+
+const flowSteps = [
+  {
+    id: "check-in",
+    label: "Check in",
+    description: "A proactive SMS that feels human, not automated.",
+    icon: "chat" as const,
+  },
+  {
+    id: "follow-up",
+    label: "Follow up",
+    description:
+      "If they haven't tried it yet, no problem. We'll reach out again later.",
+    icon: "calendar" as const,
+  },
+  {
+    id: "resolve",
+    label: "Resolve",
+    description: "Quick troubleshooting with customer-provided photos.",
+    icon: "camera" as const,
+  },
+  {
+    id: "route",
+    label: "Route",
+    description:
+      "Need to exchange or return? Use photo evidence to decide: scrap at customer, ship for rework, or restock.",
+    icon: "route" as const,
+  },
+];
+---
+
+<FullViewportSection isFirst={true}>
+  <div class="relative text-center pt-8 sm:pt-12">
+    <div class="mx-auto max-w-4xl">
+      <!-- Main headline -->
+      <h1 class="hero-headline px-2 sm:px-4">
+        Post-purchase concierge for every order.
+      </h1>
+
+      <p class="hero-tagline mt-6 px-4">
+        Return Signals uses AI over SMS and photos to reduce returns and improve
+        reverse logistics.
+      </p>
+
+      <!-- Interactive Flow -->
+      <div class="mt-8 sm:mt-10 px-4" id="hero-flow">
+        <!-- Flow Navigation -->
+        <div class="flow-container">
+          {
+            flowSteps.map((step, index) => (
+              <>
+                <button
+                  class={`flow-step ${index === 0 ? "flow-step-active" : ""}`}
+                  data-step={step.id}
+                  aria-label={`View ${step.label} step`}
+                >
+                  <div class="flow-icon">
+                    <HeroIcons name={step.icon} />
+                  </div>
+                  <span class="flow-label">{step.label}</span>
+                </button>
+                {index < flowSteps.length - 1 && (
+                  <div class="flow-connector">
+                    <div class="flow-line" />
+                  </div>
+                )}
+              </>
+            ))
+          }
+        </div>
+
+        <!-- Content panels -->
+        <div class="flow-content mt-0">
+          {
+            flowSteps.map((step, index) => (
+              <div
+                class={`flow-panel ${index === 0 ? "flow-panel-active" : ""}`}
+                data-panel={step.id}
+              >
+                <p class="flow-description">{step.description}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div
+        class="flex items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-10 flex-wrap"
+      >
+        <a
+          href={ctaUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary">Book a Demo</a
+        >
+        <a href="#narrative-jacky" class="btn btn-secondary">See Examples</a>
+      </div>
+    </div>
+
+    <!-- Trust -->
+    <div class="mx-auto flex items-center justify-center gap-3 mt-12 sm:mt-14">
+      <span class="text-sm text-secondary">Backed by</span>
+      <img src="/images/ycombinator.png" alt="Y Combinator" class="h-5" />
+    </div>
+  </div>
+</FullViewportSection>
+
+<script>
+  const flowSteps = ["check-in", "follow-up", "resolve", "route"];
+  let currentStep = 0;
+  let autoplayInterval: ReturnType<typeof setInterval> | null = null;
+  let isPaused = false;
+  const STEP_DURATION = 4000; // 4 seconds per step
+
+  function setActiveStep(stepId: string) {
+    currentStep = flowSteps.indexOf(stepId);
+
+    // Update step buttons
+    document.querySelectorAll(".flow-step").forEach((btn) => {
+      const isActive = btn.getAttribute("data-step") === stepId;
+      btn.classList.toggle("flow-step-active", isActive);
+    });
+
+    // Update panels with animation
+    document.querySelectorAll(".flow-panel").forEach((panel) => {
+      const isActive = panel.getAttribute("data-panel") === stepId;
+      if (isActive) {
+        panel.classList.add("flow-panel-active");
+      } else {
+        panel.classList.remove("flow-panel-active");
+      }
+    });
+
+    // Update connector lines (fill up to current step)
+    document.querySelectorAll(".flow-connector").forEach((connector, index) => {
+      connector.classList.toggle("flow-connector-active", index < currentStep);
+    });
+  }
+
+  function nextStep() {
+    const nextIndex = (currentStep + 1) % flowSteps.length;
+    setActiveStep(flowSteps[nextIndex]);
+  }
+
+  function startAutoplay() {
+    if (autoplayInterval) clearInterval(autoplayInterval);
+    autoplayInterval = setInterval(() => {
+      if (!isPaused) nextStep();
+    }, STEP_DURATION);
+  }
+
+  function init() {
+    // Click handlers for step buttons
+    document.querySelectorAll(".flow-step").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const stepId = btn.getAttribute("data-step");
+        if (stepId) {
+          setActiveStep(stepId);
+          // Reset autoplay timer on click
+          startAutoplay();
+        }
+      });
+    });
+
+    // Pause on hover
+    const flowContainer = document.getElementById("hero-flow");
+    if (flowContainer) {
+      flowContainer.addEventListener("mouseenter", () => {
+        isPaused = true;
+      });
+      flowContainer.addEventListener("mouseleave", () => {
+        isPaused = false;
+      });
+    }
+
+    // Start autoplay
+    startAutoplay();
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>

@@ -1,0 +1,2 @@
+# Ignore files with inline scripts in JSX expressions (parser limitation)
+src/components/shared/PostHog.astro

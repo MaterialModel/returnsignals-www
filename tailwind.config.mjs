@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Karla', 'ui-sans-serif', 'system-ui', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"', '"Noto Color Emoji"']
+      },
       height: {
         '18': '4.5rem', // 72px
         '20': '5rem'    // 80px
@@ -15,11 +18,11 @@ export default {
         '20': '5rem'    // 80px
       },
       colors: {
-        // Brand colors
+        // Brand colors (grayscale)
         brand: {
-          primary: '#0E60FF',
-          dark: '#0B3EA0',
-          accent: '#7C3AED'
+          primary: 'rgb(15, 23, 42)',     // slate-900
+          dark: 'rgb(2, 6, 23)',          // slate-950
+          accent: 'rgb(71, 85, 105)'      // slate-600
         },
         // Semantic text colors - use text-primary, text-secondary, etc.
         primary: 'rgb(15, 23, 42)',         // slate-900 - headings, primary text
@@ -42,20 +45,20 @@ export default {
         },
         // Accent colors - use text-accent-primary, bg-accent-primary, etc.
         accent: {
-          primary: '#0E60FF',                       // brand primary - links, primary actions
-          hover: '#0B3EA0',                         // brand dark - hover states
-          secondary: '#7C3AED',                     // brand accent - secondary highlights
+          primary: 'rgb(15, 23, 42)',              // slate-900 - links, primary actions
+          hover: 'rgb(30, 41, 59)',                // slate-800 - hover states
+          secondary: 'rgb(71, 85, 105)',           // slate-600 - secondary highlights
           success: 'rgb(34, 197, 94)',             // green-500 - success states, features
           'success-subtle': 'rgba(34, 197, 94, 0.1)', // green-500/10 - success backgrounds
-          muted: 'rgba(14, 96, 255, 0.1)'          // primary/10 - muted accent backgrounds
+          muted: 'rgba(15, 23, 42, 0.1)'           // slate-900/10 - muted accent backgrounds
         }
       },
       boxShadow: {
         soft: '0 2px 20px rgba(2, 6, 23, 0.08)',
-        glow: '0 10px 40px rgba(14, 96, 255, 0.25)'
+        glow: '0 10px 40px rgba(15, 23, 42, 0.2)'
       },
       backgroundImage: {
-        'radial-glow': 'radial-gradient(60% 60% at 50% 0%, rgba(14,96,255,0.18) 0%, rgba(124,58,237,0.12) 40%, rgba(255,255,255,0) 70%)'
+        'radial-glow': 'radial-gradient(60% 60% at 50% 0%, rgba(15,23,42,0.08) 0%, rgba(71,85,105,0.05) 40%, rgba(255,255,255,0) 70%)'
       }
     }
   },

@@ -1,0 +1,62 @@
+---
+/**
+ * FeatureList Component
+ *
+ * Bulleted list of features with optional note section
+ *
+ * Features:
+ * - Two-column layout on desktop
+ * - Single column on mobile
+ * - Checkmark bullets
+ * - Note/disclaimer section
+ */
+
+interface Props {
+  features: string[];
+  note?: string;
+  className?: string;
+}
+
+const { features, note, className = "" } = Astro.props;
+---
+
+<div class={`feature-list ${className}`}>
+  <div class="max-w-4xl mx-auto">
+    <!-- Features Grid -->
+    <ul
+      class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-8 stagger-children"
+    >
+      {
+        features.map((feature) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="flex-shrink-0 w-5 h-5 mt-0.5 text-accent-primary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <span class="text-base text-secondary leading-relaxed">
+              {feature}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Optional Note -->
+    {
+      note && (
+        <div class="p-4 bg-accent-muted border-l-4 border-accent-primary rounded-r animate-on-scroll">
+          <p class="text-sm text-secondary italic">{note}</p>
+        </div>
+      )
+    }
+  </div>
+</div>

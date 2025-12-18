@@ -1,0 +1,81 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  story: string;
+  className?: string;
+  heightClasses?: string; // Tailwind height classes for wrapper
+}
+
+const {
+  src,
+  alt,
+  story,
+  className = "",
+  heightClasses = "h-[400px] sm:h-[450px] md:h-[500px]",
+} = Astro.props;
+---
+
+<div class={`narrative-image ${className}`}>
+  <div
+    class={`narrative-crop relative w-full overflow-hidden ${heightClasses}`}
+  >
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      class="block h-full w-full object-cover object-top"
+      style="mask-image: linear-gradient(to bottom, white var(--fade-start, 58%), transparent 100%); -webkit-mask-image: linear-gradient(to bottom, white var(--fade-start, 58%), transparent 100%);"
+    />
+    <div class="absolute inset-x-8 sm:inset-x-12 bottom-8">
+      <div
+        class="bg-white/75 backdrop-blur-md rounded-2xl px-4 py-3 border border-white"
+      >
+        <p
+          class="leading-relaxed italic font-medium text-center"
+          style="font-family: Georgia, 'Times New Roman', serif;
+          color: #1F2937;
+          font-size: 0.875rem;
+          line-height: 1.5;"
+        >
+          {story}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Defaults for bottom fade position by breakpoint */
+  .narrative-crop {
+    --fade-start: 60%;
+  }
+  @media (min-width: 640px) {
+    .narrative-crop {
+      --fade-start: 58%;
+    }
+  }
+  @media (min-width: 768px) {
+    .narrative-crop {
+      --fade-start: 56%;
+    }
+  }
+
+  /* Edge fades on all sides to blend into white */
+  .narrative-crop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    --edge-fade: 20px;
+    background:
+      linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))
+        top/100% var(--edge-fade) no-repeat,
+      linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))
+        bottom/100% var(--edge-fade) no-repeat,
+      linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))
+        left/var(--edge-fade) 100% no-repeat,
+      linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))
+        right/var(--edge-fade) 100% no-repeat;
+  }
+</style>
