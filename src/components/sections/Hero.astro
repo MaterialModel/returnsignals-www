@@ -11,16 +11,16 @@ const { ctaUrl } = Astro.props;
 <FullViewportSection isFirst={true}>
   <div class="relative text-center pt-8 sm:pt-12">
     <div class="mx-auto max-w-4xl">
-      <h1 class="section-title px-4">
-        A post-purchase concierge for every order
+      <h1 class="section-title px-2 sm:px-4">
+        Post-purchase concierge for every order
       </h1>
 
       <p
-        class="section-description px-4 mt-8 sm:mt-10 text-lg w-full md:w-3/4 mx-auto"
+        class="section-description px-2 sm:px-4 mt-8 sm:mt-10 text-lg w-full md:w-3/4 mx-auto"
       >
         Return Signals uses AI over SMS (and photos when needed) to check in
         after delivery, resolve issues quickly, and reduce avoidable returns.<br
-        />When returns are unaviodable, we use customer-provided photos to make
+        /><br/>When returns are unaviodable, we use customer-provided photos to make
         intelligent item-level disposition decisions.
       </p>
 
@@ -31,10 +31,10 @@ const { ctaUrl } = Astro.props;
           href={ctaUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="btn btn-primary">Request pilot</a
+          class="btn btn-primary">Join Waitlist</a
         >
         <a href="#narrative-jacky" class="btn btn-secondary"
-          >Read the narrative</a
+          >See Examples</a
         >
       </div>
     </div>

@@ -63,10 +63,10 @@ const lastOutgoingIndex = (() => {
       class="sms-status-bar absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 pt-2 pb-1 text-[#111827]"
     >
       <span class="text-[10px] font-semibold sms-time-display">9:41</span>
-      <div class="flex items-center gap-0.5">
-        <img src="/icons/iphone-mock/signal.svg" alt="" class="w-3 h-3" />
-        <img src="/icons/iphone-mock/wifi.svg" alt="" class="w-3 h-3" />
-        <img src="/icons/iphone-mock/battery.svg" alt="" class="w-5 h-2.5" />
+      <div class="flex items-center">
+        <img src="/icons/iphone-mock/signal.svg" alt="" class="w-3 h-2 mr-1" />
+        <img src="/icons/iphone-mock/wifi.svg" alt="" class="w-3 h-2.5" />
+        <img src="/icons/iphone-mock/battery.svg" alt="" class="w-5 h-3" />
       </div>
     </div>
 
@@ -307,7 +307,7 @@ const lastOutgoingIndex = (() => {
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // Update time
+    // Update time display
     const timeDisplays = Array.from(
       document.querySelectorAll(".sms-time-display"),
     );
@@ -319,124 +319,109 @@ const lastOutgoingIndex = (() => {
       display.textContent = timeString;
     });
 
+    // Randomize unread counts
     const unreadCounts = Array.from(
       document.querySelectorAll(".sms-unread-count"),
     );
     unreadCounts.forEach((count) => {
       count.textContent = (Math.floor(Math.random() * 201) + 100).toString();
     });
-  });
 
-  document.addEventListener("DOMContentLoaded", () => {
+    // Autoplay animation
     const mockups = Array.from(document.querySelectorAll(".sms-mockup"));
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+    const MESSAGE_DELAY_MS = 700;
 
-    // Track the highest reveal count reached for each mockup (messages stay visible once shown)
-    const maxRevealReached = new WeakMap();
-    // Track which mockups have completed their animation (all messages revealed)
-    const completedMockups = new WeakSet();
+    const startedMockups = new WeakSet();
 
-    const updateMockup = (mockup) => {
+    const revealAll = (mockup) => {
       const bubbles = Array.from(mockup.querySelectorAll(".sms-bubble"));
       const times = Array.from(mockup.querySelectorAll(".sms-time"));
-      const total = bubbles.length;
-
-      if (prefersReducedMotion) {
-        bubbles.forEach((b) => b.classList.add("visible"));
-        times.forEach((t) => t.classList.add("visible"));
-        const container = mockup.querySelector(".sms-messages");
-        if (container) container.scrollTop = container.scrollHeight;
-        completedMockups.add(mockup);
-        return;
-      }
-
-      // If animation is complete, messages stay visible - don't recalculate
-      if (completedMockups.has(mockup)) {
-        return;
-      }
-
-      const isMobile = window.innerWidth < 1024;
-      const zone = isMobile
-        ? mockup
-        : mockup.closest(".sms-scrub-zone") || mockup;
-      const rect = zone.getBoundingClientRect();
-      const vh = window.innerHeight || 1;
-      const cs = window.getComputedStyle(zone);
-      const holdPx = parseFloat(cs.getPropertyValue("--sms-hold")) || 24;
-      const zoneHeight = Math.max(rect.height, vh);
-      const activeRange = Math.max(1, zoneHeight - vh - holdPx);
-      const raw = -rect.top / activeRange;
-      const progress = clamp(raw, 0, 1);
-
-      const calculatedRevealCount = Math.min(
-        total,
-        1 + Math.floor(progress * Math.max(1, total - 1)),
-      );
-
-      // Get the previous max and update to the higher value (messages only appear, never disappear)
-      const previousMax = maxRevealReached.get(mockup) || 0;
-      const revealCount = Math.max(calculatedRevealCount, previousMax);
-      maxRevealReached.set(mockup, revealCount);
-
-      // Only add 'visible' class, never remove it (one-way animation)
-      bubbles.forEach((b, i) => {
-        if (i < revealCount) b.classList.add("visible");
-      });
-      times.forEach((t, i) => {
-        if (i < revealCount) t.classList.add("visible");
-      });
-
+      const receipt = mockup.querySelector(".sms-receipt");
       const container = mockup.querySelector(".sms-messages");
-      if (container && bubbles.length) {
-        const targetIndex = clamp(revealCount - 1, 0, bubbles.length - 1);
-        const target = bubbles[targetIndex];
-        if (targetIndex === bubbles.length - 1) {
-          const targetPosition = target.offsetTop - container.clientHeight / 3;
-          container.scrollTop = Math.max(0, targetPosition);
-        } else {
-          const desiredBottom = target.offsetTop + target.offsetHeight;
-          const currentTop = container.scrollTop;
-          const viewportBottom = currentTop + container.clientHeight;
-          if (desiredBottom > viewportBottom) {
-            container.scrollTop = desiredBottom - container.clientHeight;
-          } else if (target.offsetTop < currentTop) {
-            container.scrollTop = target.offsetTop;
-          }
-        }
-      }
 
+      bubbles.forEach((b) => b.classList.add("visible"));
+      times.forEach((t) => t.classList.add("visible"));
+      if (receipt) receipt.classList.add("visible");
+      if (container) container.scrollTop = container.scrollHeight;
+    };
+
+    const startAutoplay = (mockup) => {
+      if (startedMockups.has(mockup)) return;
+      startedMockups.add(mockup);
+
+      const bubbles = Array.from(mockup.querySelectorAll(".sms-bubble"));
+      const times = Array.from(mockup.querySelectorAll(".sms-time"));
+      const container = mockup.querySelector(".sms-messages");
       const lastOutgoingAttr = mockup.getAttribute("data-last-outgoing");
       const lastOutgoing = lastOutgoingAttr ? parseInt(lastOutgoingAttr) : -1;
       const receipt = mockup.querySelector(".sms-receipt");
-      if (receipt) {
-        // Receipt also only appears, never disappears
-        if (lastOutgoing >= 0 && revealCount - 1 >= lastOutgoing)
+
+      if (prefersReducedMotion) {
+        revealAll(mockup);
+        return;
+      }
+
+      let currentIndex = 0;
+
+      const revealNext = () => {
+        if (currentIndex >= bubbles.length) return;
+
+        // Show timestamp if present for this message
+        const time = times[currentIndex];
+        if (time) time.classList.add("visible");
+
+        // Show the message bubble
+        bubbles[currentIndex].classList.add("visible");
+
+        // Show receipt after last outgoing message
+        if (receipt && currentIndex === lastOutgoing) {
           receipt.classList.add("visible");
-      }
+        }
 
-      // Mark as completed once all messages are revealed
-      if (revealCount >= total) {
-        completedMockups.add(mockup);
-      }
+        // Scroll container to keep message visible
+        if (container) {
+          const idx = currentIndex; // Capture before increment
+          // Small delay to let images render
+          setTimeout(() => {
+            const target = bubbles[idx];
+            if (!target) return;
+            const inputBarHeight = 80;
+            const targetBottom = target.offsetTop + target.offsetHeight;
+            const visibleHeight = container.clientHeight - inputBarHeight;
+            const scrollTarget = targetBottom - visibleHeight;
+            if (scrollTarget > container.scrollTop) {
+              container.scrollTop = scrollTarget;
+            }
+          }, 100);
+        }
+
+        currentIndex++;
+
+        if (currentIndex < bubbles.length) {
+          setTimeout(revealNext, MESSAGE_DELAY_MS);
+        }
+      };
+
+      // Start with first message visible immediately
+      revealNext();
     };
 
-    const onScroll = () => {
-      mockups.forEach(updateMockup);
-    };
+    // Use IntersectionObserver to start autoplay when mockup is in view
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) updateMockup(entry.target);
+          if (entry.isIntersecting) {
+            startAutoplay(entry.target);
+            observer.unobserve(entry.target);
+          }
         });
       },
-      { threshold: [0, 0.25, 0.5, 0.75, 1] },
+      { threshold: 0.5 }, // Start when 50% visible
     );
+
     mockups.forEach((m) => observer.observe(m));
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    onScroll();
   });
 </script>

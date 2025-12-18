@@ -14,32 +14,25 @@ const ctaUrl = "https://form.typeform.com/to/sJUkURjA";
 ---
 
 <BaseLayout
-  title="A post-purchase concierge for every order | Return Signals"
-  description="Return Signals uses AI over SMS to check in after delivery, resolve issues quickly, and reduce avoidable returns—with structured feedback for brands."
+  title="A post-purchase concierge for every order"
+  description="Return Signals uses AI over SMS (and photos when needed) to check in after delivery, resolve issues quickly, and reduce avoidable returns. When returns are unaviodable, we use customer-provided photos to make intelligent item-level disposition decisions"
 >
   <Header />
 
   <main id="main-content">
-    <!-- PARALLAX SECTIONS (1-3): Hero + Problem + What If -->
+    <!-- PARALLAX SECTIONS (1-2): Hero + Problem-->
     <ParallaxContainer>
       <Hero {ctaUrl} />
       <ProblemSection />
     </ParallaxContainer>
 
-    <!-- WHITE BACKGROUND SECTIONS (4-12) -->
+    <!-- WHITE BACKGROUND -->
 
-    <!-- SECTIONS 4-6: Narrative Sections -->
     <NarrativeSections />
-
-    <!-- SECTION 7: How It Works -->
     <HowItWorksSection />
-
-    <!-- SECTION 8: FAQ -->
     <FAQSection />
-
-    <!-- SECTION 12: Footer -->
-    <Footer />
   </main>
+  <Footer />
 </BaseLayout>
 
 <!-- Import scroll animations utility -->

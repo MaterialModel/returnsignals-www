@@ -43,46 +43,31 @@ const {
 
 <section {id} class={`bg-surface-base py-12 sm:py-16 ${className}`}>
   <div class="container-lg">
-    <div
-      class="sms-scrub-zone relative max-w-6xl mx-auto"
-      style={`--title-offset: 72px; --title-gap: 48px; --sms-steps: ${messages.length}; --sms-step: 24px; --sms-hold: 24px; min-height: calc(100vh + var(--sms-step) * var(--sms-steps) + var(--sms-hold));`}
-    >
-      <div class="sticky top-0">
-        <div style="height: var(--title-offset)"></div>
-        <h2
-          class="text-2xl sm:text-3xl lg:text-5xl font-semibold text-primary text-center max-w-4xl mx-auto"
-        >
-          {header}
-        </h2>
+    <div class="sms-scrub-zone relative max-w-6xl mx-auto">
+      <h2 class="section-title text-center max-w-4xl mx-auto px-4">
+        {header}
+      </h2>
 
+      <div
+        class="mt-8 sm:mt-10 lg:mt-12 mx-auto flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-center lg:gap-24"
+      >
+        <!-- SMS Mockup Wrapper -->
         <div
-          class="mt-[var(--title-gap)] mx-auto flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-center lg:gap-24 relative m-0 p-0"
+          class={`order-2 ${phoneOnLeft ? "lg:order-1" : "lg:order-2"} flex-none w-full flex justify-center lg:w-[290px]`}
         >
-          <!-- SMS Mockup Wrapper -->
-          <!-- 
-             FIX: Changed width from w-[352px] to w-[290px].
-             Math: max-height: 500px * (390/676 aspect ratio) ≈ 288.4px.
-             Rounding to 290px removes the "ghost space" causing the misalignment.
-          -->
-          <div
-            class={`order-2 ${phoneOnLeft ? "lg:order-1" : "lg:order-2"} flex-none w-[290px]`}
-          >
-            <!-- Added !w-full to ensure it fills the new tighter wrapper -->
-            <SMSMockup {messages} className="!mx-0 !w-full" />
-          </div>
+          <SMSMockup {messages} className="lg:!mx-0 lg:!w-full" />
+        </div>
 
-          <!-- Narrative Image Wrapper -->
-          <!-- Kept at 500px to match image height (Square) -->
-          <div
-            class={`order-1 ${phoneOnLeft ? "lg:order-2" : "lg:order-1"} flex-none w-full max-w-sm sm:max-w-md lg:w-[500px]`}
-          >
-            <NarrativeImage
-              src={narrativeImage}
-              alt={narrativeImageAlt}
-              story={story}
-              className="w-full h-full"
-            />
-          </div>
+        <!-- Narrative Image Wrapper -->
+        <div
+          class={`order-1 ${phoneOnLeft ? "lg:order-2" : "lg:order-1"} flex-none w-full max-w-sm sm:max-w-md lg:w-[500px]`}
+        >
+          <NarrativeImage
+            src={narrativeImage}
+            alt={narrativeImageAlt}
+            story={story}
+            className="w-full h-full"
+          />
         </div>
       </div>
     </div>
