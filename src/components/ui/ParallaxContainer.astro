@@ -23,13 +23,20 @@ const parallaxId = `parallax-${Math.random().toString(36).substring(2, 11)}`;
 <div class={`relative ${className}`}>
   <!-- Sticky parallax background that spans viewport while container scrolls -->
   <div class="absolute inset-0 -z-10">
-    <!-- Sticky viewport frame; overflow hidden so enlarged layer never shows gaps -->
-    <div class="sticky top-0 h-screen w-full overflow-hidden">
+    <!-- 
+      FIX 1: Changed 'h-screen' to 'h-[100dvh]' 
+      'dvh' (dynamic viewport height) resizes when the mobile address bar retracts.
+    -->
+    <div class="sticky top-0 h-[100dvh] w-full overflow-hidden">
       <!-- Moving layer is taller than viewport to prevent top/bottom gaps -->
       <div
         id={parallaxId}
         class="relative w-full will-change-transform"
-        style={`height: calc(100vh + ${parallaxMaxOffset * 2}px); transform: translate3d(0, ${-parallaxMaxOffset}px, 0);`}
+        style={`
+          /* FIX 2: Changed 100vh to 100dvh in calculation to match parent height */
+          height: calc(100dvh + ${parallaxMaxOffset * 2}px); 
+          transform: translate3d(0, ${-parallaxMaxOffset}px, 0);
+        `}
       >
         <picture>
           <source
@@ -82,6 +89,8 @@ const parallaxId = `parallax-${Math.random().toString(36).substring(2, 11)}`;
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    // Also update on resize to handle address bar changes more robustly
+    window.addEventListener("resize", onScroll, { passive: true });
     onScroll();
   }
 </script>
