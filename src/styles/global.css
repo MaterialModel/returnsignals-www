@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Custom Properties - mirrors Tailwind semantic tokens for use in scoped styles */
+:root {
+  /* Text colors */
+  --color-text-primary: rgb(15, 23, 42);      /* slate-900 */
+  --color-text-secondary: rgb(71, 85, 105);   /* slate-600 */
+  --color-text-tertiary: rgb(148, 163, 184);  /* slate-400 */
+  --color-text-inverse: #ffffff;
+
+  /* Surface colors */
+  --color-surface-base: #ffffff;
+  --color-surface-subtle: rgb(248, 250, 252); /* slate-50 */
+  --color-surface-elevated: rgb(241, 245, 249); /* slate-100 */
+  --color-surface-dark: rgb(15, 23, 42);      /* slate-900 */
+
+  /* Border colors */
+  --color-border: rgb(226, 232, 240);         /* slate-200 */
+  --color-border-subtle: rgba(226, 232, 240, 0.5);
+  --color-border-hover: rgb(203, 213, 225);   /* slate-300 */
+
+  /* Accent colors */
+  --color-accent-primary: rgb(15, 23, 42);
+  --color-accent-hover: rgb(30, 41, 59);
+  --color-accent-secondary: rgb(71, 85, 105);
+}
+
 /* Base typography and layout */
 @layer base {
   html {
