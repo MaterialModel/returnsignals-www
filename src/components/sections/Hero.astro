@@ -12,25 +12,25 @@ const flowSteps = [
   {
     id: "check-in",
     label: "Check in",
-    description: "A proactive SMS that feels human, not automated. Low-effort for the customer.",
+    description: "A proactive SMS that feels human, not automated.",
     icon: "chat" as const
   },
   {
     id: "follow-up",
     label: "Follow up",
-    description: "If they haven't tried it yet, no problem. Snooze, schedule, check back later.",
+    description: "If they haven't tried it yet, no problem. We'll reach out again later.",
     icon: "calendar" as const
   },
   {
     id: "resolve",
     label: "Resolve",
-    description: "Quick troubleshooting when possible. Photo confirmation when needed to see what they see.",
+    description: "Quick troubleshooting with customer-provided photos.",
     icon: "camera" as const
   },
   {
     id: "route",
     label: "Route",
-    description: "Exchange, return, scrap at customer, ship for rework, or restock—based on policy and item economics.",
+    description: "Need to exchange or return? Use photo evidence to decide: scrap at customer, ship for rework, or restock.",
     icon: "route" as const
   }
 ];
@@ -41,11 +41,15 @@ const flowSteps = [
     <div class="mx-auto max-w-4xl">
       <!-- Main headline -->
       <h1 class="hero-headline px-2 sm:px-4">
-        Post-purchase concierge for every order
+        Post-purchase concierge for every order.
       </h1>
 
+      <p class="hero-tagline mt-6 px-4">
+        Return Signals uses AI over SMS and photos to reduce returns and improve reverse logistics.
+      </p>
+
       <!-- Interactive Flow -->
-      <div class="mt-8 sm:mt-12 px-4" id="hero-flow">
+      <div class="mt-8 sm:mt-10 px-4" id="hero-flow">
         <!-- Flow Navigation -->
         <div class="flow-container">
           {flowSteps.map((step, index) => (
@@ -70,7 +74,7 @@ const flowSteps = [
         </div>
 
         <!-- Content panels -->
-        <div class="flow-content mt-6">
+        <div class="flow-content mt-0">
           {flowSteps.map((step, index) => (
             <div
               class={`flow-panel ${index === 0 ? 'flow-panel-active' : ''}`}
@@ -84,20 +88,20 @@ const flowSteps = [
       </div>
 
       <div
-        class="flex items-center justify-center gap-3 sm:gap-4 mt-10 sm:mt-12 flex-wrap"
+        class="flex items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-10 flex-wrap"
       >
         <a
           href={ctaUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="btn btn-primary">Join Waitlist</a
+          class="btn btn-primary">Book a Demo</a
         >
         <a href="#narrative-jacky" class="btn btn-secondary">See Examples</a>
       </div>
     </div>
 
     <!-- Trust -->
-    <div class="mx-auto flex items-center justify-center gap-3 mt-14 sm:mt-16">
+    <div class="mx-auto flex items-center justify-center gap-3 mt-12 sm:mt-14">
       <span class="text-sm text-secondary">Backed by</span>
       <img src="/images/ycombinator.png" alt="Y Combinator" class="h-5" />
     </div>
@@ -109,7 +113,7 @@ const flowSteps = [
   let currentStep = 0;
   let autoplayInterval: ReturnType<typeof setInterval> | null = null;
   let isPaused = false;
-  const STEP_DURATION = 2000; // 4 seconds per step
+  const STEP_DURATION = 4000; // 4 seconds per step
 
   function setActiveStep(stepId: string) {
     currentStep = flowSteps.indexOf(stepId);

@@ -155,7 +155,7 @@
 }
 
 .hero-tagline {
-  @apply text-lg sm:text-xl text-primary leading-relaxed max-w-2xl mx-auto;
+  @apply text-lg sm:text-xl text-primary leading-relaxed max-w-3xl mx-auto;
   font-weight: 400;
 }
 

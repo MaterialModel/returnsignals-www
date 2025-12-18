@@ -19,6 +19,10 @@ const jackyMessages: Message[] = [
     type: "incoming" as const,
     text: "No problem! I'll check back in a few days.",
   },
+  {
+    type: "incoming" as const,
+    text: "Just checking back in. Did you get a chance to try on the wrap dress?",
+  },
   { type: "outgoing" as const, text: "Neckline gaps more than I hoped" },
   {
     type: "incoming" as const,
@@ -83,7 +87,7 @@ const priyaMessages: Message[] = [
 <NarrativeSection
   id="narrative-jacky"
   phoneOnLeft={true}
-  header="Sometimes customers just need a quick fix."
+  header="Reduce returns by fixing the problem, not the order."
   story="Jacky buys a wrap dress. It arrives. She gets a text asking how it fits. She hasn't tried it on yet, so Return Signals schedules a follow-up. When she tries it, the neckline gaps more than she hoped. Return Signals suggests a couple quick options—adjust the tie/fit or use fashion tape or a discreet pin. It works—she avoids returning the item and feels cared for."
   messages={jackyMessages}
   narrativeImage="/images/narrative/woman-in-wrap-dress.jpg"
@@ -95,7 +99,7 @@ const priyaMessages: Message[] = [
 <NarrativeSection
   id="narrative-bob"
   phoneOnLeft={false}
-  header="Sometimes, text is not enough."
+  header="Make the right return decision, immediately"
   story="Bob buys a gym shirt. Looks great—until a 5-mile run leaves a painful mark. Return Signals asks a couple diagnostic questions, suspects a seam defect, and requests a photo. After visual confirmation, it offers an exchange. A costly return becomes a targeted exchange instead."
   messages={bobMessages}
   narrativeImage="/images/narrative/man-running.jpg"
@@ -107,7 +111,7 @@ const priyaMessages: Message[] = [
 <NarrativeSection
   id="narrative-priya"
   phoneOnLeft={true}
-  header="At-customer disposition means cheaper reverse logistics."
+  header="Decide disposition earlier. Spend less downstream."
   story="Priya buys low-cost leggings. They arrive with a tear along the waistband seam. She wants to return them. Return Signals asks for a quick photo, confirms the damage, and ships a replacement immediately. Because the item can't be resold, Priya is asked to dispose of it (scrap at customer). Priya gets a fast resolution without a hassle, and the vendor avoids reverse logistics fees and processing time."
   messages={priyaMessages}
   narrativeImage="/images/narrative/priya-in-leggings.jpg"
