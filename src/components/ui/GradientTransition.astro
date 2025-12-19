@@ -1,0 +1,26 @@
+---
+// GradientTransition component
+// Provides a smooth fade from dark animated gradient to white sections
+---
+
+<div class="gradient-transition" aria-hidden="true"></div>
+
+<style>
+  .gradient-transition {
+    position: relative;
+    width: 100%;
+    height: 8rem; /* 128px */
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(255, 255, 255) 100%
+    );
+    z-index: 0;
+  }
+
+  @media (min-width: 640px) {
+    .gradient-transition {
+      height: 12rem; /* 192px */
+    }
+  }
+</style>

@@ -4,7 +4,6 @@ import Header from "@components/shared/Header.astro";
 import Footer from "@components/shared/Footer.astro";
 import Hero from "@components/sections/Hero.astro";
 import ProblemSection from "@components/sections/ProblemSection.astro";
-import ParallaxContainer from "@components/ui/ParallaxContainer.astro";
 import NarrativeSections from "@components/sections/NarrativeSections.astro";
 import CTASection from "@components/sections/CTASection.astro";
 import FAQSection from "@components/sections/FAQSection.astro";
@@ -20,14 +19,8 @@ const ctaUrl = "https://calendar.app.google/rpRK3FXE425PPkaS7";
   <Header />
 
   <main id="main-content">
-    <!-- PARALLAX SECTIONS (1-2): Hero + Problem-->
-    <ParallaxContainer>
-      <Hero {ctaUrl} />
-      <ProblemSection />
-    </ParallaxContainer>
-
-    <!-- WHITE BACKGROUND -->
-
+    <Hero {ctaUrl} />
+    <ProblemSection />
     <NarrativeSections />
     <CTASection {ctaUrl} />
     <FAQSection />
