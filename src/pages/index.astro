@@ -7,6 +7,7 @@ import ProblemSection from "@components/sections/ProblemSection.astro";
 import NarrativeSections from "@components/sections/NarrativeSections.astro";
 import CTASection from "@components/sections/CTASection.astro";
 import FAQSection from "@components/sections/FAQSection.astro";
+import AnalyticsPlatformSection from "@components/sections/AnalyticsPlatformSection.astro";
 
 // CTA URL (update this to your external form link)
 const ctaUrl = "https://calendar.app.google/rpRK3FXE425PPkaS7";
@@ -22,6 +23,23 @@ const ctaUrl = "https://calendar.app.google/rpRK3FXE425PPkaS7";
     <Hero {ctaUrl} />
     <ProblemSection />
     <NarrativeSections />
+
+    <!-- Analytics Platform Preview Section -->
+    <section class="section">
+      <div class="text-center mb-12 animate-on-scroll">
+        <p class="eyebrow mb-4">Analytics Platform</p>
+        <h2 class="section-title mb-6">
+          Turn customer signals into actionable insights
+        </h2>
+        <p class="section-description max-w-3xl mx-auto">
+          Our analytics dashboard surfaces patterns in returns, complaints, and
+          customer behavior—helping you reduce costs and improve products.
+        </p>
+      </div>
+
+      <AnalyticsPlatformSection className="animate-on-scroll" />
+    </section>
+
     <CTASection {ctaUrl} />
     <FAQSection />
   </main>

@@ -1,0 +1,81 @@
+---
+/**
+ * Overview View - Dashboard snapshot
+ */
+---
+
+<div class="overview-view">
+  <!-- KPI Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div
+      class="kpi-card bg-surface-base border border-border rounded-lg p-4 hover:shadow-md transition-all cursor-pointer"
+    >
+      <div class="text-sm text-secondary mb-1">Returns Prevented</div>
+      <div class="text-2xl font-bold text-primary">847</div>
+      <div class="text-xs text-accent-success mt-1">+12% vs last month</div>
+    </div>
+    <div
+      class="kpi-card bg-surface-base border border-border rounded-lg p-4 hover:shadow-md transition-all cursor-pointer"
+    >
+      <div class="text-sm text-secondary mb-1">Cost Saved</div>
+      <div class="text-2xl font-bold text-primary">$31.2K</div>
+      <div class="text-xs text-accent-success mt-1">+8% vs last month</div>
+    </div>
+    <div
+      class="kpi-card bg-surface-base border border-border rounded-lg p-4 hover:shadow-md transition-all cursor-pointer"
+    >
+      <div class="text-sm text-secondary mb-1">Active Check-ins</div>
+      <div class="text-2xl font-bold text-primary">1,247</div>
+      <div class="text-xs text-secondary mt-1">Awaiting response</div>
+    </div>
+    <div
+      class="kpi-card bg-surface-base border border-border rounded-lg p-4 hover:shadow-md transition-all cursor-pointer"
+    >
+      <div class="text-sm text-secondary mb-1">Response Rate</div>
+      <div class="text-2xl font-bold text-primary">73%</div>
+      <div class="text-xs text-accent-success mt-1">+5% vs last month</div>
+    </div>
+  </div>
+
+  <!-- Activity Feed -->
+  <div class="bg-surface-base border border-border rounded-lg p-4">
+    <h3 class="text-sm font-semibold text-primary mb-4">Recent Activity</h3>
+    <div class="space-y-3">
+      <div class="activity-item flex items-start gap-3 text-sm">
+        <div
+          class="w-2 h-2 rounded-full bg-accent-success mt-1.5 flex-shrink-0"
+        >
+        </div>
+        <div class="flex-1">
+          <span class="text-primary font-medium">Return prevented</span>
+          <span class="text-secondary">
+            • Classic Tee • Fit advice provided</span
+          >
+          <div class="text-xs text-tertiary mt-0.5">2 minutes ago</div>
+        </div>
+      </div>
+      <div class="activity-item flex items-start gap-3 text-sm">
+        <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0">
+        </div>
+        <div class="flex-1">
+          <span class="text-primary font-medium">Exchange initiated</span>
+          <span class="text-secondary">
+            • Wrap Dress • Photo confirmed defect</span
+          >
+          <div class="text-xs text-tertiary mt-0.5">15 minutes ago</div>
+        </div>
+      </div>
+      <div class="activity-item flex items-start gap-3 text-sm">
+        <div class="w-2 h-2 rounded-full bg-amber-500 mt-1.5 flex-shrink-0">
+        </div>
+        <div class="flex-1">
+          <span class="text-primary font-medium">At-customer disposal</span>
+          <span class="text-secondary">
+            • Athletic Leggings • Damaged item</span
+          >
+          <div class="text-xs text-tertiary mt-0.5">1 hour ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

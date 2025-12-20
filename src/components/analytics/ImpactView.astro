@@ -1,0 +1,185 @@
+---
+/**
+ * Impact View - Cost savings and ROI
+ */
+---
+
+<div class="impact-view">
+  <!-- Total Savings Summary -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div
+      class="stat-card bg-gradient-to-br from-accent-success/5 to-accent-success/10 border-2 border-accent-success/20 rounded-lg p-5"
+    >
+      <div class="text-sm text-secondary mb-1">Total Cost Saved</div>
+      <div class="text-3xl font-bold text-primary">$31,247</div>
+      <div class="text-xs text-accent-success mt-1">Last 30 days</div>
+    </div>
+    <div class="stat-card bg-surface-base border border-border rounded-lg p-5">
+      <div class="text-sm text-secondary mb-1">Returns Prevented</div>
+      <div class="text-3xl font-bold text-primary">847</div>
+      <div class="text-xs text-accent-success mt-1">@ $27 avg cost/return</div>
+    </div>
+    <div class="stat-card bg-surface-base border border-border rounded-lg p-5">
+      <div class="text-sm text-secondary mb-1">ROI</div>
+      <div class="text-3xl font-bold text-primary">4.2x</div>
+      <div class="text-xs text-secondary mt-1">Program cost: $7,450</div>
+    </div>
+  </div>
+
+  <!-- Cost Savings Breakdown -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="bg-surface-base border border-border rounded-lg p-6">
+      <h3 class="text-sm font-semibold text-primary mb-4">
+        Savings by Category
+      </h3>
+      <div class="space-y-4">
+        <div class="savings-item">
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <div class="text-sm font-medium text-primary">
+                Returns Prevented
+              </div>
+              <div class="text-xs text-secondary">847 items @ $27 each</div>
+            </div>
+            <span class="text-lg font-bold text-accent-success">$22,869</span>
+          </div>
+          <div class="h-2 bg-surface-elevated rounded-full overflow-hidden">
+            <div
+              class="h-full bg-accent-success rounded-full"
+              style="width: 73%"
+            >
+            </div>
+          </div>
+        </div>
+        <div class="savings-item">
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <div class="text-sm font-medium text-primary">
+                At-Customer Disposal
+              </div>
+              <div class="text-xs text-secondary">
+                412 items @ $12 shipping saved
+              </div>
+            </div>
+            <span class="text-lg font-bold text-accent-success">$4,944</span>
+          </div>
+          <div class="h-2 bg-surface-elevated rounded-full overflow-hidden">
+            <div class="h-full bg-blue-500 rounded-full" style="width: 16%">
+            </div>
+          </div>
+        </div>
+        <div class="savings-item">
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <div class="text-sm font-medium text-primary">
+                Inspection Cost Avoided
+              </div>
+              <div class="text-xs text-secondary">
+                630 items @ $5 per inspection
+              </div>
+            </div>
+            <span class="text-lg font-bold text-accent-success">$3,150</span>
+          </div>
+          <div class="h-2 bg-surface-elevated rounded-full overflow-hidden">
+            <div class="h-full bg-amber-500 rounded-full" style="width: 10%">
+            </div>
+          </div>
+        </div>
+        <div class="savings-item pt-3 border-t border-border">
+          <div class="flex items-center justify-between">
+            <div class="text-sm font-semibold text-secondary">Program Cost</div>
+            <span class="text-lg font-bold text-secondary">-$7,450</span>
+          </div>
+        </div>
+        <div class="savings-item pt-2">
+          <div class="flex items-center justify-between">
+            <div class="text-base font-bold text-primary">Net Savings</div>
+            <span class="text-2xl font-bold text-accent-success">$23,513</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-surface-base border border-border rounded-lg p-6">
+      <h3 class="text-sm font-semibold text-primary mb-4">
+        Prevention Breakdown
+      </h3>
+      <div class="space-y-3">
+        <div
+          class="prevention-item p-3 bg-surface-subtle rounded-lg hover:bg-surface-elevated cursor-pointer transition-colors"
+        >
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm font-medium text-primary"
+              >Fit Advice Resolved</span
+            >
+            <span class="text-sm font-bold text-primary">412</span>
+          </div>
+          <div class="text-xs text-secondary">
+            Sizing guidance, styling tips
+          </div>
+          <div class="mt-2 text-xs text-accent-success">Saved: $11,124</div>
+        </div>
+        <div
+          class="prevention-item p-3 bg-surface-subtle rounded-lg hover:bg-surface-elevated cursor-pointer transition-colors"
+        >
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm font-medium text-primary">Usage Guidance</span>
+            <span class="text-sm font-bold text-primary">278</span>
+          </div>
+          <div class="text-xs text-secondary">
+            Care instructions, troubleshooting
+          </div>
+          <div class="mt-2 text-xs text-accent-success">Saved: $7,506</div>
+        </div>
+        <div
+          class="prevention-item p-3 bg-surface-subtle rounded-lg hover:bg-surface-elevated cursor-pointer transition-colors"
+        >
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm font-medium text-primary"
+              >Photo Confirmed OK</span
+            >
+            <span class="text-sm font-bold text-primary">157</span>
+          </div>
+          <div class="text-xs text-secondary">
+            Customer concern, no actual defect
+          </div>
+          <div class="mt-2 text-xs text-accent-success">Saved: $4,239</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROI Comparison -->
+  <div
+    class="bg-gradient-to-br from-accent-primary/5 to-accent-primary/10 border border-accent-primary/20 rounded-lg p-6"
+  >
+    <div class="flex items-start justify-between gap-4 flex-wrap">
+      <div>
+        <h3 class="text-base font-semibold text-primary mb-2">
+          30-Day Program Performance
+        </h3>
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-secondary">Total Savings:</span>
+            <span class="text-lg font-bold text-accent-success">$31,247</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-secondary">Program Cost:</span>
+            <span class="text-lg font-bold text-primary">$7,450</span>
+          </div>
+          <div
+            class="flex items-center gap-2 pt-2 border-t border-accent-primary/20"
+          >
+            <span class="text-sm font-semibold text-primary">Net Impact:</span>
+            <span class="text-2xl font-bold text-accent-success">$23,513</span>
+          </div>
+        </div>
+      </div>
+      <div class="text-right">
+        <div class="text-sm text-secondary mb-1">ROI</div>
+        <div class="text-4xl font-bold text-accent-primary">4.2x</div>
+        <div class="text-xs text-secondary mt-1">Return on investment</div>
+      </div>
+    </div>
+  </div>
+</div>
