@@ -37,43 +37,162 @@
     </div>
   </div>
 
-  <!-- Activity Feed -->
-  <div class="bg-surface-base border border-border rounded-lg p-4">
-    <h3 class="text-sm font-semibold text-primary mb-4">Recent Activity</h3>
-    <div class="space-y-3">
-      <div class="activity-item flex items-start gap-3 text-sm">
+  <!-- Activity Feed & Impact Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+    <div class="bg-surface-base border border-border rounded-lg p-4">
+      <h3 class="text-sm font-semibold text-primary mb-4">Recent Activity</h3>
+      <div class="space-y-3">
+        <div class="activity-item flex items-start gap-3 text-sm">
+          <div
+            class="w-2 h-2 rounded-full bg-accent-success mt-1.5 flex-shrink-0"
+          >
+          </div>
+          <div class="flex-1">
+            <span class="text-primary font-medium">Return prevented</span>
+            <span class="text-secondary"> • Classic Tee • Fit advice</span>
+            <div class="text-xs text-tertiary mt-0.5">2 minutes ago</div>
+          </div>
+        </div>
+        <div class="activity-item flex items-start gap-3 text-sm">
+          <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0">
+          </div>
+          <div class="flex-1">
+            <span class="text-primary font-medium">Exchange initiated</span>
+            <span class="text-secondary"> • Wrap Dress • Photo confirmed</span>
+            <div class="text-xs text-tertiary mt-0.5">15 minutes ago</div>
+          </div>
+        </div>
+        <div class="activity-item flex items-start gap-3 text-sm">
+          <div class="w-2 h-2 rounded-full bg-amber-500 mt-1.5 flex-shrink-0">
+          </div>
+          <div class="flex-1">
+            <span class="text-primary font-medium">At-customer disposal</span>
+            <span class="text-secondary"> • Leggings • Damaged</span>
+            <div class="text-xs text-tertiary mt-0.5">1 hour ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI Summary -->
+    <div
+      class="bg-gradient-to-br from-accent-primary/5 to-accent-primary/10 border border-accent-primary/20 rounded-lg p-4"
+    >
+      <h3 class="text-sm font-semibold text-primary mb-3">30-Day Impact</h3>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-secondary">Total Savings:</span>
+          <span class="text-base font-bold text-accent-success">$31,247</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-secondary">Program Cost:</span>
+          <span class="text-base font-bold text-primary">$7,450</span>
+        </div>
         <div
-          class="w-2 h-2 rounded-full bg-accent-success mt-1.5 flex-shrink-0"
+          class="flex items-center justify-between pt-2 border-t border-accent-primary/20"
         >
+          <span class="text-xs font-semibold text-primary">Net Impact:</span>
+          <span class="text-xl font-bold text-accent-success">$23,513</span>
         </div>
-        <div class="flex-1">
-          <span class="text-primary font-medium">Return prevented</span>
-          <span class="text-secondary">
-            • Classic Tee • Fit advice provided</span
-          >
-          <div class="text-xs text-tertiary mt-0.5">2 minutes ago</div>
-        </div>
-      </div>
-      <div class="activity-item flex items-start gap-3 text-sm">
-        <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0">
-        </div>
-        <div class="flex-1">
-          <span class="text-primary font-medium">Exchange initiated</span>
-          <span class="text-secondary">
-            • Wrap Dress • Photo confirmed defect</span
-          >
-          <div class="text-xs text-tertiary mt-0.5">15 minutes ago</div>
+        <div class="flex items-center justify-between pt-2">
+          <span class="text-xs text-secondary">ROI:</span>
+          <span class="text-2xl font-bold text-accent-primary">4.2x</span>
         </div>
       </div>
-      <div class="activity-item flex items-start gap-3 text-sm">
-        <div class="w-2 h-2 rounded-full bg-amber-500 mt-1.5 flex-shrink-0">
+    </div>
+  </div>
+
+  <!-- Detailed Impact Breakdown -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-surface-base border border-border rounded-lg p-4">
+      <h3 class="text-sm font-semibold text-primary mb-4">Savings Breakdown</h3>
+      <div class="space-y-3">
+        <div class="savings-item">
+          <div class="flex items-center justify-between mb-1.5">
+            <div>
+              <div class="text-sm font-medium text-primary">
+                Returns Prevented
+              </div>
+              <div class="text-xs text-secondary">847 items @ $27 each</div>
+            </div>
+            <span class="text-base font-bold text-accent-success">$22,869</span>
+          </div>
+          <div class="h-1.5 bg-surface-elevated rounded-full overflow-hidden">
+            <div
+              class="h-full bg-accent-success rounded-full"
+              style="width: 73%"
+            >
+            </div>
+          </div>
         </div>
-        <div class="flex-1">
-          <span class="text-primary font-medium">At-customer disposal</span>
-          <span class="text-secondary">
-            • Athletic Leggings • Damaged item</span
-          >
-          <div class="text-xs text-tertiary mt-0.5">1 hour ago</div>
+        <div class="savings-item">
+          <div class="flex items-center justify-between mb-1.5">
+            <div>
+              <div class="text-sm font-medium text-primary">
+                At-Customer Disposal
+              </div>
+              <div class="text-xs text-secondary">412 items @ $12 saved</div>
+            </div>
+            <span class="text-base font-bold text-accent-success">$4,944</span>
+          </div>
+          <div class="h-1.5 bg-surface-elevated rounded-full overflow-hidden">
+            <div class="h-full bg-blue-500 rounded-full" style="width: 16%">
+            </div>
+          </div>
+        </div>
+        <div class="savings-item">
+          <div class="flex items-center justify-between mb-1.5">
+            <div>
+              <div class="text-sm font-medium text-primary">
+                Inspection Avoided
+              </div>
+              <div class="text-xs text-secondary">630 items @ $5 each</div>
+            </div>
+            <span class="text-base font-bold text-accent-success">$3,150</span>
+          </div>
+          <div class="h-1.5 bg-surface-elevated rounded-full overflow-hidden">
+            <div class="h-full bg-amber-500 rounded-full" style="width: 10%">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-surface-base border border-border rounded-lg p-4">
+      <h3 class="text-sm font-semibold text-primary mb-4">
+        Prevention Methods
+      </h3>
+      <div class="space-y-2">
+        <div
+          class="prevention-item p-2 bg-surface-subtle rounded hover:bg-surface-elevated cursor-pointer transition-colors"
+        >
+          <div class="flex items-center justify-between mb-0.5">
+            <span class="text-sm font-medium text-primary">Fit Advice</span>
+            <span class="text-sm font-bold text-primary">412</span>
+          </div>
+          <div class="text-xs text-secondary">Sizing, styling tips</div>
+          <div class="text-xs text-accent-success mt-1">Saved: $11,124</div>
+        </div>
+        <div
+          class="prevention-item p-2 bg-surface-subtle rounded hover:bg-surface-elevated cursor-pointer transition-colors"
+        >
+          <div class="flex items-center justify-between mb-0.5">
+            <span class="text-sm font-medium text-primary">Usage Guidance</span>
+            <span class="text-sm font-bold text-primary">278</span>
+          </div>
+          <div class="text-xs text-secondary">Care instructions</div>
+          <div class="text-xs text-accent-success mt-1">Saved: $7,506</div>
+        </div>
+        <div
+          class="prevention-item p-2 bg-surface-subtle rounded hover:bg-surface-elevated cursor-pointer transition-colors"
+        >
+          <div class="flex items-center justify-between mb-0.5">
+            <span class="text-sm font-medium text-primary">Photo Confirmed</span
+            >
+            <span class="text-sm font-bold text-primary">157</span>
+          </div>
+          <div class="text-xs text-secondary">No defect found</div>
+          <div class="text-xs text-accent-success mt-1">Saved: $4,239</div>
         </div>
       </div>
     </div>

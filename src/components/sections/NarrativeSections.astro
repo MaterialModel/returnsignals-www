@@ -78,7 +78,7 @@ const bobMessages: Message[] = [
   },
 ];
 
-// Narrative 3: Priya - At-customer disposition
+// Narrative 3: Priya - Color preference exchange
 const priyaMessages: Message[] = [
   {
     type: "incoming" as const,
@@ -86,26 +86,43 @@ const priyaMessages: Message[] = [
   },
   {
     type: "outgoing" as const,
-    text: "The waistband seam is torn. Your quality sucks.",
+    text: "The fit is perfect but the color is way too dark. Not what I expected.",
   },
   {
     type: "incoming" as const,
-    text: "I’m so sorry about that. Can you send a quick photo of the tear so I can confirm and fix this right away?",
+    text: "Can you send a quick photo so I can see the color?",
   },
   {
     type: "outgoing" as const,
     content: "image" as const,
-    imageSrc: "/images/narrative/torn-pruple-legging.jpg",
-    imageAlt: "Photo of torn leggings",
+    imageSrc: "/images/narrative/purple-leggings.jpg",
+    imageAlt: "Photo of dark purple leggings",
   },
   {
     type: "incoming" as const,
-    text: "Confirmed damage. I’m sending a replacement immediately. No need to ship the damaged pair back—please dispose of it.",
+    text: "Got it. What kind of shade were you hoping for? I can help find the right match.",
   },
-  { type: "outgoing" as const, text: "Thanks, at least you're making it easy" },
+  {
+    type: "outgoing" as const,
+    text: "Same shape and fit, but a lighter purple. Something softer.",
+  },
   {
     type: "incoming" as const,
-    text: "Of course. You’ll see the replacement confirmation shortly.",
+    text: "Perfect! How about our lavender option? Sending you a photo:",
+  },
+  {
+    type: "incoming" as const,
+    content: "image" as const,
+    imageSrc: "/images/narrative/lighter-purple-leggings.jpg",
+    imageAlt: "Photo of lavender leggings",
+  },
+  {
+    type: "outgoing" as const,
+    text: "Yes! That's exactly what I wanted.",
+  },
+  {
+    type: "incoming" as const,
+    text: "Great! I'm setting up an exchange now. You'll get the lavender pair with a return label and box for the darker ones.",
   },
 ];
 ---
@@ -134,14 +151,14 @@ const priyaMessages: Message[] = [
   callout="At-customer visual triage that turns “maybe return” into the right disposition decision in minutes."
 />
 
-<!-- SECTION 6: Narrative - Priya (At-Customer Disposition) -->
+<!-- SECTION 6: Narrative - Priya (Color-Based Exchange) -->
 <NarrativeSection
   id="narrative-priya"
   phoneOnLeft={true}
-  header="Decide disposition earlier. Spend less downstream."
-  story="Priya’s leggings arrive with a torn waistband seam. A quick photo confirms damage, so Return Signals ships a replacement and recommends at-customer disposal. Priya gets a fast resolution, and the brand avoids reverse logistics costs."
+  header="Turn 'not quite right' into the perfect match."
+  story="Priya's leggings fit perfectly, but the color is darker than expected. Return Signals helps her articulate what she wants, sends a photo of a lighter option, and sets up an exchange."
   messages={priyaMessages}
   narrativeImage="/images/narrative/priya-in-leggings.jpg"
   narrativeImageAlt="Woman wearing athletic leggings"
-  callout="With at-customer visual inspection you get fewer shipments, fewer warehouse touches, and fewer refunds that should have been exchanges."
+  callout="Visual product discovery turns vague 'not what I expected' into confident exchanges."
 />

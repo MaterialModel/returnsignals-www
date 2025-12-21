@@ -9,7 +9,6 @@
 import OverviewView from "@components/analytics/OverviewView.astro";
 import InterventionsView from "@components/analytics/InterventionsView.astro";
 import ProductsView from "@components/analytics/ProductsView.astro";
-import ImpactView from "@components/analytics/ImpactView.astro";
 import ConfigurationView from "@components/analytics/ConfigurationView.astro";
 
 interface Props {
@@ -136,23 +135,6 @@ const { className = "" } = Astro.props;
               ></path>
             </svg>
             Products
-          </button>
-          <button data-view="impact" class="nav-item">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-              ></path>
-            </svg>
-            Impact
           </button>
           <button data-view="configuration" class="nav-item">
             <svg
@@ -307,9 +289,6 @@ const { className = "" } = Astro.props;
           <div data-view-content="products" class="view-content">
             <ProductsView />
           </div>
-          <div data-view-content="impact" class="view-content">
-            <ImpactView />
-          </div>
           <div data-view-content="configuration" class="view-content">
             <ConfigurationView />
           </div>
@@ -428,23 +407,6 @@ const { className = "" } = Astro.props;
                 ></path>
               </svg>
               Products
-            </button>
-            <button data-view="impact" class="nav-item mobile-nav-item">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                ></path>
-              </svg>
-              Impact
             </button>
             <button data-view="configuration" class="nav-item mobile-nav-item">
               <svg
@@ -625,7 +587,7 @@ const { className = "" } = Astro.props;
     const viewTitles = {
       overview: {
         title: "Overview",
-        subtitle: "Prevention • Intervention • Insights",
+        subtitle: "Prevention • Impact • Insights",
       },
       interventions: {
         title: "Interventions",
@@ -635,7 +597,6 @@ const { className = "" } = Astro.props;
         title: "Products",
         subtitle: "SKU-level Intelligence • Trends",
       },
-      impact: { title: "Impact", subtitle: "Cost Savings • ROI • Metrics" },
       configuration: {
         title: "Configuration",
         subtitle: "Brand Voice • Policies • Settings",
