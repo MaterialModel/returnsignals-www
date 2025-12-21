@@ -25,8 +25,95 @@ const { className = "" } = Astro.props;
 >
   <!-- Analytics Container -->
   <div
-    class="analytics-container mx-auto max-w-[1100px] bg-surface-base border border-border rounded-xl shadow-2xl overflow-hidden"
+    class="analytics-container mx-auto max-w-[1100px] bg-surface-base border border-border rounded-xl shadow-2xl overflow-hidden relative"
   >
+    <!-- Onboarding Overlay (closeable) - inside container -->
+    <div
+      class="onboarding-overlay absolute inset-0 bg-black/40 z-50 pointer-events-none rounded-xl"
+      id="analytics-onboarding"
+    >
+      <!-- Desktop: Arrow to sidebar -->
+      <div class="hidden sm:block absolute left-52 top-1/4 pointer-events-auto">
+        <div class="bg-white rounded-xl shadow-2xl p-6 max-w-xs relative">
+          <div class="text-center mb-4">
+            <div
+              class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent-primary/10 mb-3"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-accent-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-primary mb-2">
+              Explore sections
+            </h3>
+            <p class="text-sm text-secondary leading-relaxed mb-4">
+              Click the navigation items to view different sections
+            </p>
+            <button class="close-onboarding btn btn-primary w-full"
+              >Got it</button
+            >
+          </div>
+          <!-- Arrow pointing left -->
+          <div class="absolute right-full top-10 mr-3">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path
+                d="M24 12 L4 12 L10 6 M4 12 L10 18"
+                stroke="white"
+                stroke-width="2.5"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile: No arrow, centered -->
+      <div
+        class="sm:hidden absolute top-20 left-1/2 -translate-x-1/2 px-4 w-full max-w-xs pointer-events-auto"
+      >
+        <div class="bg-white rounded-xl shadow-2xl p-6">
+          <div class="text-center">
+            <div
+              class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent-primary/10 mb-3"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-accent-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-primary mb-2">
+              Tap ☰ to explore
+            </h3>
+            <p class="text-sm text-secondary leading-relaxed mb-4">
+              Open the menu to view different sections
+            </p>
+            <button class="close-onboarding btn btn-primary w-full"
+              >Got it</button
+            >
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Desktop Hint Banner -->
     <div
       class="desktop-hint hidden sm:block bg-accent-primary/5 border-b border-accent-primary/20 px-6 py-2"
@@ -555,6 +642,26 @@ const { className = "" } = Astro.props;
     );
   }
 
+  /* Onboarding overlay */
+  .onboarding-overlay {
+    transition: opacity 300ms ease-out;
+  }
+
+  .onboarding-overlay .bg-white {
+    animation: slideIn 400ms ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   @media (max-width: 640px) {
     .app-layout {
       height: 550px;
@@ -704,5 +811,45 @@ const { className = "" } = Astro.props;
       // Set initial view
       switchView(container, "overview");
     });
+
+    // Onboarding overlay logic
+    const onboardingOverlay = document.getElementById("analytics-onboarding");
+    const closeButtons = document.querySelectorAll(".close-onboarding");
+
+    // Check if user has seen the onboarding
+    const hasSeenOnboarding = localStorage.getItem("analytics-onboarding-seen");
+
+    if (hasSeenOnboarding) {
+      // Hide overlay if already seen
+      if (onboardingOverlay) {
+        onboardingOverlay.style.display = "none";
+      }
+    }
+
+    // Close overlay and save preference
+    closeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (onboardingOverlay) {
+          onboardingOverlay.style.opacity = "0";
+          setTimeout(() => {
+            onboardingOverlay.style.display = "none";
+          }, 300);
+        }
+        localStorage.setItem("analytics-onboarding-seen", "true");
+      });
+    });
+
+    // Also close when clicking the overlay background
+    if (onboardingOverlay) {
+      onboardingOverlay.addEventListener("click", (e) => {
+        if (e.target === onboardingOverlay) {
+          onboardingOverlay.style.opacity = "0";
+          setTimeout(() => {
+            onboardingOverlay.style.display = "none";
+          }, 300);
+          localStorage.setItem("analytics-onboarding-seen", "true");
+        }
+      });
+    }
   });
 </script>
