@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.returnsignals.com/sitemap-index.xml
+llms-txt: https://www.returnsignals.com/llms.txt

@@ -43,6 +43,11 @@ coverage/
 .parcel-cache/
 .turbo/
 
+# Auto-generated llms.txt markdown files (from MDX sources)
+public/privacy.md
+public/security.md
+public/terms.md
+
 # Misc
 .claude
 *.local

@@ -90,6 +90,9 @@ jobs:
           # HTML files - shorter cache for content updates
           gsutil -m setmeta -h "Cache-Control:public, max-age=300, must-revalidate" gs://${BUCKET}/**.html || true
 
+          # Markdown and text files (llms.txt standard) - short cache like HTML
+          gsutil -m setmeta -h "Cache-Control:public, max-age=300, must-revalidate" gs://${BUCKET}/**.md gs://${BUCKET}/**.txt || true
+
           # Index page - no cache
           gsutil setmeta -h "Cache-Control:no-cache, no-store, must-revalidate" gs://${BUCKET}/index.html || true
 
