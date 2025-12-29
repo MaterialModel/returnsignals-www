@@ -102,6 +102,8 @@ All client-side environment variables must start with `PUBLIC_`:
 
 ### CSS/Styling
 
+📖 **See [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) for complete theme documentation**
+
 - Use Tailwind utility classes with semantic design tokens
 - **CRITICAL**: Never use hardcoded color values (gray-_, slate-_, blue-\*, etc.)
 - Always use semantic tokens defined in `tailwind.config.mjs`:
@@ -155,14 +157,15 @@ All client-side environment variables must start with `PUBLIC_`:
 
 When working with this codebase:
 
-1. Always check existing patterns before creating new components
-2. Prefer editing existing files over creating new ones
-3. Follow the established directory structure
-4. Maintain consistency with existing code style
-5. **NEVER use hardcoded colors** - always use semantic tokens
-6. Run `npm run lint` and `npm run format` before committing
-7. Test changes locally with `npm run build && npm run preview`
-8. Consider performance impact of changes
-9. Ensure accessibility compliance
-10. Use path aliases for imports (@components, @layouts, @utils)
-11. Keep the design minimal and professional
+1. **Review DESIGN_SYSTEM.md** - Check theme tokens and component patterns before making changes
+2. Always check existing patterns before creating new components
+3. Prefer editing existing files over creating new ones
+4. Follow the established directory structure
+5. Maintain consistency with existing code style
+6. **NEVER use hardcoded colors** - always use semantic tokens
+7. Run `npm run lint` and `npm run format` before committing
+8. Test changes locally with `npm run build && npm run preview`
+9. Consider performance impact of changes
+10. Ensure accessibility compliance
+11. Use path aliases for imports (@components, @layouts, @utils)
+12. Keep the design minimal and professional

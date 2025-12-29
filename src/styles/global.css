@@ -12,8 +12,8 @@
 
   /* Surface colors */
   --color-surface-base: #ffffff;
-  --color-surface-subtle: rgb(248, 250, 252); /* slate-50 */
-  --color-surface-elevated: rgb(241, 245, 249); /* slate-100 */
+  --color-surface-subtle: #fafafa;
+  --color-surface-elevated: #f5f5f5;
   --color-surface-dark: rgb(15, 23, 42); /* slate-900 */
 
   /* Border colors */
@@ -98,7 +98,7 @@
 
   /* Primary button - filled dark */
   .btn-primary {
-    @apply bg-surface-dark text-inverse hover:bg-gray-800 focus:ring-accent-primary;
+    @apply bg-surface-dark text-inverse hover:bg-accent-hover focus:ring-accent-primary;
   }
 
   /* Secondary button - outlined */
@@ -134,15 +134,6 @@
 
 .section-narrow {
   @apply container-narrow py-20 sm:py-32;
-}
-
-/* Subtle background pattern */
-.gradient-fade {
-  background: linear-gradient(
-    180deg,
-    rgba(248, 250, 252, 0.5) 0%,
-    rgba(248, 250, 252, 0) 100%
-  );
 }
 
 /* Simple icon container */

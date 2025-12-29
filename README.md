@@ -56,35 +56,29 @@ Environment variables are fetched from Google Secret Manager during GitHub Actio
 
 ## 🎨 Design System
 
-The site uses a **semantic design token system** with clean, minimal aesthetics:
+The site uses a **semantic design token system** with clean, minimal aesthetics.
 
-### Color Tokens
+📖 **See [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) for complete documentation**
 
-**CRITICAL**: All colors use semantic tokens. Never use hardcoded Tailwind colors.
+### Quick Reference
+
+**Color Tokens** (never use hardcoded Tailwind colors):
 
 ```
 Text:    text-primary, text-secondary, text-tertiary, text-inverse
-Surface: surface-base, surface-subtle, surface-elevated, surface-dark
+Surface: bg-surface-base, bg-surface-subtle, bg-surface-elevated, bg-surface-dark
 Border:  border, border-subtle, border-hover
-Accent:  accent-primary, accent-hover, accent-secondary
+Accent:  text-accent-primary, accent-hover, accent-secondary, accent-success
 ```
 
-### Typography Utilities
+**Typography Utilities:**
+- `.section-title`, `.section-description`, `.eyebrow`, `.page-title`
 
-Standardized classes in `src/styles/global.css`:
+**Button Utilities:**
+- `.btn .btn-primary`, `.btn .btn-secondary`, `.btn-lg`, `.btn-sm`
 
-- `.eyebrow` - Small uppercase section labels
-- `.section-title` - Large section headings
-- `.section-description` - Section description text
-- `.page-title` - Page H1 titles
-
-### Design Principles
-
-- Neutral palette: Black, white, and grays only
-- Semantic naming for all colors
-- Mobile-first responsive design
-- Generous whitespace
-- Minimal animations and effects
+**Container Utilities:**
+- `.container-lg`, `.container-narrow`, `.section`
 
 ## 🚢 Deployment
 
@@ -133,6 +127,7 @@ Standardized classes in `src/styles/global.css`:
 
 ## 📚 Documentation
 
+- `DESIGN_SYSTEM.md` - Theme tokens, components, and standards
 - `CLAUDE.md` - Comprehensive context for AI assistants
 - `materialmodel-terraform/` - Infrastructure documentation
 
