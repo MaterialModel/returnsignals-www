@@ -33,8 +33,8 @@ export default {
         // Surface colors - use bg-surface-base, bg-surface-subtle, etc.
         surface: {
           base: '#ffffff',                  // white - main background
-          subtle: 'rgb(248, 250, 252)',    // slate-50 - subtle backgrounds
-          elevated: 'rgb(241, 245, 249)',  // slate-100 - cards, elevated surfaces
+          subtle: '#fafafa',                // very light gray - hover states
+          elevated: '#f5f5f5',              // light gray - progress bars, badges
           dark: 'rgb(15, 23, 42)'          // slate-900 - dark backgrounds
         },
         // Border colors - use border-DEFAULT, border-subtle, border-hover

@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npm run generate:llms-md && astro build",
+    "generate:llms-md": "tsx scripts/generate-llms-md.ts",
     "preview": "astro preview --host",
     "preview:test": "astro preview --host --port 4321",
     "lint": "eslint \"src/**/*.{js,ts,tsx,astro}\"",
@@ -20,6 +21,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^5.1.0",
     "@flaticon/flaticon-uicons": "^3.3.1",

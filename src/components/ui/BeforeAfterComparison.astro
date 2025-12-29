@@ -47,20 +47,20 @@ const {
         {
           beforeSteps.map((step, i) => (
             <>
-              <div class="flex items-center gap-3 p-4 rounded-lg bg-white border border-gray-200 shadow-sm">
+              <div class="flex items-center gap-3 p-4 rounded-lg bg-surface-base border border-border shadow-sm">
                 {step.icon && (
-                  <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100">
+                  <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-surface-subtle">
                     <img src={step.icon} alt="" class="w-5 h-5" />
                   </div>
                 )}
-                <span class="text-sm text-gray-700 flex-grow">
+                <span class="text-sm text-secondary flex-grow">
                   {step.label}
                 </span>
               </div>
               {i < beforeSteps.length - 1 && (
                 <div class="flex justify-center">
                   <svg
-                    class="w-5 h-5 text-gray-400"
+                    class="w-5 h-5 text-tertiary"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -114,27 +114,29 @@ const {
 
     <!-- AFTER Column -->
     <div class="space-y-6 animate-on-scroll">
-      <h3 class="text-xl font-semibold text-[#007AFF] text-center lg:text-left">
+      <h3
+        class="text-xl font-semibold text-accent-primary text-center lg:text-left"
+      >
         {afterLabel}
       </h3>
       <div class="relative space-y-3">
         {
           afterSteps.map((step, i) => (
             <>
-              <div class="flex items-center gap-3 p-4 rounded-lg bg-blue-50 border border-blue-200 shadow-sm">
+              <div class="flex items-center gap-3 p-4 rounded-lg bg-accent-success-subtle border border-accent-success shadow-sm">
                 {step.icon && (
-                  <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-blue-100">
+                  <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-accent-success-subtle">
                     <img src={step.icon} alt="" class="w-5 h-5" />
                   </div>
                 )}
-                <span class="text-sm text-gray-900 font-medium flex-grow">
+                <span class="text-sm text-primary font-medium flex-grow">
                   {step.label}
                 </span>
               </div>
               {i < afterSteps.length - 1 && (
                 <div class="flex justify-center">
                   <svg
-                    class="w-5 h-5 text-blue-400"
+                    class="w-5 h-5 text-accent-success"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
