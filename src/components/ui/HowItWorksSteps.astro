@@ -37,19 +37,23 @@ const { steps, className = "" } = Astro.props;
             <div class="card p-6 h-full">
               {/* Step number badge */}
               <div class="flex items-center justify-between mb-4">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-xl shadow-lg">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-primary text-inverse font-bold text-xl shadow-lg">
                   {i + 1}
                 </div>
                 {step.icon && (
-                  <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50">
-                    <img src={step.icon} alt="" class="w-6 h-6 text-gray-600" />
+                  <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-subtle">
+                    <img
+                      src={step.icon}
+                      alt=""
+                      class="w-6 h-6 text-secondary"
+                    />
                   </div>
                 )}
               </div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              <h3 class="text-lg font-semibold text-primary mb-2">
                 {step.title}
               </h3>
-              <p class="text-sm text-gray-600 leading-relaxed">
+              <p class="text-sm text-secondary leading-relaxed">
                 {step.description}
               </p>
             </div>
@@ -86,19 +90,19 @@ const { steps, className = "" } = Astro.props;
           <div class="card p-6 h-full">
             {/* Step number badge */}
             <div class="flex items-center justify-between mb-4">
-              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-xl shadow-lg">
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-primary text-inverse font-bold text-xl shadow-lg">
                 {i + 1}
               </div>
               {step.icon && (
-                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50">
-                  <img src={step.icon} alt="" class="w-6 h-6 text-gray-600" />
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-subtle">
+                  <img src={step.icon} alt="" class="w-6 h-6 text-secondary" />
                 </div>
               )}
             </div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            <h3 class="text-lg font-semibold text-primary mb-2">
               {step.title}
             </h3>
-            <p class="text-sm text-gray-600 leading-relaxed">
+            <p class="text-sm text-secondary leading-relaxed">
               {step.description}
             </p>
           </div>
@@ -115,19 +119,19 @@ const { steps, className = "" } = Astro.props;
           <div class="card p-6">
             {/* Step number badge */}
             <div class="flex items-center justify-between mb-4">
-              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-xl shadow-lg">
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-primary text-inverse font-bold text-xl shadow-lg">
                 {i + 1}
               </div>
               {step.icon && (
-                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50">
-                  <img src={step.icon} alt="" class="w-6 h-6 text-gray-600" />
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-subtle">
+                  <img src={step.icon} alt="" class="w-6 h-6 text-secondary" />
                 </div>
               )}
             </div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            <h3 class="text-lg font-semibold text-primary mb-2">
               {step.title}
             </h3>
-            <p class="text-sm text-gray-600 leading-relaxed">
+            <p class="text-sm text-secondary leading-relaxed">
               {step.description}
             </p>
           </div>
