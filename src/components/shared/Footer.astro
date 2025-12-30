@@ -1,6 +1,13 @@
 ---
 const year = new Date().getFullYear();
 
+// Generate markdown version URL for current page
+const pathname = Astro.url.pathname;
+const mdPath =
+  pathname === "/" || pathname === ""
+    ? "/index.md"
+    : `${pathname.replace(/\/$/, "")}.md`;
+
 const socialLinks = [
   {
     name: "LinkedIn",
@@ -78,6 +85,9 @@ const socialLinks = [
           href="mailto:hello@returnsignals.com"
           class="hover:text-primary transition-colors">Contact</a
         >
+        <a href={mdPath} class="hover:text-primary transition-colors"
+          >Markdown</a
+        >
       </div>
     </div>
 
@@ -94,6 +104,9 @@ const socialLinks = [
         <a
           href="mailto:hello@returnsignals.com"
           class="hover:text-primary transition-colors">Contact</a
+        >
+        <a href={mdPath} class="hover:text-primary transition-colors"
+          >Markdown</a
         >
       </div>
 
