@@ -3,10 +3,8 @@ const year = new Date().getFullYear();
 
 // Generate markdown version URL for current page
 const pathname = Astro.url.pathname;
-const mdPath =
-  pathname === "/" || pathname === ""
-    ? "/index.md"
-    : `${pathname.replace(/\/$/, "")}.md`;
+const cleanPath = pathname.replace(/\.html$/, "").replace(/\/$/, "");
+const mdPath = cleanPath === "" ? "/index.md" : `${cleanPath}.md`;
 
 const socialLinks = [
   {
