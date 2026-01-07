@@ -17,18 +17,17 @@ const items = [
     statNote: "of return requests",
     problem: "Fit uncertainty",
     problemDesc: "Wrong size or cut for their preferences.",
-    solution: "Associate-style sizing help",
+    solution: "Thoughtful personal sizing advice",
     solutionDesc:
-      "Confirm the issue then recommend the best size or a better-fitting style and start an exchange in-thread.",
+      "Confirm the issue then recommend the best size or a better-fitting style.",
   },
   {
     stat: "28%",
     statNote: "of return requests",
     problem: "Expectation mismatch",
-    problemDesc: "Color or fabric doesn't match what they want.",
-    solution: "Photo check + best-match exchange",
-    solutionDesc:
-      "See what they see then swap to the shade/feel they actually want.",
+    problemDesc: "Color or fabric not as expected.",
+    solution: "Check their photo, listen to their story",
+    solutionDesc: "Help them find what they will love.",
   },
   {
     stat: "$27",
@@ -36,8 +35,7 @@ const items = [
     problem: "Quality concern",
     problemDesc: "Minor flaw or a real defect.",
     solution: "Photo-based resolution",
-    solutionDesc:
-      "Use a quick photo to decide the right fix: replace, rework, or keep-it.",
+    solutionDesc: "Decide the right fix: replace, rework, or keep-it.",
   },
 ];
 ---
@@ -46,13 +44,12 @@ const items = [
   <div id="problem-section" class="problem-wrapper">
     <!-- Header -->
     <div class="text-center mb-10 sm:mb-14">
-      <h2 class="section-title mb-4">Treat returns like hospitality</h2>
+      <h2 class="section-title mb-4">Turn returns into loyalty</h2>
       <p
         class="text-lg sm:text-xl text-primary leading-relaxed max-w-3xl mx-auto"
       >
-        The moment a customer considers returning is your best chance to earn
-        loyalty. Return Signals brings the “great associate” experience to
-        ecommerce.
+        When something isn’t right, customers remember how you respond. Support
+        after delivery is where repeat purchase is won.
       </p>
     </div>
 
@@ -87,6 +84,14 @@ const items = [
           </div>
         ))
       }
+    </div>
+
+    <!-- Outcome -->
+    <div class="outcome">
+      <p class="outcome-text">
+        A good return experience leads to 3x more repeat purchases.<br />The
+        next purchase depends on how this one ends.
+      </p>
     </div>
   </div>
 </FullViewportSection>
@@ -198,9 +203,9 @@ const items = [
   }
 
   .item-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
   @media (min-width: 640px) {
     .item-content {
@@ -209,12 +214,7 @@ const items = [
   }
 
   .item-problem {
-    padding-right: 1rem;
-  }
-  @media (min-width: 640px) {
-    .item-problem {
-      padding-right: 0;
-    }
+    padding-right: 0;
   }
 
   .problem-title,
@@ -230,5 +230,32 @@ const items = [
     font-size: 0.875rem;
     line-height: 1.5;
     color: var(--color-text-primary);
+  }
+
+  /* Outcome callout */
+  .outcome {
+    margin-top: 3rem;
+    text-align: center;
+    background-color: var(--color-surface-subtle);
+    padding: 2rem 1.5rem;
+    border-radius: 0.5rem;
+  }
+  @media (min-width: 640px) {
+    .outcome {
+      margin-top: 4rem;
+      padding: 2.5rem 3rem;
+    }
+  }
+
+  .outcome-text {
+    font-size: 1.25rem;
+    line-height: 1.65;
+    color: var(--color-text-primary);
+    font-style: italic;
+  }
+  @media (min-width: 640px) {
+    .outcome-text {
+      font-size: 1.375rem;
+    }
   }
 </style>
