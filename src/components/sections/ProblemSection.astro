@@ -1,6 +1,7 @@
 ---
 /**
- * ProblemSection — Visual hierarchy through typography
+ * ProblemSection — Variant 1
+ * Signal → Concierge response (keeps stats, improves tone + exchange framing)
  */
 import FullViewportSection from "@layouts/FullViewportSection.astro";
 
@@ -13,35 +14,28 @@ const { className = "" } = Astro.props;
 const items = [
   {
     stat: "39%",
-    statNote: "of returns",
-    problem: "Bad fit",
-    problemDesc: "Is the size  wrong or they are wearing it wrong?",
-    solution: "Proactive check-in",
-    solutionDesc: "Diagnose proper use and provide accurate size advice.",
+    statNote: "of return requests",
+    problem: "Fit uncertainty",
+    problemDesc: "Wrong size or cut for their preferences.",
+    solution: "Thoughtful personal sizing advice",
+    solutionDesc:
+      "Confirm the issue then recommend the best size or a better-fitting style.",
   },
   {
     stat: "28%",
-    statNote: "of returns",
-    problem: "Looks different",
-    problemDesc: "Do colors and fabric match photos?",
-    solution: "Photo verification",
-    solutionDesc: "See what they see. Confirm or flag the issue.",
+    statNote: "of return requests",
+    problem: "Expectation mismatch",
+    problemDesc: "Color or fabric not as expected.",
+    solution: "Check their photo, listen to their story",
+    solutionDesc: "Help them find what they will love.",
   },
   {
     stat: "$27",
-    statNote: "per return",
-    problem: "Item is damaged",
-    problemDesc: "Loose thread or real problem?",
-    solution: "Visual triage",
-    solutionDesc: "Photo confirms severity. Decide without shipping.",
-  },
-  {
-    stat: "$5",
-    statNote: "inspection and routing cost",
-    problem: "Blind routing",
-    problemDesc: "Every return takes the same expensive path.",
-    solution: "Smart disposition",
-    solutionDesc: "Route by condition: restock, rework, or scrap.",
+    statNote: "avg. handling cost",
+    problem: "Quality concern",
+    problemDesc: "Minor flaw or a real defect.",
+    solution: "Photo-based resolution",
+    solutionDesc: "Decide the right fix: replace, rework, or keep-it.",
   },
 ];
 ---
@@ -50,15 +44,20 @@ const items = [
   <div id="problem-section" class="problem-wrapper">
     <!-- Header -->
     <div class="text-center mb-10 sm:mb-14">
-      <h2 class="section-title mb-4">
-        Engage before the customer<br />starts a return
-      </h2>
+      <h2 class="section-title mb-4">Turn returns into loyalty</h2>
       <p
         class="text-lg sm:text-xl text-primary leading-relaxed max-w-3xl mx-auto"
       >
-        If a return is inevitable, use photo evidence to make intelligent
-        item-level disposition decisions.
+        When something isn’t right, customers remember how you respond. Support
+        after delivery is where repeat purchase is won.
       </p>
+    </div>
+
+    <!-- Column labels (desktop) -->
+    <div class="column-labels" aria-hidden="true">
+      <div class="label-spacer"></div>
+      <div class="label">Customer signal</div>
+      <div class="label">Concierge response</div>
     </div>
 
     <!-- Items -->
@@ -76,6 +75,7 @@ const items = [
                 <h3 class="problem-title">{item.problem}</h3>
                 <p class="problem-desc">{item.problemDesc}</p>
               </div>
+
               <div class="item-solution">
                 <h3 class="solution-title">{item.solution}</h3>
                 <p class="solution-desc">{item.solutionDesc}</p>
@@ -84,6 +84,14 @@ const items = [
           </div>
         ))
       }
+    </div>
+
+    <!-- Outcome -->
+    <div class="outcome">
+      <p class="outcome-text">
+        A good return experience leads to 3x more repeat purchases.<br />The
+        next purchase depends on how this one ends.
+      </p>
     </div>
   </div>
 </FullViewportSection>
@@ -108,24 +116,26 @@ const items = [
   @media (min-width: 640px) {
     .column-labels {
       display: grid;
-      grid-template-columns: 4.5rem 1fr 1fr;
+      grid-template-columns: 4.5rem 0.85fr 1.5fr;
       gap: 1.5rem;
       margin-bottom: 1rem;
       padding-left: 0.25rem;
     }
+    .column-labels .label-spacer {
+      padding-right: 0.5rem;
+    }
   }
 
   .label-spacer {
-    /* Empty spacer to align with stat column */
+    /* aligns with stat column */
   }
 
   .label {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-  }
-  .label:first-of-type {
-    padding-right: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.075em;
+    color: var(--color-text-tertiary);
   }
 
   .items {
@@ -146,9 +156,9 @@ const items = [
   }
   @media (min-width: 640px) {
     .item {
-      grid-template-columns: 4.5rem 1fr 1fr;
+      grid-template-columns: 4.5rem 0.85fr 1.5fr;
       gap: 1.5rem;
-      align-items: center;
+      align-items: start;
       padding-bottom: 0;
     }
   }
@@ -162,6 +172,8 @@ const items = [
     .item-stat {
       display: block;
       text-align: center;
+      margin-top: 0.125rem;
+      padding-right: 0.5rem;
     }
   }
 
@@ -191,9 +203,9 @@ const items = [
   }
 
   .item-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
   @media (min-width: 640px) {
     .item-content {
@@ -202,27 +214,10 @@ const items = [
   }
 
   .item-problem {
-    padding-right: 1rem;
-  }
-  @media (min-width: 640px) {
-    .item-problem {
-      padding-right: 1.5rem;
-    }
+    padding-right: 0;
   }
 
-  .problem-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: 0.25rem;
-  }
-
-  .problem-desc {
-    font-size: 0.875rem;
-    line-height: 1.5;
-    color: var(--color-text-primary);
-  }
-
+  .problem-title,
   .solution-title {
     font-size: 1rem;
     font-weight: 600;
@@ -230,9 +225,37 @@ const items = [
     margin-bottom: 0.25rem;
   }
 
+  .problem-desc,
   .solution-desc {
     font-size: 0.875rem;
     line-height: 1.5;
     color: var(--color-text-primary);
+  }
+
+  /* Outcome callout */
+  .outcome {
+    margin-top: 3rem;
+    text-align: center;
+    background-color: var(--color-surface-subtle);
+    padding: 2rem 1.5rem;
+    border-radius: 0.5rem;
+  }
+  @media (min-width: 640px) {
+    .outcome {
+      margin-top: 4rem;
+      padding: 2.5rem 3rem;
+    }
+  }
+
+  .outcome-text {
+    font-size: 1.25rem;
+    line-height: 1.65;
+    color: var(--color-text-primary);
+    font-style: italic;
+  }
+  @media (min-width: 640px) {
+    .outcome-text {
+      font-size: 1.375rem;
+    }
   }
 </style>
