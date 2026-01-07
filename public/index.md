@@ -1,42 +1,40 @@
 # Return Signals
 
-> Post-purchase concierge for every order. Return Signals uses AI over SMS to prevent returns before they happen.
+> Post-purchase concierge for every order. Return Signals texts customers post‑delivery to provide support, convert returns into exchanges, and improve retention.
 
 Return Signals is an AI-powered platform that helps e-commerce brands reduce returns, improve customer experience, and optimize post-purchase operations.
 
 ## How It Works
 
-### 1. Check In
-A proactive SMS that feels human, not automated. We reach out to customers after purchase to ensure satisfaction.
+### 1. Check in
+A proactive text that feels like a real associate.
 
-### 2. Follow Up
-If they haven't tried it yet, no problem. We'll reach out again later at the right time.
+### 2. Follow up
+If they haven't tried it yet, no problem. We'll reach out again later.
 
 ### 3. Resolve
-Quick troubleshooting with customer-provided photos. We diagnose issues before they become returns.
+Support that saves the sale: fit & styling guidance, plus tailored exchange recommendations.
 
-### 4. Route
-Need to exchange or return? Use photo evidence to decide: scrap at customer, ship for rework, or restock.
+### 4. Exchange or return
+Make it right in-thread. If a return is needed, use photos to decide: restock, rework, or keep‑it.
 
-## The Problem We Solve
+## Turn Returns Into Loyalty
 
-E-commerce returns are expensive and often preventable. Return Signals engages customers before they start a return, and when returns are inevitable, uses photo evidence to make intelligent item-level disposition decisions.
+When something isn't right, customers remember how you respond. Support after delivery is where repeat purchase is won.
 
-### Bad Fit (39% of returns)
-**Problem:** Is the size wrong or are they wearing it wrong?
-**Solution:** Proactive check-in to diagnose proper use and provide accurate size advice.
+### Fit Uncertainty (39% of return requests)
+**Customer Signal:** Wrong size or cut for their preferences.
+**Concierge Response:** Thoughtful personal sizing advice. Confirm the issue then recommend the best size or a better-fitting style.
 
-### Looks Different (28% of returns)
-**Problem:** Do colors and fabric match photos?
-**Solution:** Photo verification to see what customers see and confirm or flag the issue.
+### Expectation Mismatch (28% of return requests)
+**Customer Signal:** Color or fabric not as expected.
+**Concierge Response:** Check their photo, listen to their story. Help them find what they will love.
 
-### Item is Damaged ($27 per return)
-**Problem:** Loose thread or real problem?
-**Solution:** Visual triage where photos confirm severity so you can decide without shipping.
+### Quality Concern ($27 avg. handling cost)
+**Customer Signal:** Minor flaw or a real defect.
+**Concierge Response:** Photo-based resolution. Decide the right fix: replace, rework, or keep-it.
 
-### Blind Routing ($5 inspection and routing cost)
-**Problem:** Every return takes the same expensive path.
-**Solution:** Smart disposition to route by condition—restock, rework, or scrap.
+**Outcome:** A good return experience leads to 3x more repeat purchases. The next purchase depends on how this one ends.
 
 ## Real Examples
 
