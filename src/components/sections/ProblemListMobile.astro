@@ -1,0 +1,163 @@
+---
+/**
+ * ProblemListMobile — Mobile card-based problem/solution display
+ */
+export interface ProblemItem {
+  stat: string;
+  statNote: string;
+  problem: string;
+  problemDesc: string;
+  solution: string;
+  solutionDesc: string;
+}
+
+interface Props {
+  items: ProblemItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="mobile-problem-list">
+  {
+    items.map((item) => (
+      <div class="problem-card" role="group" aria-label="Problem and response">
+        <div class="stat-header">
+          <span class="stat-value">{item.stat}</span>
+          <span class="stat-note" aria-label="stat note">
+            {item.statNote}
+          </span>
+        </div>
+
+        <div class="sections-container">
+          <div class="problem-section">
+            <div class="eyebrow-label">Customer signal</div>
+            <h3 class="section-title">{item.problem}</h3>
+            <p class="section-desc">{item.problemDesc}</p>
+          </div>
+
+          <div class="solution-section">
+            <div class="eyebrow-label">Concierge response</div>
+            <h3 class="section-title">{item.solution}</h3>
+            <p class="section-desc">{item.solutionDesc}</p>
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .mobile-problem-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .problem-card {
+    background-color: var(--color-surface-base);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.05),
+      0 8px 20px rgba(15, 23, 42, 0.06);
+    transition:
+      box-shadow 200ms ease,
+      transform 200ms ease,
+      border-color 200ms ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .problem-card:focus-within,
+  .problem-card:hover {
+    border-color: var(--color-border-hover);
+    transform: translateY(-2px);
+    box-shadow:
+      0 2px 6px rgba(15, 23, 42, 0.06),
+      0 14px 30px rgba(15, 23, 42, 0.1);
+  }
+
+  .problem-card:active {
+    transform: translateY(-1px);
+  }
+
+  .stat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 1.25rem 1rem;
+    background: linear-gradient(
+      180deg,
+      var(--color-surface-subtle),
+      transparent 80%
+    );
+  }
+
+  .stat-value {
+    font-size: 2.125rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .stat-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--color-surface-subtle);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .sections-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .problem-section,
+  .solution-section {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .problem-section {
+    background-color: transparent;
+  }
+
+  .solution-section {
+    background-color: var(--color-surface-subtle);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .eyebrow-label {
+    /* Reuse global eyebrow proportions but slightly softer */
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.075em;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.35rem;
+  }
+
+  .section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .section-desc {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-text-secondary);
+  }
+</style>

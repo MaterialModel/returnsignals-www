@@ -4,6 +4,8 @@
  * Signal → Concierge response (keeps stats, improves tone + exchange framing)
  */
 import FullViewportSection from "@layouts/FullViewportSection.astro";
+import ProblemListMobile from "./ProblemListMobile.astro";
+import ProblemListDesktop from "./ProblemListDesktop.astro";
 
 interface Props {
   className?: string;
@@ -48,49 +50,24 @@ const items = [
       <p
         class="text-lg sm:text-xl text-primary leading-relaxed max-w-3xl mx-auto"
       >
-        When something isn’t right, customers remember how you respond. Support
-        after delivery is where repeat purchase is won.
+        When something isn’t right, customers remember how you respond.
       </p>
     </div>
 
-    <!-- Column labels (desktop) -->
-    <div class="column-labels" aria-hidden="true">
-      <div class="label-spacer"></div>
-      <div class="label">Customer signal</div>
-      <div class="label">Concierge response</div>
+    <!-- Mobile view -->
+    <div class="mobile-only">
+      <ProblemListMobile items={items} />
     </div>
 
-    <!-- Items -->
-    <div class="items">
-      {
-        items.map((item) => (
-          <div class="item">
-            <div class="item-stat">
-              <span class="stat-value">{item.stat}</span>
-              <span class="stat-note">{item.statNote}</span>
-            </div>
-
-            <div class="item-content">
-              <div class="item-problem">
-                <h3 class="problem-title">{item.problem}</h3>
-                <p class="problem-desc">{item.problemDesc}</p>
-              </div>
-
-              <div class="item-solution">
-                <h3 class="solution-title">{item.solution}</h3>
-                <p class="solution-desc">{item.solutionDesc}</p>
-              </div>
-            </div>
-          </div>
-        ))
-      }
+    <!-- Desktop view -->
+    <div class="desktop-only">
+      <ProblemListDesktop items={items} />
     </div>
 
     <!-- Outcome -->
     <div class="outcome">
       <p class="outcome-text">
-        A good return experience leads to 3x more repeat purchases.<br />The
-        next purchase depends on how this one ends.
+        A good return experience leads to 3x more repeat purchases.
       </p>
     </div>
   </div>
@@ -110,126 +87,23 @@ const items = [
     }
   }
 
-  .column-labels {
+  /* Responsive visibility */
+  .mobile-only {
+    display: block;
+  }
+  @media (min-width: 640px) {
+    .mobile-only {
+      display: none;
+    }
+  }
+
+  .desktop-only {
     display: none;
   }
   @media (min-width: 640px) {
-    .column-labels {
-      display: grid;
-      grid-template-columns: 4.5rem 0.85fr 1.5fr;
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-      padding-left: 0.25rem;
-    }
-    .column-labels .label-spacer {
-      padding-right: 0.5rem;
-    }
-  }
-
-  .label-spacer {
-    /* aligns with stat column */
-  }
-
-  .label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.075em;
-    color: var(--color-text-tertiary);
-  }
-
-  .items {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .item {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-    align-items: start;
-    padding-bottom: 1.5rem;
-  }
-  .item:last-child {
-    padding-bottom: 0;
-  }
-  @media (min-width: 640px) {
-    .item {
-      grid-template-columns: 4.5rem 0.85fr 1.5fr;
-      gap: 1.5rem;
-      align-items: start;
-      padding-bottom: 0;
-    }
-  }
-
-  .item-stat {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-  @media (min-width: 640px) {
-    .item-stat {
+    .desktop-only {
       display: block;
-      text-align: center;
-      margin-top: 0.125rem;
-      padding-right: 0.5rem;
     }
-  }
-
-  .stat-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--color-text-primary);
-  }
-  @media (min-width: 640px) {
-    .stat-value {
-      font-size: 1.75rem;
-    }
-  }
-
-  .stat-note {
-    font-size: 0.5625rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-primary);
-  }
-  @media (min-width: 640px) {
-    .stat-note {
-      display: block;
-      margin-top: 0.25rem;
-    }
-  }
-
-  .item-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  @media (min-width: 640px) {
-    .item-content {
-      display: contents;
-    }
-  }
-
-  .item-problem {
-    padding-right: 0;
-  }
-
-  .problem-title,
-  .solution-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: 0.25rem;
-  }
-
-  .problem-desc,
-  .solution-desc {
-    font-size: 0.875rem;
-    line-height: 1.5;
-    color: var(--color-text-primary);
   }
 
   /* Outcome callout */
