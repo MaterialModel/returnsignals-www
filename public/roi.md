@@ -29,8 +29,8 @@ Based on typical e-commerce metrics:
 
 **Return Signals Impact:**
 - Customer Engagement Rate: 40%
-- Return → Exchange Lift: 40%
-- Return → Keep Item Lift: 10%
+- Return to Exchange Lift: 40%
+- Return to Keep Item Lift: 10%
 - 180-day Retention Lift: 20%
 
 ### Output Values
@@ -92,8 +92,8 @@ N_elig = N_f + N_o
 ```
 
 **Where:**
-- `N_f = N × r_f × (1 - m)` — Fit returns excluding intentional multi-size orders
-- `N_o = N × r_o` — Non-fit related returns (quality, changed mind, etc.)
+- `N_f = N * r_f * (1 - m)` -- Fit returns excluding intentional multi-size orders
+- `N_o = N * r_o` -- Non-fit related returns (quality, changed mind, etc.)
 
 **Why?** We exclude multi-size fit returns because those customers intentionally ordered multiple sizes to find their fit. They found it and returned the rest as expected - this is normal behavior we don't need to intervene on.
 
@@ -105,11 +105,11 @@ Value created when customers exchange instead of requesting a refund.
 
 **Formula:**
 ```
-V_exch = N_elig × E × L_exch × ΔV_exch
+V_exch = N_elig * E * L_exch * DeltaV_exch
 ```
 
 **Where:**
-- `ΔV_exch = AUR - C_s - AUC` — Incremental value per exchange vs. refund
+- `DeltaV_exch = AUR - C_s - AUC` -- Incremental value per exchange vs. refund
 
 **Why this formula works:**
 - Keep the original revenue (AUR)
@@ -124,16 +124,16 @@ Value created when customers decide to keep the item instead of returning it.
 
 **Formula:**
 ```
-V_keep = N_elig × E × L_keep × ΔV_keep
+V_keep = N_elig * E * L_keep * DeltaV_keep
 ```
 
 **Where:**
-- `ΔV_keep = AUR + C_r - AUC × p` — Incremental value per kept item vs. refund
+- `DeltaV_keep = AUR + C_r - AUC * p` -- Incremental value per kept item vs. refund
 
 **Why this formula works:**
 - Keep the original revenue (AUR)
 - Avoid return processing cost (+C_r saved)
-- Lose the inventory we would have recovered (AUC × p)
+- Lose the inventory we would have recovered (AUC * p)
 
 ---
 
@@ -143,12 +143,12 @@ Value from increased repeat purchases by customers whose problems we resolved.
 
 **Formula:**
 ```
-V_ret = N_res × L_ret × V_repeat
+V_ret = N_res * L_ret * V_repeat
 ```
 
 **Where:**
-- `N_res = N_elig × E × (L_exch + L_keep)` — Number of resolved customers
-- `V_repeat = U × (AUR - AUC - C_s) - M_r` — Contribution margin per repeat order
+- `N_res = N_elig * E * (L_exch + L_keep)` -- Number of resolved customers
+- `V_repeat = U * (AUR - AUC - C_s) - M_r` -- Contribution margin per repeat order
 
 **Why this formula works:**
 - Resolved customers = those who exchanged or kept
@@ -171,16 +171,16 @@ Sum of all three value components.
 
 ### Baseline Revenue Calculation
 ```
-Total Returns = N × (r_f + r_o)
-Baseline Monthly Net Sales = (N - Total Returns) × AUR
+Total Returns = N * (r_f + r_o)
+Baseline Monthly Net Sales = (N - Total Returns) * AUR
 ```
 
 ### Margin Expansion
 ```
-Margin Expansion % = (V_total / Baseline Net Sales) × 100
+Margin Expansion % = (V_total / Baseline Net Sales) * 100
 ```
 
 ### Customer Impact Metrics
 - **Eligible Returns**: N_elig
-- **Engaged Customers**: N_elig × E
-- **Returns Prevented**: N_elig × E × (L_exch + L_keep)
+- **Engaged Customers**: N_elig * E
+- **Returns Prevented**: N_elig * E * (L_exch + L_keep)
