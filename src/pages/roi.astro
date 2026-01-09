@@ -49,10 +49,53 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
             See how Return Signals can impact your bottom line by reducing
             returns, increasing exchanges, and improving customer retention.
           </p>
-          <button
-            id="formulaModalButtonHero"
-            class="mt-6 inline-flex items-center gap-2 text-sm text-accent-primary hover:text-accent-hover transition-colors"
-          >
+          <!-- Moved formula link near controls below -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="pb-20 sm:pb-32">
+      <div class="container-narrow">
+        <!-- Control Bar -->
+        <div class="control-bar">
+          <!-- Simplified/Full Toggle -->
+          <div class="segmented" role="group" aria-label="Mode">
+            <button
+              id="simplifiedToggle"
+              class="segmented-btn bg-accent-primary text-inverse"
+              aria-pressed="true"
+            >
+              Simplified
+            </button>
+            <button
+              id="fullToggle"
+              class="segmented-btn text-secondary hover:text-primary"
+              aria-pressed="false"
+            >
+              Full
+            </button>
+          </div>
+
+          <!-- Monthly/Annual Toggle -->
+          <div class="segmented" role="group" aria-label="Period">
+            <button
+              id="monthlyToggle"
+              class="segmented-btn bg-accent-primary text-inverse"
+              aria-pressed="true"
+            >
+              Monthly
+            </button>
+            <button
+              id="annualToggle"
+              class="segmented-btn text-secondary hover:text-primary"
+              aria-pressed="false"
+            >
+              Annual
+            </button>
+          </div>
+          <!-- Formula link placed alongside toggles -->
+          <button id="formulaModalButton" class="toolbar-link">
             <svg
               class="w-4 h-4"
               fill="none"
@@ -71,12 +114,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
             >
           </button>
         </div>
-      </div>
-    </section>
 
-    <!-- Calculator Section -->
-    <section class="pb-20 sm:pb-32">
-      <div class="container-narrow">
         <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
           <!-- Input Form -->
           <div class="space-y-8">
@@ -107,6 +145,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
                 value="1.7"
                 min="0.1"
                 step="0.1"
+                wrapperId="input-unitsPerOrder"
               />
               <CalculatorInput
                 id="orderShippingCost"
@@ -114,6 +153,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
                 value="10"
                 min="0"
                 step="0.01"
+                wrapperId="input-orderShippingCost"
               />
               <CalculatorInput
                 id="returnCost"
@@ -121,6 +161,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
                 value="10"
                 min="0"
                 step="0.01"
+                wrapperId="input-returnCost"
               />
             </InputSection>
 
@@ -157,10 +198,14 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
                 min="0"
                 max="100"
                 step="0.1"
+                wrapperId="input-resaleProbability"
               />
             </InputSection>
 
-            <InputSection title="Return Signals Impact">
+            <InputSection
+              title="Return Signals Impact"
+              id="section-returnSignalsImpact"
+            >
               <CalculatorInput
                 id="engagementRate"
                 label="Customer Engagement Rate (%)"
@@ -197,7 +242,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
               />
             </InputSection>
 
-            <InputSection title="Marketing Costs">
+            <InputSection title="Marketing Costs" id="section-marketingCosts">
               <CalculatorInput
                 id="repeatMarketingCost"
                 label="Repeat Customer Marketing Cost ($)"
@@ -225,6 +270,18 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
 <style>
   .card {
     @apply bg-surface-base border border-border rounded-lg p-6;
+  }
+  .control-bar {
+    @apply flex flex-wrap items-center justify-center gap-8 lg:gap-12 mb-8;
+  }
+  .segmented {
+    @apply inline-flex items-center rounded-full border border-border bg-surface-base p-0.5 shadow-sm;
+  }
+  .segmented-btn {
+    @apply px-3 py-1.5 text-sm font-medium rounded-full transition-colors;
+  }
+  .toolbar-link {
+    @apply inline-flex items-center gap-2 text-sm text-accent-primary hover:text-accent-hover transition-colors ml-2;
   }
 </style>
 
@@ -285,6 +342,8 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
   // Get toggle buttons
   const monthlyToggle = document.getElementById("monthlyToggle");
   const annualToggle = document.getElementById("annualToggle");
+  const simplifiedToggle = document.getElementById("simplifiedToggle");
+  const fullToggle = document.getElementById("fullToggle");
 
   // Toggle state
   let isAnnual = false;
@@ -400,15 +459,57 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
         monthlyToggle.classList.add("text-secondary", "hover:text-primary");
         annualToggle.classList.add("bg-accent-primary", "text-inverse");
         annualToggle.classList.remove("text-secondary", "hover:text-primary");
+        monthlyToggle.setAttribute("aria-pressed", "false");
+        annualToggle.setAttribute("aria-pressed", "true");
       } else {
         annualToggle.classList.remove("bg-accent-primary", "text-inverse");
         annualToggle.classList.add("text-secondary", "hover:text-primary");
         monthlyToggle.classList.add("bg-accent-primary", "text-inverse");
         monthlyToggle.classList.remove("text-secondary", "hover:text-primary");
+        annualToggle.setAttribute("aria-pressed", "false");
+        monthlyToggle.setAttribute("aria-pressed", "true");
       }
     }
 
     updateDisplay();
+  }
+
+  // Elements to hide in simplified mode
+  const simplifiedHiddenElements = [
+    document.getElementById("input-unitsPerOrder"),
+    document.getElementById("input-orderShippingCost"),
+    document.getElementById("input-returnCost"),
+    document.getElementById("input-resaleProbability"),
+    document.getElementById("section-returnSignalsImpact"),
+    document.getElementById("section-marketingCosts"),
+  ];
+
+  function setModeState(simplified: boolean) {
+    if (simplifiedToggle && fullToggle) {
+      if (simplified) {
+        fullToggle.classList.remove("bg-accent-primary", "text-inverse");
+        fullToggle.classList.add("text-secondary", "hover:text-primary");
+        simplifiedToggle.classList.add("bg-accent-primary", "text-inverse");
+        simplifiedToggle.classList.remove(
+          "text-secondary",
+          "hover:text-primary",
+        );
+        fullToggle.setAttribute("aria-pressed", "false");
+        simplifiedToggle.setAttribute("aria-pressed", "true");
+      } else {
+        simplifiedToggle.classList.remove("bg-accent-primary", "text-inverse");
+        simplifiedToggle.classList.add("text-secondary", "hover:text-primary");
+        fullToggle.classList.add("bg-accent-primary", "text-inverse");
+        fullToggle.classList.remove("text-secondary", "hover:text-primary");
+        simplifiedToggle.setAttribute("aria-pressed", "false");
+        fullToggle.setAttribute("aria-pressed", "true");
+      }
+    }
+
+    // Show/hide elements
+    simplifiedHiddenElements.forEach((el) => {
+      if (el) el.classList.toggle("hidden", simplified);
+    });
   }
 
   // Add event listeners to all inputs
@@ -425,7 +526,16 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
   if (annualToggle) {
     annualToggle.addEventListener("click", () => setToggleState(true));
   }
+  if (simplifiedToggle) {
+    simplifiedToggle.addEventListener("click", () => setModeState(true));
+  }
+  if (fullToggle) {
+    fullToggle.addEventListener("click", () => setModeState(false));
+  }
 
   // Calculate initial values
   runCalculation();
+
+  // Initialize simplified mode (hide advanced inputs)
+  setModeState(true);
 </script>
