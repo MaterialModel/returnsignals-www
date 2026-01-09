@@ -14,6 +14,7 @@ Return Signals is a product of Material Model, Inc., a Y Combinator-backed compa
 ## Docs
 
 - [Homepage](https://www.returnsignals.com/index.md): Overview of Return Signals' AI-powered return prevention platform
+- [ROI Calculator Methodology](https://www.returnsignals.com/roi.md): Detailed explanation of how we calculate return on investment
 - [Privacy Policy](https://www.returnsignals.com/privacy.md): How we collect, use, and protect personal information
 - [Security](https://www.returnsignals.com/security.md): Our enterprise-grade security practices and data protection measures
 - [Terms of Service](https://www.returnsignals.com/terms.md): Legal terms governing use of our services

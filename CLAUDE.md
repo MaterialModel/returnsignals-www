@@ -169,3 +169,7 @@ When working with this codebase:
 10. Ensure accessibility compliance
 11. Use path aliases for imports (@components, @layouts, @utils)
 12. Keep the design minimal and professional
+13. **When adding or modifying pages**:
+    - Create a markdown version in `public/` directory (e.g., `public/roi.md`)
+    - Add the new page to `public/llms.txt` in the Docs section
+    - For MDX pages, add them to `scripts/generate-llms-md.ts` to auto-generate markdown versions
