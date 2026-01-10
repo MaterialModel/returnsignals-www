@@ -10,7 +10,7 @@ This is the marketing website for Return Signals (returnsignals.com), built with
 - **Styling**: Tailwind CSS 3 with Typography plugin
 - **Infrastructure**: GCP (Cloud Storage + CDN + HTTPS Load Balancer)
 - **Infrastructure as Code**: Terraform (managed via materialmodel-terraform submodule)
-- **Analytics**: Google Analytics 4, PostHog
+- **Analytics**: Google Analytics 4, PostHog (via reverse proxy at ph.returnsignals.com)
 - **CI/CD**: GitHub Actions → GCS bucket deployment
 - **Node Version**: 24.x (strictly enforced)
 
@@ -144,6 +144,7 @@ All client-side environment variables must start with `PUBLIC_`:
 5. **Node Version**: Must use Node 24.x (enforced in package.json)
 6. **Build Output**: Static files in `dist/` directory
 7. **Color Standardization**: All colors use semantic tokens - never hardcode color values
+8. **PostHog Analytics**: Uses reverse proxy at ph.returnsignals.com (CNAME to 7e1195b4988eb9687b7d.proxy-us.posthog.com) for improved privacy and ad-blocker resistance
 
 ## Security Considerations
 
