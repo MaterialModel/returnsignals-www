@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import SEO from "@components/shared/SEO.astro";
+import PostHog from "@components/shared/PostHog.astro";
+import { ga4Script } from "@utils/analytics";
 
 const {
   title = "Return Signals",
@@ -39,6 +41,7 @@ const {
       href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
+    <PostHog />
     {
       !noDefaultSEO && (
         <SEO
@@ -50,6 +53,7 @@ const {
         />
       )
     }
+    <Fragment set:html={ga4Script(import.meta.env.PUBLIC_GA_ID)} />
   </head>
   <body class="min-h-vh-fix bg-surface-base text-primary antialiased">
     <slot />
