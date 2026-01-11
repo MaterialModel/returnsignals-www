@@ -81,15 +81,15 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
           <div class="segmented" role="group" aria-label="Period">
             <button
               id="monthlyToggle"
-              class="segmented-btn bg-accent-primary text-inverse"
-              aria-pressed="true"
+              class="segmented-btn text-secondary hover:text-primary"
+              aria-pressed="false"
             >
               Monthly
             </button>
             <button
               id="annualToggle"
-              class="segmented-btn text-secondary hover:text-primary"
-              aria-pressed="false"
+              class="segmented-btn bg-accent-primary text-inverse"
+              aria-pressed="true"
             >
               Annual
             </button>
@@ -292,7 +292,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
     formatCurrency,
     formatNumber,
     type CalculationInputs,
-  } from "@components/calculator/calculations";
+  } from "@components/calculator/CalculatorCore";
 
   // Get all input elements
   const inputs = {
@@ -346,7 +346,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
   const fullToggle = document.getElementById("fullToggle");
 
   // Toggle state
-  let isAnnual = false;
+  let isAnnual = true;
 
   // Stored calculation values
   let calculationData = {
