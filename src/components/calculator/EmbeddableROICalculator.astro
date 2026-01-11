@@ -406,7 +406,13 @@ const {
     const annualToggle = document.getElementById("embed-annualToggle");
 
     let isAnnual = true;
-    let calcData = { monthly: 0, annual: 0 };
+    let calcData = {
+      monthly: 0,
+      annual: 0,
+      exchangeValue: 0,
+      keepValue: 0,
+      retentionValue: 0,
+    };
 
     function runCalculation() {
       const inputValues = {
@@ -430,18 +436,14 @@ const {
 
       const results = calculateROI(inputValues);
 
-      calcData = { monthly: results.totalMonthly, annual: results.totalAnnual };
+      calcData = {
+        monthly: results.totalMonthly,
+        annual: results.totalAnnual,
+        exchangeValue: results.exchangeValue,
+        keepValue: results.keepValue,
+        retentionValue: results.retentionValue,
+      };
 
-      if (outputs.exchangeValue)
-        outputs.exchangeValue.textContent = formatCurrency(
-          results.exchangeValue,
-        );
-      if (outputs.keepValue)
-        outputs.keepValue.textContent = formatCurrency(results.keepValue);
-      if (outputs.retentionValue)
-        outputs.retentionValue.textContent = formatCurrency(
-          results.retentionValue,
-        );
       if (outputs.marginExpansion)
         outputs.marginExpansion.textContent =
           results.marginExpansionPct.toFixed(1) + "%";
@@ -450,6 +452,8 @@ const {
     }
 
     function updateDisplay() {
+      const multiplier = isAnnual ? 12 : 1;
+
       if (isAnnual) {
         if (outputs.profitLabel)
           outputs.profitLabel.textContent = "Annual Profit Increase";
@@ -461,6 +465,20 @@ const {
         if (outputs.displayValue)
           outputs.displayValue.textContent = formatCurrency(calcData.monthly);
       }
+
+      // Update breakdown values based on toggle
+      if (outputs.exchangeValue)
+        outputs.exchangeValue.textContent = formatCurrency(
+          calcData.exchangeValue * multiplier,
+        );
+      if (outputs.keepValue)
+        outputs.keepValue.textContent = formatCurrency(
+          calcData.keepValue * multiplier,
+        );
+      if (outputs.retentionValue)
+        outputs.retentionValue.textContent = formatCurrency(
+          calcData.retentionValue * multiplier,
+        );
     }
 
     function setToggleState(annual: boolean) {
