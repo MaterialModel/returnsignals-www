@@ -59,7 +59,7 @@ Return Signals is a product of Material Model, Inc., backed by Y Combinator. We'
 
 - Website: https://www.returnsignals.com
 - Email: hello@returnsignals.com
-- Book a Demo: https://calendar.app.google/rpRK3FXE425PPkaS7
+- Book a Demo: https://calendly.com/alejandro-materialmodel/return-signals-introductory-call
 
 ## Legal
 
