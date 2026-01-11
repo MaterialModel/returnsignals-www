@@ -47,6 +47,7 @@ coverage/
 public/privacy.md
 public/security.md
 public/terms.md
+public/blog/*.md
 
 # Misc
 .claude
