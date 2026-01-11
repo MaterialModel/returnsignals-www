@@ -10,7 +10,8 @@ import FAQSection from "@components/sections/FAQSection.astro";
 import AnalyticsPlatformSection from "@components/sections/AnalyticsPlatformSection.astro";
 
 // CTA URL (update this to your external form link)
-const ctaUrl = "https://calendar.app.google/rpRK3FXE425PPkaS7";
+const ctaUrl =
+  "https://calendly.com/alejandro-materialmodel/return-signals-introductory-call";
 ---
 
 <BaseLayout
@@ -20,7 +21,7 @@ const ctaUrl = "https://calendar.app.google/rpRK3FXE425PPkaS7";
   <Header />
 
   <main id="main-content">
-    <Hero {ctaUrl} />
+    <Hero {ctaUrl} blogBadge="/blog/return-starts-before-return" />
     <ProblemSection />
     <NarrativeSections />
 

@@ -1,0 +1,39 @@
+---
+import BlogCard from "./BlogCard.astro";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  posts: CollectionEntry<"blog">[];
+}
+
+const { posts } = Astro.props;
+
+const sortedPosts = posts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const calculateReadingTime = (content: string) => {
+  const wordsPerMinute = 200;
+  const words = content.split(/\s+/).length;
+  return Math.ceil(words / wordsPerMinute);
+};
+---
+
+<div class="space-y-8">
+  {
+    sortedPosts.map((post) => (
+      <BlogCard
+        title={post.data.title}
+        description={post.data.description}
+        date={post.data.date}
+        slug={post.slug}
+        tags={post.data.tags}
+        image={post.data.image}
+        imageAlt={post.data.imageAlt}
+        featured={post.data.featured}
+        author={post.data.author}
+        readingTime={post.data.readingTime || calculateReadingTime(post.body)}
+      />
+    ))
+  }
+</div>

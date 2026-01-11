@@ -4,9 +4,10 @@ import HeroIcons from "@components/icons/HeroIcons.astro";
 
 interface Props {
   ctaUrl: string;
+  blogBadge?: string;
 }
 
-const { ctaUrl } = Astro.props;
+const { ctaUrl, blogBadge } = Astro.props;
 
 const flowSteps = [
   {
@@ -40,6 +41,24 @@ const flowSteps = [
 ---
 
 <FullViewportSection isFirst={true}>
+  {
+    blogBadge && (
+      <div class="absolute top-4 left-0 right-0 text-center">
+        <a
+          href={blogBadge}
+          class="group inline-flex items-center gap-2 bg-surface-subtle border border-border rounded-full px-3 py-1 text-sm text-secondary hover:text-primary hover:border-border-hover transition-colors"
+        >
+          <span class="bg-accent-primary text-inverse text-xs font-medium px-1.5 py-0.5 rounded-full">
+            New
+          </span>
+          <span>The End of Reactive Support</span>
+          <span class="text-tertiary group-hover:text-primary transition-colors">
+            →
+          </span>
+        </a>
+      </div>
+    )
+  }
   <div class="relative text-center">
     <div class="mx-auto max-w-4xl">
       <!-- Main headline -->

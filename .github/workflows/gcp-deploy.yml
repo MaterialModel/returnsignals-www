@@ -59,7 +59,15 @@ jobs:
           GA_ID=$(gcloud secrets versions access latest --secret="returnsignals-www-ga-id" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
           POSTHOG_KEY=$(gcloud secrets versions access latest --secret="returnsignals-www-posthog-key" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
 
+          # Determine site URL based on deployment target
+          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
+            SITE_URL="https://www.returnsignals.com"
+          else
+            SITE_URL="https://test-www.returnsignals.com"
+          fi
+
           # Build with environment variables directly set
+          SITE_URL="$SITE_URL" \
           PUBLIC_GA_ID="$GA_ID" \
           PUBLIC_POSTHOG_KEY="$POSTHOG_KEY" \
           PUBLIC_BUILD_VERSION="${{ github.sha }}" \

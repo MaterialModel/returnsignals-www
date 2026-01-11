@@ -1,0 +1,129 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/shared/Header.astro";
+import Footer from "@components/shared/Footer.astro";
+import BlogHeader from "@components/blog/BlogHeader.astro";
+import BlogContent from "@components/blog/BlogContent.astro";
+import BlogSignup from "@components/blog/BlogSignup.astro";
+import RelatedPosts from "@components/blog/RelatedPosts.astro";
+import BlogPostSEO from "@components/blog/BlogPostSEO.astro";
+import Breadcrumb from "@components/shared/Breadcrumb.astro";
+import SocialShare from "@components/blog/SocialShare.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const allPosts = await getCollection("blog");
+
+// Improved related posts algorithm with scoring and fallback
+let relatedPosts = allPosts
+  .filter((p) => p.slug !== post.slug && !p.data.draft)
+  .map((p) => ({
+    post: p,
+    score: p.data.tags.filter((tag) => post.data.tags.includes(tag)).length,
+  }))
+  .filter(({ score }) => score > 0)
+  .sort((a, b) => {
+    if (a.score !== b.score) return b.score - a.score;
+    return b.post.data.date.getTime() - a.post.data.date.getTime();
+  })
+  .slice(0, 3)
+  .map(({ post }) => post);
+
+// Fallback to recent posts if no tag matches
+if (relatedPosts.length === 0) {
+  relatedPosts = allPosts
+    .filter((p) => p.slug !== post.slug && !p.data.draft)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+    .slice(0, 3);
+}
+
+const calculateReadingTime = (content: string) => {
+  const wordsPerMinute = 200;
+  const words = content.split(/\s+/).length;
+  return Math.ceil(words / wordsPerMinute);
+};
+
+const readingTime = post.data.readingTime || calculateReadingTime(post.body);
+---
+
+<BaseLayout
+  title={`${post.data.title}`}
+  description={post.data.description}
+  url={`/blog/${post.slug}`}
+  image={post.data.image}
+  noDefaultSEO={true}
+>
+  <BlogPostSEO
+    title={`${post.data.title}`}
+    description={post.data.description}
+    url={`/blog/${post.slug}`}
+    image={post.data.image}
+    imageAlt={post.data.imageAlt}
+    author={post.data.author || "Return Signals Team"}
+    datePublished={post.data.date}
+    dateModified={post.data.updatedDate}
+    tags={post.data.tags}
+  />
+
+  <Header />
+
+  <main class="min-h-screen bg-white">
+    <article class="container mx-auto px-4 py-8 sm:py-12">
+      <div class="max-w-4xl mx-auto">
+        <Breadcrumb
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Blog", href: "/blog" },
+            { name: post.data.title, href: `/blog/${post.slug}` },
+          ]}
+        />
+        <BlogHeader
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          updatedDate={post.data.updatedDate}
+          author={post.data.author}
+          authorImage={post.data.authorImage}
+          readingTime={readingTime}
+          tags={post.data.tags}
+          image={post.data.image}
+          imageAlt={post.data.imageAlt}
+        />
+
+        <BlogContent>
+          <Content />
+        </BlogContent>
+
+        <div class="mt-8">
+          <SocialShare title={post.data.title} url={`/blog/${post.slug}`} />
+        </div>
+
+        {
+          relatedPosts.length > 0 && (
+            <div class="mt-16 pt-16 border-t border-border">
+              <RelatedPosts posts={relatedPosts} />
+            </div>
+          )
+        }
+      </div>
+    </article>
+  </main>
+
+  <BlogSignup />
+
+  <Footer />
+</BaseLayout>
