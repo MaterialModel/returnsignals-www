@@ -23,10 +23,11 @@ const {
   tags,
 } = Astro.props;
 
-const canonicalUrl = `https://www.returnsignals.com${url}`;
+const siteUrl = Astro.site?.origin || "https://www.returnsignals.com";
+const canonicalUrl = `${siteUrl}${url}`;
 const imageUrl = image
-  ? `https://www.returnsignals.com${image}`
-  : "https://www.returnsignals.com/images/logo/og-image.png";
+  ? `${siteUrl}${image}`
+  : `${siteUrl}/images/og-default.png`;
 
 const articleSchema = {
   "@context": "https://schema.org",
@@ -50,7 +51,7 @@ const articleSchema = {
     name: "Return Signals",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.returnsignals.com/favicon-512x512.png",
+      url: `${siteUrl}/favicon-512x512.png`,
     },
   },
   mainEntityOfPage: {
@@ -68,13 +69,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://www.returnsignals.com",
+      item: siteUrl,
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Blog",
-      item: "https://www.returnsignals.com/blog",
+      item: `${siteUrl}/blog`,
     },
     {
       "@type": "ListItem",

@@ -15,9 +15,11 @@ const {
   noindex = false,
 } = Astro.props;
 
-const siteUrl = "https://www.returnsignals.com";
+const siteUrl = Astro.site?.origin || "https://www.returnsignals.com";
 const fullUrl = `${siteUrl}${url}`;
-const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/og-image.jpg`;
+const ogImage = image
+  ? `${siteUrl}${image}`
+  : `${siteUrl}/images/og-default.png`;
 
 // Organization structured data for Google
 const organizationSchema = {
