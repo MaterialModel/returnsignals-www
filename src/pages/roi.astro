@@ -354,6 +354,12 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
     annual: 0,
     baselineMonthly: 0,
     baselineAnnual: 0,
+    exchangeValue: 0,
+    keepValue: 0,
+    retentionValue: 0,
+    eligibleReturns: 0,
+    engagedCustomers: 0,
+    returnsPrevented: 0,
   };
 
   function runCalculation() {
@@ -385,33 +391,15 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
       annual: results.totalAnnual,
       baselineMonthly: results.baselineMonthly,
       baselineAnnual: results.baselineAnnual,
+      exchangeValue: results.exchangeValue,
+      keepValue: results.keepValue,
+      retentionValue: results.retentionValue,
+      eligibleReturns: results.eligibleReturns,
+      engagedCustomers: results.engagedCustomers,
+      returnsPrevented: results.returnsPrevented,
     };
 
-    // Update outputs
-    if (outputs.exchangeValue)
-      outputs.exchangeValue.textContent = formatCurrency(results.exchangeValue);
-    if (outputs.keepValue)
-      outputs.keepValue.textContent = formatCurrency(results.keepValue);
-    if (outputs.retentionValue)
-      outputs.retentionValue.textContent = formatCurrency(
-        results.retentionValue,
-      );
-    if (outputs.eligibleReturns)
-      outputs.eligibleReturns.textContent = formatNumber(
-        results.eligibleReturns,
-      );
-    if (outputs.engagedCustomers)
-      outputs.engagedCustomers.textContent = formatNumber(
-        results.engagedCustomers,
-      );
-    if (outputs.resolvedCustomers)
-      outputs.resolvedCustomers.textContent = formatNumber(
-        results.resolvedCustomers,
-      );
-    if (outputs.returnsPrevented)
-      outputs.returnsPrevented.textContent = formatNumber(
-        results.returnsPrevented,
-      );
+    // Update non-toggled outputs (margin expansion stays the same)
     if (outputs.marginExpansion)
       outputs.marginExpansion.textContent =
         results.marginExpansionPct.toFixed(1) + "%";
@@ -421,6 +409,8 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
   }
 
   function updateDisplay() {
+    const multiplier = isAnnual ? 12 : 1;
+
     if (isAnnual) {
       if (outputs.profitLabel)
         outputs.profitLabel.textContent = "Annual Profit Increase";
@@ -448,6 +438,34 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
           calculationData.baselineMonthly,
         );
     }
+
+    // Update breakdown values based on toggle
+    if (outputs.exchangeValue)
+      outputs.exchangeValue.textContent = formatCurrency(
+        calculationData.exchangeValue * multiplier,
+      );
+    if (outputs.keepValue)
+      outputs.keepValue.textContent = formatCurrency(
+        calculationData.keepValue * multiplier,
+      );
+    if (outputs.retentionValue)
+      outputs.retentionValue.textContent = formatCurrency(
+        calculationData.retentionValue * multiplier,
+      );
+
+    // Update other metrics based on toggle
+    if (outputs.eligibleReturns)
+      outputs.eligibleReturns.textContent = formatNumber(
+        calculationData.eligibleReturns * multiplier,
+      );
+    if (outputs.engagedCustomers)
+      outputs.engagedCustomers.textContent = formatNumber(
+        calculationData.engagedCustomers * multiplier,
+      );
+    if (outputs.returnsPrevented)
+      outputs.returnsPrevented.textContent = formatNumber(
+        calculationData.returnsPrevented * multiplier,
+      );
   }
 
   function setToggleState(annual: boolean) {
