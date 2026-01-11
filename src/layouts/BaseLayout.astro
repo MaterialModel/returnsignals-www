@@ -54,6 +54,7 @@ const {
       )
     }
     <Fragment set:html={ga4Script(import.meta.env.PUBLIC_GA_ID)} />
+    <slot name="head" />
   </head>
   <body class="min-h-vh-fix bg-surface-base text-primary antialiased">
     <slot />

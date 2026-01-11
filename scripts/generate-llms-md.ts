@@ -7,8 +7,8 @@
  * Usage: npx tsx scripts/generate-llms-md.ts
  */
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
-import { join, dirname } from "path";
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from "fs";
+import { join, dirname, basename } from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -133,6 +133,36 @@ const MDX_FILES = [
   { source: "src/pages/terms.mdx", output: "public/terms.md" },
 ];
 
+// Blog directory paths
+const BLOG_SOURCE_DIR = join(ROOT_DIR, "src/content/blog");
+const BLOG_OUTPUT_DIR = join(ROOT_DIR, "public/blog");
+
+/**
+ * Generate markdown files from blog posts in src/content/blog/
+ */
+function generateBlogMarkdownFiles(): void {
+  if (!existsSync(BLOG_SOURCE_DIR)) {
+    console.log("No blog directory found, skipping blog generation.");
+    return;
+  }
+
+  // Ensure output directory exists
+  if (!existsSync(BLOG_OUTPUT_DIR)) {
+    mkdirSync(BLOG_OUTPUT_DIR, { recursive: true });
+  }
+
+  const files = readdirSync(BLOG_SOURCE_DIR);
+  const mdxFiles = files.filter((f) => f.endsWith(".mdx"));
+
+  for (const file of mdxFiles) {
+    const sourcePath = join(BLOG_SOURCE_DIR, file);
+    const outputFile = file.replace(".mdx", ".md");
+    const outputPath = join(BLOG_OUTPUT_DIR, outputFile);
+
+    generateMarkdownFromMdx(sourcePath, outputPath);
+  }
+}
+
 // Generate all markdown files
 console.log("Generating LLM-friendly markdown files...\n");
 
@@ -146,5 +176,9 @@ for (const file of MDX_FILES) {
     console.warn(`Warning: Source file not found: ${sourcePath}`);
   }
 }
+
+// Generate blog markdown files
+console.log("\nGenerating blog markdown files...\n");
+generateBlogMarkdownFiles();
 
 console.log("\nDone!");

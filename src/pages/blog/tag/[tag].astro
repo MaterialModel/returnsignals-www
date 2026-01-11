@@ -1,0 +1,73 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/shared/Header.astro";
+import Footer from "@components/shared/Footer.astro";
+import BlogGrid from "@components/blog/BlogGrid.astro";
+import Breadcrumb from "@components/shared/Breadcrumb.astro";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("blog");
+  const publishedPosts = allPosts.filter((post) => !post.data.draft);
+
+  // Get all unique tags
+  const allTags = [
+    ...new Set(publishedPosts.flatMap((post) => post.data.tags)),
+  ];
+
+  return allTags.map((tag) => {
+    const filteredPosts = publishedPosts.filter((post) =>
+      post.data.tags.includes(tag),
+    );
+    return {
+      params: {
+        tag: tag
+          .toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/[^\w-]+/g, ""),
+      },
+      props: { tag, posts: filteredPosts },
+    };
+  });
+}
+
+const { tag, posts } = Astro.props;
+
+const title = `${tag} Articles`;
+const description = `Browse all articles about ${tag.toLowerCase()} on the Return Signals blog.`;
+---
+
+<BaseLayout
+  {title}
+  {description}
+  url={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`}
+>
+  <Header />
+
+  <main class="min-h-screen bg-white">
+    <section class="container-lg py-8 sm:py-20">
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
+          {
+            name: tag,
+            href: `/blog/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`,
+          },
+        ]}
+      />
+
+      <div class="mb-12">
+        <h1 class="page-title mb-4">{tag}</h1>
+        <p class="text-xl text-secondary">
+          {posts.length}
+          {posts.length === 1 ? "article" : "articles"}
+        </p>
+      </div>
+
+      <BlogGrid posts={posts} />
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

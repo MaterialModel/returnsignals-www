@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/shared/Header.astro";
+import Footer from "@components/shared/Footer.astro";
+import BlogGrid from "@components/blog/BlogGrid.astro";
+import DarkCTASection from "@components/shared/DarkCTASection.astro";
+
+const posts = await getCollection("blog");
+
+const title = "Return Signals Blog";
+const description =
+  "Insights on ecommerce returns, post-purchase experience, and how AI is transforming customer service.";
+---
+
+<BaseLayout {title} {description} url="/blog">
+  <link
+    slot="head"
+    rel="alternate"
+    type="application/rss+xml"
+    title="Return Signals Blog RSS Feed"
+    href="/blog/rss.xml"
+  />
+  <Header />
+
+  <main
+    class="min-h-screen bg-gradient-to-b from-surface-subtle to-surface-base"
+  >
+    <div class="container-narrow py-8 sm:py-20">
+      <div class="text-center mb-12">
+        <h1 class="page-title mb-4">Post-Purchase Intelligence</h1>
+        <p class="text-xl text-secondary">
+          Insights on ecommerce returns, customer experience, and how proactive
+          engagement is transforming the post-purchase journey.
+        </p>
+      </div>
+
+      {
+        posts.length > 0 ? (
+          <BlogGrid posts={posts} />
+        ) : (
+          <div class="text-center py-20">
+            <p class="text-secondary text-lg">
+              No blog posts available yet. Check back soon!
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </main>
+
+  <DarkCTASection
+    title="Ready to reduce returns?"
+    description="See how proactive post-purchase engagement can improve your margins and customer experience"
+    primaryButton={{
+      text: "Book a Demo",
+      href: "https://calendly.com/alejandro-materialmodel/return-signals-introductory-call",
+      isExternal: true,
+    }}
+  >
+    <div class="flex items-center justify-center gap-4 mt-6">
+      <a
+        href="/blog/rss.xml"
+        class="inline-flex items-center gap-2 text-tertiary hover:text-white transition-colors"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M3.429 5.1v1.8c7.248 0 13.114 5.866 13.114 13.114h1.8C18.343 11.97 11.473 5.1 3.429 5.1z"
+          ></path>
+          <path
+            d="M3.429 8.7v1.8c5.124 0 9.514 4.39 9.514 9.514h1.8C14.743 13.676 9.767 8.7 3.429 8.7z"
+          ></path>
+          <circle cx="5.229" cy="18.214" r="1.8"></circle>
+        </svg>
+        Subscribe via RSS
+      </a>
+    </div>
+  </DarkCTASection>
+
+  <Footer />
+</BaseLayout>
