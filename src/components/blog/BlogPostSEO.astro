@@ -1,0 +1,125 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  imageAlt?: string;
+  author: string;
+  datePublished: Date;
+  dateModified?: Date;
+  tags: string[];
+}
+
+const {
+  title,
+  description,
+  url,
+  image,
+  imageAlt,
+  author,
+  datePublished,
+  dateModified,
+  tags,
+} = Astro.props;
+
+const canonicalUrl = `https://www.returnsignals.com${url}`;
+const imageUrl = image
+  ? `https://www.returnsignals.com${image}`
+  : "https://www.returnsignals.com/images/logo/og-image.png";
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description: description,
+  image: {
+    "@type": "ImageObject",
+    url: imageUrl,
+    width: 1200,
+    height: 630,
+  },
+  datePublished: datePublished.toISOString(),
+  dateModified: (dateModified || datePublished).toISOString(),
+  author: {
+    "@type": "Person",
+    name: author,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Return Signals",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://www.returnsignals.com/favicon-512x512.png",
+    },
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonicalUrl,
+  },
+  articleSection: tags,
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.returnsignals.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Blog",
+      item: "https://www.returnsignals.com/blog",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: title,
+      item: canonicalUrl,
+    },
+  ],
+};
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+<meta name="keywords" content={tags.join(", ")} />
+
+<!-- Open Graph / Facebook (Article Type) -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+{imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+<meta property="article:published_time" content={datePublished.toISOString()} />
+<meta
+  property="article:modified_time"
+  content={(dateModified || datePublished).toISOString()}
+/>
+<meta property="article:author" content={author} />
+<meta name="author" content={author} />
+{tags.map((tag) => <meta property="article:tag" content={tag} />)}
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalUrl} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={imageUrl} />
+{imageAlt && <meta property="twitter:image:alt" content={imageAlt} />}
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(breadcrumbSchema)}
+/>
