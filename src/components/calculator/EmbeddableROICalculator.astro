@@ -1,0 +1,507 @@
+---
+/**
+ * Embeddable ROI Calculator for use in blog posts and other content.
+ * A simplified version of the full ROI calculator with 6 user inputs and hardcoded defaults for advanced parameters.
+ */
+
+interface Props {
+  showCTA?: boolean;
+  ctaTitle?: string;
+  ctaDescription?: string;
+}
+
+const {
+  showCTA = true,
+  ctaTitle = "Calculate Your ROI",
+  ctaDescription = "Enter your numbers to see the potential impact for your brand.",
+} = Astro.props;
+---
+
+<div class="roi-calculator-wrapper">
+  {
+    showCTA && (
+      <div class="cta-header">
+        <h3 class="cta-title">{ctaTitle}</h3>
+        <p class="cta-description">{ctaDescription}</p>
+      </div>
+    )
+  }
+
+  <div class="roi-calculator-embed">
+    <!-- Control Bar -->
+    <div class="embed-control-bar">
+      <div class="segmented" role="group" aria-label="Period">
+        <button
+          id="embed-monthlyToggle"
+          class="segmented-btn text-secondary hover:text-primary"
+          aria-pressed="false"
+        >
+          Monthly
+        </button>
+        <button
+          id="embed-annualToggle"
+          class="segmented-btn bg-accent-primary text-inverse"
+          aria-pressed="true"
+        >
+          Annual
+        </button>
+      </div>
+      <a href="/roi" class="full-calc-link"> Full Calculator → </a>
+    </div>
+
+    <div class="embed-grid">
+      <!-- Input Form -->
+      <div class="embed-inputs">
+        <div class="input-group">
+          <label for="embed-unitsSold">Monthly Units Sold</label>
+          <input type="number" id="embed-unitsSold" value="30000" min="0" />
+        </div>
+        <div class="input-group">
+          <label for="embed-avgRevenue">Avg Unit Revenue ($)</label>
+          <input
+            type="number"
+            id="embed-avgRevenue"
+            value="200"
+            min="0"
+            step="0.01"
+          />
+        </div>
+        <div class="input-group">
+          <label for="embed-avgCost">Avg Unit Cost ($)</label>
+          <input
+            type="number"
+            id="embed-avgCost"
+            value="70"
+            min="0"
+            step="0.01"
+          />
+        </div>
+        <div class="input-group">
+          <label for="embed-fitReturnRate">Fit Return Rate (%)</label>
+          <input
+            type="number"
+            id="embed-fitReturnRate"
+            value="18"
+            min="0"
+            max="100"
+            step="0.1"
+          />
+        </div>
+        <div class="input-group">
+          <label for="embed-otherReturnRate">Other Return Rate (%)</label>
+          <input
+            type="number"
+            id="embed-otherReturnRate"
+            value="12"
+            min="0"
+            max="100"
+            step="0.1"
+          />
+        </div>
+        <div class="input-group">
+          <label for="embed-multisizeFit">Multi-size Orders (%)</label>
+          <input
+            type="number"
+            id="embed-multisizeFit"
+            value="25"
+            min="0"
+            max="100"
+            step="0.1"
+          />
+        </div>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="embed-results">
+        <!-- Total Impact -->
+        <div class="result-hero">
+          <p class="result-label" id="embed-profitLabel">
+            Annual Profit Increase
+          </p>
+          <p class="result-value" id="embed-displayValue">$0</p>
+          <div class="result-margin">
+            <span class="margin-value" id="embed-marginExpansion">0%</span>
+            <span class="margin-label">margin expansion</span>
+          </div>
+        </div>
+
+        <!-- Value Breakdown -->
+        <div class="value-breakdown">
+          <div class="breakdown-row">
+            <span class="breakdown-label">Exchange Value</span>
+            <span class="breakdown-value" id="embed-exchangeValue">$0</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">Keep Item Value</span>
+            <span class="breakdown-value" id="embed-keepValue">$0</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">Retention Value</span>
+            <span class="breakdown-value" id="embed-retentionValue">$0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .roi-calculator-wrapper {
+    font-family: inherit;
+    margin: 1.5rem 0;
+    border: 1px solid rgb(226, 232, 240);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .cta-header {
+    padding: 0.625rem 1rem;
+    background: rgb(249, 250, 251);
+    border-bottom: 1px solid rgb(226, 232, 240);
+  }
+
+  .cta-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgb(15, 23, 42);
+    margin: 0 0 0.125rem 0;
+  }
+
+  .cta-description {
+    font-size: 0.8125rem;
+    color: rgb(71, 85, 105);
+    line-height: 1.4;
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .roi-calculator-embed {
+    font-family: inherit;
+    padding: 0.75rem 1rem;
+    background: white;
+  }
+
+  .embed-control-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .segmented {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    border: 1px solid rgb(226, 232, 240);
+    background: #ffffff;
+    padding: 0.125rem;
+  }
+
+  .segmented-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    transition: all 0.15s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .segmented-btn.bg-accent-primary {
+    background: rgb(15, 23, 42);
+    color: #ffffff;
+  }
+
+  .segmented-btn.text-secondary {
+    background: transparent;
+    color: rgb(71, 85, 105);
+  }
+
+  .segmented-btn.text-secondary:hover {
+    color: rgb(15, 23, 42);
+  }
+
+  .full-calc-link {
+    font-size: 0.875rem;
+    color: rgb(15, 23, 42);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .full-calc-link:hover {
+    color: rgb(71, 85, 105);
+  }
+
+  .embed-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .embed-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .embed-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  @media (max-width: 480px) {
+    .embed-inputs {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .input-group label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgb(71, 85, 105);
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid rgb(226, 232, 240);
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    background: #ffffff;
+    transition: border-color 0.15s ease;
+  }
+
+  .input-group input:focus {
+    outline: none;
+    border-color: rgb(15, 23, 42);
+    box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1);
+  }
+
+  .embed-results {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .result-hero {
+    background: linear-gradient(
+      135deg,
+      rgb(236, 253, 245) 0%,
+      rgb(220, 252, 231) 100%
+    );
+    border: 1px solid rgb(187, 247, 208);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    text-align: center;
+  }
+
+  .result-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgb(22, 101, 52);
+    margin: 0 0 0.125rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  .result-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: rgb(22, 101, 52);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .result-margin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    margin-top: 0.25rem;
+  }
+
+  .margin-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: rgb(22, 101, 52);
+  }
+
+  .margin-label {
+    font-size: 0.75rem;
+    color: rgb(22, 101, 52);
+  }
+
+  .value-breakdown {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(229, 231, 235);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    padding: 0.6rem;
+  }
+
+  .breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+  }
+
+  .breakdown-row:not(:last-child) {
+    border-bottom: 1px dashed rgb(226, 232, 240);
+  }
+
+  .breakdown-label {
+    font-size: 0.875rem;
+    color: rgb(51, 65, 85);
+  }
+
+  .breakdown-value {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: rgb(22, 101, 52);
+  }
+</style>
+
+<script>
+  import { calculateROI, formatCurrency } from "./CalculatorCore";
+
+  // Initialize calculator
+  function initEmbedCalculator() {
+    const inputs = {
+      unitsSold: document.getElementById("embed-unitsSold") as HTMLInputElement,
+      avgRevenue: document.getElementById(
+        "embed-avgRevenue",
+      ) as HTMLInputElement,
+      avgCost: document.getElementById("embed-avgCost") as HTMLInputElement,
+      fitReturnRate: document.getElementById(
+        "embed-fitReturnRate",
+      ) as HTMLInputElement,
+      otherReturnRate: document.getElementById(
+        "embed-otherReturnRate",
+      ) as HTMLInputElement,
+      multisizeFit: document.getElementById(
+        "embed-multisizeFit",
+      ) as HTMLInputElement,
+    };
+
+    const outputs = {
+      displayValue: document.getElementById("embed-displayValue"),
+      exchangeValue: document.getElementById("embed-exchangeValue"),
+      keepValue: document.getElementById("embed-keepValue"),
+      retentionValue: document.getElementById("embed-retentionValue"),
+      marginExpansion: document.getElementById("embed-marginExpansion"),
+      profitLabel: document.getElementById("embed-profitLabel"),
+    };
+
+    const monthlyToggle = document.getElementById("embed-monthlyToggle");
+    const annualToggle = document.getElementById("embed-annualToggle");
+
+    let isAnnual = true;
+    let calcData = { monthly: 0, annual: 0 };
+
+    function runCalculation() {
+      const inputValues = {
+        unitsSold: parseFloat(inputs.unitsSold?.value || "0") || 0,
+        avgRevenue: parseFloat(inputs.avgRevenue?.value || "0") || 0,
+        avgCost: parseFloat(inputs.avgCost?.value || "0") || 0,
+        fitReturnRate: parseFloat(inputs.fitReturnRate?.value || "0") || 0,
+        otherReturnRate: parseFloat(inputs.otherReturnRate?.value || "0") || 0,
+        multisizeFit: parseFloat(inputs.multisizeFit?.value || "0") || 0,
+        // Hardcoded defaults for advanced parameters
+        unitsPerOrder: 1.7,
+        orderShippingCost: 10,
+        returnCost: 10,
+        resaleProbability: 85,
+        engagementRate: 40,
+        exchangeLift: 40,
+        keepLift: 10,
+        retentionLift: 20,
+        repeatMarketingCost: 0,
+      };
+
+      const results = calculateROI(inputValues);
+
+      calcData = { monthly: results.totalMonthly, annual: results.totalAnnual };
+
+      if (outputs.exchangeValue)
+        outputs.exchangeValue.textContent = formatCurrency(
+          results.exchangeValue,
+        );
+      if (outputs.keepValue)
+        outputs.keepValue.textContent = formatCurrency(results.keepValue);
+      if (outputs.retentionValue)
+        outputs.retentionValue.textContent = formatCurrency(
+          results.retentionValue,
+        );
+      if (outputs.marginExpansion)
+        outputs.marginExpansion.textContent =
+          results.marginExpansionPct.toFixed(1) + "%";
+
+      updateDisplay();
+    }
+
+    function updateDisplay() {
+      if (isAnnual) {
+        if (outputs.profitLabel)
+          outputs.profitLabel.textContent = "Annual Profit Increase";
+        if (outputs.displayValue)
+          outputs.displayValue.textContent = formatCurrency(calcData.annual);
+      } else {
+        if (outputs.profitLabel)
+          outputs.profitLabel.textContent = "Monthly Profit Increase";
+        if (outputs.displayValue)
+          outputs.displayValue.textContent = formatCurrency(calcData.monthly);
+      }
+    }
+
+    function setToggleState(annual: boolean) {
+      isAnnual = annual;
+
+      if (monthlyToggle && annualToggle) {
+        if (annual) {
+          monthlyToggle.classList.remove("bg-accent-primary", "text-inverse");
+          monthlyToggle.classList.add("text-secondary", "hover:text-primary");
+          annualToggle.classList.add("bg-accent-primary", "text-inverse");
+          annualToggle.classList.remove("text-secondary", "hover:text-primary");
+        } else {
+          annualToggle.classList.remove("bg-accent-primary", "text-inverse");
+          annualToggle.classList.add("text-secondary", "hover:text-primary");
+          monthlyToggle.classList.add("bg-accent-primary", "text-inverse");
+          monthlyToggle.classList.remove(
+            "text-secondary",
+            "hover:text-primary",
+          );
+        }
+      }
+
+      updateDisplay();
+    }
+
+    // Add event listeners
+    Object.values(inputs).forEach((input) => {
+      if (input) input.addEventListener("input", runCalculation);
+    });
+
+    monthlyToggle?.addEventListener("click", () => setToggleState(false));
+    annualToggle?.addEventListener("click", () => setToggleState(true));
+
+    // Initial calculation
+    runCalculation();
+  }
+
+  // Run when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initEmbedCalculator);
+  } else {
+    initEmbedCalculator();
+  }
+</script>
