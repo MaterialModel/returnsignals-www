@@ -68,6 +68,7 @@ const readingTime = post.data.readingTime || calculateReadingTime(post.body);
   noDefaultSEO={true}
 >
   <BlogPostSEO
+    slot="head"
     title={`${post.data.title}`}
     description={post.data.description}
     url={`/blog/${post.slug}`}
