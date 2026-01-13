@@ -12,7 +12,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: "Return Signals Blog",
     description:
-      "Insights on ecommerce returns, post-purchase experience, and how AI is transforming customer service",
+      "Insights on e-commerce returns, post-purchase experience, and how AI is transforming customer service",
     site: context.site || "https://www.returnsignals.com",
     items: sortedPosts.map((post) => ({
       title: post.data.title,

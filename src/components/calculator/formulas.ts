@@ -5,7 +5,7 @@ export const inputVariables = {
       symbol: "N",
       html: "N",
       name: "Units Sold",
-      description: "Monthly ecommerce units sold (before returns)",
+      description: "Monthly e-commerce units sold (before returns)",
     },
     {
       symbol: "AUR",

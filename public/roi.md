@@ -57,7 +57,7 @@ Based on typical e-commerce metrics:
 ### Input Variables
 
 #### Business Metrics
-- **N**: Monthly ecommerce units sold (before returns)
+- **N**: Monthly e-commerce units sold (before returns)
 - **AUR**: Revenue per unit after discounts, before refunds
 - **AUC**: Manufacturing/procurement cost per unit
 - **U**: Average number of units in an order
