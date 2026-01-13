@@ -1,6 +1,6 @@
 # Return Signals Design System
 
-**Status:** Active | **Last Updated:** 2025-12-29
+**Status:** Active | **Last Updated:** 2026-01-12
 
 This document defines the design system for returnsignals.com, including color tokens, typography, spacing, and component standards. All code should follow these patterns.
 
@@ -26,9 +26,10 @@ This document defines the design system for returnsignals.com, including color t
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `text-primary` | `rgb(15, 23, 42)` | Headings, primary text |
+| `text-primary` | `#000000` | Headings, primary text (pure black) |
 | `text-secondary` | `rgb(71, 85, 105)` | Body text, descriptions |
 | `text-tertiary` | `rgb(148, 163, 184)` | Muted text, metadata |
+| `text-caption` | `rgb(100, 116, 139)` | Captions, meta text (slate-500) |
 | `text-inverse` | `#ffffff` | Text on dark backgrounds |
 
 ```tsx
@@ -85,16 +86,45 @@ This document defines the design system for returnsignals.com, including color t
 | `text-accent-primary` | `rgb(15, 23, 42)` | Links, primary actions |
 | `accent-hover` | `rgb(30, 41, 59)` | Hover states |
 | `accent-secondary` | `rgb(71, 85, 105)` | Secondary highlights |
-| `accent-success` | `rgb(34, 197, 94)` | Success states, positive metrics |
-| `accent-success-subtle` | `rgba(34, 197, 94, 0.1)` | Success backgrounds |
 | `accent-muted` | `rgba(15, 23, 42, 0.1)` | Muted accent backgrounds |
+
+### Success State Colors
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `accent-success` | `rgb(34, 197, 94)` | Success icons, borders |
+| `accent-success-subtle` | `rgba(34, 197, 94, 0.1)` | Success badge backgrounds |
+| `accent-success-text` | `rgb(22, 101, 52)` | Success text (dark green) |
+| `accent-success-border` | `rgb(134, 239, 172)` | Success borders (light green) |
+| `accent-success-bg` | `rgb(240, 253, 244)` | Success backgrounds |
+| `accent-success-bg-dark` | `rgb(220, 252, 231)` | Success gradient end |
+
+### Error State Colors
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `accent-error` | `rgb(185, 28, 28)` | Error icons |
+| `accent-error-text` | `rgb(153, 27, 27)` | Error text (dark red) |
+| `accent-error-border` | `rgb(252, 165, 165)` | Error borders |
+| `accent-error-bg` | `rgb(254, 242, 242)` | Error backgrounds |
+| `accent-error-subtle` | `rgb(254, 226, 226)` | Error gradient end |
+
+### Info/Warning Colors
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `accent-info` | `rgb(37, 99, 235)` | Info states (blue) |
+| `accent-warning` | `rgb(161, 98, 7)` | Warning states (amber) |
 
 ```tsx
 // ✅ Good
 <a className="text-accent-primary hover:underline">Learn more</a>
+<span className="bg-accent-success-bg text-accent-success-text">Saved</span>
+<span className="bg-accent-error-bg text-accent-error-text">Failed</span>
 
 // ❌ Bad
 <a className="text-blue-600 hover:underline">Learn more</a>
+<span className="bg-green-50 text-green-800">Saved</span>
 ```
 
 ---
@@ -257,8 +287,16 @@ Simple card wrapper with consistent styling.
 | `BeforeAfterComparison.astro` | 15+ hardcoded gray/blue colors | **HIGH** |
 | `HowItWorksSteps.astro` | 20+ hardcoded gray colors | **HIGH** |
 | `Footer.astro` | Uses `border-secondary` instead of `border` | **MEDIUM** |
-| Analytics components | Hardcoded status badge colors | **MEDIUM** |
 | `NarrativeImage.astro` | Hardcoded shadow/text color | **LOW** |
+
+### Recently Fixed (2026-01-12)
+
+These components were updated to use semantic tokens:
+- `EmbeddableROICalculator.astro` - Now uses success state tokens
+- `BlogContent.astro` - Now uses semantic text/surface/border tokens
+- `TimelineOfDissatisfaction.astro` - Now uses success/error state tokens
+- `CustomerJourneyComparison.astro` - Now uses success/error/info/warning tokens
+- `DarkCTASection.astro` - Now uses `surface-dark` and `accent-hover` for gradients
 
 ### Intentional Exceptions
 
@@ -275,34 +313,40 @@ These components intentionally use hardcoded colors and should **NOT** be change
 
 | Old (Hardcoded) | New (Semantic) |
 |-----------------|----------------|
-| `text-slate-900` | `text-primary` |
-| `text-gray-600` | `text-secondary` |
-| `text-gray-400` | `text-tertiary` |
+| `text-slate-900` / `text-black` | `text-primary` |
+| `text-gray-600` / `text-slate-600` | `text-secondary` |
+| `text-gray-400` / `text-slate-400` | `text-tertiary` |
+| `text-gray-500` / `text-slate-500` | `text-caption` |
 | `bg-white` | `bg-surface-base` |
 | `bg-gray-50` | `bg-surface-subtle` |
 | `bg-gray-100` | `bg-surface-elevated` |
 | `border-gray-200` | `border-border` |
 | `hover:bg-gray-100` | `hover:bg-surface-subtle` |
+| `text-green-800` | `text-accent-success-text` |
+| `bg-green-50` | `bg-accent-success-bg` |
+| `text-red-800` | `text-accent-error-text` |
+| `bg-red-50` | `bg-accent-error-bg` |
 
-### Status Badge Colors (Recommendation)
+### Status Badge Colors
 
-For analytics status badges, use these patterns:
+Use semantic tokens for status badges:
 
 ```tsx
 // Success/positive
-<span className="bg-accent-success-subtle text-accent-success">Active</span>
+<span className="bg-accent-success-bg text-accent-success-text">Active</span>
 
 // Neutral/info
 <span className="bg-accent-muted text-accent-primary">Pending</span>
 
-// Warning (if needed, add to theme)
-<span className="bg-amber-500/10 text-amber-600">Warning</span>
+// Warning
+<span className="bg-amber-50 text-accent-warning">Warning</span>
 
-// Error (if needed, add to theme)
-<span className="bg-red-500/10 text-red-600">Error</span>
+// Error
+<span className="bg-accent-error-bg text-accent-error-text">Error</span>
+
+// Info (for exchanges, etc.)
+<span className="bg-blue-50 text-accent-info">Info</span>
 ```
-
-**TODO:** Consider adding `accent-warning` and `accent-error` tokens to tailwind.config.mjs for better standardization.
 
 ---
 

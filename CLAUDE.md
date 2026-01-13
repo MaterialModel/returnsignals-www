@@ -107,10 +107,12 @@ All client-side environment variables must start with `PUBLIC_`:
 - Use Tailwind utility classes with semantic design tokens
 - **CRITICAL**: Never use hardcoded color values (gray-_, slate-_, blue-\*, etc.)
 - Always use semantic tokens defined in `tailwind.config.mjs`:
-  - **Text**: `text-primary`, `text-secondary`, `text-tertiary`, `text-inverse`
+  - **Text**: `text-primary`, `text-secondary`, `text-tertiary`, `text-caption`, `text-inverse`
   - **Surface**: `bg-surface-base`, `bg-surface-subtle`, `bg-surface-elevated`, `bg-surface-dark`
   - **Border**: `border`, `border-subtle`, `border-hover`
   - **Accent**: `text-accent-primary`, `bg-accent-primary`, `accent-hover`, `accent-secondary`
+  - **Success**: `accent-success`, `accent-success-text`, `accent-success-bg`, `accent-success-border`
+  - **Error**: `accent-error`, `accent-error-text`, `accent-error-bg`, `accent-error-border`
 - Typography utilities in `src/styles/global.css`:
   - `.eyebrow` - Small uppercase labels
   - `.section-title` - Large section headings
