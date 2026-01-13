@@ -17,9 +17,7 @@ const {
 
 const siteUrl = Astro.site?.origin || "https://www.returnsignals.com";
 const fullUrl = `${siteUrl}${url}`;
-const ogImage = image
-  ? `${siteUrl}${image}`
-  : `${siteUrl}/images/og-default.png`;
+const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/og-image.jpg`;
 
 // Organization structured data for Google
 const organizationSchema = {

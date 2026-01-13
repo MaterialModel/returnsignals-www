@@ -25,9 +25,7 @@ const {
 
 const siteUrl = Astro.site?.origin || "https://www.returnsignals.com";
 const canonicalUrl = `${siteUrl}${url}`;
-const imageUrl = image
-  ? `${siteUrl}${image}`
-  : `${siteUrl}/images/og-default.png`;
+const imageUrl = image ? `${siteUrl}${image}` : `${siteUrl}/og-image.jpg`;
 
 const articleSchema = {
   "@context": "https://schema.org",
@@ -51,7 +49,7 @@ const articleSchema = {
     name: "Return Signals",
     logo: {
       "@type": "ImageObject",
-      url: `${siteUrl}/favicon-512x512.png`,
+      url: `${siteUrl}/icon-512.png`,
     },
   },
   mainEntityOfPage: {
