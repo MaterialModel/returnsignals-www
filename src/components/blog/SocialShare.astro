@@ -6,7 +6,8 @@ interface Props {
 
 const { title, url } = Astro.props;
 
-const fullUrl = `https://www.returnsignals.com${url}`;
+const siteUrl = Astro.site?.origin || "https://www.returnsignals.com";
+const fullUrl = `${siteUrl}${url}`;
 const encodedUrl = encodeURIComponent(fullUrl);
 const encodedTitle = encodeURIComponent(title);
 ---
