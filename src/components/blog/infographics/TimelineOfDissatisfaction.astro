@@ -166,10 +166,10 @@
   .timeline-container {
     background: linear-gradient(
       135deg,
-      rgb(248, 250, 252) 0%,
-      rgb(241, 245, 249) 100%
+      theme("colors.surface.elevated") 0%,
+      theme("colors.surface.subtle") 100%
     );
-    border: 1px solid rgb(226, 232, 240);
+    border: 1px solid theme("colors.border.DEFAULT");
     border-radius: 0.75rem;
     padding: 2rem 1.5rem 1.5rem;
     position: relative;
@@ -187,7 +187,7 @@
     left: 10%;
     right: 10%;
     height: 3px;
-    background: rgb(226, 232, 240);
+    background: theme("colors.border.DEFAULT");
     border-radius: 2px;
   }
 
@@ -198,8 +198,8 @@
     left: 18%;
     width: 40%;
     bottom: -0.25rem;
-    background: rgb(240, 253, 244);
-    border: 1px solid rgb(134, 239, 172);
+    background: theme("colors.accent.success-bg");
+    border: 1px solid theme("colors.accent.success-border");
     border-radius: 0.75rem;
     z-index: 0;
   }
@@ -214,7 +214,7 @@
     gap: 0.25rem;
     font-size: 0.625rem;
     font-weight: 600;
-    color: rgb(21, 128, 61);
+    color: theme("colors.accent.success-text");
     text-transform: uppercase;
     letter-spacing: 0.03em;
     white-space: nowrap;
@@ -223,7 +223,7 @@
   .leverage-zone-label svg {
     width: 0.75rem;
     height: 0.75rem;
-    color: rgb(21, 128, 61);
+    color: theme("colors.accent.success-text");
     pointer-events: none;
     user-select: none;
   }
@@ -247,8 +247,8 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background: white;
-    border: 2px solid rgb(226, 232, 240);
+    background: theme("colors.surface.base");
+    border: 2px solid theme("colors.border.DEFAULT");
     display: flex;
     align-items: center;
     justify-content: center;
@@ -258,52 +258,52 @@
   .step-marker svg {
     width: 1.25rem;
     height: 1.25rem;
-    color: rgb(100, 116, 139);
+    color: theme("colors.caption");
     pointer-events: none;
     user-select: none;
   }
 
   .step-marker.highlighted {
-    background: rgb(240, 253, 244);
-    border-color: rgb(134, 239, 172);
+    background: theme("colors.accent.success-bg");
+    border-color: theme("colors.accent.success-border");
     border-width: 2px;
   }
 
   .step-marker.highlighted svg {
-    color: rgb(21, 128, 61);
+    color: theme("colors.accent.success-text");
   }
 
   .step-marker.negative {
-    background: rgb(254, 242, 242);
-    border-color: rgb(252, 165, 165);
+    background: theme("colors.accent.error-bg");
+    border-color: theme("colors.accent.error-border");
   }
 
   .step-marker.negative svg {
-    color: rgb(153, 27, 27);
+    color: theme("colors.accent.error-text");
   }
 
   .step-label {
     font-size: 0.8125rem;
     font-weight: 600;
-    color: rgb(15, 23, 42);
+    color: theme("colors.primary");
     margin-bottom: 0.25rem;
     line-height: 1.3;
     max-width: 5rem;
   }
 
   .step.in-leverage-zone .step-label {
-    color: rgb(21, 128, 61);
+    color: theme("colors.accent.success-text");
   }
 
   .step:has(.step-marker.negative) .step-label {
-    color: rgb(153, 27, 27);
+    color: theme("colors.accent.error-text");
   }
 
   /* Leverage Comparison Section */
   .leverage-comparison {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgb(226, 232, 240);
+    border-top: 1px solid theme("colors.border.DEFAULT");
   }
 
   .comparison-header {
@@ -312,7 +312,7 @@
   }
 
   .comparison-header .eyebrow {
-    color: rgb(71, 85, 105);
+    color: theme("colors.secondary");
   }
 
   .comparison-grid {
@@ -326,18 +326,18 @@
     display: flex;
     flex-direction: column;
     gap: 0.875rem;
-    background: rgb(255, 255, 255);
-    border: 1px solid rgb(226, 232, 240);
+    background: theme("colors.surface.base");
+    border: 1px solid theme("colors.border.DEFAULT");
     border-radius: 0.75rem;
     padding: 1rem;
     align-items: stretch; /* allow full-width header */
   }
 
   .comparison-card.negative {
-    border-color: rgb(252, 165, 165);
+    border-color: theme("colors.accent.error-border");
   }
   .comparison-card.positive {
-    border-color: rgb(134, 239, 172);
+    border-color: theme("colors.accent.success-border");
   }
 
   .card-title {
@@ -355,14 +355,14 @@
   }
 
   .card-title.negative {
-    color: rgb(153, 27, 27);
-    background: rgb(254, 242, 242);
-    border-bottom-color: rgb(252, 165, 165);
+    color: theme("colors.accent.error-text");
+    background: theme("colors.accent.error-bg");
+    border-bottom-color: theme("colors.accent.error-border");
   }
   .card-title.positive {
-    color: rgb(21, 128, 61);
-    background: rgb(240, 253, 244);
-    border-bottom-color: rgb(134, 239, 172);
+    color: theme("colors.accent.success-text");
+    background: theme("colors.accent.success-bg");
+    border-bottom-color: theme("colors.accent.success-border");
   }
 
   .card-content {
@@ -402,26 +402,26 @@
   }
 
   .card-list.negative li {
-    color: rgb(153, 27, 27);
+    color: theme("colors.accent.error-text");
   }
   .card-list.positive li {
-    color: rgb(21, 128, 61);
+    color: theme("colors.accent.success-text");
   }
 
   .card-outcome {
     margin-top: 0.75rem;
     padding-top: 0.75rem;
-    border-top: 1px solid rgb(226, 232, 240); /* separate list from outcome */
+    border-top: 1px solid theme("colors.border.DEFAULT"); /* separate list from outcome */
     text-align: center;
     font-size: 0.875rem;
     font-weight: 600;
   }
 
   .card-outcome.negative {
-    color: rgb(153, 27, 27);
+    color: theme("colors.accent.error-text");
   }
   .card-outcome.positive {
-    color: rgb(21, 128, 61);
+    color: theme("colors.accent.success-text");
   }
 
   /* Center columns and their contents for uniform vertical alignment */
@@ -453,15 +453,15 @@
   }
 
   .column-badge.negative {
-    background: rgb(254, 242, 242);
-    color: rgb(153, 27, 27);
-    border: 1px solid rgb(252, 165, 165);
+    background: theme("colors.accent.error-bg");
+    color: theme("colors.accent.error-text");
+    border: 1px solid theme("colors.accent.error-border");
   }
 
   .column-badge.positive {
-    background: rgb(240, 253, 244);
-    color: rgb(21, 128, 61);
-    border: 1px solid rgb(134, 239, 172);
+    background: theme("colors.accent.success-bg");
+    color: theme("colors.accent.success-text");
+    border: 1px solid theme("colors.accent.success-border");
   }
 
   .flow-sequence {
@@ -469,8 +469,8 @@
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    background: rgb(255, 255, 255);
-    border: 1px solid rgb(226, 232, 240);
+    background: theme("colors.surface.base");
+    border: 1px solid theme("colors.border.DEFAULT");
     border-radius: 0.625rem;
     padding: 1.25rem 1rem;
   }
@@ -492,11 +492,11 @@
   }
 
   .flow-text.negative {
-    color: rgb(153, 27, 27);
+    color: theme("colors.accent.error-text");
   }
 
   .flow-text.positive {
-    color: rgb(21, 128, 61);
+    color: theme("colors.accent.success-text");
   }
 
   .flow-connector {
@@ -512,11 +512,11 @@
   }
 
   .flow-connector.negative {
-    color: rgb(153, 27, 27);
+    color: theme("colors.accent.error-text");
   }
 
   .flow-connector.positive {
-    color: rgb(21, 128, 61);
+    color: theme("colors.accent.success-text");
   }
 
   .column-result {
@@ -529,22 +529,22 @@
   }
 
   .column-result.negative {
-    background: rgb(254, 242, 242);
-    color: rgb(153, 27, 27);
-    border: 1px solid rgb(252, 165, 165);
+    background: theme("colors.accent.error-bg");
+    color: theme("colors.accent.error-text");
+    border: 1px solid theme("colors.accent.error-border");
   }
 
   .column-result.positive {
-    background: rgb(240, 253, 244);
-    color: rgb(21, 128, 61);
-    border: 1px solid rgb(134, 239, 172);
+    background: theme("colors.accent.success-bg");
+    color: theme("colors.accent.success-text");
+    border: 1px solid theme("colors.accent.success-border");
   }
 
   .infographic-caption {
     text-align: center;
     font-size: 0.9375rem;
     font-style: italic;
-    color: rgb(71, 85, 105);
+    color: theme("colors.secondary");
     margin-top: 1rem;
     padding: 0 1rem;
   }

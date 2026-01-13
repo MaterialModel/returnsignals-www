@@ -149,27 +149,27 @@ const {
   .roi-calculator-wrapper {
     font-family: inherit;
     margin: 1.5rem 0;
-    border: 1px solid rgb(226, 232, 240);
+    border: 1px solid theme("colors.border.DEFAULT");
     border-radius: 0.75rem;
     overflow: hidden;
   }
 
   .cta-header {
     padding: 0.625rem 1rem;
-    background: rgb(249, 250, 251);
-    border-bottom: 1px solid rgb(226, 232, 240);
+    background: theme("colors.surface.subtle");
+    border-bottom: 1px solid theme("colors.border.DEFAULT");
   }
 
   .cta-title {
     font-size: 1rem;
     font-weight: 600;
-    color: rgb(15, 23, 42);
+    color: theme("colors.primary");
     margin: 0 0 0.125rem 0;
   }
 
   .cta-description {
     font-size: 0.8125rem;
-    color: rgb(71, 85, 105);
+    color: theme("colors.secondary");
     line-height: 1.4;
     max-width: 60ch;
     margin: 0;
@@ -178,7 +178,7 @@ const {
   .roi-calculator-embed {
     font-family: inherit;
     padding: 0.75rem 1rem;
-    background: white;
+    background: theme("colors.surface.base");
   }
 
   .embed-control-bar {
@@ -194,8 +194,8 @@ const {
     display: inline-flex;
     align-items: center;
     border-radius: 9999px;
-    border: 1px solid rgb(226, 232, 240);
-    background: #ffffff;
+    border: 1px solid theme("colors.border.DEFAULT");
+    background: theme("colors.surface.base");
     padding: 0.125rem;
   }
 
@@ -210,28 +210,28 @@ const {
   }
 
   .segmented-btn.bg-accent-primary {
-    background: rgb(15, 23, 42);
-    color: #ffffff;
+    background: theme("colors.accent.primary");
+    color: theme("colors.inverse");
   }
 
   .segmented-btn.text-secondary {
     background: transparent;
-    color: rgb(71, 85, 105);
+    color: theme("colors.secondary");
   }
 
   .segmented-btn.text-secondary:hover {
-    color: rgb(15, 23, 42);
+    color: theme("colors.primary");
   }
 
   .full-calc-link {
     font-size: 0.875rem;
-    color: rgb(15, 23, 42);
+    color: theme("colors.primary");
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
   .full-calc-link:hover {
-    color: rgb(71, 85, 105);
+    color: theme("colors.secondary");
   }
 
   .embed-grid {
@@ -267,23 +267,23 @@ const {
   .input-group label {
     font-size: 0.8125rem;
     font-weight: 500;
-    color: rgb(71, 85, 105);
+    color: theme("colors.secondary");
   }
 
   .input-group input {
     width: 100%;
     padding: 0.5rem 0.75rem;
-    border: 1px solid rgb(226, 232, 240);
+    border: 1px solid theme("colors.border.DEFAULT");
     border-radius: 0.5rem;
     font-size: 0.9375rem;
-    background: #ffffff;
+    background: theme("colors.surface.base");
     transition: border-color 0.15s ease;
   }
 
   .input-group input:focus {
     outline: none;
-    border-color: rgb(15, 23, 42);
-    box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1);
+    border-color: theme("colors.accent.primary");
+    box-shadow: 0 0 0 2px theme("colors.accent.muted");
   }
 
   .embed-results {
@@ -295,10 +295,10 @@ const {
   .result-hero {
     background: linear-gradient(
       135deg,
-      rgb(236, 253, 245) 0%,
-      rgb(220, 252, 231) 100%
+      theme("colors.accent.success-bg") 0%,
+      theme("colors.accent.success-bg-dark") 100%
     );
-    border: 1px solid rgb(187, 247, 208);
+    border: 1px solid theme("colors.accent.success-border");
     border-radius: 0.5rem;
     padding: 0.75rem;
     text-align: center;
@@ -307,7 +307,7 @@ const {
   .result-label {
     font-size: 0.75rem;
     font-weight: 600;
-    color: rgb(22, 101, 52);
+    color: theme("colors.accent.success-text");
     margin: 0 0 0.125rem 0;
     text-transform: uppercase;
     letter-spacing: 0.025em;
@@ -316,7 +316,7 @@ const {
   .result-value {
     font-size: 2.25rem;
     font-weight: 700;
-    color: rgb(22, 101, 52);
+    color: theme("colors.accent.success-text");
     margin: 0;
     line-height: 1.2;
   }
@@ -332,18 +332,18 @@ const {
   .margin-value {
     font-size: 1.25rem;
     font-weight: 700;
-    color: rgb(22, 101, 52);
+    color: theme("colors.accent.success-text");
   }
 
   .margin-label {
     font-size: 0.75rem;
-    color: rgb(22, 101, 52);
+    color: theme("colors.accent.success-text");
   }
 
   .value-breakdown {
-    background: #ffffff;
+    background: theme("colors.surface.base");
     border-radius: 0.5rem;
-    border: 1px solid rgb(229, 231, 235);
+    border: 1px solid theme("colors.border.DEFAULT");
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     padding: 0.6rem;
   }
@@ -356,18 +356,18 @@ const {
   }
 
   .breakdown-row:not(:last-child) {
-    border-bottom: 1px dashed rgb(226, 232, 240);
+    border-bottom: 1px dashed theme("colors.border.DEFAULT");
   }
 
   .breakdown-label {
     font-size: 0.875rem;
-    color: rgb(51, 65, 85);
+    color: theme("colors.secondary");
   }
 
   .breakdown-value {
     font-size: 0.9375rem;
     font-weight: 600;
-    color: rgb(22, 101, 52);
+    color: theme("colors.accent.success-text");
   }
 </style>
 

@@ -24,8 +24,8 @@ const {
 } = Astro.props;
 
 const containerClass = compact
-  ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-8 md:p-12"
-  : "py-8 sm:py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900";
+  ? "dark-cta-gradient rounded-2xl p-8 md:p-12"
+  : "py-8 sm:py-20 dark-cta-gradient";
 ---
 
 <section class={containerClass}>
@@ -70,3 +70,14 @@ const containerClass = compact
     <slot />
   </div>
 </section>
+
+<style>
+  .dark-cta-gradient {
+    background: linear-gradient(
+      to bottom right,
+      theme("colors.surface.dark") 0%,
+      theme("colors.accent.hover") 50%,
+      theme("colors.surface.dark") 100%
+    );
+  }
+</style>
