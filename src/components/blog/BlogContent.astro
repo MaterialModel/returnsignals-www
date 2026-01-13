@@ -52,7 +52,7 @@
   }
 
   :global(.prose blockquote p) {
-    color: #1f2937;
+    color: theme("colors.primary");
     font-size: 1.375rem;
     line-height: 1.6;
     font-style: italic;
@@ -96,7 +96,7 @@
 
   :global(.prose p:has(+ .table-scroll-wrapper) strong) {
     font-weight: 600;
-    color: rgb(15, 23, 42);
+    color: theme("colors.primary");
     font-size: 0.9375rem;
   }
 
@@ -112,7 +112,7 @@
     margin: 0;
     font-variant-numeric: tabular-nums;
     font-size: 0.9375rem;
-    border: 1px solid rgb(203, 213, 225);
+    border: 1px solid theme("colors.border.hover");
     border-radius: 0.5rem;
   }
 
@@ -129,7 +129,7 @@
   }
 
   :global(.prose thead) {
-    background: rgb(248, 250, 252);
+    background: theme("colors.surface.elevated");
   }
 
   :global(.prose thead th) {
@@ -137,10 +137,10 @@
     text-align: left;
     font-size: 0.75rem;
     font-weight: 600;
-    color: rgb(100, 116, 139);
+    color: theme("colors.caption");
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border-bottom: 2px solid rgb(226, 232, 240);
+    border-bottom: 2px solid theme("colors.border.DEFAULT");
     white-space: nowrap;
   }
 
@@ -153,7 +153,7 @@
   }
 
   :global(.prose tbody tr) {
-    border-bottom: 1px solid rgb(226, 232, 240);
+    border-bottom: 1px solid theme("colors.border.DEFAULT");
     transition: background-color 0.1s ease;
   }
 
@@ -162,12 +162,12 @@
   }
 
   :global(.prose tbody tr:hover) {
-    background: rgb(249, 250, 251);
+    background: theme("colors.surface.subtle");
   }
 
   :global(.prose tbody td) {
     padding: 1rem 1.5rem;
-    color: rgb(15, 23, 42);
+    color: theme("colors.primary");
     font-weight: 400;
   }
 
@@ -178,13 +178,13 @@
 
   :global(.prose tbody td:first-child) {
     font-weight: 500;
-    color: rgb(15, 23, 42);
+    color: theme("colors.primary");
   }
 
   /* Callout box styling for infographics */
   :global(.prose .callout) {
-    background: rgb(248, 250, 252);
-    border: 1px solid rgb(226, 232, 240);
+    background: theme("colors.surface.elevated");
+    border: 1px solid theme("colors.border.DEFAULT");
     border-radius: 0.75rem;
     padding: 1.5rem;
     margin: 2rem 0;
@@ -192,7 +192,7 @@
 
   :global(.prose .callout-title) {
     font-weight: 600;
-    color: rgb(15, 23, 42);
+    color: theme("colors.primary");
     margin-bottom: 0.5rem;
     font-size: 0.875rem;
     text-transform: uppercase;
@@ -202,9 +202,9 @@
   /* ROI Calculator CTA - Collapsible Section */
   :global(.prose details.roi-calculator-cta) {
     margin: 2.5rem 0;
-    border: 1px solid rgb(226, 232, 240);
+    border: 1px solid theme("colors.border.DEFAULT");
     border-radius: 0.75rem;
-    background: rgb(248, 250, 252);
+    background: theme("colors.surface.elevated");
     overflow: hidden;
   }
 
@@ -218,8 +218,8 @@
     transition: background-color 0.15s ease;
     background: linear-gradient(
       135deg,
-      rgb(248, 250, 252) 0%,
-      rgb(241, 245, 249) 100%
+      theme("colors.surface.elevated") 0%,
+      theme("colors.surface.subtle") 100%
     );
   }
 
@@ -232,13 +232,13 @@
   }
 
   :global(.prose details.roi-calculator-cta summary:hover) {
-    background: rgb(241, 245, 249);
+    background: theme("colors.surface.subtle");
   }
 
   :global(.prose details.roi-calculator-cta summary .cta-title) {
     font-size: 0.9375rem;
     font-weight: 600;
-    color: rgb(15, 23, 42);
+    color: theme("colors.primary");
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -248,7 +248,7 @@
     content: "▶";
     font-size: 0.625rem;
     transition: transform 0.2s ease;
-    color: rgb(100, 116, 139);
+    color: theme("colors.caption");
   }
 
   :global(.prose details.roi-calculator-cta[open] summary .cta-title::before) {
@@ -257,14 +257,14 @@
 
   :global(.prose details.roi-calculator-cta summary .cta-description) {
     font-size: 0.8125rem;
-    color: rgb(100, 116, 139);
+    color: theme("colors.caption");
     padding-left: 1rem;
   }
 
   :global(.prose details.roi-calculator-cta .cta-content) {
     padding: 1rem;
-    border-top: 1px solid rgb(226, 232, 240);
-    background: white;
+    border-top: 1px solid theme("colors.border.DEFAULT");
+    background: theme("colors.surface.base");
   }
 
   /* Reset prose styles inside calculator */
