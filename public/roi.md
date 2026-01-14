@@ -18,14 +18,14 @@ Based on typical e-commerce metrics:
 
 **Costs:**
 - Outbound Shipping Cost per Order: $10
-- Return Processing Cost per Unit: $10
+- Return Processing Cost per Unit: $20
 - Repeat Marketing Cost: $0
 
 **Return Rates:**
-- Fit-Related Return Rate: 18%
-- Other Return Rate: 12%
+- Fit-Related Return Rate: 12%
+- Other Return Rate: 18%
 - Multi-size Fit Orders: 25%
-- Resale Probability: 85%
+- Resale Probability: 30%
 
 **Return Signals Impact:**
 - Customer Engagement Rate: 40%
@@ -36,19 +36,14 @@ Based on typical e-commerce metrics:
 ### Output Values
 
 **Total Impact:**
-- Monthly Profit Increase: $262,539
-- Margin Expansion: 6.3%
-- Baseline Monthly Net Sales: $4,200,000
+- Annual Profit Increase: $3,524,358
+- Margin Expansion: 7.0%
+- Baseline Annual Net Sales: $50,400,000
 
 **Value Breakdown:**
-- Exchange Value: $151,920 (returns converted to exchanges)
-- Keep Item Value: $46,053 (returns avoided entirely)
-- Retention Value: $64,566 (increased customer lifetime value)
-
-**Other Metrics:**
-- Eligible Returns: 7,650
-- Engaged Customers: 3,060
-- Returns Prevented: 1,530
+- Exchange Value: $1,930,278 (returns converted to exchanges)
+- Keep Item Value: $773,712 (returns avoided entirely)
+- Retention Value: $820,368 (increased customer lifetime value)
 
 ---
 
@@ -184,3 +179,37 @@ Margin Expansion % = (V_total / Baseline Net Sales) * 100
 - **Eligible Returns**: N_elig
 - **Engaged Customers**: N_elig * E
 - **Returns Prevented**: N_elig * E * (L_exch + L_keep)
+
+---
+
+## Frequently Asked Questions
+
+### What is a good return rate for e-commerce?
+
+Return rates vary significantly by category. [The NRF reports](https://nrf.com/media-center/press-releases/nrf-and-happy-returns-report-2024-retail-returns-total-890-billion) U.S. retail returns total about 16.9% of sales overall. However, apparel tends much higher: many brands see 30%+ return rates. Fit-related returns alone can account for up to 60% of all apparel returns.
+
+### How much does it cost to process a return?
+
+[Radial estimates](https://www.radial.com/insights/returns-management-2024) merchants pay an average of $27 to process a return on a $100 order. This includes return shipping, receiving, inspection, and restocking. Only about 30% of returned merchandise gets resold at full price. The rest goes to liquidation, donation, or disposal.
+
+### How do returns affect customer retention?
+
+The return experience has a significant impact on whether customers come back. [NRF reports](https://nrf.com/media-center/press-releases/nrf-and-happy-returns-report-2024-retail-returns-total-890-billion) 67% of consumers say a negative return experience would discourage them from shopping with that retailer again. Conversely, [Narvar found](https://corp.narvar.com/blog/emotion-driven-ecommerce) 70% say an easy return or exchange experience makes them more likely to become repeat customers.
+
+### How does Return Signals calculate ROI?
+
+We calculate value from three sources:
+
+1. **Exchange Value** — Returns converted to exchanges that preserve revenue and reduce refunds
+2. **Keep Item Value** — Customers who decide to keep items after receiving guidance or support, avoiding the return entirely
+3. **Retention Value** — Increased repeat purchases from customers whose issues were resolved positively
+
+See the methodology section above for the complete formulas.
+
+### What causes most apparel returns?
+
+Most apparel returns are not quality failures but information gaps. [PowerReviews found](https://www.powerreviews.com/research/apparel-shopping-trends-2023/merchandise-returns/) 39% of apparel returns are due to fit issues (the garment does not work on the customer's body), and 28% are because the item did not look as expected (color, style, or fabric differs from what was shown online). These are exactly the kinds of issues that proactive post-purchase engagement can address.
+
+### Where can I learn more about reducing returns?
+
+Read our in-depth article [The End of Reactive Support](/blog/return-starts-before-return) to learn how proactive post-purchase engagement can prevent returns, convert refunds to exchanges, and build customer loyalty. We cover the economics of returns, why most apparel returns happen, and how AI is changing customer support from reactive to proactive.
