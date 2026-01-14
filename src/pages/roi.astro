@@ -2,10 +2,12 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Header from "@components/shared/Header.astro";
 import Footer from "@components/shared/Footer.astro";
-import FormulaModal from "@components/calculator/FormulaModal.astro";
+import FAQ from "@components/shared/FAQ.astro";
 import CalculatorInput from "@components/calculator/CalculatorInput.astro";
 import InputSection from "@components/calculator/InputSection.astro";
 import ResultsPanel from "@components/calculator/ResultsPanel.astro";
+import { formulas, inputVariables } from "@components/calculator/formulas";
+import { roiFaqItems } from "@data/roi-faq";
 ---
 
 <BaseLayout
@@ -24,6 +26,9 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
           ["$$", "$$"],
           ["\\[", "\\]"],
         ],
+      },
+      options: {
+        ignoreHtmlClass: "mathjax-ignore",
       },
       svg: {
         fontCache: "global",
@@ -95,7 +100,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
             </button>
           </div>
           <!-- Formula link placed alongside toggles -->
-          <button id="formulaModalButton" class="toolbar-link">
+          <a href="#methodology" class="toolbar-link">
             <svg
               class="w-4 h-4"
               fill="none"
@@ -112,7 +117,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
             <span class="underline underline-offset-2"
               >Learn how we calculate ROI</span
             >
-          </button>
+          </a>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
@@ -158,7 +163,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
               <CalculatorInput
                 id="returnCost"
                 label="Return Processing Cost per Unit ($)"
-                value="10"
+                value="20"
                 min="0"
                 step="0.01"
                 wrapperId="input-returnCost"
@@ -169,7 +174,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
               <CalculatorInput
                 id="fitReturnRate"
                 label="Fit-Related Return Rate (%)"
-                value="18"
+                value="12"
                 min="0"
                 max="100"
                 step="0.1"
@@ -177,7 +182,7 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
               <CalculatorInput
                 id="otherReturnRate"
                 label="Other Return Rate (%)"
-                value="12"
+                value="18"
                 min="0"
                 max="100"
                 step="0.1"
@@ -259,13 +264,363 @@ import ResultsPanel from "@components/calculator/ResultsPanel.astro";
         </div>
       </div>
     </section>
+
+    <!-- Methodology Section -->
+    <section id="methodology" class="py-16 sm:py-20 bg-surface-subtle">
+      <div class="container-narrow">
+        <div class="text-center mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-primary mb-4">
+            How We Calculate ROI
+          </h2>
+          <p class="text-secondary max-w-2xl mx-auto">
+            Our calculator uses a transparent methodology based on your business
+            metrics to estimate the financial impact of reducing returns and
+            improving customer retention.
+          </p>
+        </div>
+
+        <!-- Input Variables Section -->
+        <div class="bg-surface-base border border-border rounded-lg p-6 mb-8">
+          <h3 class="text-lg font-semibold text-primary mb-4">
+            Input Variables
+          </h3>
+          <p class="text-sm text-secondary mb-6">
+            These are the values you enter in the calculator. Understanding them
+            helps interpret the results.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Business Metrics -->
+            <div>
+              <h4 class="text-sm font-semibold text-accent-primary mb-3">
+                Business Metrics
+              </h4>
+              <div class="space-y-2 text-sm">
+                {
+                  inputVariables.businessMetrics.map((v) => (
+                    <div class="flex items-baseline gap-2">
+                      <span
+                        class="font-mono text-accent-primary font-semibold min-w-[50px]"
+                        set:html={v.html}
+                      />
+                      <span class="text-secondary">{v.description}</span>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Costs -->
+            <div>
+              <h4 class="text-sm font-semibold text-accent-primary mb-3">
+                Costs
+              </h4>
+              <div class="space-y-2 text-sm">
+                {
+                  inputVariables.costs.map((v) => (
+                    <div class="flex items-baseline gap-2">
+                      <span
+                        class="font-mono text-accent-primary font-semibold min-w-[50px]"
+                        set:html={v.html}
+                      />
+                      {v.descriptionHtml ? (
+                        <span
+                          class="text-secondary"
+                          set:html={v.descriptionHtml}
+                        />
+                      ) : (
+                        <span class="text-secondary">{v.description}</span>
+                      )}
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Return Rates -->
+            <div>
+              <h4 class="text-sm font-semibold text-accent-primary mb-3">
+                Return Rates
+              </h4>
+              <div class="space-y-2 text-sm">
+                {
+                  inputVariables.returnRates.map((v) => (
+                    <div class="flex items-baseline gap-2">
+                      <span
+                        class="font-mono text-accent-primary font-semibold min-w-[50px]"
+                        set:html={v.html}
+                      />
+                      <span class="text-secondary">{v.description}</span>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Impact Metrics -->
+            <div>
+              <h4 class="text-sm font-semibold text-accent-primary mb-3">
+                Return Signals Impact
+              </h4>
+              <div class="space-y-2 text-sm">
+                {
+                  inputVariables.impact.map((v) => (
+                    <div class="flex items-baseline gap-2">
+                      <span
+                        class="font-mono text-accent-primary font-semibold min-w-[50px]"
+                        set:html={v.html}
+                      />
+                      <span class="text-secondary">{v.description}</span>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formula Steps -->
+        <div class="space-y-6" id="formulaContent">
+          <!-- Step 1: Eligible Returns -->
+          <div class="bg-surface-base border border-border rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-primary mb-2">
+              {formulas.eligibleReturns.title}
+            </h3>
+            <p class="text-sm text-secondary mb-4">
+              {formulas.eligibleReturns.description}
+            </p>
+
+            <div class="bg-surface-subtle p-4 rounded-lg mb-4">
+              <div
+                class="text-base"
+                set:html={`\\[${formulas.eligibleReturns.mainFormula}\\]`}
+              />
+            </div>
+
+            <div class="space-y-2 text-sm text-secondary mb-4">
+              <p class="font-medium text-primary">Where:</p>
+              {
+                formulas.eligibleReturns.subFormulas.map((sf) => (
+                  <div class="ml-4 flex flex-col gap-1">
+                    <span set:html={`\\(${sf.latex}\\)`} />
+                    <span class="text-tertiary text-xs ml-4">
+                      {sf.description}
+                    </span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <div
+              class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r"
+            >
+              <p class="text-sm text-secondary italic">
+                <strong class="text-primary not-italic">Why?</strong>
+                {formulas.eligibleReturns.intuition}
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2: Exchange Value -->
+          <div class="bg-surface-base border border-border rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-primary mb-2">
+              {formulas.exchangeValue.title}
+            </h3>
+            <p class="text-sm text-secondary mb-4">
+              {formulas.exchangeValue.description}
+            </p>
+
+            <div class="bg-surface-subtle p-4 rounded-lg mb-4">
+              <div
+                class="text-base"
+                set:html={`\\[${formulas.exchangeValue.mainFormula}\\]`}
+              />
+            </div>
+
+            <div class="space-y-2 text-sm text-secondary mb-4">
+              <p class="font-medium text-primary">Where:</p>
+              {
+                formulas.exchangeValue.subFormulas.map((sf) => (
+                  <div class="ml-4 flex flex-col gap-1">
+                    <span set:html={`\\(${sf.latex}\\)`} />
+                    <span class="text-tertiary text-xs ml-4">
+                      {sf.description}
+                    </span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <div
+              class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r"
+            >
+              <p class="text-sm text-secondary mb-2">
+                <strong class="text-primary">Why this formula works:</strong>
+              </p>
+              <ul class="text-sm text-secondary space-y-1 ml-4">
+                {
+                  formulas.exchangeValue.intuitionBulletsHtml?.map((bullet) => (
+                    <li class="flex items-start gap-2">
+                      <span class="text-accent-primary">+</span>
+                      <span set:html={bullet} />
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+
+          <!-- Step 3: Keep Item Value -->
+          <div class="bg-surface-base border border-border rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-primary mb-2">
+              {formulas.keepValue.title}
+            </h3>
+            <p class="text-sm text-secondary mb-4">
+              {formulas.keepValue.description}
+            </p>
+
+            <div class="bg-surface-subtle p-4 rounded-lg mb-4">
+              <div
+                class="text-base"
+                set:html={`\\[${formulas.keepValue.mainFormula}\\]`}
+              />
+            </div>
+
+            <div class="space-y-2 text-sm text-secondary mb-4">
+              <p class="font-medium text-primary">Where:</p>
+              {
+                formulas.keepValue.subFormulas.map((sf) => (
+                  <div class="ml-4 flex flex-col gap-1">
+                    <span set:html={`\\(${sf.latex}\\)`} />
+                    <span class="text-tertiary text-xs ml-4">
+                      {sf.description}
+                    </span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <div
+              class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r"
+            >
+              <p class="text-sm text-secondary mb-2">
+                <strong class="text-primary">Why this formula works:</strong>
+              </p>
+              <ul class="text-sm text-secondary space-y-1 ml-4">
+                {
+                  formulas.keepValue.intuitionBulletsHtml?.map((bullet) => (
+                    <li class="flex items-start gap-2">
+                      <span class="text-accent-primary">+</span>
+                      <span set:html={bullet} />
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+
+          <!-- Step 4: Retention Value -->
+          <div class="bg-surface-base border border-border rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-primary mb-2">
+              {formulas.retentionValue.title}
+            </h3>
+            <p class="text-sm text-secondary mb-4">
+              {formulas.retentionValue.description}
+            </p>
+
+            <div class="bg-surface-subtle p-4 rounded-lg mb-4">
+              <div
+                class="text-base"
+                set:html={`\\[${formulas.retentionValue.mainFormula}\\]`}
+              />
+            </div>
+
+            <div class="space-y-2 text-sm text-secondary mb-4">
+              <p class="font-medium text-primary">Where:</p>
+              {
+                formulas.retentionValue.subFormulas.map((sf) => (
+                  <div class="ml-4 flex flex-col gap-1">
+                    <span set:html={`\\(${sf.latex}\\)`} />
+                    <span class="text-tertiary text-xs ml-4">
+                      {sf.description}
+                    </span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <div
+              class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r"
+            >
+              <p class="text-sm text-secondary mb-2">
+                <strong class="text-primary">Why this formula works:</strong>
+              </p>
+              <ul class="text-sm text-secondary space-y-1 ml-4">
+                {
+                  formulas.retentionValue.intuitionBulletsHtml?.map(
+                    (bullet) => (
+                      <li class="flex items-start gap-2">
+                        <span class="text-accent-primary">+</span>
+                        <span set:html={bullet} />
+                      </li>
+                    ),
+                  )
+                }
+              </ul>
+            </div>
+          </div>
+
+          <!-- Total Value -->
+          <div
+            class="bg-accent-success-subtle border border-accent-success/20 p-6 rounded-lg"
+          >
+            <h3 class="text-lg font-semibold text-primary mb-3">
+              {formulas.totalValue.title}
+            </h3>
+            <div
+              class="text-base mb-2"
+              set:html={`\\[${formulas.totalValue.formula}\\]`}
+            />
+            <p class="text-sm text-secondary">
+              {formulas.totalValue.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <FAQ
+      items={roiFaqItems}
+      description="Common questions about e-commerce returns, their costs, and how to measure ROI on returns management."
+    />
   </main>
 
   <Footer />
-
-  <!-- Formula Modal (at root level for proper z-index) -->
-  <FormulaModal />
 </BaseLayout>
+
+<!-- Schema Markup -->
+<script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Return Signals ROI Calculator",
+    "description": "Calculate the potential ROI of reducing returns and improving customer retention with Return Signals. Estimate savings from converting refunds to exchanges, preventing returns, and increasing repeat purchases.",
+    "url": "https://www.returnsignals.com/roi",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "Return Signals",
+      "url": "https://www.returnsignals.com"
+    }
+  }
+</script>
 
 <style>
   .card {
