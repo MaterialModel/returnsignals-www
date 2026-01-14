@@ -35,13 +35,35 @@ const { tag, posts } = Astro.props;
 
 const title = `${tag} Articles`;
 const description = `Browse all articles about ${tag.toLowerCase()} on the Return Signals blog.`;
+const tagSlug = tag.toLowerCase().replace(/\s+/g, "-");
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.returnsignals.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Blog",
+      item: "https://www.returnsignals.com/blog",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: tag,
+      item: `https://www.returnsignals.com/blog/tag/${tagSlug}`,
+    },
+  ],
+};
 ---
 
-<BaseLayout
-  {title}
-  {description}
-  url={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`}
->
+<BaseLayout {title} {description} url={`/blog/tag/${tagSlug}`}>
   <Header />
 
   <main class="min-h-screen bg-white">
@@ -52,7 +74,7 @@ const description = `Browse all articles about ${tag.toLowerCase()} on the Retur
           { name: "Blog", href: "/blog" },
           {
             name: tag,
-            href: `/blog/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`,
+            href: `/blog/tag/${tagSlug}`,
           },
         ]}
       />
@@ -71,3 +93,9 @@ const description = `Browse all articles about ${tag.toLowerCase()} on the Retur
 
   <Footer />
 </BaseLayout>
+
+<!-- Breadcrumb Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(breadcrumbSchema)}
+/>
