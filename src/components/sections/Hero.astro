@@ -1,6 +1,6 @@
 ---
 import FullViewportSection from "@layouts/FullViewportSection.astro";
-import HeroIcons from "@components/icons/HeroIcons.astro";
+import SMSMockup from "@components/ui/SMSMockup.astro";
 
 interface Props {
   ctaUrl: string;
@@ -9,33 +9,65 @@ interface Props {
 
 const { ctaUrl, blogBadge } = Astro.props;
 
-const flowSteps = [
+// Message type definition
+type Message = {
+  type: "incoming" | "outgoing";
+  content?: "text" | "image";
+  text?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  timestamp?: string;
+};
+
+// Exchange conversation - Emma's dress exchange story
+const heroMessages: Message[] = [
   {
-    id: "check-in",
-    label: "Check in",
-    description: "A proactive text that feels like a real associate.",
-    icon: "chat" as const,
+    type: "incoming" as const,
+    text: "Hi Emma! Quick check-in—how's the new green wrap dress fitting so far?",
   },
   {
-    id: "follow-up",
-    label: "Follow up",
-    description:
-      "If they haven't tried it yet, no problem. We'll reach out again later.",
-    icon: "calendar" as const,
+    type: "outgoing" as const,
+    text: "Haven't tried it on yet.",
   },
   {
-    id: "resolve",
-    label: "Resolve",
-    description:
-      "Support that saves the sale: fit & styling guidance, plus tailored exchange recommendations.",
-    icon: "camera" as const,
+    type: "incoming" as const,
+    text: "All good. I'll follow up in a few days so we can make sure it's perfect before you wear it.",
   },
   {
-    id: "route",
-    label: "Return route",
-    description:
-      "If a return is needed, use photos to decide: restock, rework, or keep‑it.",
-    icon: "route" as const,
+    type: "incoming" as const,
+    text: "Checking back in—did you get a chance to try it on?",
+  },
+  {
+    type: "outgoing" as const,
+    text: "I tried it but I wish it was a little smaller and lighter green.",
+  },
+  {
+    type: "incoming" as const,
+    text: "Can you send a quick photo so I can see what you have?",
+  },
+  {
+    type: "outgoing" as const,
+    content: "image" as const,
+    imageSrc: "/images/hero/dark-green-dress.jpg",
+    imageAlt: "Dark green wrap dress",
+  },
+  {
+    type: "incoming" as const,
+    text: "Got it! I found the same style in a lighter sage, size 6 instead of 8. Would you like to exchange?",
+  },
+  {
+    type: "incoming" as const,
+    content: "image" as const,
+    imageSrc: "/images/hero/lighter-green-dress.jpg",
+    imageAlt: "Lighter green wrap dress",
+  },
+  {
+    type: "outgoing" as const,
+    text: "Yes!",
+  },
+  {
+    type: "incoming" as const,
+    text: "Great! I'm setting up the exchange now. You'll get a return label for the current dress.",
   },
 ];
 ---
@@ -43,7 +75,7 @@ const flowSteps = [
 <FullViewportSection isFirst={true}>
   {
     blogBadge && (
-      <div class="absolute top-4 left-0 right-0 text-center">
+      <div class="text-center mb-6 sm:absolute sm:top-12 sm:left-0 sm:right-0 sm:mb-0 z-10">
         <a
           href={blogBadge}
           class="group inline-flex items-center gap-2 bg-surface-subtle border border-border rounded-full px-3 py-1 text-sm text-secondary hover:text-primary hover:border-border-hover transition-colors"
@@ -59,155 +91,92 @@ const flowSteps = [
       </div>
     )
   }
-  <div class="relative text-center">
-    <div class="mx-auto max-w-4xl">
-      <!-- Main headline -->
-      <h1 class="hero-headline">Proactive CX for E-commerce</h1>
 
-      <p class="hero-tagline mt-6 px-4">
-        Text post‑delivery to provide support, preempt returns, and improve
-        retention.
-      </p>
+  <div class="relative w-full max-w-5xl mx-auto sm:pt-24 lg:pt-12">
+    <div
+      class="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-12"
+    >
+      <!-- Left: Text Content -->
+      <div class="order-1 text-center lg:text-left max-w-xl lg:max-w-lg">
+        <h1 class="hero-headline">
+          Proactive CX for <span class="whitespace-nowrap">E-commerce</span>
+        </h1>
 
-      <!-- Interactive Flow -->
-      <div class="mt-8 sm:mt-10 px-4" id="hero-flow">
-        <!-- Flow Navigation -->
-        <div class="flow-container">
-          {
-            flowSteps.map((step, index) => (
-              <>
-                <button
-                  class={`flow-step ${index === 0 ? "flow-step-active" : ""}`}
-                  data-step={step.id}
-                  aria-label={`View ${step.label} step`}
-                >
-                  <div class="flow-icon">
-                    <HeroIcons name={step.icon} />
-                  </div>
-                  <span class="flow-label">{step.label}</span>
-                </button>
-                {index < flowSteps.length - 1 && (
-                  <div class="flow-connector">
-                    <div class="flow-line" />
-                  </div>
-                )}
-              </>
-            ))
-          }
-        </div>
+        <p class="hero-tagline mt-6 lg:mx-0">
+          Text post-delivery to provide support, preempt returns, and improve
+          retention.
+        </p>
 
-        <!-- Content panels -->
-        <div class="flow-content mt-0">
-          {
-            flowSteps.map((step, index) => (
-              <div
-                class={`flow-panel ${index === 0 ? "flow-panel-active" : ""}`}
-                data-panel={step.id}
-              >
-                <p class="flow-description">{step.description}</p>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-
-      <div
-        class="flex items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-10 flex-wrap"
-      >
-        <a
-          href={ctaUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn-primary">Book a Demo</a
+        <div
+          class="flex items-center justify-center lg:justify-start gap-3 sm:gap-4 mt-8 sm:mt-10 flex-wrap"
         >
-        <a href="#narrative-jacky" class="btn btn-secondary">See Examples</a>
-      </div>
-    </div>
+          <a
+            href={ctaUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary">Book a Demo</a
+          >
+          <a href="#narrative-jacky" class="btn btn-secondary">See Examples</a>
+        </div>
 
-    <!-- Trust -->
-    <div class="mx-auto flex items-center justify-center gap-3 mt-12 sm:mt-14">
-      <span class="text-sm text-secondary">Backed by</span>
-      <img src="/images/ycombinator.png" alt="Y Combinator" class="h-5" />
+        <!-- Trust -->
+        <div
+          class="flex items-center justify-center lg:justify-start gap-3 mt-10 sm:mt-12"
+        >
+          <span class="text-sm text-secondary">Backed by</span>
+          <img src="/images/ycombinator.png" alt="Y Combinator" class="h-5" />
+        </div>
+      </div>
+
+      <!-- Right: SMS Mockup -->
+      <div class="order-2 lg:order-2 flex-none relative">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <SMSMockup messages={heroMessages} className="hero-sms-mockup" />
+      </div>
     </div>
   </div>
 </FullViewportSection>
 
-<script>
-  const flowSteps = ["check-in", "follow-up", "resolve", "route"];
-  let currentStep = 0;
-  let autoplayInterval: ReturnType<typeof setInterval> | null = null;
-  let isPaused = false;
-  const STEP_DURATION = 4000; // 4 seconds per step
-
-  function setActiveStep(stepId: string) {
-    currentStep = flowSteps.indexOf(stepId);
-
-    // Update step buttons
-    document.querySelectorAll(".flow-step").forEach((btn) => {
-      const isActive = btn.getAttribute("data-step") === stepId;
-      btn.classList.toggle("flow-step-active", isActive);
-    });
-
-    // Update panels with animation
-    document.querySelectorAll(".flow-panel").forEach((panel) => {
-      const isActive = panel.getAttribute("data-panel") === stepId;
-      if (isActive) {
-        panel.classList.add("flow-panel-active");
-      } else {
-        panel.classList.remove("flow-panel-active");
-      }
-    });
-
-    // Update connector lines (fill up to current step)
-    document.querySelectorAll(".flow-connector").forEach((connector, index) => {
-      connector.classList.toggle("flow-connector-active", index < currentStep);
-    });
+<style>
+  .hero-glow {
+    position: absolute;
+    top: -6%;
+    right: -10%;
+    width: 26rem;
+    height: 26rem;
+    border-radius: 9999px;
+    background: radial-gradient(
+      closest-side,
+      var(--color-accent-primary) 0%,
+      rgba(15, 23, 42, 0.15) 35%,
+      rgba(15, 23, 42, 0) 70%
+    );
+    filter: blur(50px);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
   }
-
-  function nextStep() {
-    const nextIndex = (currentStep + 1) % flowSteps.length;
-    setActiveStep(flowSteps[nextIndex]);
+  .hero-sms-mockup {
+    position: relative;
+    z-index: 1;
   }
-
-  function startAutoplay() {
-    if (autoplayInterval) clearInterval(autoplayInterval);
-    autoplayInterval = setInterval(() => {
-      if (!isPaused) nextStep();
-    }, STEP_DURATION);
-  }
-
-  function init() {
-    // Click handlers for step buttons
-    document.querySelectorAll(".flow-step").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const stepId = btn.getAttribute("data-step");
-        if (stepId) {
-          setActiveStep(stepId);
-          // Reset autoplay timer on click
-          startAutoplay();
-        }
-      });
-    });
-
-    // Pause on hover
-    const flowContainer = document.getElementById("hero-flow");
-    if (flowContainer) {
-      flowContainer.addEventListener("mouseenter", () => {
-        isPaused = true;
-      });
-      flowContainer.addEventListener("mouseleave", () => {
-        isPaused = false;
-      });
+  @media (min-width: 640px) {
+    .hero-glow {
+      width: 30rem;
+      height: 30rem;
+      top: -8%;
+      right: -12%;
+      filter: blur(60px);
+      opacity: 0.4;
     }
-
-    // Start autoplay
-    startAutoplay();
   }
-
-  // Initialize when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
+  @media (min-width: 1024px) {
+    .hero-glow {
+      width: 34rem;
+      height: 34rem;
+      top: -10%;
+      right: -16%;
+      filter: blur(70px);
+    }
   }
-</script>
+</style>
