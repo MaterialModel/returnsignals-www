@@ -332,7 +332,6 @@ const lastOutgoingIndex = (() => {
 
     // Autoplay animation
     const mockups = Array.from(document.querySelectorAll(".sms-mockup"));
-    console.log("[SMSMockup] Found mockups:", mockups.length);
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -361,22 +360,16 @@ const lastOutgoingIndex = (() => {
     };
 
     const startAutoplay = (mockup: HTMLElement) => {
-      console.log("[SMSMockup] startAutoplay called for mockup");
       // Cross-script guard: avoid multiple initializations across duplicate inline scripts
-      if (
-        (mockup as any).dataset &&
-        (mockup as any).dataset.started === "true"
-      ) {
-        console.log("[SMSMockup] Mockup marked started via dataset, skipping");
+      if (mockup.dataset && mockup.dataset.started === "true") {
         return;
       }
       if (startedMockups.has(mockup)) {
-        console.log("[SMSMockup] Mockup already started, skipping");
         return;
       }
       startedMockups.add(mockup);
       try {
-        (mockup as any).dataset.started = "true";
+        mockup.dataset.started = "true";
       } catch {}
 
       const bubbles = Array.from(
@@ -395,19 +388,13 @@ const lastOutgoingIndex = (() => {
       ) as HTMLElement | null;
 
       if (prefersReducedMotion) {
-        console.log("[SMSMockup] prefersReducedMotion is true, revealing all");
         revealAll(mockup);
         return;
       }
 
-      console.log("[SMSMockup] Starting animation sequence");
-
       let currentIndex = 0;
 
       const revealNext = () => {
-        console.log(
-          `[SMSMockup] revealNext called for message ${currentIndex}`,
-        );
         if (currentIndex >= bubbles.length) return;
 
         // Show timestamp if present for this message
@@ -467,12 +454,8 @@ const lastOutgoingIndex = (() => {
       const mockup = m as HTMLElement;
       // If autoplay class is present, start immediately without IntersectionObserver
       if (mockup.classList.contains("sms-autoplay")) {
-        console.log(
-          "[SMSMockup] Autoplay detected, starting animation immediately",
-        );
         startAutoplay(mockup);
       } else {
-        console.log("[SMSMockup] Using IntersectionObserver");
         observer.observe(mockup);
       }
     });
