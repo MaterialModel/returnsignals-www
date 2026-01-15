@@ -19,12 +19,14 @@ interface Props {
   messages: Message[];
   contactName?: string;
   className?: string;
+  autoplay?: boolean;
 }
 
 const {
   messages,
   contactName = "Return Signals",
   className = "",
+  autoplay = false,
 } = Astro.props;
 
 const lastOutgoingIndex = (() => {
@@ -37,7 +39,7 @@ const lastOutgoingIndex = (() => {
 ---
 
 <div
-  class={`sms-mockup mx-auto w-[264px] sm:w-[308px] md:w-[352px] ${className}`}
+  class={`sms-mockup ${autoplay ? "sms-autoplay" : ""} mx-auto w-[264px] sm:w-[308px] md:w-[352px] ${className}`}
   role="img"
   aria-label={`SMS conversation with ${contactName}`}
   style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'"
@@ -306,7 +308,8 @@ const lastOutgoingIndex = (() => {
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  // Initialize immediately if DOM is ready; otherwise, wait for DOMContentLoaded.
+  const initSMSMockups = () => {
     // Update time display
     const timeDisplays = Array.from(
       document.querySelectorAll(".sms-time-display"),
@@ -329,6 +332,7 @@ const lastOutgoingIndex = (() => {
 
     // Autoplay animation
     const mockups = Array.from(document.querySelectorAll(".sms-mockup"));
+    console.log("[SMSMockup] Found mockups:", mockups.length);
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -357,8 +361,23 @@ const lastOutgoingIndex = (() => {
     };
 
     const startAutoplay = (mockup: HTMLElement) => {
-      if (startedMockups.has(mockup)) return;
+      console.log("[SMSMockup] startAutoplay called for mockup");
+      // Cross-script guard: avoid multiple initializations across duplicate inline scripts
+      if (
+        (mockup as any).dataset &&
+        (mockup as any).dataset.started === "true"
+      ) {
+        console.log("[SMSMockup] Mockup marked started via dataset, skipping");
+        return;
+      }
+      if (startedMockups.has(mockup)) {
+        console.log("[SMSMockup] Mockup already started, skipping");
+        return;
+      }
       startedMockups.add(mockup);
+      try {
+        (mockup as any).dataset.started = "true";
+      } catch {}
 
       const bubbles = Array.from(
         mockup.querySelectorAll(".sms-bubble"),
@@ -376,13 +395,19 @@ const lastOutgoingIndex = (() => {
       ) as HTMLElement | null;
 
       if (prefersReducedMotion) {
+        console.log("[SMSMockup] prefersReducedMotion is true, revealing all");
         revealAll(mockup);
         return;
       }
 
+      console.log("[SMSMockup] Starting animation sequence");
+
       let currentIndex = 0;
 
       const revealNext = () => {
+        console.log(
+          `[SMSMockup] revealNext called for message ${currentIndex}`,
+        );
         if (currentIndex >= bubbles.length) return;
 
         // Show timestamp if present for this message
@@ -438,6 +463,25 @@ const lastOutgoingIndex = (() => {
       { threshold: 0.5 }, // Start when 50% visible
     );
 
-    mockups.forEach((m) => observer.observe(m as Element));
-  });
+    mockups.forEach((m) => {
+      const mockup = m as HTMLElement;
+      // If autoplay class is present, start immediately without IntersectionObserver
+      if (mockup.classList.contains("sms-autoplay")) {
+        console.log(
+          "[SMSMockup] Autoplay detected, starting animation immediately",
+        );
+        startAutoplay(mockup);
+      } else {
+        console.log("[SMSMockup] Using IntersectionObserver");
+        observer.observe(mockup);
+      }
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSMSMockups);
+  } else {
+    // DOM has already loaded; run immediately.
+    initSMSMockups();
+  }
 </script>
