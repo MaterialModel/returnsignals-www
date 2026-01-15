@@ -173,9 +173,9 @@
 
 /* Hero-specific typography - distinct hierarchy */
 .hero-headline {
-  @apply text-3xl sm:text-4xl lg:text-5xl font-medium text-primary;
+  @apply text-3xl sm:text-4xl lg:text-7xl font-medium text-primary;
   letter-spacing: -0.025em;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .hero-tagline {
