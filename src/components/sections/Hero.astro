@@ -131,7 +131,11 @@ const heroMessages: Message[] = [
       <!-- Right: SMS Mockup -->
       <div class="order-2 lg:order-2 flex-none relative">
         <div class="hero-glow" aria-hidden="true"></div>
-        <SMSMockup messages={heroMessages} className="hero-sms-mockup" />
+        <SMSMockup
+          messages={heroMessages}
+          className="hero-sms-mockup"
+          autoplay={true}
+        />
       </div>
     </div>
   </div>
