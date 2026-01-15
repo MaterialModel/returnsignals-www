@@ -176,3 +176,4 @@ When working with this codebase:
     - Create a markdown version in `public/` directory (e.g., `public/roi.md`)
     - Add the new page to `public/llms.txt` in the Docs section
     - For MDX pages, add them to `scripts/generate-llms-md.ts` to auto-generate markdown versions
+14. **NEVER use unicode characters in public/*.md files** - Use plain ASCII characters for maximum compatibility and portability for md files that are directly served on the website. Unicode is ok for readme.md and similar.
