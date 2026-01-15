@@ -1,15 +1,6 @@
 ---
 import NarrativeSection from "./NarrativeSection.astro";
-
-// Message type definition
-type Message = {
-  type: "incoming" | "outgoing";
-  content?: "text" | "image"; // defaults to 'text'
-  text?: string;
-  imageSrc?: string;
-  imageAlt?: string;
-  timestamp?: string;
-};
+import type { Message } from "../../types";
 
 // Narrative 1: Jacky - Prevent the return
 const jackyMessages: Message[] = [

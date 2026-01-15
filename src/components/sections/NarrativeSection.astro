@@ -6,15 +6,7 @@
 
 import SMSMockup from "@components/ui/SMSMockup.astro";
 import NarrativeImage from "@components/ui/NarrativeImage.astro";
-
-interface Message {
-  type: "incoming" | "outgoing";
-  content?: "text" | "image";
-  text?: string;
-  imageSrc?: string;
-  imageAlt?: string;
-  timestamp?: string;
-}
+import type { Message } from "../../types";
 
 interface Props {
   header: string;
