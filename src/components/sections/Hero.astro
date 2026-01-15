@@ -92,9 +92,7 @@ const heroMessages: Message[] = [
     )
   }
 
-  <div
-    class="relative w-full max-w-5xl mx-auto sm:pt-24 lg:pt-[clamp(0rem,10rem-10vh,6rem)]"
-  >
+  <div class="hero-content relative w-full max-w-5xl mx-auto sm:pt-24">
     <div
       class="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-12"
     >
@@ -183,6 +181,15 @@ const heroMessages: Message[] = [
       top: -10%;
       right: -16%;
       filter: blur(70px);
+    }
+    /* vh-based padding: tune the 900px value below */
+    .hero-content {
+      padding-top: 0;
+    }
+    @media (max-height: 750px) {
+      .hero-content {
+        padding-top: 8rem;
+      }
     }
   }
 </style>
