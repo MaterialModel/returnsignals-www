@@ -32,7 +32,7 @@ When something isn't right, customers remember how you respond. Support after de
 
 ### Quality Concern ($27 avg. handling cost)
 **Customer Signal:** Minor flaw or a real defect.
-**Concierge Response:** Photo-based resolution. Decide the right fix: replace, rework, or keep-it.
+**Concierge Response:** Photo-based resolution. Decide the right fix: replace, rework, or keep.
 
 **Outcome:** A good return experience leads to 3x more repeat purchases. The next purchase depends on how this one ends.
 
