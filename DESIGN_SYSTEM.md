@@ -1,6 +1,6 @@
 # Return Signals Design System
 
-**Status:** Active | **Last Updated:** 2026-01-12
+**Status:** Active | **Last Updated:** 2026-01-15
 
 This document defines the design system for returnsignals.com, including color tokens, typography, spacing, and component standards. All code should follow these patterns.
 
@@ -278,14 +278,45 @@ Simple card wrapper with consistent styling.
 
 ---
 
+### Segmented Toggle
+
+Shared segmented toggle styles live in `src/styles/global.css` and should be reused rather than redefined per-component.
+
+#### Classes
+
+| Class | Usage |
+|-------|-------|
+| `.segmented` | Toggle group container (rounded, bordered) |
+| `.segmented-btn` | Toggle button; combine with state classes |
+
+#### State
+
+- Active: `bg-accent-primary text-inverse`
+- Inactive: `text-secondary hover:text-primary`
+
+#### Example
+
+```html
+<div class="segmented" role="group" aria-label="Mode">
+  <button class="segmented-btn bg-accent-primary text-inverse" aria-pressed="true">
+    Simplified
+  </button>
+  <button class="segmented-btn text-secondary hover:text-primary" aria-pressed="false">
+    Full
+  </button>
+</div>
+```
+
+Do not redefine local `.segmented` styles. Use aria-pressed to reflect state.
+
+---
+
 ## Known Issues
 
 ### Components with Hardcoded Colors (Need Fixing)
 
 | Component | Issue | Priority |
 |-----------|-------|----------|
-| `BeforeAfterComparison.astro` | 15+ hardcoded gray/blue colors | **HIGH** |
-| `HowItWorksSteps.astro` | 20+ hardcoded gray colors | **HIGH** |
 | `Footer.astro` | Uses `border-secondary` instead of `border` | **MEDIUM** |
 | `NarrativeImage.astro` | Hardcoded shadow/text color | **LOW** |
 
@@ -306,6 +337,12 @@ These components intentionally use hardcoded colors and should **NOT** be change
 - `AnalyticsPlatformSection.astro` - Gradient backgrounds for visual effects
 
 ---
+
+### Recently Updated (2026-01-15)
+
+- Centralized segmented toggle styles in `global.css` (`.segmented`, `.segmented-btn`)
+- Removed unused/deprecated demo components to reduce surface area (see repo history)
+
 
 ## Migration Guide
 

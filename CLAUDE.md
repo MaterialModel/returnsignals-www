@@ -23,9 +23,10 @@ src/
 ├── layouts/           # Page templates (BaseLayout)
 ├── pages/             # Route pages (SSG)
 ├── styles/            # Global CSS (Tailwind setup)
-└── utils/             # Utilities (analytics)
+├── utils/             # Utilities (analytics)
+└── types.ts           # Shared TypeScript types (e.g., Message)
 
-public/                # Static assets, robots.txt
+public/                  # Static assets, robots.txt
 materialmodel-terraform/ # Infrastructure
 ```
 
@@ -48,6 +49,8 @@ All client-side environment variables must start with `PUBLIC_`:
 - `PUBLIC_GA_ID` - Google Analytics 4 measurement ID
 - `PUBLIC_POSTHOG_KEY` - PostHog project API key for analytics
 - `PUBLIC_BUILD_VERSION` - Git commit SHA
+
+Optional (if enabled in deployment workflows): Datadog RUM variables are described in README.
 
 ## Architecture Patterns
 
@@ -96,7 +99,7 @@ All client-side environment variables must start with `PUBLIC_`:
 - Prettier with prettier-plugin-astro for formatting
 - Components: PascalCase naming
 - Files: kebab-case naming
-- Path aliases: `@components`, `@layouts`, `@utils`
+- Path aliases: `@components`, `@layouts`, `@utils`, `@data`
 - No console.log in production code (enforced by ESLint)
 - Prefer const over let (enforced by ESLint)
 
@@ -123,10 +126,12 @@ All client-side environment variables must start with `PUBLIC_`:
   - `.btn-primary` - Dark filled button
   - `.btn-secondary` - Outlined button
   - `.btn-lg` / `.btn-sm` - Size variants
+  - Segmented toggles: `.segmented`, `.segmented-btn` (defined globally)
 - Container utilities:
   - `.container-lg` - Max-width 7xl with responsive padding
   - `.container-narrow` - Max-width 4xl with responsive padding
   - `.section` - Full section with container-lg + vertical padding
+  - Card utility: `.card` (rounded, bordered surface with padding)
 - Avoid inline styles
 - Responsive design: mobile-first approach
 

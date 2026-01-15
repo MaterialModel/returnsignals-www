@@ -80,6 +80,10 @@ Accent:  text-accent-primary, accent-hover, accent-secondary, accent-success
 **Container Utilities:**
 - `.container-lg`, `.container-narrow`, `.section`
 
+**Common UI Utilities:**
+- Segmented toggles: `.segmented`, `.segmented-btn` (shared styles in `src/styles/global.css`)
+- Card: `.card` (rounded, bordered surface with padded content)
+
 ## 🚢 Deployment
 
 ### Production
