@@ -200,9 +200,9 @@ The return experience has a significant impact on whether customers come back. [
 
 We calculate value from three sources:
 
-1. **Exchange Value** — Returns converted to exchanges that preserve revenue and reduce refunds
-2. **Keep Item Value** — Customers who decide to keep items after receiving guidance or support, avoiding the return entirely
-3. **Retention Value** — Increased repeat purchases from customers whose issues were resolved positively
+1. **Exchange Value** - Returns converted to exchanges that preserve revenue and reduce refunds
+2. **Keep Item Value** - Customers who decide to keep items after receiving guidance or support, avoiding the return entirely
+3. **Retention Value** - Increased repeat purchases from customers whose issues were resolved positively
 
 See the methodology section above for the complete formulas.
 
