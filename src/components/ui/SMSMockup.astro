@@ -219,14 +219,18 @@ const lastOutgoingIndex = (() => {
 
   <!-- Interaction hints -->
   <div class="mt-3 flex items-center justify-center gap-3 text-xs text-caption">
-    <div>↕ Scrollable</div>
+    <div class="flex items-center gap-1">
+      <img src="/icons/scroll-vertical.svg" alt="" class="w-3 h-3 opacity-60" />
+      <span>Scrollable</span>
+    </div>
     <div class="text-tertiary">•</div>
     <div
-      class="sms-replay-hint cursor-pointer hover:text-secondary transition-colors"
+      class="sms-replay-hint flex items-center gap-1 cursor-pointer hover:text-secondary transition-colors"
       role="button"
       tabindex="0"
     >
-      ↻ Click to replay
+      <img src="/icons/replay.svg" alt="" class="w-2.5 h-2.5 opacity-60" />
+      <span>Click to replay</span>
     </div>
   </div>
 </div>
