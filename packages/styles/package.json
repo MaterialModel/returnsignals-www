@@ -1,0 +1,11 @@
+{
+  "name": "@returnsignals/styles",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "global.css",
+  "exports": {
+    ".": "./global.css",
+    "./global.css": "./global.css"
+  }
+}
