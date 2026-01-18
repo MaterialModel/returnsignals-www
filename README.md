@@ -1,140 +1,111 @@
-# Return Signals
+# Return Signals Frontend
 
-Marketing website for Return Signals. Built with Astro 5 + Tailwind CSS for optimal performance and deployed on Google Cloud Platform.
+Monorepo for Return Signals frontend applications, built with pnpm workspaces and deployed on Google Cloud Platform.
 
-## 🛠 Tech Stack
+## Applications
 
-- **Framework**: Astro 5 + TypeScript
-- **Styling**: Tailwind CSS 3
+| App | Description | URL | Tech Stack |
+|-----|-------------|-----|------------|
+| **www** | Marketing website | www.returnsignals.com | Astro 5 + Tailwind |
+| **app** | Customer dashboard | app.returnsignals.com | Vite + React + React Router |
+
+## Tech Stack
+
+- **Package Manager**: pnpm 9 with workspaces
+- **Node Version**: 24.x (enforced via `.nvmrc` and `engines`)
+- **Styling**: Tailwind CSS 3 with shared semantic tokens
 - **Infrastructure**: GCP (Cloud Storage + CDN + HTTPS LB)
 - **IaC**: Terraform (via materialmodel-terraform submodule)
-- **Analytics**: Google Analytics 4, PostHog, Datadog RUM
-- **CI/CD**: GitHub Actions
+- **CI/CD**: GitHub Actions with change detection
 
-## 🏃‍♂️ Quick Start
+## Quick Start
 
 ### Prerequisites
 
-- Node.js 24.x (enforced via `engines`)
-- npm 11.x
+- Node.js 24.x (use `nvm use` to auto-switch)
+- pnpm 9.x (`corepack enable && corepack prepare pnpm@9 --activate`)
 
-### Local Development
+### Development
 
 ```bash
 # Install dependencies
-npm ci
+pnpm install
 
-# Start dev server (http://localhost:4321)
-npm run dev
+# Start all apps in parallel
+pnpm dev
 
-# Build for production
-npm run build
+# Start individual apps
+pnpm dev:www          # http://localhost:4321
+pnpm dev:app          # http://localhost:5173
 
-# Preview production build
-npm run preview
+# Build
+pnpm build            # Build all apps
+pnpm build:www        # Build www only
+pnpm build:app        # Build app only
 
-# Format code
-npm run format
+# Linting and formatting
+pnpm lint             # Lint all apps
+pnpm format           # Format all apps
+pnpm typecheck        # Type check all apps
 
-# Lint code
-npm run lint        # Check for linting issues
-npm run lint:fix    # Auto-fix linting issues
+# Run commands in specific workspace
+pnpm --filter @returnsignals/www <command>
+pnpm --filter @returnsignals/app <command>
 ```
 
-### Environment Variables
-
-Environment variables are fetched from Google Secret Manager during GitHub Actions builds:
-
-- `PUBLIC_GA_ID` - Google Analytics 4 measurement ID
-- `PUBLIC_POSTHOG_KEY` - PostHog project API key
-- `PUBLIC_DATADOG_APPLICATION_ID` - Datadog RUM application ID
-- `PUBLIC_DATADOG_CLIENT_TOKEN` - Datadog RUM client token
-- `PUBLIC_DATADOG_SITE` - Datadog site (us3.datadoghog.com)
-- `PUBLIC_DATADOG_SERVICE` - Service name (returnsignals-www)
-- `PUBLIC_DATADOG_ENV` - Environment (production/test)
-- `PUBLIC_BUILD_VERSION` - Git commit SHA
-
-## 🎨 Design System
-
-The site uses a **semantic design token system** with clean, minimal aesthetics.
-
-📖 **See [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) for complete documentation**
-
-### Quick Reference
-
-**Color Tokens** (never use hardcoded Tailwind colors):
+## Project Structure
 
 ```
-Text:    text-primary, text-secondary, text-tertiary, text-inverse
-Surface: bg-surface-base, bg-surface-subtle, bg-surface-elevated, bg-surface-dark
-Border:  border, border-subtle, border-hover
-Accent:  text-accent-primary, accent-hover, accent-secondary, accent-success
+returnsignals-frontend/
+├── apps/
+│   ├── www/                      # Astro marketing site (@returnsignals/www)
+│   └── app/                      # Vite React SPA (@returnsignals/app)
+├── packages/
+│   ├── tailwind-config/          # Shared Tailwind preset (@returnsignals/tailwind-config)
+│   └── styles/                   # Shared global CSS (@returnsignals/styles)
+├── materialmodel-terraform/      # Infrastructure (submodule)
+├── pnpm-workspace.yaml
+└── package.json
 ```
 
-**Typography Utilities:**
-- `.section-title`, `.section-description`, `.eyebrow`, `.page-title`
+## Shared Packages
 
-**Button Utilities:**
-- `.btn .btn-primary`, `.btn .btn-secondary`, `.btn-lg`, `.btn-sm`
+### @returnsignals/tailwind-config
+Shared Tailwind CSS preset with semantic design tokens (colors, typography, spacing).
 
-**Container Utilities:**
-- `.container-lg`, `.container-narrow`, `.section`
+### @returnsignals/styles
+Shared global CSS utilities (`.btn`, `.card`, `.section`, typography classes).
 
-**Common UI Utilities:**
-- Segmented toggles: `.segmented`, `.segmented-btn` (shared styles in `src/styles/global.css`)
-- Card: `.card` (rounded, bordered surface with padded content)
+Both apps extend these packages - see [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) for complete documentation.
 
-## 🚢 Deployment
+## Deployment
 
-### Production
+GitHub Actions automatically deploys on push to main with change detection:
 
-- **URL**: https://www.returnsignals.com
-- **Bucket**: materialmodel-prod-returnsignals-www
-- **Trigger**: Push to `main` branch
-
-### Test/Preview
-
-- **URL**: https://test-www.returnsignals.com
-- **Bucket**: materialmodel-prod-test-returnsignals-www
-- **Trigger**: Pull request creation/updates
-
-### Infrastructure
-
-- Managed via `materialmodel-terraform` submodule
-- Static hosting on GCP Cloud Storage
-- Global CDN via Cloud CDN
-- HTTPS Load Balancer with managed SSL
-- Shared infrastructure with Material Model sites
+| Environment | www | app |
+|-------------|-----|-----|
+| Production | www.returnsignals.com | app.returnsignals.com |
+| PR Preview | test-www.returnsignals.com | test-app.returnsignals.com |
 
 ### Cache Strategy
-
 - HTML: 5 minutes, must-revalidate
 - index.html: no-cache
 - Assets (JS/CSS/images): 1 year, immutable
 
-## 🔒 Security
+## Security
 
 - HTTPS-only via Google-managed SSL certificate
 - Secrets in Google Secret Manager with CMEK encryption
-- GitHub Actions uses Workload Identity Federation
+- GitHub Actions uses Workload Identity Federation (no service account keys)
 - Cloud Armor DDoS protection
-- No user data collection beyond analytics
 
-## 🤝 Contributing
+## Documentation
 
-1. Create feature branch from `main`
-2. Make changes and test locally
-3. Run `npm run lint` and `npm run format`
-4. Build and preview: `npm run build && npm run preview`
-5. Create PR for review
-6. Merge triggers automatic deployment
+- [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) - Theme tokens, components, and styling standards
+- [CLAUDE.md](./CLAUDE.md) - AI assistant context and guidelines
+- [apps/www/README.md](./apps/www/README.md) - Marketing site documentation
+- [apps/app/README.md](./apps/app/README.md) - Dashboard app documentation
 
-## 📚 Documentation
-
-- `DESIGN_SYSTEM.md` - Theme tokens, components, and standards
-- `CLAUDE.md` - Comprehensive context for AI assistants
-- `materialmodel-terraform/` - Infrastructure documentation
-
-## 📄 License
+## License
 
 Proprietary - Material Model, Inc.
