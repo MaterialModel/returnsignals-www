@@ -1,0 +1,16 @@
+{
+  "name": "@returnsignals/tailwind-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.15"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
