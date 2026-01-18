@@ -1,0 +1,223 @@
+# Security
+
+> How Return Signals protects your data with enterprise-grade infrastructure, encryption, and privacy-first analytics.
+
+Last Updated: December 22, 2025
+
+Return Signals is committed to protecting your data with enterprise-grade security practices. Our infrastructure, built on Google Cloud Platform, implements defense-in-depth principles to safeguard your information at every layer.
+
+## 1. Infrastructure Security
+
+Our platform is built on industry-leading security infrastructure with multiple layers of protection:
+
+### 1.1 End-to-End Encryption
+
+- **Data in Transit:** TLS 1.3 encryption for all connections
+- **Data at Rest:** AES-256 encryption for all stored data
+- **HTTPS Only:** Automatic redirect from HTTP to HTTPS
+- **Managed SSL Certificates:** Automatically renewed and maintained
+
+### 1.2 Private Cloud Infrastructure
+
+- **Google Cloud Platform:** Enterprise-grade infrastructure with SOC 2 Type II compliance
+- **Virtual Private Cloud (VPC):** Isolated network environment with strict access controls
+- **No Public Access:** Backend systems are not exposed to the public internet
+- **Dedicated Infrastructure:** Resources allocated specifically for our services
+
+### 1.3 Access Control
+
+- **Multi-Factor Authentication:** Required for all administrative access
+- **Role-Based Access Control (RBAC):** Least privilege principle for all team members
+- **Audit Logging:** Comprehensive logging of all system access and changes
+- **Regular Access Reviews:** Quarterly reviews of access permissions
+
+### 1.4 Network Security
+
+- **DDoS Protection:** Google Cloud Armor for distributed denial of service mitigation
+- **Web Application Firewall:** Protection against OWASP Top 10 vulnerabilities
+- **Rate Limiting:** API rate limiting to prevent abuse
+- **IP Allowlisting:** Available for enterprise customers
+
+## 2. Customer Data & SMS Security
+
+Return Signals processes sensitive customer data through our SMS engagement platform and photo-based analytics. We implement strict security controls to protect this information:
+
+### 2.1 SMS Communication Security
+
+- **End-to-End Encryption:** All SMS communications encrypted in transit and at rest
+- **Carrier-Grade Infrastructure:** Enterprise SMS providers with SOC 2 Type II certification
+- **Message Integrity:** Cryptographic verification to prevent tampering
+- **PII Protection:** Customer phone numbers and personal data encrypted with AES-256
+
+### 2.2 Photo Upload & Storage Security
+
+- **Secure Upload:** TLS 1.3 encryption for all photo uploads
+- **Content Validation:** Automated scanning to prevent malicious file uploads
+- **Encrypted Storage:** Photos encrypted at rest with customer-managed encryption keys (CMEK)
+- **Access Controls:** Photos accessible only to authorized brand personnel
+- **Automatic Deletion:** Photos deleted after configurable retention period (30-90 days)
+
+### 2.3 Brand Data Isolation
+
+- **Multi-Tenant Architecture:** Complete data isolation between brands
+- **Role-Based Access:** Strict access controls ensure brands only see their own data
+- **API Security:** OAuth 2.0 and API key authentication with rate limiting
+- **Data Residency:** Options for geographic data storage requirements
+
+## 3. Data Retention & Privacy
+
+We implement data minimization principles and retain data only as long as necessary:
+
+- **SMS Conversations:** Automatically deleted after engagement period (configurable per brand)
+- **Customer Photos:** Automatically deleted based on brand-configured retention policies
+- **Analytics Data:** Aggregated analytics retained to provide trend insights to brands
+- **Contact Information:** Customer phone numbers retained only during active engagement
+- **Security Logs:** Retained as required for security monitoring and compliance
+
+### 3.1 Data Deletion Requests
+
+You can request deletion of your personal data at any time by contacting security@returnsignals.com. We will:
+
+- Acknowledge your request within 48 hours
+- Complete deletion within 30 days
+- Provide confirmation once deletion is complete
+- Retain only data required by law or legitimate business purposes (e.g., financial records)
+
+### 3.2 Automated Backups
+
+- Daily automated backups with 14-day retention
+- All backups encrypted with AES-256
+- Backups stored in separate geographic regions for disaster recovery
+- Regular backup restoration testing
+
+## 4. Compliance & Standards
+
+We adhere to industry-standard security frameworks and compliance requirements:
+
+### 4.1 SOC 2 Type II Compliance
+
+Return Signals, as part of Material Model, is working toward SOC 2 Type II certification. This includes:
+
+- Security controls for protecting customer data
+- Availability and performance monitoring
+- Processing integrity verification
+- Confidentiality protection measures
+
+### 4.2 Security Best Practices
+
+- **Regular Security Audits:** Quarterly internal security assessments
+- **Vulnerability Scanning:** Automated scanning for known vulnerabilities
+- **Penetration Testing:** Annual third-party penetration tests
+- **Dependency Updates:** Regular updates of all software dependencies
+
+### 4.3 Incident Response
+
+- **24/7 Monitoring:** Automated alerts for security incidents
+- **Response Team:** Dedicated security team with on-call rotation
+- **Notification Procedures:** Affected users notified within 72 hours of confirmed breach
+- **Post-Incident Reviews:** Comprehensive analysis and remediation after incidents
+
+## 5. Security FAQ
+
+### 5.1 What customer data do you collect?
+
+Return Signals collects only the data necessary to provide our SMS engagement and analytics services:
+
+- **Customer Phone Numbers:** For SMS communication (encrypted and deleted after engagement)
+- **SMS Conversation Content:** Messages between customers and the AI agent
+- **Photos:** Customer-uploaded images for visual triage (encrypted, auto-deleted)
+- **Order Information:** Product details, order IDs (provided by brand, not collected directly)
+- **Engagement Metadata:** Timestamps, resolution outcomes, sentiment data
+
+For detailed information, please see our [Privacy Policy](/privacy).
+
+### 5.2 How do you secure SMS communications?
+
+SMS communications are protected through multiple security layers:
+
+- **Encryption in Transit:** TLS 1.3 for all API connections to SMS providers
+- **Encryption at Rest:** AES-256 encryption for stored message content
+- **Access Controls:** Only authorized AI agents and brand administrators can access conversations
+- **Audit Logs:** All message access logged and monitored for unauthorized activity
+
+### 5.3 How long do you retain customer photos?
+
+Photos are handled with strict retention policies to protect customer privacy:
+
+- **Configurable Retention:** Brands set their own retention policies based on their needs
+- **Automatic Deletion:** Photos permanently deleted after the configured retention period
+- **On-Demand Deletion:** Customers can request immediate photo deletion at any time
+- **Encrypted Storage:** All photos encrypted with CMEK (Customer-Managed Encryption Keys)
+
+### 5.4 How do you protect against common web attacks?
+
+We implement multiple layers of protection:
+
+- **XSS Protection:** Content Security Policy (CSP) headers and input sanitization
+- **CSRF Protection:** Anti-CSRF tokens for form submissions
+- **SQL Injection:** Not applicable (static site with no database)
+- **DDoS Mitigation:** Google Cloud Armor and rate limiting
+- **Clickjacking:** X-Frame-Options and CSP frame-ancestors headers
+
+### 5.5 What should I do if I find a security vulnerability?
+
+We appreciate responsible disclosure of security vulnerabilities. Please report issues to [security@returnsignals.com](mailto:security@returnsignals.com) with:
+
+- Detailed description of the vulnerability
+- Steps to reproduce the issue
+- Potential impact assessment
+- Your contact information for follow-up (we respect reporter anonymity if requested)
+
+We commit to acknowledging your report within 48 hours and providing status updates throughout the resolution process.
+
+### 5.6 How will I be notified of security incidents?
+
+In the event of a security incident that affects your data, we will:
+
+- Notify affected users within 72 hours of confirming the breach
+- Send notifications via email to registered contact addresses
+- Post a security advisory on our website
+- Provide details about the incident, its impact, and remediation steps
+
+## 6. Reporting Security Issues
+
+We take security issues seriously and appreciate the security research community's efforts in keeping our users safe.
+
+### 6.1 Responsible Disclosure
+
+When reporting vulnerabilities, please:
+
+- Email [security@returnsignals.com](mailto:security@returnsignals.com) with details
+- Allow us reasonable time to address the issue before public disclosure
+- Avoid accessing, modifying, or deleting data beyond what's necessary to demonstrate the vulnerability
+- Do not perform actions that could harm our users or services
+
+### 6.2 Our Commitment
+
+- **Response Time:** Acknowledgment within 48 hours
+- **Status Updates:** Regular updates on investigation and remediation
+- **Recognition:** Credit for responsible disclosure (with your permission)
+- **Safe Harbor:** No legal action for good-faith security research
+
+## 7. Additional Resources
+
+For more information about our data practices and policies:
+
+- [Privacy Policy](/privacy) - How we collect and use your information
+- [Terms of Service](/terms) - Legal terms governing use of our services
+
+## 8. Contact Information
+
+For security-related questions, vulnerability reports, or security incident notifications, please contact:
+
+**Material Model, Inc. (d/b/a Return Signals)**
+
+2261 Market Street STE 85311, San Francisco, CA 94114
+
+Security Email: [security@returnsignals.com](mailto:security@returnsignals.com)
+
+Website: [www.returnsignals.com](https://www.returnsignals.com)
+
+**Response Time:** Security inquiries are acknowledged within 48 hours
+
+For general inquiries, you may also contact us at [hello@returnsignals.com](mailto:hello@returnsignals.com).

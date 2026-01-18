@@ -1,0 +1,276 @@
+---
+
+---
+
+<div
+  class="prose prose-lg prose-gray max-w-none blog-content-wrapper
+  prose-headings:font-normal prose-headings:text-primary
+  prose-h1:text-4xl prose-h1:mt-16 prose-h1:mb-8 prose-h1:leading-tight
+  prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-6 prose-h2:leading-tight
+  prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-4
+  prose-p:text-primary prose-p:leading-relaxed prose-p:mb-6 prose-p:text-lg
+  prose-a:text-primary prose-a:underline prose-a:transition-colors
+  prose-strong:text-primary prose-strong:font-normal
+  prose-ul:my-8 prose-ol:my-8
+  prose-li:text-primary prose-li:mb-2
+  prose-blockquote:not-italic prose-blockquote:font-normal prose-blockquote:border-l-0 prose-blockquote:pl-0 prose-blockquote:my-10
+  prose-code:text-primary prose-code:bg-surface-elevated prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-[''] prose-code:after:content-['']
+  prose-pre:bg-surface-dark prose-pre:text-inverse prose-pre:my-8 prose-pre:rounded-lg"
+>
+  <slot />
+</div>
+
+<script>
+  // Wrap tables in scrollable divs for proper overflow handling
+  function wrapTables() {
+    const tables = document.querySelectorAll(".blog-content-wrapper table");
+
+    tables.forEach((table) => {
+      if (table.parentElement?.classList.contains("table-scroll-wrapper"))
+        return;
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "table-scroll-wrapper";
+      table.parentNode?.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", wrapTables);
+  } else {
+    wrapTables();
+  }
+</script>
+
+<style>
+  /* Simple, prominent quote styling */
+  :global(.prose blockquote) {
+    margin: 2.5rem 0;
+    padding: 0;
+    border: none;
+  }
+
+  :global(.prose blockquote p) {
+    color: theme("colors.primary");
+    font-size: 1.375rem;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    white-space: pre-line;
+  }
+
+  :global(.prose blockquote p:first-of-type::before),
+  :global(.prose blockquote p:first-of-type::after) {
+    content: none !important;
+  }
+
+  /* Rounded corners for images in blog content */
+  :global(.prose img) {
+    border-radius: 0.75rem;
+  }
+
+  /* Ensure code blocks don't cause horizontal page overflow */
+  :global(.prose pre) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  /* Scrollable wrapper for tables - prevents page overflow */
+  :global(.table-scroll-wrapper) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 2.5rem auto;
+    max-width: 100%;
+    width: fit-content;
+  }
+
+  /* Table captions - simple bold text close to table */
+  :global(.prose p:has(+ .table-scroll-wrapper)) {
+    margin-bottom: 0.5rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  :global(.prose p:has(+ .table-scroll-wrapper) strong) {
+    font-weight: 600;
+    color: theme("colors.primary");
+    font-size: 0.9375rem;
+  }
+
+  :global(.table-scroll-wrapper) {
+    margin-top: 0.5rem;
+  }
+
+  /* Modern, minimal table styling */
+  :global(.prose table) {
+    width: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.9375rem;
+    border: 1px solid theme("colors.border.hover");
+    border-radius: 0.5rem;
+  }
+
+  @media (max-width: 640px) {
+    :global(.prose table) {
+      font-size: 0.875rem;
+    }
+
+    :global(.prose thead th),
+    :global(.prose tbody td) {
+      padding: 0.75rem 1rem;
+      white-space: nowrap;
+    }
+  }
+
+  :global(.prose thead) {
+    background: theme("colors.surface.elevated");
+  }
+
+  :global(.prose thead th) {
+    padding: 0.875rem 1.5rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: theme("colors.caption");
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid theme("colors.border.DEFAULT");
+    white-space: nowrap;
+  }
+
+  :global(.prose thead th:first-child) {
+    border-top-left-radius: 0.5rem;
+  }
+
+  :global(.prose thead th:last-child) {
+    border-top-right-radius: 0.5rem;
+  }
+
+  :global(.prose tbody tr) {
+    border-bottom: 1px solid theme("colors.border.DEFAULT");
+    transition: background-color 0.1s ease;
+  }
+
+  :global(.prose tbody tr:last-child) {
+    border-bottom: none;
+  }
+
+  :global(.prose tbody tr:hover) {
+    background: theme("colors.surface.subtle");
+  }
+
+  :global(.prose tbody td) {
+    padding: 1rem 1.5rem;
+    color: theme("colors.primary");
+    font-weight: 400;
+  }
+
+  :global(.prose td[align="right"]),
+  :global(.prose th[align="right"]) {
+    text-align: right;
+  }
+
+  :global(.prose tbody td:first-child) {
+    font-weight: 500;
+    color: theme("colors.primary");
+  }
+
+  /* Callout box styling for infographics */
+  :global(.prose .callout) {
+    background: theme("colors.surface.elevated");
+    border: 1px solid theme("colors.border.DEFAULT");
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  :global(.prose .callout-title) {
+    font-weight: 600;
+    color: theme("colors.primary");
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ROI Calculator CTA - Collapsible Section */
+  :global(.prose details.roi-calculator-cta) {
+    margin: 2.5rem 0;
+    border: 1px solid theme("colors.border.DEFAULT");
+    border-radius: 0.75rem;
+    background: theme("colors.surface.elevated");
+    overflow: hidden;
+  }
+
+  :global(.prose details.roi-calculator-cta summary) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.15s ease;
+    background: linear-gradient(
+      135deg,
+      theme("colors.surface.elevated") 0%,
+      theme("colors.surface.subtle") 100%
+    );
+  }
+
+  :global(.prose details.roi-calculator-cta summary::-webkit-details-marker) {
+    display: none;
+  }
+
+  :global(.prose details.roi-calculator-cta summary::marker) {
+    display: none;
+  }
+
+  :global(.prose details.roi-calculator-cta summary:hover) {
+    background: theme("colors.surface.subtle");
+  }
+
+  :global(.prose details.roi-calculator-cta summary .cta-title) {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: theme("colors.primary");
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  :global(.prose details.roi-calculator-cta summary .cta-title::before) {
+    content: "▶";
+    font-size: 0.625rem;
+    transition: transform 0.2s ease;
+    color: theme("colors.caption");
+  }
+
+  :global(.prose details.roi-calculator-cta[open] summary .cta-title::before) {
+    transform: rotate(90deg);
+  }
+
+  :global(.prose details.roi-calculator-cta summary .cta-description) {
+    font-size: 0.8125rem;
+    color: theme("colors.caption");
+    padding-left: 1rem;
+  }
+
+  :global(.prose details.roi-calculator-cta .cta-content) {
+    padding: 1rem;
+    border-top: 1px solid theme("colors.border.DEFAULT");
+    background: theme("colors.surface.base");
+  }
+
+  /* Reset prose styles inside calculator */
+  :global(.prose details.roi-calculator-cta .cta-content p) {
+    font-size: inherit;
+    margin: 0;
+    line-height: inherit;
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+/**
+ * CTASection
+ *
+ * "Want to pilot this?" call-to-action
+ */
+
+interface Props {
+  ctaUrl: string;
+  className?: string;
+}
+
+const { ctaUrl, className = "" } = Astro.props;
+---
+
+<section class={`bg-transparent py-20 sm:py-32 ${className}`}>
+  <div class="container-narrow">
+    <div class="text-center animate-on-scroll max-w-2xl mx-auto">
+      <h2
+        class="text-2xl sm:text-3xl font-normal tracking-tight text-primary mb-4"
+      >
+        Ready to try Return Signals?
+      </h2>
+
+      <p class="text-base sm:text-lg text-secondary mb-8">
+        We're onboarding a small group of apparel and DTC brands for early
+        access.
+      </p>
+
+      <a
+        href={ctaUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary btn-lg"
+      >
+        Book a Demo
+      </a>
+    </div>
+  </div>
+</section>

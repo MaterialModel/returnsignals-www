@@ -1,0 +1,40 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  value: string | number;
+  min?: string | number;
+  max?: string | number;
+  step?: string | number;
+  helpText?: string;
+  wrapperId?: string;
+}
+
+const { id, label, value, min, max, step, helpText, wrapperId } = Astro.props;
+---
+
+<div class="space-y-2 mb-6" id={wrapperId}>
+  <label for={id} class="block text-sm font-medium text-primary">
+    {label}
+  </label>
+  <input
+    type="number"
+    id={id}
+    class="calc-input"
+    value={value}
+    min={min}
+    max={max}
+    step={step}
+  />
+  {helpText && <p class="text-xs text-tertiary">{helpText}</p>}
+</div>
+
+<style>
+  .calc-input {
+    @apply w-full px-4 py-2.5 border-2 rounded-lg text-primary;
+    @apply bg-gray-50 border-gray-300;
+    @apply hover:border-gray-400 hover:bg-white;
+    @apply focus:outline-none focus:ring-2 focus:ring-accent-primary/30 focus:border-accent-primary focus:bg-white;
+    @apply transition-all;
+  }
+</style>

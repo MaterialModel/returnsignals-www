@@ -1,0 +1,31 @@
+# Return Signals
+
+> Return Signals is an AI-powered post-purchase concierge that prevents returns before they happen. Using SMS-based proactive check-ins, photo-based visual triage, and intelligent routing, we help e-commerce brands reduce return costs, improve customer experience, and make data-driven decisions.
+
+Return Signals is a product of Material Model, Inc., a Y Combinator-backed company based in San Francisco.
+
+## Key Features
+
+- **Proactive SMS Check-ins**: AI-powered messages that diagnose fit and usage issues before customers initiate returns
+- **Photo-Based Visual Triage**: Customer-provided photos enable intelligent disposition decisions (restock, rework, or scrap)
+- **Visual Product Discovery**: Turn vague complaints into confident exchanges by showing alternative products
+- **Analytics Dashboard**: Surface patterns in returns, complaints, and customer behavior
+
+## Docs
+
+- [Homepage](https://www.returnsignals.com/index.md): Overview of Return Signals' AI-powered return prevention platform
+- [ROI Calculator Methodology](https://www.returnsignals.com/roi.md): Detailed explanation of how we calculate return on investment
+- [Privacy Policy](https://www.returnsignals.com/privacy.md): How we collect, use, and protect personal information
+- [Security](https://www.returnsignals.com/security.md): Our enterprise-grade security practices and data protection measures
+- [Terms of Service](https://www.returnsignals.com/terms.md): Legal terms governing use of our services
+
+## Blog
+
+- [The Return Starts Before the Return](https://www.returnsignals.com/blog/return-starts-before-return.md): How proactive post-purchase engagement can prevent returns, convert refunds to exchanges, and build customer loyalty
+
+## Contact
+
+- Website: https://www.returnsignals.com
+- Email: hello@returnsignals.com
+- Security: security@returnsignals.com
+- Privacy: privacy@returnsignals.com
