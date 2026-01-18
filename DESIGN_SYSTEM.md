@@ -133,7 +133,7 @@ This document defines the design system for returnsignals.com, including color t
 
 ### Hierarchy
 
-All typography uses semantic utility classes defined in `src/styles/global.css`.
+All typography uses semantic utility classes defined in `packages/styles/global.css`.
 
 ### Headings
 
@@ -280,7 +280,7 @@ Simple card wrapper with consistent styling.
 
 ### Segmented Toggle
 
-Shared segmented toggle styles live in `src/styles/global.css` and should be reused rather than redefined per-component.
+Shared segmented toggle styles live in `packages/styles/global.css` and should be reused rather than redefined per-component.
 
 #### Classes
 
@@ -401,13 +401,13 @@ Use semantic tokens for status badges:
 
 ```bash
 # Check for hardcoded colors (should return minimal results)
-rg "text-gray-|bg-gray-|border-gray-|text-slate-|bg-slate-" src/
+rg "text-gray-|bg-gray-|border-gray-|text-slate-|bg-slate-" apps/
 
 # Format code
-npm run format
+pnpm format
 
 # Lint
-npm run lint
+pnpm lint
 ```
 
 ---
