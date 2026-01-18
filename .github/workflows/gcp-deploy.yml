@@ -2,27 +2,44 @@ name: Deploy to GCP
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
     types: [opened, synchronize, reopened]
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 env:
   PROJECT_ID: materialmodel-prod
   NODE_VERSION: '24'
+  PNPM_VERSION: '9'
 
 jobs:
-  build-and-deploy:
+  detect-changes:
     runs-on: ubuntu-latest
+    outputs:
+      www: ${{ steps.filter.outputs.www }}
+      app: ${{ steps.filter.outputs.app }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            www:
+              - 'apps/www/**'
+              - 'packages/**'
+            app:
+              - 'apps/app/**'
+              - 'packages/**'
 
+  build-and-deploy-www:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.www == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write  # Required for Workload Identity Federation
-      pull-requests: write  # Required for PR comments
-
+      id-token: write
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,14 +47,19 @@ jobs:
           submodules: recursive
           token: ${{ secrets.SUBMODULE_TOKEN }}
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
@@ -48,12 +70,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_wrapper: false
-
-      - name: Get secrets and build
+      - name: Build www
         run: |
           # Get secrets directly from Secret Manager
           GA_ID=$(gcloud secrets versions access latest --secret="returnsignals-www-ga-id" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
@@ -71,23 +88,19 @@ jobs:
           PUBLIC_GA_ID="$GA_ID" \
           PUBLIC_POSTHOG_KEY="$POSTHOG_KEY" \
           PUBLIC_BUILD_VERSION="${{ github.sha }}" \
-          npm run build
+          pnpm --filter @returnsignals/www build
 
-      - name: Deploy to GCS
+      - name: Deploy www to GCS
         run: |
           # Deploy to appropriate bucket based on event type
           if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
-            # Main branch deploys to www.returnsignals.com
             BUCKET="materialmodel-prod-returnsignals-www"
-            URL="https://www.returnsignals.com"
           else
-            # PRs deploy to test-www.returnsignals.com
             BUCKET="materialmodel-prod-test-returnsignals-www"
-            URL="https://test-www.returnsignals.com"
           fi
 
           # Sync files to bucket
-          gsutil -m rsync -r -d dist/ gs://${BUCKET}/
+          gsutil -m rsync -r -d apps/www/dist/ gs://${BUCKET}/
 
           # Set cache headers for different file types
           # Static assets - cache for 1 year (immutable with fingerprinting)
@@ -104,65 +117,147 @@ jobs:
           # Index page - no cache
           gsutil setmeta -h "Cache-Control:no-cache, no-store, must-revalidate" gs://${BUCKET}/index.html || true
 
-          echo "Deployment complete: ${URL}"
+      - name: Invalidate CDN Cache
+        run: |
+          gcloud compute url-maps invalidate-cdn-cache materialmodel-com-url-map --path "/*" --project=${{ env.PROJECT_ID }}
+          sleep 5
+
+  build-and-deploy-app:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.app == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build app
+        run: |
+          # Determine API URL based on deployment target
+          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
+            VITE_API_URL="https://api.returnsignals.com"
+          else
+            VITE_API_URL="https://test-api.returnsignals.com"
+          fi
+
+          # Build with environment variables
+          VITE_API_URL="$VITE_API_URL" \
+          VITE_BUILD_VERSION="${{ github.sha }}" \
+          pnpm --filter @returnsignals/app build
+
+      - name: Deploy app to GCS
+        run: |
+          # Deploy to appropriate bucket based on event type
+          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
+            BUCKET="materialmodel-prod-returnsignals-app"
+          else
+            BUCKET="materialmodel-prod-test-returnsignals-app"
+          fi
+
+          # Sync files to bucket
+          gsutil -m rsync -r -d apps/app/dist/ gs://${BUCKET}/
+
+          # Set cache headers for different file types
+          # Static assets - cache for 1 year (immutable with fingerprinting)
+          for pattern in "**.js" "**.css" "**.jpg" "**.jpeg" "**.png" "**.gif" "**.svg" "**.woff" "**.woff2"; do
+            gsutil -m setmeta -h "Cache-Control:public, max-age=31536000, immutable" gs://${BUCKET}/${pattern} || true
+          done
+
+          # Index page - no cache (SPA entry point)
+          gsutil setmeta -h "Cache-Control:no-cache, no-store, must-revalidate" gs://${BUCKET}/index.html || true
 
       - name: Invalidate CDN Cache
         run: |
-          # Both production and test deployments use the same URL map
-          URL_MAP="materialmodel-com-url-map"
-
-          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
-            echo "Invalidating CDN cache for production deployment (www.returnsignals.com)..."
-          else
-            echo "Invalidating CDN cache for test deployment (test-www.returnsignals.com)..."
-          fi
-
-          # Invalidate the CDN cache for all paths
-          gcloud compute url-maps invalidate-cdn-cache $URL_MAP --path "/*" --project=${{ env.PROJECT_ID }}
-          echo "CDN cache invalidated for $URL_MAP"
-
-          # Wait a moment for cache invalidation to propagate
+          gcloud compute url-maps invalidate-cdn-cache materialmodel-com-url-map --path "/*" --project=${{ env.PROJECT_ID }}
           sleep 5
 
-      - name: Comment PR with preview URL
-        if: github.event_name == 'pull_request'
+  comment-pr:
+    needs: [build-and-deploy-www, build-and-deploy-app]
+    if: always() && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Comment PR with preview URLs
         uses: actions/github-script@v7
         with:
           script: |
-            const prNumber = context.payload.pull_request.number;
-            const previewUrl = `https://test-www.returnsignals.com`;
+            const wwwResult = '${{ needs.build-and-deploy-www.result }}';
+            const appResult = '${{ needs.build-and-deploy-app.result }}';
 
-            // Find and update existing comment or create new one
+            let body = `**Preview deployments ready!**\n\n`;
+            body += `| App | URL | Status |\n`;
+            body += `|-----|-----|--------|\n`;
+
+            if (wwwResult === 'success') {
+              body += `| www | https://test-www.returnsignals.com | :white_check_mark: |\n`;
+            } else if (wwwResult === 'skipped') {
+              body += `| www | - | :fast_forward: skipped (no changes) |\n`;
+            } else {
+              body += `| www | - | :x: ${wwwResult} |\n`;
+            }
+
+            if (appResult === 'success') {
+              body += `| app | https://test-app.returnsignals.com | :white_check_mark: |\n`;
+            } else if (appResult === 'skipped') {
+              body += `| app | - | :fast_forward: skipped (no changes) |\n`;
+            } else {
+              body += `| app | - | :x: ${appResult} |\n`;
+            }
+
+            body += `\n---\n*Main branch deploys to production URLs.*`;
+
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: prNumber,
+              issue_number: context.payload.pull_request.number,
             });
 
-            const botComment = comments.find(comment =>
-              comment.user.type === 'Bot' &&
-              comment.body.includes('Preview deployment ready')
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('Preview deployments ready')
             );
-
-            const commentBody = `**Preview deployment ready!**
-
-            View your changes at: ${previewUrl}
-
-            ---
-            *Changes are available immediately. Main branch deploys to www.returnsignals.com.*`;
 
             if (botComment) {
               await github.rest.issues.updateComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 comment_id: botComment.id,
-                body: commentBody
+                body
               });
             } else {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: prNumber,
-                body: commentBody
+                issue_number: context.payload.pull_request.number,
+                body
               });
             }
