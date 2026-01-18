@@ -1,0 +1,5 @@
+# Prettier can't parse inline scripts in these files
+src/components/shared/PostHog.astro
+
+# Build output
+dist/
