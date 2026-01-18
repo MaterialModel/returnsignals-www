@@ -1,0 +1,184 @@
+---
+/**
+ * Interventions View - Check-ins pipeline and outcomes
+ */
+---
+
+<div class="interventions-view">
+  <!-- Pipeline Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="stat-card bg-surface-base border border-border rounded-lg p-4">
+      <div class="text-sm text-secondary mb-1">Check-ins Sent</div>
+      <div class="text-3xl font-bold text-primary">2,847</div>
+      <div class="text-xs text-secondary mt-1">Last 30 days</div>
+    </div>
+    <div class="stat-card bg-surface-base border border-border rounded-lg p-4">
+      <div class="text-sm text-secondary mb-1">Response Rate</div>
+      <div class="text-3xl font-bold text-primary">73%</div>
+      <div class="text-xs text-accent-success mt-1">+5% vs last month</div>
+    </div>
+    <div class="stat-card bg-surface-base border border-border rounded-lg p-4">
+      <div class="text-sm text-secondary mb-1">Avg Resolution Time</div>
+      <div class="text-3xl font-bold text-primary">2.1 days</div>
+      <div class="text-xs text-accent-success mt-1">-0.4 days improvement</div>
+    </div>
+  </div>
+
+  <!-- Outcomes Breakdown -->
+  <div class="bg-surface-base border border-border rounded-lg p-6 mb-6">
+    <h3 class="text-sm font-semibold text-primary mb-4">
+      Outcomes (Last 30 Days)
+    </h3>
+    <div class="space-y-3">
+      <div class="outcome-item">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-primary font-medium">Prevented (Kept)</span>
+          <span class="text-sm font-bold text-accent-success">847 (42%)</span>
+        </div>
+        <div class="h-2 bg-surface-elevated rounded-full overflow-hidden">
+          <div class="h-full bg-accent-success rounded-full" style="width: 42%">
+          </div>
+        </div>
+      </div>
+      <div class="outcome-item">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-primary font-medium"
+            >Exchanged at Source</span
+          >
+          <span class="text-sm font-bold text-primary">523 (26%)</span>
+        </div>
+        <div class="h-2 bg-surface-elevated rounded-full overflow-hidden">
+          <div class="h-full bg-accent-success rounded-full" style="width: 26%">
+          </div>
+        </div>
+      </div>
+      <div class="outcome-item">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-primary font-medium"
+            >At-Customer Disposal</span
+          >
+          <span class="text-sm font-bold text-primary">412 (21%)</span>
+        </div>
+        <div class="h-2 bg-surface-elevated rounded-full overflow-hidden">
+          <div class="h-full bg-amber-500 rounded-full" style="width: 21%">
+          </div>
+        </div>
+      </div>
+      <div class="outcome-item">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-primary font-medium">Returned</span>
+          <span class="text-sm font-bold text-secondary">218 (11%)</span>
+        </div>
+        <div class="h-2 bg-surface-elevated rounded-full overflow-hidden">
+          <div class="h-full bg-secondary rounded-full" style="width: 11%">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Conversations -->
+  <div class="bg-surface-base border border-border rounded-lg p-6">
+    <h3 class="text-sm font-semibold text-primary mb-4">Recent Check-ins</h3>
+    <div class="space-y-3">
+      <div
+        class="conversation-row flex items-center justify-between p-3 hover:bg-surface-subtle rounded cursor-pointer transition-colors"
+      >
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-sm font-medium text-primary">Jacky R.</span>
+            <span class="text-xs text-secondary">• Classic Tee</span>
+          </div>
+          <div class="text-xs text-secondary">
+            Fit advice provided • Kept item
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span
+            class="px-2 py-1 text-xs font-medium bg-accent-success/10 text-accent-success rounded"
+            >Resolved</span
+          >
+          <span class="text-xs text-tertiary">2m ago</span>
+        </div>
+      </div>
+      <div
+        class="conversation-row flex items-center justify-between p-3 hover:bg-surface-subtle rounded cursor-pointer transition-colors"
+      >
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-sm font-medium text-primary">Bob M.</span>
+            <span class="text-xs text-secondary">• Gym Shirt</span>
+          </div>
+          <div class="text-xs text-secondary">
+            Photo confirmed defect • Exchange initiated
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span
+            class="px-2 py-1 text-xs font-medium bg-accent-success-subtle text-accent-success rounded"
+            >Exchange</span
+          >
+          <span class="text-xs text-tertiary">15m ago</span>
+        </div>
+      </div>
+      <div
+        class="conversation-row flex items-center justify-between p-3 hover:bg-surface-subtle rounded cursor-pointer transition-colors"
+      >
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-sm font-medium text-primary">Priya K.</span>
+            <span class="text-xs text-secondary">• Athletic Leggings</span>
+          </div>
+          <div class="text-xs text-secondary">
+            Damage confirmed • Disposed at customer
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span
+            class="px-2 py-1 text-xs font-medium bg-amber-500/10 text-amber-600 rounded"
+            >Disposal</span
+          >
+          <span class="text-xs text-tertiary">1h ago</span>
+        </div>
+      </div>
+      <div
+        class="conversation-row flex items-center justify-between p-3 hover:bg-surface-subtle rounded cursor-pointer transition-colors"
+      >
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-sm font-medium text-primary">Sarah L.</span>
+            <span class="text-xs text-secondary">• Wrap Dress</span>
+          </div>
+          <div class="text-xs text-secondary">
+            Usage guidance provided • Kept item
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span
+            class="px-2 py-1 text-xs font-medium bg-accent-success/10 text-accent-success rounded"
+            >Resolved</span
+          >
+          <span class="text-xs text-tertiary">2h ago</span>
+        </div>
+      </div>
+      <div
+        class="conversation-row flex items-center justify-between p-3 hover:bg-surface-subtle rounded cursor-pointer transition-colors"
+      >
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-sm font-medium text-primary">Mike T.</span>
+            <span class="text-xs text-secondary">• Running Shorts</span>
+          </div>
+          <div class="text-xs text-secondary">Awaiting customer response</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span
+            class="px-2 py-1 text-xs font-medium bg-surface-elevated text-secondary rounded"
+            >Pending</span
+          >
+          <span class="text-xs text-tertiary">4h ago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

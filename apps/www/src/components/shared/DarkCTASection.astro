@@ -1,0 +1,83 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  primaryButton: {
+    text: string;
+    href: string;
+    isExternal?: boolean;
+  };
+  secondaryButton?: {
+    text: string;
+    href: string;
+    isExternal?: boolean;
+  };
+  compact?: boolean;
+}
+
+const {
+  title,
+  description,
+  primaryButton,
+  secondaryButton,
+  compact = false,
+} = Astro.props;
+
+const containerClass = compact
+  ? "dark-cta-gradient rounded-2xl p-8 md:p-12"
+  : "py-8 sm:py-20 dark-cta-gradient";
+---
+
+<section class={containerClass}>
+  <div
+    class={compact
+      ? "text-center max-w-2xl mx-auto"
+      : "container-narrow text-center"}
+  >
+    <h2 class="text-3xl sm:text-4xl font-normal text-inverse mb-6">{title}</h2>
+    <p class="text-lg text-tertiary mb-8 max-w-2xl mx-auto">
+      {description}
+    </p>
+
+    <div
+      class={secondaryButton
+        ? "flex flex-col sm:flex-row gap-4 justify-center"
+        : ""}
+    >
+      <a
+        href={primaryButton.href}
+        class="btn bg-surface-base text-primary hover:bg-surface-subtle"
+        target={primaryButton.isExternal ? "_blank" : undefined}
+        rel={primaryButton.isExternal ? "noopener" : undefined}
+      >
+        {primaryButton.text}
+      </a>
+
+      {
+        secondaryButton && (
+          <a
+            href={secondaryButton.href}
+            class="btn bg-transparent text-inverse border border-white/30 hover:bg-white/10"
+            target={secondaryButton.isExternal ? "_blank" : undefined}
+            rel={secondaryButton.isExternal ? "noopener" : undefined}
+          >
+            {secondaryButton.text}
+          </a>
+        )
+      }
+    </div>
+
+    <slot />
+  </div>
+</section>
+
+<style>
+  .dark-cta-gradient {
+    background: linear-gradient(
+      to bottom right,
+      theme("colors.surface.dark") 0%,
+      theme("colors.accent.hover") 50%,
+      theme("colors.surface.dark") 100%
+    );
+  }
+</style>

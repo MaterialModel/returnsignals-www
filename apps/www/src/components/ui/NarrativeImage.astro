@@ -1,0 +1,45 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  story: string;
+  className?: string;
+  heightClasses?: string; // Tailwind height classes for wrapper
+}
+
+const {
+  src,
+  alt,
+  story,
+  className = "",
+  heightClasses = "h-[400px] sm:h-[450px] md:h-[500px]",
+} = Astro.props;
+---
+
+<div class={`narrative-image ${className}`}>
+  <div
+    class={`narrative-crop relative w-full overflow-hidden rounded-sm ${heightClasses}`}
+    style="box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35), 0 8px 16px rgba(15, 23, 42, 0.2);"
+  >
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      class="block h-full w-full object-cover object-top"
+    />
+    <div class="absolute inset-x-8 sm:inset-x-12 bottom-8">
+      <div
+        class="bg-white/90 backdrop-blur-md rounded-2xl px-4 py-3 border border-border shadow-soft"
+      >
+        <p
+          class="leading-relaxed italic font-medium text-center text-primary"
+          style="font-family: Georgia, 'Times New Roman', serif;
+          font-size: 0.875rem;
+          line-height: 1.5;"
+        >
+          {story}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
