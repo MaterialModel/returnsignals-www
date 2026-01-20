@@ -44,10 +44,10 @@ coverage/
 .turbo/
 
 # Auto-generated llms.txt markdown files (from MDX sources)
-public/privacy.md
-public/security.md
-public/terms.md
-public/blog/*.md
+apps/www/public/privacy.md
+apps/www/public/security.md
+apps/www/public/terms.md
+apps/www/public/blog/*.md
 
 # Misc
 .claude
