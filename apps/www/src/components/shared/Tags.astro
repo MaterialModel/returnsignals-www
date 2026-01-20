@@ -1,16 +1,16 @@
 ---
 export interface Props {
-  tags: string[];
-  clickable?: boolean;
+  tags: string[]
+  clickable?: boolean
 }
 
-const { tags = [], clickable = false } = Astro.props;
+const { tags = [], clickable = false } = Astro.props
 
 const slugify = (text: string) =>
   text
     .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^\w-]+/g, "");
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]+/g, '')
 ---
 
 {
@@ -28,7 +28,7 @@ const slugify = (text: string) =>
           <span class="inline-block px-2 py-1 text-xs text-secondary bg-surface-elevated rounded">
             {tag}
           </span>
-        ),
+        )
       )}
     </div>
   )

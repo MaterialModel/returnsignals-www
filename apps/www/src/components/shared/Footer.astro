@@ -1,33 +1,33 @@
 ---
-const year = new Date().getFullYear();
+const year = new Date().getFullYear()
 
 // Generate markdown version URL for current page
-const pathname = Astro.url.pathname;
-const cleanPath = pathname.replace(/\.html$/, "").replace(/\/$/, "");
-const mdPath = cleanPath === "" ? "/index.md" : `${cleanPath}.md`;
+const pathname = Astro.url.pathname
+const cleanPath = pathname.replace(/\.html$/, '').replace(/\/$/, '')
+const mdPath = cleanPath === '' ? '/index.md' : `${cleanPath}.md`
 
 const socialLinks = [
   {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/company/material-model/",
-    icon: "/icons/footer/linkedin.svg",
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/material-model/',
+    icon: '/icons/footer/linkedin.svg',
   },
   {
-    name: "X",
-    href: "https://x.com/MaterialModelAI",
-    icon: "/icons/footer/x.svg",
+    name: 'X',
+    href: 'https://x.com/MaterialModelAI',
+    icon: '/icons/footer/x.svg',
   },
   {
-    name: "YouTube",
-    href: "https://www.youtube.com/@MaterialModel",
-    icon: "/icons/footer/youtube.svg",
+    name: 'YouTube',
+    href: 'https://www.youtube.com/@MaterialModel',
+    icon: '/icons/footer/youtube.svg',
   },
   {
-    name: "Discord",
-    href: "https://discord.gg/vA8weUwPzP",
-    icon: "/icons/footer/discord.svg",
+    name: 'Discord',
+    href: 'https://discord.gg/vA8weUwPzP',
+    icon: '/icons/footer/discord.svg',
   },
-];
+]
 ---
 
 <footer class="mt-auto bg-surface-base">
@@ -71,21 +71,14 @@ const socialLinks = [
           }
         </div>
       </div>
-      <div
-        class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-secondary"
-      >
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-secondary">
         <span>&copy; {year} Return Signals</span>
-        <a href="/privacy" class="hover:text-primary transition-colors"
-          >Privacy</a
-        >
+        <a href="/privacy" class="hover:text-primary transition-colors">Privacy</a>
         <a href="/terms" class="hover:text-primary transition-colors">Terms</a>
-        <a
-          href="mailto:hello@returnsignals.com"
-          class="hover:text-primary transition-colors">Contact</a
+        <a href="mailto:hello@returnsignals.com" class="hover:text-primary transition-colors"
+          >Contact</a
         >
-        <a href={mdPath} class="hover:text-primary transition-colors"
-          >Markdown</a
-        >
+        <a href={mdPath} class="hover:text-primary transition-colors">Markdown</a>
       </div>
     </div>
 
@@ -95,29 +88,19 @@ const socialLinks = [
       <div class="flex items-center gap-4 text-xs text-secondary">
         <span>&copy; {year} Return Signals</span>
         <span class="text-border">|</span>
-        <a href="/privacy" class="hover:text-primary transition-colors"
-          >Privacy</a
-        >
+        <a href="/privacy" class="hover:text-primary transition-colors">Privacy</a>
         <a href="/terms" class="hover:text-primary transition-colors">Terms</a>
-        <a
-          href="mailto:hello@returnsignals.com"
-          class="hover:text-primary transition-colors">Contact</a
+        <a href="mailto:hello@returnsignals.com" class="hover:text-primary transition-colors"
+          >Contact</a
         >
-        <a href={mdPath} class="hover:text-primary transition-colors"
-          >Markdown</a
-        >
+        <a href={mdPath} class="hover:text-primary transition-colors">Markdown</a>
       </div>
 
       <!-- Center: social -->
       <div class="flex items-center gap-4">
         {
           socialLinks.map((link) => (
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={link.name}
-            >
+            <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
               <span
                 class="block h-4 w-4 bg-secondary hover:bg-primary transition-colors"
                 style={`mask-image: url('${link.icon}'); mask-size: contain; mask-repeat: no-repeat; mask-position: center; -webkit-mask-image: url('${link.icon}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;`}

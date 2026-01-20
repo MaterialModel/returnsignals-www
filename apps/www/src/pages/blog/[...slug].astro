@@ -1,32 +1,32 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-import BaseLayout from "@layouts/BaseLayout.astro";
-import Header from "@components/shared/Header.astro";
-import Footer from "@components/shared/Footer.astro";
-import BlogHeader from "@components/blog/BlogHeader.astro";
-import BlogContent from "@components/blog/BlogContent.astro";
-import BlogSignup from "@components/blog/BlogSignup.astro";
-import RelatedPosts from "@components/blog/RelatedPosts.astro";
-import BlogPostSEO from "@components/blog/BlogPostSEO.astro";
-import Breadcrumb from "@components/shared/Breadcrumb.astro";
-import SocialShare from "@components/blog/SocialShare.astro";
+import { getCollection, type CollectionEntry } from 'astro:content'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import Header from '@components/shared/Header.astro'
+import Footer from '@components/shared/Footer.astro'
+import BlogHeader from '@components/blog/BlogHeader.astro'
+import BlogContent from '@components/blog/BlogContent.astro'
+import BlogSignup from '@components/blog/BlogSignup.astro'
+import RelatedPosts from '@components/blog/RelatedPosts.astro'
+import BlogPostSEO from '@components/blog/BlogPostSEO.astro'
+import Breadcrumb from '@components/shared/Breadcrumb.astro'
+import SocialShare from '@components/blog/SocialShare.astro'
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection('blog')
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
-  }));
+  }))
 }
 
 interface Props {
-  post: CollectionEntry<"blog">;
+  post: CollectionEntry<'blog'>
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const { post } = Astro.props
+const { Content } = await post.render()
 
-const allPosts = await getCollection("blog");
+const allPosts = await getCollection('blog')
 
 // Improved related posts algorithm with scoring and fallback
 let relatedPosts = allPosts
@@ -37,27 +37,27 @@ let relatedPosts = allPosts
   }))
   .filter(({ score }) => score > 0)
   .sort((a, b) => {
-    if (a.score !== b.score) return b.score - a.score;
-    return b.post.data.date.getTime() - a.post.data.date.getTime();
+    if (a.score !== b.score) return b.score - a.score
+    return b.post.data.date.getTime() - a.post.data.date.getTime()
   })
   .slice(0, 3)
-  .map(({ post }) => post);
+  .map(({ post }) => post)
 
 // Fallback to recent posts if no tag matches
 if (relatedPosts.length === 0) {
   relatedPosts = allPosts
     .filter((p) => p.slug !== post.slug && !p.data.draft)
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-    .slice(0, 3);
+    .slice(0, 3)
 }
 
 const calculateReadingTime = (content: string) => {
-  const wordsPerMinute = 200;
-  const words = content.split(/\s+/).length;
-  return Math.ceil(words / wordsPerMinute);
-};
+  const wordsPerMinute = 200
+  const words = content.split(/\s+/).length
+  return Math.ceil(words / wordsPerMinute)
+}
 
-const readingTime = post.data.readingTime || calculateReadingTime(post.body);
+const readingTime = post.data.readingTime || calculateReadingTime(post.body)
 ---
 
 <BaseLayout
@@ -74,7 +74,7 @@ const readingTime = post.data.readingTime || calculateReadingTime(post.body);
     url={`/blog/${post.slug}`}
     image={post.data.image}
     imageAlt={post.data.imageAlt}
-    author={post.data.author || "Return Signals Team"}
+    author={post.data.author || 'Return Signals Team'}
     datePublished={post.data.date}
     dateModified={post.data.updatedDate}
     tags={post.data.tags}
@@ -87,8 +87,8 @@ const readingTime = post.data.readingTime || calculateReadingTime(post.body);
       <div class="max-w-4xl mx-auto">
         <Breadcrumb
           items={[
-            { name: "Home", href: "/" },
-            { name: "Blog", href: "/blog" },
+            { name: 'Home', href: '/' },
+            { name: 'Blog', href: '/blog' },
             { name: post.data.title, href: `/blog/${post.slug}` },
           ]}
         />

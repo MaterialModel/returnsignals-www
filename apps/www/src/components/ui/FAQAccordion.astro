@@ -13,17 +13,17 @@
  */
 
 interface FAQ {
-  question: string;
-  answer: string;
+  question: string
+  answer: string
 }
 
 interface Props {
-  faqs: FAQ[];
-  className?: string;
-  allowMultiple?: boolean; // Allow multiple panels open at once
+  faqs: FAQ[]
+  className?: string
+  allowMultiple?: boolean // Allow multiple panels open at once
 }
 
-const { faqs, className = "", allowMultiple = false } = Astro.props;
+const { faqs, className = '', allowMultiple = false } = Astro.props
 ---
 
 <div
@@ -72,51 +72,48 @@ const { faqs, className = "", allowMultiple = false } = Astro.props;
 
 <script>
   // FAQ Accordion interaction
-  document.addEventListener("DOMContentLoaded", () => {
-    const buttons = document.querySelectorAll(".faq-button");
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.faq-button')
 
     buttons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const panel = button.nextElementSibling as HTMLElement;
-        const icon = button.querySelector(".faq-icon") as HTMLElement;
-        const isExpanded = button.getAttribute("aria-expanded") === "true";
-        const allowMultiple =
-          button.getAttribute("data-allow-multiple") === "true";
+      button.addEventListener('click', () => {
+        const panel = button.nextElementSibling as HTMLElement
+        const icon = button.querySelector('.faq-icon') as HTMLElement
+        const isExpanded = button.getAttribute('aria-expanded') === 'true'
+        const allowMultiple = button.getAttribute('data-allow-multiple') === 'true'
 
         // Close other panels if allowMultiple is false
         if (!allowMultiple && !isExpanded) {
           buttons.forEach((otherButton) => {
             if (otherButton !== button) {
-              const otherPanel = otherButton.nextElementSibling as HTMLElement;
-              const otherIcon = otherButton.querySelector(
-                ".faq-icon",
-              ) as HTMLElement;
-              otherButton.setAttribute("aria-expanded", "false");
-              otherPanel.style.maxHeight = "0";
-              otherIcon.style.transform = "rotate(0deg)";
+              const otherPanel = otherButton.nextElementSibling as HTMLElement
+              const otherIcon = otherButton.querySelector('.faq-icon') as HTMLElement
+              otherButton.setAttribute('aria-expanded', 'false')
+              otherPanel.style.maxHeight = '0'
+              otherIcon.style.transform = 'rotate(0deg)'
             }
-          });
+          })
         }
 
         // Toggle current panel
-        button.setAttribute("aria-expanded", String(!isExpanded));
+        button.setAttribute('aria-expanded', String(!isExpanded))
         if (isExpanded) {
-          panel.style.maxHeight = "0";
-          icon.style.transform = "rotate(0deg)";
+          panel.style.maxHeight = '0'
+          icon.style.transform = 'rotate(0deg)'
         } else {
-          panel.style.maxHeight = `${panel.scrollHeight}px`;
-          icon.style.transform = "rotate(180deg)";
+          panel.style.maxHeight = `${panel.scrollHeight}px`
+          icon.style.transform = 'rotate(180deg)'
         }
-      });
+      })
 
       // Keyboard support
-      button.addEventListener("keydown", (e: Event) => {
-        const keyEvent = e as KeyboardEvent;
-        if (keyEvent.key === "Enter" || keyEvent.key === " ") {
-          e.preventDefault();
-          (button as HTMLButtonElement).click();
+      button.addEventListener('keydown', (e: Event) => {
+        const keyEvent = e as KeyboardEvent
+        if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+          e.preventDefault()
+          ;(button as HTMLButtonElement).click()
         }
-      });
-    });
-  });
+      })
+    })
+  })
 </script>

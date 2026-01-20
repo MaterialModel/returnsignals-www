@@ -1,17 +1,17 @@
 ---
-import Tags from "@components/shared/Tags.astro";
+import Tags from '@components/shared/Tags.astro'
 
 export interface Props {
-  title: string;
-  description: string;
-  date: Date;
-  slug: string;
-  tags?: string[];
-  image?: string;
-  imageAlt?: string;
-  featured?: boolean;
-  author?: string;
-  readingTime?: number;
+  title: string
+  description: string
+  date: Date
+  slug: string
+  tags?: string[]
+  image?: string
+  imageAlt?: string
+  featured?: boolean
+  author?: string
+  readingTime?: number
 }
 
 const {
@@ -25,18 +25,18 @@ const {
   featured,
   author,
   readingTime,
-} = Astro.props;
+} = Astro.props
 
 const formatDate = (date: Date) => {
-  const d = new Date(date);
-  const year = d.getUTCFullYear();
-  const month = d.toLocaleDateString("en-US", {
-    month: "long",
-    timeZone: "UTC",
-  });
-  const day = d.getUTCDate();
-  return `${month} ${day}, ${year}`;
-};
+  const d = new Date(date)
+  const year = d.getUTCFullYear()
+  const month = d.toLocaleDateString('en-US', {
+    month: 'long',
+    timeZone: 'UTC',
+  })
+  const day = d.getUTCDate()
+  return `${month} ${day}, ${year}`
+}
 ---
 
 <article

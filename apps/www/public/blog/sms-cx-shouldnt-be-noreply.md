@@ -1,29 +1,18 @@
----
-title: "SMS CX Shouldn't Be NoReply"
-description: "E-commerce made returns frictionless by eliminating the moment to help. Proactive SMS gives that moment back, and customers don't experience it as friction. They experience it as care."
-date: 2026-01-19
-author: "Ilya Valmianski"
-authorImage: "/blog/ilya-profile-pic.jpg"
-tags: ["sms", "customer experience", "customer support", "post-purchase", "e-commerce", "AI", "messaging"]
-featured: true
-image: "/blog/sms-cx-shouldnt-be-noreply/hero.jpg"
-imageAlt: "A package next to a phone showing a two-way support text thread."
----
+# SMS CX Shouldn't Be NoReply
 
-import SMSMockup from "@components/ui/SMSMockup.astro";
+> E-commerce made returns frictionless by eliminating the moment to help. Proactive SMS gives that moment back, and customers don't experience it as friction. They experience it as care.
 
-export const conversationMessages = [
-  { type: "incoming", text: "Hey, just checking in. Did everything arrive okay?" },
-  { type: "outgoing", text: "Yep, got it. Haven't tried it on yet." },
-  { type: "incoming", text: "Totally. Want me to follow up tomorrow?" },
-  { type: "outgoing", text: "Yes please." },
-  { type: "incoming", timestamp: "Next day", text: "Quick check, did you get a chance to try it?" },
-  { type: "outgoing", text: "I did. The waist feels tight. Is that normal?" },
-  { type: "incoming", text: "If you send a photo, I can help. Also, what size did you get?" },
-  { type: "outgoing", content: "image", imageSrc: "/images/narrative/purple-leggings.jpg", imageAlt: "Customer photo of clothing fit" },
-  { type: "incoming", text: "Got it! These run a bit snug. Want me to send the next size up, or would you prefer store credit?" },
-  { type: "outgoing", text: "Next size please." },
-  { type: "incoming", text: "Done. You'll get a shipping confirmation shortly." },
+{ type: "incoming", text: "Hey, just checking in. Did everything arrive okay?" },
+{ type: "outgoing", text: "Yep, got it. Haven't tried it on yet." },
+{ type: "incoming", text: "Totally. Want me to follow up tomorrow?" },
+{ type: "outgoing", text: "Yes please." },
+{ type: "incoming", timestamp: "Next day", text: "Quick check, did you get a chance to try it?" },
+{ type: "outgoing", text: "I did. The waist feels tight. Is that normal?" },
+{ type: "incoming", text: "If you send a photo, I can help. Also, what size did you get?" },
+{ type: "outgoing", content: "image", imageSrc: "/images/narrative/purple-leggings.jpg", imageAlt: "Customer photo of clothing fit" },
+{ type: "incoming", text: "Got it! These run a bit snug. Want me to send the next size up, or would you prefer store credit?" },
+{ type: "outgoing", text: "Next size please." },
+{ type: "incoming", text: "Done. You'll get a shipping confirmation shortly." },
 ];
 
 Here is a strange thing about modern commerce.
@@ -60,8 +49,7 @@ Online? That moment doesn't exist. The customer is alone with their uncertainty.
 
 Returns flow smoothly. But you don't learn why. You don't get a chance to help. You don't build loyalty. You just process the return and hope they come back.
 
-Salesforce's research shows nearly 60% of consumers prefer using fewer touchpoints and 69% expect consistent interactions (<a href="https://www.salesforce.com/news/stories/ai-customer-research/" target="_blank" rel="noopener noreferrer">source</a>). But the deeper issue isn't touchpoint count. It's that across all those fragmented channels, there's no natural intervention point. No place where help finds you.
-
+Salesforce's research shows nearly 60% of consumers prefer using fewer touchpoints and 69% expect consistent interactions ([source](https://www.salesforce.com/news/stories/ai-customer-research/)). But the deeper issue isn't touchpoint count. It's that across all those fragmented channels, there's no natural intervention point. No place where help finds you.
 
 ## Two things make proactive SMS different
 
@@ -75,21 +63,21 @@ This is the part people miss. They think "intervention = friction" because they'
 
 But texting someone after delivery to ask how things fit? That's not friction. That's a store associate walking over to help.
 
-Here's what that looks like in a good store. A customer comes in with a return. The associate doesn't stay behind the desk. She comes around to the customer's side and says: *"Let's find something you're going to love."*
+Here's what that looks like in a good store. A customer comes in with a return. The associate doesn't stay behind the desk. She comes around to the customer's side and says: _"Let's find something you're going to love."_
 
-That's not friction. That's care. And the customer feels it. Even if they still return the item, they walk out thinking: *They're nice there. I was expecting a fight, and they were nice.*
+That's not friction. That's care. And the customer feels it. Even if they still return the item, they walk out thinking: _They're nice there. I was expecting a fight, and they were nice._
 
 That's how you make a customer, not just a sale. And that's the experience that disappeared online. Not because brands don't want it, but because they couldn't scale it.
 
-One retailer told us about the early days when they were smaller: *"When we saw an order come through for a size 6, 8, and 10, someone would reach out and say, 'Let me tell you how this runs.' But that doesn't happen anymore. There are too many emails. We're too big."*
+One retailer told us about the early days when they were smaller: _"When we saw an order come through for a size 6, 8, and 10, someone would reach out and say, 'Let me tell you how this runs.' But that doesn't happen anymore. There are too many emails. We're too big."_
 
 Proactive SMS makes "small" possible again. Not by shrinking, but by making every customer feel like they have someone paying attention.
 
-The timing is everything. We wrote about this in <a href="/blog/return-starts-before-return">The End of Reactive Support</a>: the customer bought the item for a reason. Before she concludes it was a mistake, she's hoping it will work out. She still *wants* things to go well. She hasn't locked in on returning. She's uncertain, open, persuadable.
+The timing is everything. We wrote about this in [The End of Reactive Support](/blog/return-starts-before-return): the customer bought the item for a reason. Before she concludes it was a mistake, she's hoping it will work out. She still _wants_ things to go well. She hasn't locked in on returning. She's uncertain, open, persuadable.
 
 That's the moment to show up. Not with a popup. Not with a "are you sure you want to return?" Not with friction. With help.
 
-*"Let us know how it fits. We're here if you need anything."*
+_"Let us know how it fits. We're here if you need anything."_
 
 That's an invitation, not an obstacle. And when the customer replies, "the waist feels tight, is that normal?", they're not fighting the system. They're using a thread that works.
 
@@ -105,7 +93,7 @@ If you're going to build a thread, the thread has to work.
 
 Here's a riddle. What channel can feel like live chat when you need it fast, but also feel like email when you need time to think?
 
-Not email. Email is asynchronous, sure, but it's not reliably *present*. Your message competes with newsletters, receipts, spam, and whatever the inbox algorithm decided to bury today.
+Not email. Email is asynchronous, sure, but it's not reliably _present_. Your message competes with newsletters, receipts, spam, and whatever the inbox algorithm decided to bury today.
 
 Not web chat. Web chat is present, but only when the customer is on your site. Close the tab? Conversation's gone. Even when transcripts exist, customers don't experience them as continuing threads. They experience them as sessions that ended.
 
@@ -121,45 +109,44 @@ Unlike web chat, there's no "stay on the line" pressure. Unlike email, there's n
 
 **Channel comparison**
 
-|              | Email | Web Chat |    App |     **SMS** |
-| -----------: | ----: | -------: | -----: | ------: |
-|    Sync      |    No |      Yes |    Yes | **Yes** |
-|   Async      |   Yes |       No |  Partial | **Yes** |
-|  Photos      | Clunky |   Varies |    Yes | **Yes** |
-| No install   |   Yes |      Yes |     No | **Yes** |
-| Push         | Buried | Tab-based | 33% opt-in | **Lock screen** |
-| Self-announcing |    No |       No |     No | **Yes** |
+|                 |  Email |  Web Chat |        App |         **SMS** |
+| --------------: | -----: | --------: | ---------: | --------------: |
+|            Sync |     No |       Yes |        Yes |         **Yes** |
+|           Async |    Yes |        No |    Partial |         **Yes** |
+|          Photos | Clunky |    Varies |        Yes |         **Yes** |
+|      No install |    Yes |       Yes |         No |         **Yes** |
+|            Push | Buried | Tab-based | 33% opt-in | **Lock screen** |
+| Self-announcing |     No |        No |         No |         **Yes** |
 
 ## The best push notification is the one that doesn't require an app
 
 Push notifications. Everyone wants them. But think about what it takes to get there.
 
-For app push: the customer has to install your app, create an account, grant notification permission. OneSignal's benchmarks for Shopping apps: 33% opt-in on iOS, 36% on Android (<a href="https://onesignal.com/mobile-app-benchmarks-2024" target="_blank" rel="noopener noreferrer">source</a>). That means if your post-purchase engagement strategy lives in your app, two-thirds of customers will never see it.
+For app push: the customer has to install your app, create an account, grant notification permission. OneSignal's benchmarks for Shopping apps: 33% opt-in on iOS, 36% on Android ([source](https://onesignal.com/mobile-app-benchmarks-2024)). That means if your post-purchase engagement strategy lives in your app, two-thirds of customers will never see it.
 
-For email: you can reach more people, but can you reach them? Apple's Mail Privacy Protection has made open tracking unreliable (<a href="https://www.twilio.com/en-us/blog/insights/apple-mail-privacy-protection" target="_blank" rel="noopener noreferrer">Twilio</a>). Validity has documented how Apple's prefetch behavior shifted pixel firing patterns entirely (<a href="https://www.validity.com/blog/case-closed-the-mystery-of-declining-email-open-rates/" target="_blank" rel="noopener noreferrer">source</a>). Even good emails get buried.
+For email: you can reach more people, but can you reach them? Apple's Mail Privacy Protection has made open tracking unreliable ([Twilio](https://www.twilio.com/en-us/blog/insights/apple-mail-privacy-protection)). Validity has documented how Apple's prefetch behavior shifted pixel firing patterns entirely ([source](https://www.validity.com/blog/case-closed-the-mystery-of-declining-email-open-rates/)). Even good emails get buried.
 
-But the lock screen? The lock screen is the most-viewed interface in modern life. Asurion research found Americans reach for their phones 352 times per day (<a href="https://www.asurion.com/connect/news/tech-usage/" target="_blank" rel="noopener noreferrer">source</a>). Argue about the exact number. It doesn't matter. The point is: the phone is where attention lives.
+But the lock screen? The lock screen is the most-viewed interface in modern life. Asurion research found Americans reach for their phones 352 times per day ([source](https://www.asurion.com/connect/news/tech-usage/)). Argue about the exact number. It doesn't matter. The point is: the phone is where attention lives.
 
 SMS is the only way to land there without requiring an install.
 
 No app download. No permission dialog. No competing with every other app that wants the same slot. Just a message, in the inbox, where people already look.
 
-
 ## "Show me" beats "describe it"
 
 Support is visual. Especially in commerce.
 
-*Is this a defect or normal variation?*
-*Does this fit right?*
-*Is this color off, or is it my lighting?*
-*Did I install this correctly?*
-*Is this stain something I can fix?*
+_Is this a defect or normal variation?_
+_Does this fit right?_
+_Is this color off, or is it my lighting?_
+_Did I install this correctly?_
+_Is this stain something I can fix?_
 
 Force customers to describe these things in words, and you get worse information. Slower resolution. More back-and-forth. Let them show you? One photo. Done.
 
 The messaging inbox handles this naturally. Tap the camera. Take the shot. Send. No upload portal. No "please attach files in PNG or JPEG format under 5MB." Just the way humans already communicate.
 
-And the standards keep improving. Apple now supports RCS on iPhone, enabling high-resolution photos, videos, read receipts, and typing indicators (<a href="https://support.apple.com/en-us/122195" target="_blank" rel="noopener noreferrer">source</a>). Google reports over a billion RCS messages per day in the U.S. alone (<a href="https://blog.google/products-and-platforms/platforms/android/billion-rcs-messages/" target="_blank" rel="noopener noreferrer">source</a>).
+And the standards keep improving. Apple now supports RCS on iPhone, enabling high-resolution photos, videos, read receipts, and typing indicators ([source](https://support.apple.com/en-us/122195)). Google reports over a billion RCS messages per day in the U.S. alone ([source](https://blog.google/products-and-platforms/platforms/android/billion-rcs-messages/)).
 
 You don't need to bet on RCS specifically. The signal is simpler: the default inbox is becoming richer. The text thread is turning into a lightweight support app, without requiring an app.
 
@@ -179,16 +166,25 @@ The replies were often small, human, low-stakes messages, the kind you never see
 
 Here's the kind of thing we see. It matters precisely because it isn't dramatic:
 
-<div class="not-prose flex justify-center my-10">
+<div class="not-prose flex justify-center my-10 blog-sms-mockup">
   <SMSMockup messages={conversationMessages} autoplay={true} />
 </div>
+
+<style>
+{`
+  .blog-sms-mockup .sms-bubble,
+  .blog-sms-mockup .sms-time,
+  .blog-sms-mockup .sms-receipt {
+    display: flex !important;
+  }
+`}
+</style>
 
 That's not a ticket. That's a conversation.
 
 The kind of conversation that used to happen in stores. Between a customer and an associate who actually cared. Except now it happens in the default inbox, after delivery, at the exact moment the customer is forming an opinion.
 
-The key is the first message. We don't just text "delivered." We text with *intent*: "Let us know how it fits. We're here if you need anything." That's not a notification. That's an invitation.
-
+The key is the first message. We don't just text "delivered." We text with _intent_: "Let us know how it fits. We're here if you need anything." That's not a notification. That's an invitation.
 
 ## Support as a sensor network
 
@@ -212,13 +208,13 @@ This is what frictionless returns can't give you. Signal. Real signal. The kind 
 
 ## Timing, not volume
 
-Let me be clear about what this is *not*.
+Let me be clear about what this is _not_.
 
 This is not "blast more texts." This is not "be in their pocket all the time." People hate that. They opt out, and they should.
 
 This is about one thread. One durable, trusted thread that customers can use when they need it. A thread that starts at delivery, because that's when uncertainty begins, and stays alive because replying actually works.
 
-Zendesk's data backs this up: 72% of customers want immediate service. Customers are 2.4x more likely to stick with a brand when problems are solved quickly (<a href="https://www.zendesk.com/blog/customer-experience-statistics/" target="_blank" rel="noopener noreferrer">source</a>). And 64% will spend more if you resolve issues *where they already are* (<a href="https://www.zendesk.com/blog/customer-experience-statistics/" target="_blank" rel="noopener noreferrer">source</a>).
+Zendesk's data backs this up: 72% of customers want immediate service. Customers are 2.4x more likely to stick with a brand when problems are solved quickly ([source](https://www.zendesk.com/blog/customer-experience-statistics/)). And 64% will spend more if you resolve issues _where they already are_ ([source](https://www.zendesk.com/blog/customer-experience-statistics/)).
 
 "Where they already are." That phrase is doing a lot of work. The messaging inbox is the clearest example of "already there" that exists.
 
@@ -232,11 +228,11 @@ Reaching out to every customer after delivery. Following up the next day. Answer
 
 AI changes the economics. But here's the thing: AI alone isn't enough either.
 
-The problem isn't AI. The problem is AI *as gatekeeper*. The bot that loops. The automation that deflects. The system designed to avoid talking to you. Customers don't hate AI. They hate being trapped in automation when they need real help.
+The problem isn't AI. The problem is AI _as gatekeeper_. The bot that loops. The automation that deflects. The system designed to avoid talking to you. Customers don't hate AI. They hate being trapped in automation when they need real help.
 
 SMS changes the equation because it allows something most channels can't: seamless transitions between AI and humans.
 
-Web chat has a speed-of-response SLA. If a human takes over, they need to respond *now*. The customer is sitting there, waiting. That makes handoffs expensive and stressful.
+Web chat has a speed-of-response SLA. If a human takes over, they need to respond _now_. The customer is sitting there, waiting. That makes handoffs expensive and stressful.
 
 SMS doesn't have that pressure. Someone can reply in two minutes or two hours and it still feels normal. Which means the AI can handle the routine (the check-ins, the context gathering, the photo interpretation) and hand off to humans when things get complex. The customer never feels the seam.
 
@@ -248,7 +244,7 @@ The AI becomes the associate in the background. Not the bouncer at the door.
 
 I won't pretend the compliance stuff is exciting. But it matters.
 
-The FCC's TCPA rules apply to texts (<a href="https://docs.fcc.gov/public/attachments/DOC-408396A1.pdf" target="_blank" rel="noopener noreferrer">source</a>). CTIA's Messaging Principles emphasize consent and opt-out expectations (<a href="https://api.ctia.org/wp-content/uploads/2023/05/230523-CTIA-Messaging-Principles-and-Best-Practices-FINAL.pdf" target="_blank" rel="noopener noreferrer">source</a>). A2P 10DLC registration is now required for business texting in the U.S. (<a href="https://www.twilio.com/docs/messaging/compliance/a2p-10dlc" target="_blank" rel="noopener noreferrer">Twilio docs</a>).
+The FCC's TCPA rules apply to texts ([source](https://docs.fcc.gov/public/attachments/DOC-408396A1.pdf)). CTIA's Messaging Principles emphasize consent and opt-out expectations ([source](https://api.ctia.org/wp-content/uploads/2023/05/230523-CTIA-Messaging-Principles-and-Best-Practices-FINAL.pdf)). A2P 10DLC registration is now required for business texting in the U.S. ([Twilio docs](https://www.twilio.com/docs/messaging/compliance/a2p-10dlc)).
 
 I'm not a lawyer. This isn't legal advice. But the practical point is simple: you cannot build a trusted support inbox on top of spam tactics. The carriers will punish you. Customers will punish you faster.
 
