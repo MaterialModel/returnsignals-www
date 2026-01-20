@@ -96,6 +96,12 @@ const heroMessages: Message[] = [
     >
       <!-- Left: Text Content -->
       <div class="order-1 text-center lg:text-left max-w-xl lg:max-w-lg">
+        <!-- Trust badge - mobile only (above headline) -->
+        <div class="flex items-center justify-center gap-3 mt-6 mb-4 sm:hidden">
+          <span class="text-sm text-secondary">Backed by</span>
+          <img src="/images/ycombinator.png" alt="Y Combinator" class="h-5" />
+        </div>
+
         <h1 class="hero-headline">
           Proactive CX for <span class="whitespace-nowrap">E-commerce</span>
         </h1>
@@ -105,16 +111,21 @@ const heroMessages: Message[] = [
         </p>
 
         <div
-          class="flex items-center justify-center lg:justify-start gap-3 sm:gap-4 mt-8 sm:mt-10 flex-wrap"
+          class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mt-8 sm:mt-10"
         >
-          <a href={ctaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary"
-            >Book a Demo</a
+          <a
+            href={ctaUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary w-52 sm:w-auto">Book a Demo</a
           >
-          <a href="#narrative-jacky" class="btn btn-secondary">See Examples</a>
+          <a href="#narrative-jacky" class="btn btn-secondary w-52 sm:w-auto">See Examples</a>
         </div>
 
-        <!-- Trust -->
-        <div class="flex items-center justify-center lg:justify-start gap-3 mt-10 sm:mt-12">
+        <!-- Trust badge - tablet/desktop only (below CTAs) -->
+        <div
+          class="hidden sm:flex items-center justify-center lg:justify-start gap-3 mt-10 sm:mt-12"
+        >
           <span class="text-sm text-secondary">Backed by</span>
           <img src="/images/ycombinator.png" alt="Y Combinator" class="h-5" />
         </div>
