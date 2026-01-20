@@ -1,33 +1,24 @@
 ---
 interface Props {
-  parallaxFactor?: number;
-  parallaxMaxOffset?: number;
+  parallaxFactor?: number
+  parallaxMaxOffset?: number
 }
 
-const { parallaxFactor = 0.06, parallaxMaxOffset = 120 } = Astro.props;
+const { parallaxFactor = 0.06, parallaxMaxOffset = 120 } = Astro.props
 ---
 
 <!-- Global background covering entire page with subtle parallax -->
 <div class="fixed inset-0 -z-10 overflow-hidden min-h-vh-fix bg-sky-100">
-  <div
-    id="site-bg-inner"
-    class="absolute -inset-10 sm:-inset-16 will-change-transform"
-  >
+  <div id="site-bg-inner" class="absolute -inset-10 sm:-inset-16 will-change-transform">
     <picture>
-      <source
-        media="(min-width: 640px)"
-        srcset="/images/background/background-wide.jpg"
-      />
+      <source media="(min-width: 640px)" srcset="/images/background/background-wide.jpg" />
       <img
         src="/images/background/background-mobile.jpg"
         alt=""
         class="h-full w-full object-cover"
       />
     </picture>
-    <div
-      class="absolute inset-0 bg-gradient-to-b from-white/15 via-white/10 to-transparent"
-    >
-    </div>
+    <div class="absolute inset-0 bg-gradient-to-b from-white/15 via-white/10 to-transparent"></div>
   </div>
 </div>
 
@@ -35,24 +26,21 @@ const { parallaxFactor = 0.06, parallaxMaxOffset = 120 } = Astro.props;
 
 <script define:vars={{ parallaxFactor, parallaxMaxOffset }}>
   // Global subtle parallax for background
-  const bg = document.getElementById("site-bg-inner");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const bg = document.getElementById('site-bg-inner')
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   if (bg && !(reduceMotion && reduceMotion.matches)) {
-    let ticking = false;
+    let ticking = false
     const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
+      if (ticking) return
+      ticking = true
       requestAnimationFrame(() => {
-        const y = window.scrollY || 0;
-        const offset = Math.max(
-          -parallaxMaxOffset,
-          Math.min(parallaxMaxOffset, y * parallaxFactor),
-        );
-        bg.style.transform = `translate3d(0, ${offset}px, 0)`;
-        ticking = false;
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+        const y = window.scrollY || 0
+        const offset = Math.max(-parallaxMaxOffset, Math.min(parallaxMaxOffset, y * parallaxFactor))
+        bg.style.transform = `translate3d(0, ${offset}px, 0)`
+        ticking = false
+      })
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
   }
 </script>

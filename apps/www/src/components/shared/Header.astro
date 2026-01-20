@@ -1,19 +1,18 @@
 ---
 // Header with logo, navigation, and CTA button
 interface Props {
-  ctaUrl?: string;
+  ctaUrl?: string
 }
 
-const {
-  ctaUrl = "https://calendly.com/alejandro-materialmodel/return-signals-introductory-call",
-} = Astro.props;
+const { ctaUrl = 'https://calendly.com/alejandro-materialmodel/return-signals-introductory-call' } =
+  Astro.props
 
 // Centralized navigation links
 const navLinks = [
-  { href: "/blog", label: "Blog" },
-  { href: "/security", label: "Security" },
-  { href: "/roi", label: "ROI Calculator" },
-];
+  { href: '/blog', label: 'Blog' },
+  { href: '/security', label: 'Security' },
+  { href: '/roi', label: 'ROI Calculator' },
+]
 ---
 
 <>
@@ -24,11 +23,7 @@ const navLinks = [
     <div class="container-lg py-3 sm:py-4">
       <div class="flex items-center justify-between">
         <a href="/" class="inline-flex items-center gap-3">
-          <img
-            src="/images/logo/logo+txt-black.svg"
-            alt="Return Signals"
-            class="h-6 sm:h-7"
-          />
+          <img src="/images/logo/logo+txt-black.svg" alt="Return Signals" class="h-6 sm:h-7" />
         </a>
 
         <!-- Desktop Navigation -->
@@ -43,12 +38,7 @@ const navLinks = [
               </a>
             ))
           }
-          <a
-            href={ctaUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary btn-sm"
-          >
+          <a href={ctaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
             Book a Demo
           </a>
         </nav>
@@ -78,10 +68,7 @@ const navLinks = [
   </header>
 
   <!-- Mobile menu overlay -->
-  <div
-    id="mobile-menu-overlay"
-    class="fixed inset-0 z-30 pointer-events-none md:hidden"
-  >
+  <div id="mobile-menu-overlay" class="fixed inset-0 z-30 pointer-events-none md:hidden">
     <!-- Full screen menu -->
     <div
       id="mobile-menu"
@@ -90,11 +77,7 @@ const navLinks = [
       <!-- Header -->
       <div class="flex items-center justify-between px-6 h-20">
         <a href="/" class="inline-flex items-center gap-3">
-          <img
-            src="/images/logo/logo+txt-black.svg"
-            alt="Return Signals"
-            class="h-6"
-          />
+          <img src="/images/logo/logo+txt-black.svg" alt="Return Signals" class="h-6" />
         </a>
         <!-- Empty space where hamburger button would be (it's fixed in main header) -->
         <div class="w-10 h-10"></div>
@@ -130,7 +113,7 @@ const navLinks = [
                   href={link.href}
                   class="mobile-menu-link flex items-center gap-3 px-3 py-3.5 text-lg text-primary hover:text-secondary hover:bg-surface-subtle rounded-lg transition-all group"
                 >
-                  {link.href === "/blog" && (
+                  {link.href === '/blog' && (
                     <svg
                       class="w-6 h-6 text-secondary group-hover:text-primary transition-colors"
                       fill="none"
@@ -145,7 +128,7 @@ const navLinks = [
                       />
                     </svg>
                   )}
-                  {link.href === "/security" && (
+                  {link.href === '/security' && (
                     <svg
                       class="w-6 h-6 text-secondary group-hover:text-primary transition-colors"
                       fill="none"
@@ -160,7 +143,7 @@ const navLinks = [
                       />
                     </svg>
                   )}
-                  {link.href === "/roi" && (
+                  {link.href === '/roi' && (
                     <svg
                       class="w-6 h-6 text-secondary group-hover:text-primary transition-colors"
                       fill="none"
@@ -228,120 +211,120 @@ const navLinks = [
   </style>
 
   <script>
-    const mobileMenuButton = document.getElementById("mobile-menu-button");
-    const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const menuButtonIcon = mobileMenuButton?.querySelector("div");
+    const mobileMenuButton = document.getElementById('mobile-menu-button')
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay')
+    const mobileMenu = document.getElementById('mobile-menu')
+    const menuButtonIcon = mobileMenuButton?.querySelector('div')
 
-    let isOpen = false;
+    let isOpen = false
 
     function openMenu() {
-      if (!mobileMenuOverlay || !mobileMenu || !menuButtonIcon) return;
+      if (!mobileMenuOverlay || !mobileMenu || !menuButtonIcon) return
 
-      isOpen = true;
+      isOpen = true
 
       // Enable pointer events on overlay
-      mobileMenuOverlay.classList.remove("pointer-events-none");
+      mobileMenuOverlay.classList.remove('pointer-events-none')
 
       // Animate menu elements
       requestAnimationFrame(() => {
         // Slide in menu panel
-        mobileMenu.classList.remove("translate-x-full");
-        mobileMenu.classList.add("translate-x-0");
+        mobileMenu.classList.remove('translate-x-full')
+        mobileMenu.classList.add('translate-x-0')
 
         // Transform hamburger to X
-        menuButtonIcon.classList.add("menu-open");
-      });
+        menuButtonIcon.classList.add('menu-open')
+      })
 
-      mobileMenuButton?.setAttribute("aria-expanded", "true");
-      document.body.style.overflow = "hidden"; // Prevent body scroll
+      mobileMenuButton?.setAttribute('aria-expanded', 'true')
+      document.body.style.overflow = 'hidden' // Prevent body scroll
     }
 
     function closeMenu() {
-      if (!mobileMenuOverlay || !mobileMenu || !menuButtonIcon) return;
+      if (!mobileMenuOverlay || !mobileMenu || !menuButtonIcon) return
 
-      isOpen = false;
+      isOpen = false
 
       // Animate menu elements
-      mobileMenu.classList.remove("translate-x-0");
-      mobileMenu.classList.add("translate-x-full");
-      menuButtonIcon.classList.remove("menu-open");
+      mobileMenu.classList.remove('translate-x-0')
+      mobileMenu.classList.add('translate-x-full')
+      menuButtonIcon.classList.remove('menu-open')
 
       // Disable pointer events after animation
       setTimeout(() => {
-        mobileMenuOverlay?.classList.add("pointer-events-none");
-      }, 300);
+        mobileMenuOverlay?.classList.add('pointer-events-none')
+      }, 300)
 
-      mobileMenuButton?.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = ""; // Restore body scroll
+      mobileMenuButton?.setAttribute('aria-expanded', 'false')
+      document.body.style.overflow = '' // Restore body scroll
     }
 
     // Toggle menu with hamburger button
     if (mobileMenuButton) {
-      mobileMenuButton.addEventListener("click", () => {
+      mobileMenuButton.addEventListener('click', () => {
         if (isOpen) {
-          closeMenu();
+          closeMenu()
         } else {
-          openMenu();
+          openMenu()
         }
-      });
+      })
     }
 
     // Close on escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && isOpen) {
-        closeMenu();
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeMenu()
       }
-    });
+    })
 
     // Close menu when clicking on a link (except external links)
-    document.querySelectorAll(".mobile-menu-link").forEach((link) => {
-      if (!link.hasAttribute("target")) {
-        link.addEventListener("click", () => {
+    document.querySelectorAll('.mobile-menu-link').forEach((link) => {
+      if (!link.hasAttribute('target')) {
+        link.addEventListener('click', () => {
           // Small delay to allow the link to register
-          setTimeout(closeMenu, 100);
-        });
+          setTimeout(closeMenu, 100)
+        })
       }
-    });
+    })
 
     // Auto-hide header on scroll down, show on scroll up
-    const header = document.getElementById("main-header");
-    let lastScrollY = window.scrollY;
-    let ticking = false;
+    const header = document.getElementById('main-header')
+    let lastScrollY = window.scrollY
+    let ticking = false
 
     function updateHeaderVisibility() {
-      const currentScrollY = window.scrollY;
+      const currentScrollY = window.scrollY
 
       // Always show header if mobile menu is open
       if (isOpen) {
-        if (header) header.style.transform = "translateY(0)";
-        lastScrollY = currentScrollY;
-        ticking = false;
-        return;
+        if (header) header.style.transform = 'translateY(0)'
+        lastScrollY = currentScrollY
+        ticking = false
+        return
       }
 
       // Show header at top of page
       if (currentScrollY < 10) {
-        if (header) header.style.transform = "translateY(0)";
+        if (header) header.style.transform = 'translateY(0)'
       }
       // Hide header when scrolling down (after 100px threshold)
       else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        if (header) header.style.transform = "translateY(-100%)";
+        if (header) header.style.transform = 'translateY(-100%)'
       }
       // Show header when scrolling up
       else if (currentScrollY < lastScrollY) {
-        if (header) header.style.transform = "translateY(0)";
+        if (header) header.style.transform = 'translateY(0)'
       }
 
-      lastScrollY = currentScrollY;
-      ticking = false;
+      lastScrollY = currentScrollY
+      ticking = false
     }
 
-    window.addEventListener("scroll", () => {
+    window.addEventListener('scroll', () => {
       if (!ticking) {
-        window.requestAnimationFrame(updateHeaderVisibility);
-        ticking = true;
+        window.requestAnimationFrame(updateHeaderVisibility)
+        ticking = true
       }
-    });
+    })
   </script>
 </>

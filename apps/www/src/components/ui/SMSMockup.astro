@@ -7,39 +7,34 @@
  */
 
 interface Message {
-  type: "incoming" | "outgoing";
-  content?: "text" | "image";
-  text?: string;
-  imageSrc?: string;
-  imageAlt?: string;
-  timestamp?: string;
+  type: 'incoming' | 'outgoing'
+  content?: 'text' | 'image'
+  text?: string
+  imageSrc?: string
+  imageAlt?: string
+  timestamp?: string
 }
 
 interface Props {
-  messages: Message[];
-  contactName?: string;
-  className?: string;
-  autoplay?: boolean;
+  messages: Message[]
+  contactName?: string
+  className?: string
+  autoplay?: boolean
 }
 
-const {
-  messages,
-  contactName = "Return Signals",
-  className = "",
-  autoplay = false,
-} = Astro.props;
+const { messages, contactName = 'Return Signals', className = '', autoplay = false } = Astro.props
 
 const lastOutgoingIndex = (() => {
-  let idx = -1;
+  let idx = -1
   messages.forEach((m, i) => {
-    if (m.type === "outgoing") idx = i;
-  });
-  return idx;
-})();
+    if (m.type === 'outgoing') idx = i
+  })
+  return idx
+})()
 ---
 
 <div
-  class={`sms-mockup ${autoplay ? "sms-autoplay" : ""} mx-auto inline-flex flex-col items-center ${className}`}
+  class={`sms-mockup ${autoplay ? 'sms-autoplay' : ''} mx-auto inline-flex flex-col items-center ${className}`}
   role="img"
   aria-label={`SMS conversation with ${contactName}`}
   style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'"
@@ -81,11 +76,7 @@ const lastOutgoingIndex = (() => {
           <div
             class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full flex items-center gap-1 text-[#007AFF] px-2 py-1 border border-white"
           >
-            <img
-              src="/icons/iphone-mock/chevron-left.svg"
-              alt=""
-              class="w-4 h-4"
-            />
+            <img src="/icons/iphone-mock/chevron-left.svg" alt="" class="w-4 h-4" />
             <span
               class="text-[11px] font-medium bg-black text-white px-2 py-0.5 rounded-full sms-unread-count"
               >251</span
@@ -94,34 +85,18 @@ const lastOutgoingIndex = (() => {
           <div
             class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full p-1.5 text-[#007AFF] border border-white"
           >
-            <img
-              src="/icons/iphone-mock/video-camera.svg"
-              alt=""
-              class="w-5 h-5"
-            />
+            <img src="/icons/iphone-mock/video-camera.svg" alt="" class="w-5 h-5" />
           </div>
         </div>
-        <div
-          class="absolute left-1/2 top-0 -translate-x-1/2 flex flex-col items-center gap-1 mt-2"
-        >
-          <div
-            class="h-7 w-7 rounded-full bg-[#6B7280] flex items-center justify-center p-1.5"
-          >
-            <img
-              src="/images/logo/logo-white.svg"
-              alt="Return Signals"
-              class="w-full h-full"
-            />
+        <div class="absolute left-1/2 top-0 -translate-x-1/2 flex flex-col items-center gap-1 mt-2">
+          <div class="h-7 w-7 rounded-full bg-[#6B7280] flex items-center justify-center p-1.5">
+            <img src="/images/logo/logo-white.svg" alt="Return Signals" class="w-full h-full" />
           </div>
           <div
             class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-1 border border-white"
           >
             <span class="text-[13px] font-semibold text-black">Brand</span>
-            <img
-              src="/icons/iphone-mock/chevron-right.svg"
-              alt=""
-              class="w-1 h-2"
-            />
+            <img src="/icons/iphone-mock/chevron-right.svg" alt="" class="w-1 h-2" />
           </div>
         </div>
       </div>
@@ -141,8 +116,8 @@ const lastOutgoingIndex = (() => {
     >
       {
         messages.map((msg, i) => {
-          const isOutgoing = msg.type === "outgoing";
-          const isImage = msg.content === "image";
+          const isOutgoing = msg.type === 'outgoing'
+          const isImage = msg.content === 'image'
           return (
             <Fragment>
               {msg.timestamp && (
@@ -151,28 +126,22 @@ const lastOutgoingIndex = (() => {
                 </div>
               )}
               <div
-                class={`sms-bubble ${isOutgoing ? "justify-end" : "justify-start"}`}
+                class={`sms-bubble ${isOutgoing ? 'justify-end' : 'justify-start'}`}
                 data-message-index={i}
               >
                 {isImage ? (
                   <div
-                    class={`image-bubble ${isOutgoing ? "image-bubble-outgoing" : "image-bubble-incoming"}`}
+                    class={`image-bubble ${isOutgoing ? 'image-bubble-outgoing' : 'image-bubble-incoming'}`}
                   >
                     <img
                       src={msg.imageSrc}
-                      alt={msg.imageAlt || "Uploaded image"}
+                      alt={msg.imageAlt || 'Uploaded image'}
                       loading="lazy"
                       class="image-bubble-img"
                     />
                   </div>
                 ) : (
-                  <div
-                    class={
-                      isOutgoing
-                        ? "bubble bubble-outgoing"
-                        : "bubble bubble-incoming"
-                    }
-                  >
+                  <div class={isOutgoing ? 'bubble bubble-outgoing' : 'bubble bubble-incoming'}>
                     <p class="bubble-text">{msg.text}</p>
                   </div>
                 )}
@@ -183,7 +152,7 @@ const lastOutgoingIndex = (() => {
                 </div>
               )}
             </Fragment>
-          );
+          )
         })
       }
     </div>
@@ -196,9 +165,8 @@ const lastOutgoingIndex = (() => {
         class="bg-[#FAFAFA]/90 backdrop-blur-md rounded-2xl w-7 h-7 flex items-center justify-center border border-white"
         aria-label="Add attachment"
       >
-        <span
-          class="text-black text-lg font-light"
-          style="line-height: 1; margin-top: -1px;">+</span
+        <span class="text-black text-lg font-light" style="line-height: 1; margin-top: -1px;"
+          >+</span
         >
       </button>
       <div
@@ -330,208 +298,176 @@ const lastOutgoingIndex = (() => {
   // Initialize immediately if DOM is ready; otherwise, wait for DOMContentLoaded.
   const initSMSMockups = () => {
     // Update time display
-    const timeDisplays = Array.from(
-      document.querySelectorAll(".sms-time-display"),
-    );
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, "0");
-    const timeString = `${hours}:${minutes}`;
+    const timeDisplays = Array.from(document.querySelectorAll('.sms-time-display'))
+    const now = new Date()
+    const hours = now.getHours()
+    const minutes = now.getMinutes().toString().padStart(2, '0')
+    const timeString = `${hours}:${minutes}`
     timeDisplays.forEach((display) => {
-      display.textContent = timeString;
-    });
+      display.textContent = timeString
+    })
 
     // Randomize unread counts
-    const unreadCounts = Array.from(
-      document.querySelectorAll(".sms-unread-count"),
-    );
+    const unreadCounts = Array.from(document.querySelectorAll('.sms-unread-count'))
     unreadCounts.forEach((count) => {
-      count.textContent = (Math.floor(Math.random() * 201) + 100).toString();
-    });
+      count.textContent = (Math.floor(Math.random() * 201) + 100).toString()
+    })
 
     // Autoplay animation
-    const mockups = Array.from(document.querySelectorAll(".sms-mockup"));
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const MESSAGE_DELAY_MS = 1200;
+    const mockups = Array.from(document.querySelectorAll('.sms-mockup'))
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const MESSAGE_DELAY_MS = 1200
 
-    const startedMockups = new WeakSet();
+    const startedMockups = new WeakSet()
 
     const revealAll = (mockup: HTMLElement) => {
-      const bubbles = Array.from(
-        mockup.querySelectorAll(".sms-bubble"),
-      ) as HTMLElement[];
-      const times = Array.from(
-        mockup.querySelectorAll(".sms-time"),
-      ) as HTMLElement[];
-      const receipt = mockup.querySelector(
-        ".sms-receipt",
-      ) as HTMLElement | null;
-      const container = mockup.querySelector(
-        ".sms-messages",
-      ) as HTMLElement | null;
+      const bubbles = Array.from(mockup.querySelectorAll('.sms-bubble')) as HTMLElement[]
+      const times = Array.from(mockup.querySelectorAll('.sms-time')) as HTMLElement[]
+      const receipt = mockup.querySelector('.sms-receipt') as HTMLElement | null
+      const container = mockup.querySelector('.sms-messages') as HTMLElement | null
 
-      bubbles.forEach((b) => b.classList.add("visible"));
-      times.forEach((t) => t.classList.add("visible"));
-      if (receipt) receipt.classList.add("visible");
-      if (container) container.scrollTop = container.scrollHeight;
-    };
+      bubbles.forEach((b) => b.classList.add('visible'))
+      times.forEach((t) => t.classList.add('visible'))
+      if (receipt) receipt.classList.add('visible')
+      if (container) container.scrollTop = container.scrollHeight
+    }
 
     // Core animation logic (used by both initial play and replay)
     const playAnimation = (mockup: HTMLElement) => {
-      const bubbles = Array.from(
-        mockup.querySelectorAll(".sms-bubble"),
-      ) as HTMLElement[];
-      const times = Array.from(
-        mockup.querySelectorAll(".sms-time"),
-      ) as HTMLElement[];
-      const container = mockup.querySelector(
-        ".sms-messages",
-      ) as HTMLElement | null;
-      const lastOutgoingAttr = mockup.getAttribute("data-last-outgoing");
-      const lastOutgoing = lastOutgoingAttr ? parseInt(lastOutgoingAttr) : -1;
-      const receipt = mockup.querySelector(
-        ".sms-receipt",
-      ) as HTMLElement | null;
+      const bubbles = Array.from(mockup.querySelectorAll('.sms-bubble')) as HTMLElement[]
+      const times = Array.from(mockup.querySelectorAll('.sms-time')) as HTMLElement[]
+      const container = mockup.querySelector('.sms-messages') as HTMLElement | null
+      const lastOutgoingAttr = mockup.getAttribute('data-last-outgoing')
+      const lastOutgoing = lastOutgoingAttr ? parseInt(lastOutgoingAttr) : -1
+      const receipt = mockup.querySelector('.sms-receipt') as HTMLElement | null
 
       if (prefersReducedMotion) {
-        revealAll(mockup);
-        return;
+        revealAll(mockup)
+        return
       }
 
-      let currentIndex = 0;
+      let currentIndex = 0
 
       const revealNext = () => {
-        if (currentIndex >= bubbles.length) return;
+        if (currentIndex >= bubbles.length) return
 
         // Show timestamp if present for this message
-        const time = times[currentIndex];
-        if (time) time.classList.add("visible");
+        const time = times[currentIndex]
+        if (time) time.classList.add('visible')
 
         // Show the message bubble
-        bubbles[currentIndex].classList.add("visible");
+        bubbles[currentIndex].classList.add('visible')
 
         // Show receipt after last outgoing message
         if (receipt && currentIndex === lastOutgoing) {
-          receipt.classList.add("visible");
+          receipt.classList.add('visible')
         }
 
         // Scroll container to keep message visible
         if (container) {
-          const idx = currentIndex; // Capture before increment
+          const idx = currentIndex // Capture before increment
           // Small delay to let images render
           setTimeout(() => {
-            const target = bubbles[idx];
-            if (!target) return;
-            const inputBarHeight = 80;
-            const targetBottom = target.offsetTop + target.offsetHeight;
-            const visibleHeight = container.clientHeight - inputBarHeight;
-            const scrollTarget = targetBottom - visibleHeight;
+            const target = bubbles[idx]
+            if (!target) return
+            const inputBarHeight = 80
+            const targetBottom = target.offsetTop + target.offsetHeight
+            const visibleHeight = container.clientHeight - inputBarHeight
+            const scrollTarget = targetBottom - visibleHeight
             if (scrollTarget > container.scrollTop) {
-              container.scrollTop = scrollTarget;
+              container.scrollTop = scrollTarget
             }
-          }, 100);
+          }, 100)
         }
 
-        currentIndex++;
+        currentIndex++
 
         if (currentIndex < bubbles.length) {
-          setTimeout(revealNext, MESSAGE_DELAY_MS);
+          setTimeout(revealNext, MESSAGE_DELAY_MS)
         }
-      };
+      }
 
       // Start with first message visible immediately
-      revealNext();
-    };
+      revealNext()
+    }
 
     // Guarded wrapper for initial autoplay (prevents duplicate plays)
     const startAutoplay = (mockup: HTMLElement) => {
       // Cross-script guard: avoid multiple initializations across duplicate inline scripts
-      if (mockup.dataset && mockup.dataset.started === "true") {
-        return;
+      if (mockup.dataset && mockup.dataset.started === 'true') {
+        return
       }
       if (startedMockups.has(mockup)) {
-        return;
+        return
       }
-      startedMockups.add(mockup);
+      startedMockups.add(mockup)
       try {
-        mockup.dataset.started = "true";
+        mockup.dataset.started = 'true'
       } catch {}
 
-      playAnimation(mockup);
-    };
+      playAnimation(mockup)
+    }
 
     // Use IntersectionObserver to start autoplay when mockup is in view
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            startAutoplay(entry.target as HTMLElement);
-            observer.unobserve(entry.target);
+            startAutoplay(entry.target as HTMLElement)
+            observer.unobserve(entry.target)
           }
-        });
+        })
       },
-      { threshold: 0.5 }, // Start when 50% visible
-    );
+      { threshold: 0.5 } // Start when 50% visible
+    )
 
     mockups.forEach((m) => {
-      const mockup = m as HTMLElement;
+      const mockup = m as HTMLElement
       // If autoplay class is present, start immediately without IntersectionObserver
-      if (mockup.classList.contains("sms-autoplay")) {
-        startAutoplay(mockup);
+      if (mockup.classList.contains('sms-autoplay')) {
+        startAutoplay(mockup)
       } else {
-        observer.observe(mockup);
+        observer.observe(mockup)
       }
-    });
+    })
 
     // Add replay functionality
-    const replayHints = Array.from(
-      document.querySelectorAll(".sms-replay-hint"),
-    );
+    const replayHints = Array.from(document.querySelectorAll('.sms-replay-hint'))
     replayHints.forEach((hint) => {
       const handleReplay = () => {
-        const mockup = hint.closest(".sms-mockup") as HTMLElement | null;
-        if (!mockup) return;
+        const mockup = hint.closest('.sms-mockup') as HTMLElement | null
+        if (!mockup) return
 
         // Reset all bubbles and times to hidden
-        const bubbles = Array.from(
-          mockup.querySelectorAll(".sms-bubble"),
-        ) as HTMLElement[];
-        const times = Array.from(
-          mockup.querySelectorAll(".sms-time"),
-        ) as HTMLElement[];
-        const receipt = mockup.querySelector(
-          ".sms-receipt",
-        ) as HTMLElement | null;
-        const container = mockup.querySelector(
-          ".sms-messages",
-        ) as HTMLElement | null;
+        const bubbles = Array.from(mockup.querySelectorAll('.sms-bubble')) as HTMLElement[]
+        const times = Array.from(mockup.querySelectorAll('.sms-time')) as HTMLElement[]
+        const receipt = mockup.querySelector('.sms-receipt') as HTMLElement | null
+        const container = mockup.querySelector('.sms-messages') as HTMLElement | null
 
-        bubbles.forEach((b) => b.classList.remove("visible"));
-        times.forEach((t) => t.classList.remove("visible"));
-        if (receipt) receipt.classList.remove("visible");
-        if (container) container.scrollTop = 0;
+        bubbles.forEach((b) => b.classList.remove('visible'))
+        times.forEach((t) => t.classList.remove('visible'))
+        if (receipt) receipt.classList.remove('visible')
+        if (container) container.scrollTop = 0
 
         // Restart the animation (use playAnimation directly to bypass guards)
-        setTimeout(() => playAnimation(mockup), 100);
-      };
+        setTimeout(() => playAnimation(mockup), 100)
+      }
 
-      hint.addEventListener("click", handleReplay);
-      hint.addEventListener("keydown", (e) => {
-        const keyEvent = e as KeyboardEvent;
-        if (keyEvent.key === "Enter" || keyEvent.key === " ") {
-          keyEvent.preventDefault();
-          handleReplay();
+      hint.addEventListener('click', handleReplay)
+      hint.addEventListener('keydown', (e) => {
+        const keyEvent = e as KeyboardEvent
+        if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+          keyEvent.preventDefault()
+          handleReplay()
         }
-      });
-    });
-  };
+      })
+    })
+  }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initSMSMockups);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSMSMockups)
   } else {
     // DOM has already loaded; run immediately.
-    initSMSMockups();
+    initSMSMockups()
   }
 </script>

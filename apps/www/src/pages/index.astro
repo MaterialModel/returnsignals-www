@@ -1,17 +1,17 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro";
-import Header from "@components/shared/Header.astro";
-import Footer from "@components/shared/Footer.astro";
-import Hero from "@components/sections/Hero.astro";
-import ProblemSection from "@components/sections/ProblemSection.astro";
-import NarrativeSections from "@components/sections/NarrativeSections.astro";
-import CTASection from "@components/sections/CTASection.astro";
-import FAQSection from "@components/sections/FAQSection.astro";
-import AnalyticsPlatformSection from "@components/sections/AnalyticsPlatformSection.astro";
+import BaseLayout from '@layouts/BaseLayout.astro'
+import Header from '@components/shared/Header.astro'
+import Footer from '@components/shared/Footer.astro'
+import Hero from '@components/sections/Hero.astro'
+import ProblemSection from '@components/sections/ProblemSection.astro'
+import NarrativeSections from '@components/sections/NarrativeSections.astro'
+import FeaturedPosts from '@components/sections/FeaturedPosts.astro'
+import CTASection from '@components/sections/CTASection.astro'
+import FAQSection from '@components/sections/FAQSection.astro'
+import AnalyticsPlatformSection from '@components/sections/AnalyticsPlatformSection.astro'
 
 // CTA URL (update this to your external form link)
-const ctaUrl =
-  "https://calendly.com/alejandro-materialmodel/return-signals-introductory-call";
+const ctaUrl = 'https://calendly.com/alejandro-materialmodel/return-signals-introductory-call'
 ---
 
 <BaseLayout
@@ -22,9 +22,11 @@ const ctaUrl =
   <Header />
 
   <main id="main-content">
-    <Hero {ctaUrl} blogBadge="/blog/return-starts-before-return" />
+    <Hero {ctaUrl} />
     <ProblemSection />
     <NarrativeSections />
+
+    <FeaturedPosts />
 
     <AnalyticsPlatformSection />
 
@@ -36,5 +38,5 @@ const ctaUrl =
 
 <!-- Import scroll animations utility -->
 <script>
-  import "@utils/scroll-animations";
+  import '@utils/scroll-animations'
 </script>

@@ -5,16 +5,16 @@
  */
 
 interface Props {
-  showCTA?: boolean;
-  ctaTitle?: string;
-  ctaDescription?: string;
+  showCTA?: boolean
+  ctaTitle?: string
+  ctaDescription?: string
 }
 
 const {
   showCTA = true,
-  ctaTitle = "Calculate Your ROI",
-  ctaDescription = "Enter your numbers to see the potential impact for your brand.",
-} = Astro.props;
+  ctaTitle = 'Calculate Your ROI',
+  ctaDescription = 'Enter your numbers to see the potential impact for your brand.',
+} = Astro.props
 ---
 
 <div class="roi-calculator-wrapper">
@@ -58,56 +58,23 @@ const {
         </div>
         <div class="input-group">
           <label for="embed-avgRevenue">Avg Unit Revenue ($)</label>
-          <input
-            type="number"
-            id="embed-avgRevenue"
-            value="200"
-            min="0"
-            step="0.01"
-          />
+          <input type="number" id="embed-avgRevenue" value="200" min="0" step="0.01" />
         </div>
         <div class="input-group">
           <label for="embed-avgCost">Avg Unit Cost ($)</label>
-          <input
-            type="number"
-            id="embed-avgCost"
-            value="70"
-            min="0"
-            step="0.01"
-          />
+          <input type="number" id="embed-avgCost" value="70" min="0" step="0.01" />
         </div>
         <div class="input-group">
           <label for="embed-fitReturnRate">Fit Return Rate (%)</label>
-          <input
-            type="number"
-            id="embed-fitReturnRate"
-            value="18"
-            min="0"
-            max="100"
-            step="0.1"
-          />
+          <input type="number" id="embed-fitReturnRate" value="18" min="0" max="100" step="0.1" />
         </div>
         <div class="input-group">
           <label for="embed-otherReturnRate">Other Return Rate (%)</label>
-          <input
-            type="number"
-            id="embed-otherReturnRate"
-            value="12"
-            min="0"
-            max="100"
-            step="0.1"
-          />
+          <input type="number" id="embed-otherReturnRate" value="12" min="0" max="100" step="0.1" />
         </div>
         <div class="input-group">
           <label for="embed-multisizeFit">Multi-size Orders (%)</label>
-          <input
-            type="number"
-            id="embed-multisizeFit"
-            value="25"
-            min="0"
-            max="100"
-            step="0.1"
-          />
+          <input type="number" id="embed-multisizeFit" value="25" min="0" max="100" step="0.1" />
         </div>
       </div>
 
@@ -115,9 +82,7 @@ const {
       <div class="embed-results">
         <!-- Total Impact -->
         <div class="result-hero">
-          <p class="result-label" id="embed-profitLabel">
-            Annual Profit Increase
-          </p>
+          <p class="result-label" id="embed-profitLabel">Annual Profit Increase</p>
           <p class="result-value" id="embed-displayValue">$0</p>
           <div class="result-margin">
             <span class="margin-value" id="embed-marginExpansion">0%</span>
@@ -149,27 +114,27 @@ const {
   .roi-calculator-wrapper {
     font-family: inherit;
     margin: 1.5rem 0;
-    border: 1px solid theme("colors.border.DEFAULT");
+    border: 1px solid theme('colors.border.DEFAULT');
     border-radius: 0.75rem;
     overflow: hidden;
   }
 
   .cta-header {
     padding: 0.625rem 1rem;
-    background: theme("colors.surface.subtle");
-    border-bottom: 1px solid theme("colors.border.DEFAULT");
+    background: theme('colors.surface.subtle');
+    border-bottom: 1px solid theme('colors.border.DEFAULT');
   }
 
   .cta-title {
     font-size: 1rem;
     font-weight: 600;
-    color: theme("colors.primary");
+    color: theme('colors.primary');
     margin: 0 0 0.125rem 0;
   }
 
   .cta-description {
     font-size: 0.8125rem;
-    color: theme("colors.secondary");
+    color: theme('colors.secondary');
     line-height: 1.4;
     max-width: 60ch;
     margin: 0;
@@ -178,7 +143,7 @@ const {
   .roi-calculator-embed {
     font-family: inherit;
     padding: 0.75rem 1rem;
-    background: theme("colors.surface.base");
+    background: theme('colors.surface.base');
   }
 
   .embed-control-bar {
@@ -194,13 +159,13 @@ const {
 
   .full-calc-link {
     font-size: 0.875rem;
-    color: theme("colors.primary");
+    color: theme('colors.primary');
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
   .full-calc-link:hover {
-    color: theme("colors.secondary");
+    color: theme('colors.secondary');
   }
 
   .embed-grid {
@@ -236,23 +201,23 @@ const {
   .input-group label {
     font-size: 0.8125rem;
     font-weight: 500;
-    color: theme("colors.secondary");
+    color: theme('colors.secondary');
   }
 
   .input-group input {
     width: 100%;
     padding: 0.5rem 0.75rem;
-    border: 1px solid theme("colors.border.DEFAULT");
+    border: 1px solid theme('colors.border.DEFAULT');
     border-radius: 0.5rem;
     font-size: 0.9375rem;
-    background: theme("colors.surface.base");
+    background: theme('colors.surface.base');
     transition: border-color 0.15s ease;
   }
 
   .input-group input:focus {
     outline: none;
-    border-color: theme("colors.accent.primary");
-    box-shadow: 0 0 0 2px theme("colors.accent.muted");
+    border-color: theme('colors.accent.primary');
+    box-shadow: 0 0 0 2px theme('colors.accent.muted');
   }
 
   .embed-results {
@@ -264,10 +229,10 @@ const {
   .result-hero {
     background: linear-gradient(
       135deg,
-      theme("colors.accent.success-bg") 0%,
-      theme("colors.accent.success-bg-dark") 100%
+      theme('colors.accent.success-bg') 0%,
+      theme('colors.accent.success-bg-dark') 100%
     );
-    border: 1px solid theme("colors.accent.success-border");
+    border: 1px solid theme('colors.accent.success-border');
     border-radius: 0.5rem;
     padding: 0.75rem;
     text-align: center;
@@ -276,7 +241,7 @@ const {
   .result-label {
     font-size: 0.75rem;
     font-weight: 600;
-    color: theme("colors.accent.success-text");
+    color: theme('colors.accent.success-text');
     margin: 0 0 0.125rem 0;
     text-transform: uppercase;
     letter-spacing: 0.025em;
@@ -285,7 +250,7 @@ const {
   .result-value {
     font-size: 2.25rem;
     font-weight: 700;
-    color: theme("colors.accent.success-text");
+    color: theme('colors.accent.success-text');
     margin: 0;
     line-height: 1.2;
   }
@@ -301,18 +266,18 @@ const {
   .margin-value {
     font-size: 1.25rem;
     font-weight: 700;
-    color: theme("colors.accent.success-text");
+    color: theme('colors.accent.success-text');
   }
 
   .margin-label {
     font-size: 0.75rem;
-    color: theme("colors.accent.success-text");
+    color: theme('colors.accent.success-text');
   }
 
   .value-breakdown {
-    background: theme("colors.surface.base");
+    background: theme('colors.surface.base');
     border-radius: 0.5rem;
-    border: 1px solid theme("colors.border.DEFAULT");
+    border: 1px solid theme('colors.border.DEFAULT');
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     padding: 0.6rem;
   }
@@ -325,72 +290,64 @@ const {
   }
 
   .breakdown-row:not(:last-child) {
-    border-bottom: 1px dashed theme("colors.border.DEFAULT");
+    border-bottom: 1px dashed theme('colors.border.DEFAULT');
   }
 
   .breakdown-label {
     font-size: 0.875rem;
-    color: theme("colors.secondary");
+    color: theme('colors.secondary');
   }
 
   .breakdown-value {
     font-size: 0.9375rem;
     font-weight: 600;
-    color: theme("colors.accent.success-text");
+    color: theme('colors.accent.success-text');
   }
 </style>
 
 <script>
-  import { calculateROI, formatCurrency } from "./CalculatorCore";
+  import { calculateROI, formatCurrency } from './CalculatorCore'
 
   // Initialize calculator
   function initEmbedCalculator() {
     const inputs = {
-      unitsSold: document.getElementById("embed-unitsSold") as HTMLInputElement,
-      avgRevenue: document.getElementById(
-        "embed-avgRevenue",
-      ) as HTMLInputElement,
-      avgCost: document.getElementById("embed-avgCost") as HTMLInputElement,
-      fitReturnRate: document.getElementById(
-        "embed-fitReturnRate",
-      ) as HTMLInputElement,
-      otherReturnRate: document.getElementById(
-        "embed-otherReturnRate",
-      ) as HTMLInputElement,
-      multisizeFit: document.getElementById(
-        "embed-multisizeFit",
-      ) as HTMLInputElement,
-    };
+      unitsSold: document.getElementById('embed-unitsSold') as HTMLInputElement,
+      avgRevenue: document.getElementById('embed-avgRevenue') as HTMLInputElement,
+      avgCost: document.getElementById('embed-avgCost') as HTMLInputElement,
+      fitReturnRate: document.getElementById('embed-fitReturnRate') as HTMLInputElement,
+      otherReturnRate: document.getElementById('embed-otherReturnRate') as HTMLInputElement,
+      multisizeFit: document.getElementById('embed-multisizeFit') as HTMLInputElement,
+    }
 
     const outputs = {
-      displayValue: document.getElementById("embed-displayValue"),
-      exchangeValue: document.getElementById("embed-exchangeValue"),
-      keepValue: document.getElementById("embed-keepValue"),
-      retentionValue: document.getElementById("embed-retentionValue"),
-      marginExpansion: document.getElementById("embed-marginExpansion"),
-      profitLabel: document.getElementById("embed-profitLabel"),
-    };
+      displayValue: document.getElementById('embed-displayValue'),
+      exchangeValue: document.getElementById('embed-exchangeValue'),
+      keepValue: document.getElementById('embed-keepValue'),
+      retentionValue: document.getElementById('embed-retentionValue'),
+      marginExpansion: document.getElementById('embed-marginExpansion'),
+      profitLabel: document.getElementById('embed-profitLabel'),
+    }
 
-    const monthlyToggle = document.getElementById("embed-monthlyToggle");
-    const annualToggle = document.getElementById("embed-annualToggle");
+    const monthlyToggle = document.getElementById('embed-monthlyToggle')
+    const annualToggle = document.getElementById('embed-annualToggle')
 
-    let isAnnual = true;
+    let isAnnual = true
     let calcData = {
       monthly: 0,
       annual: 0,
       exchangeValue: 0,
       keepValue: 0,
       retentionValue: 0,
-    };
+    }
 
     function runCalculation() {
       const inputValues = {
-        unitsSold: parseFloat(inputs.unitsSold?.value || "0") || 0,
-        avgRevenue: parseFloat(inputs.avgRevenue?.value || "0") || 0,
-        avgCost: parseFloat(inputs.avgCost?.value || "0") || 0,
-        fitReturnRate: parseFloat(inputs.fitReturnRate?.value || "0") || 0,
-        otherReturnRate: parseFloat(inputs.otherReturnRate?.value || "0") || 0,
-        multisizeFit: parseFloat(inputs.multisizeFit?.value || "0") || 0,
+        unitsSold: parseFloat(inputs.unitsSold?.value || '0') || 0,
+        avgRevenue: parseFloat(inputs.avgRevenue?.value || '0') || 0,
+        avgCost: parseFloat(inputs.avgCost?.value || '0') || 0,
+        fitReturnRate: parseFloat(inputs.fitReturnRate?.value || '0') || 0,
+        otherReturnRate: parseFloat(inputs.otherReturnRate?.value || '0') || 0,
+        multisizeFit: parseFloat(inputs.multisizeFit?.value || '0') || 0,
         // Hardcoded defaults for advanced parameters
         unitsPerOrder: 1.7,
         orderShippingCost: 10,
@@ -401,9 +358,9 @@ const {
         keepLift: 10,
         retentionLift: 20,
         repeatMarketingCost: 0,
-      };
+      }
 
-      const results = calculateROI(inputValues);
+      const results = calculateROI(inputValues)
 
       calcData = {
         monthly: results.totalMonthly,
@@ -411,84 +368,71 @@ const {
         exchangeValue: results.exchangeValue,
         keepValue: results.keepValue,
         retentionValue: results.retentionValue,
-      };
+      }
 
       if (outputs.marginExpansion)
-        outputs.marginExpansion.textContent =
-          results.marginExpansionPct.toFixed(1) + "%";
+        outputs.marginExpansion.textContent = results.marginExpansionPct.toFixed(1) + '%'
 
-      updateDisplay();
+      updateDisplay()
     }
 
     function updateDisplay() {
-      const multiplier = isAnnual ? 12 : 1;
+      const multiplier = isAnnual ? 12 : 1
 
       if (isAnnual) {
-        if (outputs.profitLabel)
-          outputs.profitLabel.textContent = "Annual Profit Increase";
-        if (outputs.displayValue)
-          outputs.displayValue.textContent = formatCurrency(calcData.annual);
+        if (outputs.profitLabel) outputs.profitLabel.textContent = 'Annual Profit Increase'
+        if (outputs.displayValue) outputs.displayValue.textContent = formatCurrency(calcData.annual)
       } else {
-        if (outputs.profitLabel)
-          outputs.profitLabel.textContent = "Monthly Profit Increase";
+        if (outputs.profitLabel) outputs.profitLabel.textContent = 'Monthly Profit Increase'
         if (outputs.displayValue)
-          outputs.displayValue.textContent = formatCurrency(calcData.monthly);
+          outputs.displayValue.textContent = formatCurrency(calcData.monthly)
       }
 
       // Update breakdown values based on toggle
       if (outputs.exchangeValue)
-        outputs.exchangeValue.textContent = formatCurrency(
-          calcData.exchangeValue * multiplier,
-        );
+        outputs.exchangeValue.textContent = formatCurrency(calcData.exchangeValue * multiplier)
       if (outputs.keepValue)
-        outputs.keepValue.textContent = formatCurrency(
-          calcData.keepValue * multiplier,
-        );
+        outputs.keepValue.textContent = formatCurrency(calcData.keepValue * multiplier)
       if (outputs.retentionValue)
-        outputs.retentionValue.textContent = formatCurrency(
-          calcData.retentionValue * multiplier,
-        );
+        outputs.retentionValue.textContent = formatCurrency(calcData.retentionValue * multiplier)
     }
 
     function setToggleState(annual: boolean) {
-      isAnnual = annual;
+      isAnnual = annual
 
       if (monthlyToggle && annualToggle) {
         if (annual) {
-          monthlyToggle.classList.remove("bg-accent-primary", "text-inverse");
-          monthlyToggle.classList.add("text-secondary", "hover:text-primary");
-          annualToggle.classList.add("bg-accent-primary", "text-inverse");
-          annualToggle.classList.remove("text-secondary", "hover:text-primary");
+          monthlyToggle.classList.remove('bg-accent-primary', 'text-inverse')
+          monthlyToggle.classList.add('text-secondary', 'hover:text-primary')
+          annualToggle.classList.add('bg-accent-primary', 'text-inverse')
+          annualToggle.classList.remove('text-secondary', 'hover:text-primary')
         } else {
-          annualToggle.classList.remove("bg-accent-primary", "text-inverse");
-          annualToggle.classList.add("text-secondary", "hover:text-primary");
-          monthlyToggle.classList.add("bg-accent-primary", "text-inverse");
-          monthlyToggle.classList.remove(
-            "text-secondary",
-            "hover:text-primary",
-          );
+          annualToggle.classList.remove('bg-accent-primary', 'text-inverse')
+          annualToggle.classList.add('text-secondary', 'hover:text-primary')
+          monthlyToggle.classList.add('bg-accent-primary', 'text-inverse')
+          monthlyToggle.classList.remove('text-secondary', 'hover:text-primary')
         }
       }
 
-      updateDisplay();
+      updateDisplay()
     }
 
     // Add event listeners
     Object.values(inputs).forEach((input) => {
-      if (input) input.addEventListener("input", runCalculation);
-    });
+      if (input) input.addEventListener('input', runCalculation)
+    })
 
-    monthlyToggle?.addEventListener("click", () => setToggleState(false));
-    annualToggle?.addEventListener("click", () => setToggleState(true));
+    monthlyToggle?.addEventListener('click', () => setToggleState(false))
+    annualToggle?.addEventListener('click', () => setToggleState(true))
 
     // Initial calculation
-    runCalculation();
+    runCalculation()
   }
 
   // Run when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initEmbedCalculator);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEmbedCalculator)
   } else {
-    initEmbedCalculator();
+    initEmbedCalculator()
   }
 </script>

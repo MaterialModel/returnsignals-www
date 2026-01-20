@@ -3,72 +3,69 @@
  * ProblemSection — Variant 1
  * Signal → Concierge response (keeps stats, improves tone + exchange framing)
  */
-import FullViewportSection from "@layouts/FullViewportSection.astro";
-import HeroIcons from "@components/icons/HeroIcons.astro";
+import FullViewportSection from '@layouts/FullViewportSection.astro'
+import HeroIcons from '@components/icons/HeroIcons.astro'
 
 interface Props {
-  className?: string;
+  className?: string
 }
 
-const { className = "" } = Astro.props;
+const { className = '' } = Astro.props
 
 const flowSteps = [
   {
-    id: "check-in",
-    label: "Check in",
-    description: "A proactive text that feels like a real associate.",
-    icon: "chat" as const,
+    id: 'check-in',
+    label: 'Check in',
+    description: 'A proactive text that feels like a real associate.',
+    icon: 'chat' as const,
   },
   {
-    id: "follow-up",
-    label: "Follow up",
-    description:
-      "If they haven't tried it yet, no problem. We'll reach out again later.",
-    icon: "calendar" as const,
+    id: 'follow-up',
+    label: 'Follow up',
+    description: "If they haven't tried it yet, no problem. We'll reach out again later.",
+    icon: 'calendar' as const,
   },
   {
-    id: "resolve",
-    label: "Resolve",
+    id: 'resolve',
+    label: 'Resolve',
     description:
-      "Support that saves the sale: fit & styling guidance, plus tailored exchange recommendations.",
-    icon: "camera" as const,
+      'Support that saves the sale: fit & styling guidance, plus tailored exchange recommendations.',
+    icon: 'camera' as const,
   },
   {
-    id: "route",
-    label: "Return route",
-    description:
-      "If a return is needed, use photos to decide: restock, rework, or keep‑it.",
-    icon: "route" as const,
+    id: 'route',
+    label: 'Return route',
+    description: 'If a return is needed, use photos to decide: restock, rework, or keep‑it.',
+    icon: 'route' as const,
   },
-];
+]
 
 const items = [
   {
-    stat: "39%",
-    statNote: "of return requests",
-    problem: "Fit uncertainty",
-    problemDesc: "Wrong size or cut for their preferences.",
-    solution: "Thoughtful personal advice.",
-    solutionDesc:
-      "Confirm the issue then recommend the best size or a better-fitting style.",
+    stat: '39%',
+    statNote: 'of return requests',
+    problem: 'Fit uncertainty',
+    problemDesc: 'Wrong size or cut for their preferences.',
+    solution: 'Thoughtful personal advice.',
+    solutionDesc: 'Confirm the issue then recommend the best size or a better-fitting style.',
   },
   {
-    stat: "28%",
-    statNote: "of return requests",
-    problem: "Expectation mismatch",
-    problemDesc: "Color or fabric not as expected.",
-    solution: "Listen and check their photo.",
-    solutionDesc: "Help them find what they will love.",
+    stat: '28%',
+    statNote: 'of return requests',
+    problem: 'Expectation mismatch',
+    problemDesc: 'Color or fabric not as expected.',
+    solution: 'Listen and check their photo.',
+    solutionDesc: 'Help them find what they will love.',
   },
   {
-    stat: "$27",
-    statNote: "avg. handling cost",
-    problem: "Quality concern",
-    problemDesc: "Minor flaw or a real defect.",
-    solution: "Photo-based resolution",
-    solutionDesc: "Decide the right fix: replace, rework, or keep.",
+    stat: '$27',
+    statNote: 'avg. handling cost',
+    problem: 'Quality concern',
+    problemDesc: 'Minor flaw or a real defect.',
+    solution: 'Photo-based resolution',
+    solutionDesc: 'Decide the right fix: replace, rework, or keep.',
   },
-];
+]
 ---
 
 <FullViewportSection class={className} bg="bg-surface-subtle">
@@ -76,9 +73,7 @@ const items = [
     <!-- Header -->
     <div class="text-center mb-10 sm:mb-14 pt-8 sm:pt-24">
       <h2 class="section-title mb-4">Turn returns into loyalty</h2>
-      <p
-        class="text-lg sm:text-xl text-primary leading-relaxed max-w-3xl mx-auto"
-      >
+      <p class="text-lg sm:text-xl text-primary leading-relaxed max-w-3xl mx-auto">
         When something isn't right, customers remember how you respond.
       </p>
     </div>
@@ -91,7 +86,7 @@ const items = [
           flowSteps.map((step, index) => (
             <>
               <button
-                class={`flow-step ${index === 0 ? "flow-step-active" : ""}`}
+                class={`flow-step ${index === 0 ? 'flow-step-active' : ''}`}
                 data-step={step.id}
                 aria-label={`View ${step.label} step`}
               >
@@ -115,7 +110,7 @@ const items = [
         {
           flowSteps.map((step, index) => (
             <div
-              class={`flow-panel ${index === 0 ? "flow-panel-active" : ""}`}
+              class={`flow-panel ${index === 0 ? 'flow-panel-active' : ''}`}
               data-panel={step.id}
             >
               <p class="flow-description">{step.description}</p>
@@ -129,11 +124,7 @@ const items = [
     <div class="problem-cards">
       {
         items.map((item) => (
-          <div
-            class="problem-card"
-            role="group"
-            aria-label="Problem and response"
-          >
+          <div class="problem-card" role="group" aria-label="Problem and response">
             <div class="stat-header">
               <span class="stat-value">{item.stat}</span>
               <span class="stat-note" aria-label="stat note">
@@ -229,11 +220,7 @@ const items = [
     align-items: center;
     gap: 0.75rem;
     padding: 1.25rem 1.25rem 1rem;
-    background: linear-gradient(
-      180deg,
-      var(--color-surface-subtle),
-      transparent 80%
-    );
+    background: linear-gradient(180deg, var(--color-surface-subtle), transparent 80%);
   }
 
   .stat-value {
@@ -344,86 +331,81 @@ const items = [
 </style>
 
 <script>
-  const flowSteps = ["check-in", "follow-up", "resolve", "route"];
-  let currentStep = 0;
-  let autoplayInterval: ReturnType<typeof setInterval> | null = null;
-  let isPaused = false;
-  const STEP_DURATION = 4000; // 4 seconds per step
+  const flowSteps = ['check-in', 'follow-up', 'resolve', 'route']
+  let currentStep = 0
+  let autoplayInterval: ReturnType<typeof setInterval> | null = null
+  let isPaused = false
+  const STEP_DURATION = 4000 // 4 seconds per step
 
   function setActiveStep(stepId: string) {
-    currentStep = flowSteps.indexOf(stepId);
+    currentStep = flowSteps.indexOf(stepId)
 
     // Update step buttons
-    document.querySelectorAll("#problem-flow .flow-step").forEach((btn) => {
-      const isActive = btn.getAttribute("data-step") === stepId;
-      btn.classList.toggle("flow-step-active", isActive);
-    });
+    document.querySelectorAll('#problem-flow .flow-step').forEach((btn) => {
+      const isActive = btn.getAttribute('data-step') === stepId
+      btn.classList.toggle('flow-step-active', isActive)
+    })
 
     // Update panels with animation
-    document.querySelectorAll("#problem-flow .flow-panel").forEach((panel) => {
-      const isActive = panel.getAttribute("data-panel") === stepId;
+    document.querySelectorAll('#problem-flow .flow-panel').forEach((panel) => {
+      const isActive = panel.getAttribute('data-panel') === stepId
       if (isActive) {
-        panel.classList.add("flow-panel-active");
+        panel.classList.add('flow-panel-active')
       } else {
-        panel.classList.remove("flow-panel-active");
+        panel.classList.remove('flow-panel-active')
       }
-    });
+    })
 
     // Update connector lines (fill up to current step)
-    document
-      .querySelectorAll("#problem-flow .flow-connector")
-      .forEach((connector, index) => {
-        connector.classList.toggle(
-          "flow-connector-active",
-          index < currentStep,
-        );
-      });
+    document.querySelectorAll('#problem-flow .flow-connector').forEach((connector, index) => {
+      connector.classList.toggle('flow-connector-active', index < currentStep)
+    })
   }
 
   function nextStep() {
-    const nextIndex = (currentStep + 1) % flowSteps.length;
-    setActiveStep(flowSteps[nextIndex]);
+    const nextIndex = (currentStep + 1) % flowSteps.length
+    setActiveStep(flowSteps[nextIndex])
   }
 
   function startAutoplay() {
-    if (autoplayInterval) clearInterval(autoplayInterval);
+    if (autoplayInterval) clearInterval(autoplayInterval)
     autoplayInterval = setInterval(() => {
-      if (!isPaused) nextStep();
-    }, STEP_DURATION);
+      if (!isPaused) nextStep()
+    }, STEP_DURATION)
   }
 
   function init() {
-    const flowContainer = document.getElementById("problem-flow");
-    if (!flowContainer) return;
+    const flowContainer = document.getElementById('problem-flow')
+    if (!flowContainer) return
 
     // Click handlers for step buttons
-    flowContainer.querySelectorAll(".flow-step").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const stepId = btn.getAttribute("data-step");
+    flowContainer.querySelectorAll('.flow-step').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const stepId = btn.getAttribute('data-step')
         if (stepId) {
-          setActiveStep(stepId);
+          setActiveStep(stepId)
           // Reset autoplay timer on click
-          startAutoplay();
+          startAutoplay()
         }
-      });
-    });
+      })
+    })
 
     // Pause on hover
-    flowContainer.addEventListener("mouseenter", () => {
-      isPaused = true;
-    });
-    flowContainer.addEventListener("mouseleave", () => {
-      isPaused = false;
-    });
+    flowContainer.addEventListener('mouseenter', () => {
+      isPaused = true
+    })
+    flowContainer.addEventListener('mouseleave', () => {
+      isPaused = false
+    })
 
     // Start autoplay
-    startAutoplay();
+    startAutoplay()
   }
 
   // Initialize when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init)
   } else {
-    init();
+    init()
   }
 </script>

@@ -1,13 +1,13 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro";
-import Header from "@components/shared/Header.astro";
-import Footer from "@components/shared/Footer.astro";
-import FAQ from "@components/shared/FAQ.astro";
-import CalculatorInput from "@components/calculator/CalculatorInput.astro";
-import InputSection from "@components/calculator/InputSection.astro";
-import ResultsPanel from "@components/calculator/ResultsPanel.astro";
-import { formulas, inputVariables } from "@components/calculator/formulas";
-import { roiFaqItems } from "@data/roi-faq";
+import BaseLayout from '@layouts/BaseLayout.astro'
+import Header from '@components/shared/Header.astro'
+import Footer from '@components/shared/Footer.astro'
+import FAQ from '@components/shared/FAQ.astro'
+import CalculatorInput from '@components/calculator/CalculatorInput.astro'
+import InputSection from '@components/calculator/InputSection.astro'
+import ResultsPanel from '@components/calculator/ResultsPanel.astro'
+import { formulas, inputVariables } from '@components/calculator/formulas'
+import { roiFaqItems } from '@data/roi-faq'
 ---
 
 <BaseLayout
@@ -20,21 +20,21 @@ import { roiFaqItems } from "@data/roi-faq";
     window.MathJax = {
       tex: {
         inlineMath: [
-          ["$", "$"],
-          ["\\(", "\\)"],
+          ['$', '$'],
+          ['\\(', '\\)'],
         ],
         displayMath: [
-          ["$$", "$$"],
-          ["\\[", "\\]"],
+          ['$$', '$$'],
+          ['\\[', '\\]'],
         ],
       },
       options: {
-        ignoreHtmlClass: "mathjax-ignore",
+        ignoreHtmlClass: 'mathjax-ignore',
       },
       svg: {
-        fontCache: "global",
+        fontCache: 'global',
       },
-    };
+    }
   </script>
   <script
     is:inline
@@ -52,8 +52,8 @@ import { roiFaqItems } from "@data/roi-faq";
           <span class="eyebrow">Financial Impact</span>
           <h1 class="page-title mt-4 mb-6">ROI Calculator</h1>
           <p class="section-description max-w-3xl mx-auto">
-            See how Return Signals can impact your bottom line by reducing
-            returns, increasing exchanges, and improving customer retention.
+            See how Return Signals can impact your bottom line by reducing returns, increasing
+            exchanges, and improving customer retention.
           </p>
           <!-- Moved formula link near controls below -->
         </div>
@@ -115,9 +115,7 @@ import { roiFaqItems } from "@data/roi-faq";
                 d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
               ></path>
             </svg>
-            <span class="underline underline-offset-2"
-              >Learn how we calculate ROI</span
-            >
+            <span class="underline underline-offset-2">Learn how we calculate ROI</span>
           </a>
         </div>
 
@@ -208,10 +206,7 @@ import { roiFaqItems } from "@data/roi-faq";
               />
             </InputSection>
 
-            <InputSection
-              title="Return Signals Impact"
-              id="section-returnSignalsImpact"
-            >
+            <InputSection title="Return Signals Impact" id="section-returnSignalsImpact">
               <CalculatorInput
                 id="engagementRate"
                 label="Customer Engagement Rate (%)"
@@ -270,32 +265,25 @@ import { roiFaqItems } from "@data/roi-faq";
     <section id="methodology" class="py-16 sm:py-20 bg-surface-subtle">
       <div class="container-narrow">
         <div class="text-center mb-12">
-          <h2 class="text-2xl sm:text-3xl font-bold text-primary mb-4">
-            How We Calculate ROI
-          </h2>
+          <h2 class="text-2xl sm:text-3xl font-bold text-primary mb-4">How We Calculate ROI</h2>
           <p class="text-secondary max-w-2xl mx-auto">
-            Our calculator uses a transparent methodology based on your business
-            metrics to estimate the financial impact of reducing returns and
-            improving customer retention.
+            Our calculator uses a transparent methodology based on your business metrics to estimate
+            the financial impact of reducing returns and improving customer retention.
           </p>
         </div>
 
         <!-- Input Variables Section -->
         <div class="bg-surface-base border border-border rounded-lg p-6 mb-8">
-          <h3 class="text-lg font-semibold text-primary mb-4">
-            Input Variables
-          </h3>
+          <h3 class="text-lg font-semibold text-primary mb-4">Input Variables</h3>
           <p class="text-sm text-secondary mb-6">
-            These are the values you enter in the calculator. Understanding them
-            helps interpret the results.
+            These are the values you enter in the calculator. Understanding them helps interpret the
+            results.
           </p>
 
           <div class="grid md:grid-cols-2 gap-6">
             <!-- Business Metrics -->
             <div>
-              <h4 class="text-sm font-semibold text-accent-primary mb-3">
-                Business Metrics
-              </h4>
+              <h4 class="text-sm font-semibold text-accent-primary mb-3">Business Metrics</h4>
               <div class="space-y-2 text-sm">
                 {
                   inputVariables.businessMetrics.map((v) => (
@@ -313,9 +301,7 @@ import { roiFaqItems } from "@data/roi-faq";
 
             <!-- Costs -->
             <div>
-              <h4 class="text-sm font-semibold text-accent-primary mb-3">
-                Costs
-              </h4>
+              <h4 class="text-sm font-semibold text-accent-primary mb-3">Costs</h4>
               <div class="space-y-2 text-sm">
                 {
                   inputVariables.costs.map((v) => (
@@ -325,10 +311,7 @@ import { roiFaqItems } from "@data/roi-faq";
                         set:html={v.html}
                       />
                       {v.descriptionHtml ? (
-                        <span
-                          class="text-secondary"
-                          set:html={v.descriptionHtml}
-                        />
+                        <span class="text-secondary" set:html={v.descriptionHtml} />
                       ) : (
                         <span class="text-secondary">{v.description}</span>
                       )}
@@ -340,9 +323,7 @@ import { roiFaqItems } from "@data/roi-faq";
 
             <!-- Return Rates -->
             <div>
-              <h4 class="text-sm font-semibold text-accent-primary mb-3">
-                Return Rates
-              </h4>
+              <h4 class="text-sm font-semibold text-accent-primary mb-3">Return Rates</h4>
               <div class="space-y-2 text-sm">
                 {
                   inputVariables.returnRates.map((v) => (
@@ -360,9 +341,7 @@ import { roiFaqItems } from "@data/roi-faq";
 
             <!-- Impact Metrics -->
             <div>
-              <h4 class="text-sm font-semibold text-accent-primary mb-3">
-                Return Signals Impact
-              </h4>
+              <h4 class="text-sm font-semibold text-accent-primary mb-3">Return Signals Impact</h4>
               <div class="space-y-2 text-sm">
                 {
                   inputVariables.impact.map((v) => (
@@ -392,10 +371,7 @@ import { roiFaqItems } from "@data/roi-faq";
             </p>
 
             <div class="bg-surface-subtle p-4 rounded-lg mb-4">
-              <div
-                class="text-base"
-                set:html={`\\[${formulas.eligibleReturns.mainFormula}\\]`}
-              />
+              <div class="text-base" set:html={`\\[${formulas.eligibleReturns.mainFormula}\\]`} />
             </div>
 
             <div class="space-y-2 text-sm text-secondary mb-4">
@@ -404,17 +380,13 @@ import { roiFaqItems } from "@data/roi-faq";
                 formulas.eligibleReturns.subFormulas.map((sf) => (
                   <div class="ml-4 flex flex-col gap-1">
                     <span set:html={`\\(${sf.latex}\\)`} />
-                    <span class="text-tertiary text-xs ml-4">
-                      {sf.description}
-                    </span>
+                    <span class="text-tertiary text-xs ml-4">{sf.description}</span>
                   </div>
                 ))
               }
             </div>
 
-            <div
-              class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r"
-            >
+            <div class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r">
               <p class="text-sm text-secondary italic">
                 <strong class="text-primary not-italic">Why?</strong>
                 {formulas.eligibleReturns.intuition}
@@ -432,10 +404,7 @@ import { roiFaqItems } from "@data/roi-faq";
             </p>
 
             <div class="bg-surface-subtle p-4 rounded-lg mb-4">
-              <div
-                class="text-base"
-                set:html={`\\[${formulas.exchangeValue.mainFormula}\\]`}
-              />
+              <div class="text-base" set:html={`\\[${formulas.exchangeValue.mainFormula}\\]`} />
             </div>
 
             <div class="space-y-2 text-sm text-secondary mb-4">
@@ -444,17 +413,13 @@ import { roiFaqItems } from "@data/roi-faq";
                 formulas.exchangeValue.subFormulas.map((sf) => (
                   <div class="ml-4 flex flex-col gap-1">
                     <span set:html={`\\(${sf.latex}\\)`} />
-                    <span class="text-tertiary text-xs ml-4">
-                      {sf.description}
-                    </span>
+                    <span class="text-tertiary text-xs ml-4">{sf.description}</span>
                   </div>
                 ))
               }
             </div>
 
-            <div
-              class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r"
-            >
+            <div class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r">
               <p class="text-sm text-secondary mb-2">
                 <strong class="text-primary">Why this formula works:</strong>
               </p>
@@ -481,10 +446,7 @@ import { roiFaqItems } from "@data/roi-faq";
             </p>
 
             <div class="bg-surface-subtle p-4 rounded-lg mb-4">
-              <div
-                class="text-base"
-                set:html={`\\[${formulas.keepValue.mainFormula}\\]`}
-              />
+              <div class="text-base" set:html={`\\[${formulas.keepValue.mainFormula}\\]`} />
             </div>
 
             <div class="space-y-2 text-sm text-secondary mb-4">
@@ -493,17 +455,13 @@ import { roiFaqItems } from "@data/roi-faq";
                 formulas.keepValue.subFormulas.map((sf) => (
                   <div class="ml-4 flex flex-col gap-1">
                     <span set:html={`\\(${sf.latex}\\)`} />
-                    <span class="text-tertiary text-xs ml-4">
-                      {sf.description}
-                    </span>
+                    <span class="text-tertiary text-xs ml-4">{sf.description}</span>
                   </div>
                 ))
               }
             </div>
 
-            <div
-              class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r"
-            >
+            <div class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r">
               <p class="text-sm text-secondary mb-2">
                 <strong class="text-primary">Why this formula works:</strong>
               </p>
@@ -530,10 +488,7 @@ import { roiFaqItems } from "@data/roi-faq";
             </p>
 
             <div class="bg-surface-subtle p-4 rounded-lg mb-4">
-              <div
-                class="text-base"
-                set:html={`\\[${formulas.retentionValue.mainFormula}\\]`}
-              />
+              <div class="text-base" set:html={`\\[${formulas.retentionValue.mainFormula}\\]`} />
             </div>
 
             <div class="space-y-2 text-sm text-secondary mb-4">
@@ -542,46 +497,35 @@ import { roiFaqItems } from "@data/roi-faq";
                 formulas.retentionValue.subFormulas.map((sf) => (
                   <div class="ml-4 flex flex-col gap-1">
                     <span set:html={`\\(${sf.latex}\\)`} />
-                    <span class="text-tertiary text-xs ml-4">
-                      {sf.description}
-                    </span>
+                    <span class="text-tertiary text-xs ml-4">{sf.description}</span>
                   </div>
                 ))
               }
             </div>
 
-            <div
-              class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r"
-            >
+            <div class="bg-accent-primary/5 border-l-2 border-accent-primary p-3 rounded-r">
               <p class="text-sm text-secondary mb-2">
                 <strong class="text-primary">Why this formula works:</strong>
               </p>
               <ul class="text-sm text-secondary space-y-1 ml-4">
                 {
-                  formulas.retentionValue.intuitionBulletsHtml?.map(
-                    (bullet) => (
-                      <li class="flex items-start gap-2">
-                        <span class="text-accent-primary">+</span>
-                        <span set:html={bullet} />
-                      </li>
-                    ),
-                  )
+                  formulas.retentionValue.intuitionBulletsHtml?.map((bullet) => (
+                    <li class="flex items-start gap-2">
+                      <span class="text-accent-primary">+</span>
+                      <span set:html={bullet} />
+                    </li>
+                  ))
                 }
               </ul>
             </div>
           </div>
 
           <!-- Total Value -->
-          <div
-            class="bg-accent-success-subtle border border-accent-success/20 p-6 rounded-lg"
-          >
+          <div class="bg-accent-success-subtle border border-accent-success/20 p-6 rounded-lg">
             <h3 class="text-lg font-semibold text-primary mb-3">
               {formulas.totalValue.title}
             </h3>
-            <div
-              class="text-base mb-2"
-              set:html={`\\[${formulas.totalValue.formula}\\]`}
-            />
+            <div class="text-base mb-2" set:html={`\\[${formulas.totalValue.formula}\\]`} />
             <p class="text-sm text-secondary">
               {formulas.totalValue.description}
             </p>
@@ -660,67 +604,57 @@ import { roiFaqItems } from "@data/roi-faq";
 </style>
 
 <script>
-  import "@utils/scroll-animations";
+  import '@utils/scroll-animations'
   import {
     calculateROI,
     formatCurrency,
     formatNumber,
     type CalculationInputs,
-  } from "@components/calculator/CalculatorCore";
+  } from '@components/calculator/CalculatorCore'
 
   // Get all input elements
   const inputs = {
-    unitsSold: document.getElementById("unitsSold") as HTMLInputElement,
-    avgRevenue: document.getElementById("avgRevenue") as HTMLInputElement,
-    avgCost: document.getElementById("avgCost") as HTMLInputElement,
-    unitsPerOrder: document.getElementById("unitsPerOrder") as HTMLInputElement,
-    orderShippingCost: document.getElementById(
-      "orderShippingCost",
-    ) as HTMLInputElement,
-    returnCost: document.getElementById("returnCost") as HTMLInputElement,
-    fitReturnRate: document.getElementById("fitReturnRate") as HTMLInputElement,
-    otherReturnRate: document.getElementById(
-      "otherReturnRate",
-    ) as HTMLInputElement,
-    multisizeFit: document.getElementById("multisizeFit") as HTMLInputElement,
-    resaleProbability: document.getElementById(
-      "resaleProbability",
-    ) as HTMLInputElement,
-    engagementRate: document.getElementById(
-      "engagementRate",
-    ) as HTMLInputElement,
-    exchangeLift: document.getElementById("exchangeLift") as HTMLInputElement,
-    keepLift: document.getElementById("keepLift") as HTMLInputElement,
-    retentionLift: document.getElementById("retentionLift") as HTMLInputElement,
-    repeatMarketingCost: document.getElementById(
-      "repeatMarketingCost",
-    ) as HTMLInputElement,
-  };
+    unitsSold: document.getElementById('unitsSold') as HTMLInputElement,
+    avgRevenue: document.getElementById('avgRevenue') as HTMLInputElement,
+    avgCost: document.getElementById('avgCost') as HTMLInputElement,
+    unitsPerOrder: document.getElementById('unitsPerOrder') as HTMLInputElement,
+    orderShippingCost: document.getElementById('orderShippingCost') as HTMLInputElement,
+    returnCost: document.getElementById('returnCost') as HTMLInputElement,
+    fitReturnRate: document.getElementById('fitReturnRate') as HTMLInputElement,
+    otherReturnRate: document.getElementById('otherReturnRate') as HTMLInputElement,
+    multisizeFit: document.getElementById('multisizeFit') as HTMLInputElement,
+    resaleProbability: document.getElementById('resaleProbability') as HTMLInputElement,
+    engagementRate: document.getElementById('engagementRate') as HTMLInputElement,
+    exchangeLift: document.getElementById('exchangeLift') as HTMLInputElement,
+    keepLift: document.getElementById('keepLift') as HTMLInputElement,
+    retentionLift: document.getElementById('retentionLift') as HTMLInputElement,
+    repeatMarketingCost: document.getElementById('repeatMarketingCost') as HTMLInputElement,
+  }
 
   // Get output elements
   const outputs = {
-    displayValue: document.getElementById("displayValue"),
-    exchangeValue: document.getElementById("exchangeValue"),
-    keepValue: document.getElementById("keepValue"),
-    retentionValue: document.getElementById("retentionValue"),
-    eligibleReturns: document.getElementById("eligibleReturns"),
-    engagedCustomers: document.getElementById("engagedCustomers"),
-    resolvedCustomers: document.getElementById("resolvedCustomers"),
-    returnsPrevented: document.getElementById("returnsPrevented"),
-    baselineRevenue: document.getElementById("baselineRevenue"),
-    marginExpansion: document.getElementById("marginExpansion"),
-    profitLabel: document.getElementById("profitLabel"),
-    baselineLabel: document.getElementById("baselineLabel"),
-  };
+    displayValue: document.getElementById('displayValue'),
+    exchangeValue: document.getElementById('exchangeValue'),
+    keepValue: document.getElementById('keepValue'),
+    retentionValue: document.getElementById('retentionValue'),
+    eligibleReturns: document.getElementById('eligibleReturns'),
+    engagedCustomers: document.getElementById('engagedCustomers'),
+    resolvedCustomers: document.getElementById('resolvedCustomers'),
+    returnsPrevented: document.getElementById('returnsPrevented'),
+    baselineRevenue: document.getElementById('baselineRevenue'),
+    marginExpansion: document.getElementById('marginExpansion'),
+    profitLabel: document.getElementById('profitLabel'),
+    baselineLabel: document.getElementById('baselineLabel'),
+  }
 
   // Get toggle buttons
-  const monthlyToggle = document.getElementById("monthlyToggle");
-  const annualToggle = document.getElementById("annualToggle");
-  const simplifiedToggle = document.getElementById("simplifiedToggle");
-  const fullToggle = document.getElementById("fullToggle");
+  const monthlyToggle = document.getElementById('monthlyToggle')
+  const annualToggle = document.getElementById('annualToggle')
+  const simplifiedToggle = document.getElementById('simplifiedToggle')
+  const fullToggle = document.getElementById('fullToggle')
 
   // Toggle state
-  let isAnnual = true;
+  let isAnnual = true
 
   // Stored calculation values
   let calculationData = {
@@ -734,7 +668,7 @@ import { roiFaqItems } from "@data/roi-faq";
     eligibleReturns: 0,
     engagedCustomers: 0,
     returnsPrevented: 0,
-  };
+  }
 
   function runCalculation() {
     // Gather inputs
@@ -754,10 +688,10 @@ import { roiFaqItems } from "@data/roi-faq";
       keepLift: parseFloat(inputs.keepLift.value) || 0,
       retentionLift: parseFloat(inputs.retentionLift.value) || 0,
       repeatMarketingCost: parseFloat(inputs.repeatMarketingCost.value) || 0,
-    };
+    }
 
     // Calculate results
-    const results = calculateROI(inputValues);
+    const results = calculateROI(inputValues)
 
     // Store for toggle
     calculationData = {
@@ -771,163 +705,143 @@ import { roiFaqItems } from "@data/roi-faq";
       eligibleReturns: results.eligibleReturns,
       engagedCustomers: results.engagedCustomers,
       returnsPrevented: results.returnsPrevented,
-    };
+    }
 
     // Update non-toggled outputs (margin expansion stays the same)
     if (outputs.marginExpansion)
-      outputs.marginExpansion.textContent =
-        results.marginExpansionPct.toFixed(1) + "%";
+      outputs.marginExpansion.textContent = results.marginExpansionPct.toFixed(1) + '%'
 
     // Update display based on current toggle state
-    updateDisplay();
+    updateDisplay()
   }
 
   function updateDisplay() {
-    const multiplier = isAnnual ? 12 : 1;
+    const multiplier = isAnnual ? 12 : 1
 
     if (isAnnual) {
-      if (outputs.profitLabel)
-        outputs.profitLabel.textContent = "Annual Profit Increase";
-      if (outputs.baselineLabel)
-        outputs.baselineLabel.textContent = "Baseline Annual Net Sales";
+      if (outputs.profitLabel) outputs.profitLabel.textContent = 'Annual Profit Increase'
+      if (outputs.baselineLabel) outputs.baselineLabel.textContent = 'Baseline Annual Net Sales'
       if (outputs.displayValue)
-        outputs.displayValue.textContent = formatCurrency(
-          calculationData.annual,
-        );
+        outputs.displayValue.textContent = formatCurrency(calculationData.annual)
       if (outputs.baselineRevenue)
-        outputs.baselineRevenue.textContent = formatCurrency(
-          calculationData.baselineAnnual,
-        );
+        outputs.baselineRevenue.textContent = formatCurrency(calculationData.baselineAnnual)
     } else {
-      if (outputs.profitLabel)
-        outputs.profitLabel.textContent = "Monthly Profit Increase";
-      if (outputs.baselineLabel)
-        outputs.baselineLabel.textContent = "Baseline Monthly Net Sales";
+      if (outputs.profitLabel) outputs.profitLabel.textContent = 'Monthly Profit Increase'
+      if (outputs.baselineLabel) outputs.baselineLabel.textContent = 'Baseline Monthly Net Sales'
       if (outputs.displayValue)
-        outputs.displayValue.textContent = formatCurrency(
-          calculationData.monthly,
-        );
+        outputs.displayValue.textContent = formatCurrency(calculationData.monthly)
       if (outputs.baselineRevenue)
-        outputs.baselineRevenue.textContent = formatCurrency(
-          calculationData.baselineMonthly,
-        );
+        outputs.baselineRevenue.textContent = formatCurrency(calculationData.baselineMonthly)
     }
 
     // Update breakdown values based on toggle
     if (outputs.exchangeValue)
-      outputs.exchangeValue.textContent = formatCurrency(
-        calculationData.exchangeValue * multiplier,
-      );
+      outputs.exchangeValue.textContent = formatCurrency(calculationData.exchangeValue * multiplier)
     if (outputs.keepValue)
-      outputs.keepValue.textContent = formatCurrency(
-        calculationData.keepValue * multiplier,
-      );
+      outputs.keepValue.textContent = formatCurrency(calculationData.keepValue * multiplier)
     if (outputs.retentionValue)
       outputs.retentionValue.textContent = formatCurrency(
-        calculationData.retentionValue * multiplier,
-      );
+        calculationData.retentionValue * multiplier
+      )
 
     // Update other metrics based on toggle
     if (outputs.eligibleReturns)
       outputs.eligibleReturns.textContent = formatNumber(
-        calculationData.eligibleReturns * multiplier,
-      );
+        calculationData.eligibleReturns * multiplier
+      )
     if (outputs.engagedCustomers)
       outputs.engagedCustomers.textContent = formatNumber(
-        calculationData.engagedCustomers * multiplier,
-      );
+        calculationData.engagedCustomers * multiplier
+      )
     if (outputs.returnsPrevented)
       outputs.returnsPrevented.textContent = formatNumber(
-        calculationData.returnsPrevented * multiplier,
-      );
+        calculationData.returnsPrevented * multiplier
+      )
   }
 
   function setToggleState(annual: boolean) {
-    isAnnual = annual;
+    isAnnual = annual
 
     if (monthlyToggle && annualToggle) {
       if (annual) {
-        monthlyToggle.classList.remove("bg-accent-primary", "text-inverse");
-        monthlyToggle.classList.add("text-secondary", "hover:text-primary");
-        annualToggle.classList.add("bg-accent-primary", "text-inverse");
-        annualToggle.classList.remove("text-secondary", "hover:text-primary");
-        monthlyToggle.setAttribute("aria-pressed", "false");
-        annualToggle.setAttribute("aria-pressed", "true");
+        monthlyToggle.classList.remove('bg-accent-primary', 'text-inverse')
+        monthlyToggle.classList.add('text-secondary', 'hover:text-primary')
+        annualToggle.classList.add('bg-accent-primary', 'text-inverse')
+        annualToggle.classList.remove('text-secondary', 'hover:text-primary')
+        monthlyToggle.setAttribute('aria-pressed', 'false')
+        annualToggle.setAttribute('aria-pressed', 'true')
       } else {
-        annualToggle.classList.remove("bg-accent-primary", "text-inverse");
-        annualToggle.classList.add("text-secondary", "hover:text-primary");
-        monthlyToggle.classList.add("bg-accent-primary", "text-inverse");
-        monthlyToggle.classList.remove("text-secondary", "hover:text-primary");
-        annualToggle.setAttribute("aria-pressed", "false");
-        monthlyToggle.setAttribute("aria-pressed", "true");
+        annualToggle.classList.remove('bg-accent-primary', 'text-inverse')
+        annualToggle.classList.add('text-secondary', 'hover:text-primary')
+        monthlyToggle.classList.add('bg-accent-primary', 'text-inverse')
+        monthlyToggle.classList.remove('text-secondary', 'hover:text-primary')
+        annualToggle.setAttribute('aria-pressed', 'false')
+        monthlyToggle.setAttribute('aria-pressed', 'true')
       }
     }
 
-    updateDisplay();
+    updateDisplay()
   }
 
   // Elements to hide in simplified mode
   const simplifiedHiddenElements = [
-    document.getElementById("input-unitsPerOrder"),
-    document.getElementById("input-orderShippingCost"),
-    document.getElementById("input-returnCost"),
-    document.getElementById("input-resaleProbability"),
-    document.getElementById("section-returnSignalsImpact"),
-    document.getElementById("section-marketingCosts"),
-  ];
+    document.getElementById('input-unitsPerOrder'),
+    document.getElementById('input-orderShippingCost'),
+    document.getElementById('input-returnCost'),
+    document.getElementById('input-resaleProbability'),
+    document.getElementById('section-returnSignalsImpact'),
+    document.getElementById('section-marketingCosts'),
+  ]
 
   function setModeState(simplified: boolean) {
     if (simplifiedToggle && fullToggle) {
       if (simplified) {
-        fullToggle.classList.remove("bg-accent-primary", "text-inverse");
-        fullToggle.classList.add("text-secondary", "hover:text-primary");
-        simplifiedToggle.classList.add("bg-accent-primary", "text-inverse");
-        simplifiedToggle.classList.remove(
-          "text-secondary",
-          "hover:text-primary",
-        );
-        fullToggle.setAttribute("aria-pressed", "false");
-        simplifiedToggle.setAttribute("aria-pressed", "true");
+        fullToggle.classList.remove('bg-accent-primary', 'text-inverse')
+        fullToggle.classList.add('text-secondary', 'hover:text-primary')
+        simplifiedToggle.classList.add('bg-accent-primary', 'text-inverse')
+        simplifiedToggle.classList.remove('text-secondary', 'hover:text-primary')
+        fullToggle.setAttribute('aria-pressed', 'false')
+        simplifiedToggle.setAttribute('aria-pressed', 'true')
       } else {
-        simplifiedToggle.classList.remove("bg-accent-primary", "text-inverse");
-        simplifiedToggle.classList.add("text-secondary", "hover:text-primary");
-        fullToggle.classList.add("bg-accent-primary", "text-inverse");
-        fullToggle.classList.remove("text-secondary", "hover:text-primary");
-        simplifiedToggle.setAttribute("aria-pressed", "false");
-        fullToggle.setAttribute("aria-pressed", "true");
+        simplifiedToggle.classList.remove('bg-accent-primary', 'text-inverse')
+        simplifiedToggle.classList.add('text-secondary', 'hover:text-primary')
+        fullToggle.classList.add('bg-accent-primary', 'text-inverse')
+        fullToggle.classList.remove('text-secondary', 'hover:text-primary')
+        simplifiedToggle.setAttribute('aria-pressed', 'false')
+        fullToggle.setAttribute('aria-pressed', 'true')
       }
     }
 
     // Show/hide elements
     simplifiedHiddenElements.forEach((el) => {
-      if (el) el.classList.toggle("hidden", simplified);
-    });
+      if (el) el.classList.toggle('hidden', simplified)
+    })
   }
 
   // Add event listeners to all inputs
   Object.values(inputs).forEach((input) => {
     if (input) {
-      input.addEventListener("input", runCalculation);
+      input.addEventListener('input', runCalculation)
     }
-  });
+  })
 
   // Add toggle event listeners
   if (monthlyToggle) {
-    monthlyToggle.addEventListener("click", () => setToggleState(false));
+    monthlyToggle.addEventListener('click', () => setToggleState(false))
   }
   if (annualToggle) {
-    annualToggle.addEventListener("click", () => setToggleState(true));
+    annualToggle.addEventListener('click', () => setToggleState(true))
   }
   if (simplifiedToggle) {
-    simplifiedToggle.addEventListener("click", () => setModeState(true));
+    simplifiedToggle.addEventListener('click', () => setModeState(true))
   }
   if (fullToggle) {
-    fullToggle.addEventListener("click", () => setModeState(false));
+    fullToggle.addEventListener('click', () => setModeState(false))
   }
 
   // Calculate initial values
-  runCalculation();
+  runCalculation()
 
   // Initialize simplified mode (hide advanced inputs)
-  setModeState(true);
+  setModeState(true)
 </script>

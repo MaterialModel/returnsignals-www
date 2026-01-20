@@ -1,75 +1,75 @@
 ---
-import FullViewportSection from "@layouts/FullViewportSection.astro";
-import SMSMockup from "@components/ui/SMSMockup.astro";
+import FullViewportSection from '@layouts/FullViewportSection.astro'
+import SMSMockup from '@components/ui/SMSMockup.astro'
 
 interface Props {
-  ctaUrl: string;
-  blogBadge?: string;
+  ctaUrl: string
+  blogBadge?: string
 }
 
-const { ctaUrl, blogBadge } = Astro.props;
+const { ctaUrl, blogBadge } = Astro.props
 
 // Message type definition
 type Message = {
-  type: "incoming" | "outgoing";
-  content?: "text" | "image";
-  text?: string;
-  imageSrc?: string;
-  imageAlt?: string;
-  timestamp?: string;
-};
+  type: 'incoming' | 'outgoing'
+  content?: 'text' | 'image'
+  text?: string
+  imageSrc?: string
+  imageAlt?: string
+  timestamp?: string
+}
 
 // Exchange conversation - Emma's dress exchange story
 const heroMessages: Message[] = [
   {
-    type: "incoming" as const,
+    type: 'incoming' as const,
     text: "Hi Emma! Quick check-in—how's the new green wrap dress fitting so far?",
   },
   {
-    type: "outgoing" as const,
+    type: 'outgoing' as const,
     text: "Haven't tried it on yet.",
   },
   {
-    type: "incoming" as const,
+    type: 'incoming' as const,
     text: "All good. I'll follow up in a few days so we can make sure it's perfect before you wear it.",
   },
   {
-    type: "incoming" as const,
-    text: "Checking back in—did you get a chance to try it on?",
+    type: 'incoming' as const,
+    text: 'Checking back in—did you get a chance to try it on?',
   },
   {
-    type: "outgoing" as const,
-    text: "I tried it but I wish it was a little smaller and lighter green.",
+    type: 'outgoing' as const,
+    text: 'I tried it but I wish it was a little smaller and lighter green.',
   },
   {
-    type: "incoming" as const,
-    text: "Can you send a quick photo so I can see what you have?",
+    type: 'incoming' as const,
+    text: 'Can you send a quick photo so I can see what you have?',
   },
   {
-    type: "outgoing" as const,
-    content: "image" as const,
-    imageSrc: "/images/hero/dark-green-dress.jpg",
-    imageAlt: "Dark green wrap dress",
+    type: 'outgoing' as const,
+    content: 'image' as const,
+    imageSrc: '/images/hero/dark-green-dress.jpg',
+    imageAlt: 'Dark green wrap dress',
   },
   {
-    type: "incoming" as const,
-    text: "Got it! I found the same style in a lighter sage, size 6 instead of 8. Would you like to exchange?",
+    type: 'incoming' as const,
+    text: 'Got it! I found the same style in a lighter sage, size 6 instead of 8. Would you like to exchange?',
   },
   {
-    type: "incoming" as const,
-    content: "image" as const,
-    imageSrc: "/images/hero/lighter-green-dress.jpg",
-    imageAlt: "Lighter green wrap dress",
+    type: 'incoming' as const,
+    content: 'image' as const,
+    imageSrc: '/images/hero/lighter-green-dress.jpg',
+    imageAlt: 'Lighter green wrap dress',
   },
   {
-    type: "outgoing" as const,
-    text: "Yes!",
+    type: 'outgoing' as const,
+    text: 'Yes!',
   },
   {
-    type: "incoming" as const,
+    type: 'incoming' as const,
     text: "Great! I'm setting up the exchange now. You'll get a return label for the current dress.",
   },
-];
+]
 ---
 
 <FullViewportSection isFirst={true}>
@@ -84,9 +84,7 @@ const heroMessages: Message[] = [
             New
           </span>
           <span>The End of Reactive Support</span>
-          <span class="text-tertiary group-hover:text-primary transition-colors">
-            →
-          </span>
+          <span class="text-tertiary group-hover:text-primary transition-colors">→</span>
         </a>
       </div>
     )
@@ -103,26 +101,20 @@ const heroMessages: Message[] = [
         </h1>
 
         <p class="hero-tagline mt-6 lg:mx-0">
-          Text post-delivery to provide support, preempt returns, and improve
-          retention.
+          Text post-delivery to provide support, preempt returns, and improve retention.
         </p>
 
         <div
           class="flex items-center justify-center lg:justify-start gap-3 sm:gap-4 mt-8 sm:mt-10 flex-wrap"
         >
-          <a
-            href={ctaUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary">Book a Demo</a
+          <a href={ctaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary"
+            >Book a Demo</a
           >
           <a href="#narrative-jacky" class="btn btn-secondary">See Examples</a>
         </div>
 
         <!-- Trust -->
-        <div
-          class="flex items-center justify-center lg:justify-start gap-3 mt-10 sm:mt-12"
-        >
+        <div class="flex items-center justify-center lg:justify-start gap-3 mt-10 sm:mt-12">
           <span class="text-sm text-secondary">Backed by</span>
           <img src="/images/ycombinator.png" alt="Y Combinator" class="h-5" />
         </div>
@@ -131,11 +123,7 @@ const heroMessages: Message[] = [
       <!-- Right: SMS Mockup -->
       <div class="order-2 lg:order-2 flex-none relative">
         <div class="hero-glow" aria-hidden="true"></div>
-        <SMSMockup
-          messages={heroMessages}
-          className="hero-sms-mockup"
-          autoplay={true}
-        />
+        <SMSMockup messages={heroMessages} className="hero-sms-mockup" autoplay={true} />
       </div>
     </div>
   </div>

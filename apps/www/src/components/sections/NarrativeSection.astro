@@ -4,20 +4,20 @@
  * FIXED: Wrapper widths now match component internal constraints perfectly.
  */
 
-import SMSMockup from "@components/ui/SMSMockup.astro";
-import NarrativeImage from "@components/ui/NarrativeImage.astro";
-import type { Message } from "../../types";
+import SMSMockup from '@components/ui/SMSMockup.astro'
+import NarrativeImage from '@components/ui/NarrativeImage.astro'
+import type { Message } from '../../types'
 
 interface Props {
-  header: string;
-  story: string;
-  messages: Message[];
-  narrativeImage: string;
-  narrativeImageAlt: string;
-  callout?: string;
-  className?: string;
-  id?: string;
-  phoneOnLeft?: boolean;
+  header: string
+  story: string
+  messages: Message[]
+  narrativeImage: string
+  narrativeImageAlt: string
+  callout?: string
+  className?: string
+  id?: string
+  phoneOnLeft?: boolean
 }
 
 const {
@@ -27,10 +27,10 @@ const {
   narrativeImage,
   narrativeImageAlt,
   callout,
-  className = "",
+  className = '',
   id,
   phoneOnLeft = true,
-} = Astro.props;
+} = Astro.props
 ---
 
 <section {id} class={`bg-transparent py-12 sm:py-16 ${className}`}>
@@ -45,14 +45,14 @@ const {
       >
         <!-- SMS Mockup Wrapper -->
         <div
-          class={`order-2 ${phoneOnLeft ? "lg:order-1" : "lg:order-2"} flex-none w-full flex justify-center lg:w-[290px]`}
+          class={`order-2 ${phoneOnLeft ? 'lg:order-1' : 'lg:order-2'} flex-none w-full flex justify-center lg:w-[290px]`}
         >
           <SMSMockup {messages} className="lg:!mx-0 lg:!w-full" />
         </div>
 
         <!-- Narrative Image Wrapper -->
         <div
-          class={`order-1 ${phoneOnLeft ? "lg:order-2" : "lg:order-1"} flex-none w-full max-w-sm sm:max-w-md lg:w-[500px]`}
+          class={`order-1 ${phoneOnLeft ? 'lg:order-2' : 'lg:order-1'} flex-none w-full max-w-sm sm:max-w-md lg:w-[500px]`}
         >
           <NarrativeImage
             src={narrativeImage}

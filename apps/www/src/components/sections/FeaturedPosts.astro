@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content'
+import Tags from '@components/shared/Tags.astro'
+
+const allPosts = await getCollection('blog')
+const featuredPosts = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  })
+}
+---
+
+{
+  featuredPosts.length > 0 && (
+    <section class="bg-surface-subtle py-20 sm:py-32">
+      <div class="container-lg">
+        <div class="text-center mb-12 sm:mb-16">
+          <h2 class="section-title mb-4">From Our Blog</h2>
+          <p class="section-description max-w-2xl mx-auto">
+            Learn about proactive customer experience, reducing returns, and building customer
+            loyalty in e-commerce.
+          </p>
+        </div>
+
+        <div
+          class:list={[
+            'grid gap-8',
+            featuredPosts.length === 1 && 'md:grid-cols-1 max-w-2xl mx-auto',
+            featuredPosts.length === 2 && 'md:grid-cols-2',
+            featuredPosts.length >= 3 && 'md:grid-cols-2 lg:grid-cols-3',
+          ]}
+        >
+          {featuredPosts.map((post) => (
+            <article class="bg-surface-base rounded-lg overflow-hidden border border-border hover:border-border-hover transition-colors group">
+              {post.data.image && (
+                <a href={`/blog/${post.slug}`} class="block overflow-hidden">
+                  <img
+                    src={post.data.image}
+                    alt={post.data.imageAlt || post.data.title}
+                    width="400"
+                    height="200"
+                    class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </a>
+              )}
+
+              <div class="p-6">
+                <div class="mb-3">
+                  <Tags tags={post.data.tags.slice(0, 3)} clickable={true} />
+                </div>
+
+                <h3 class="text-xl font-medium text-primary mb-2">
+                  <a
+                    href={`/blog/${post.slug}`}
+                    class="hover:text-accent-primary transition-colors"
+                  >
+                    {post.data.title}
+                  </a>
+                </h3>
+
+                <p class="text-secondary text-sm mb-4 line-clamp-3">{post.data.description}</p>
+
+                <div class="flex items-center gap-4 text-xs text-tertiary">
+                  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                  {post.data.readingTime && (
+                    <>
+                      <span class="text-border">·</span>
+                      <span>{post.data.readingTime} min read</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-12 text-center">
+          <a href="/blog" class="btn btn-secondary">
+            View All Posts
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}

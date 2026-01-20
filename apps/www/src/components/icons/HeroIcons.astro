@@ -4,14 +4,14 @@
  */
 
 interface Props {
-  name: "chat" | "calendar" | "camera" | "route";
+  name: 'chat' | 'calendar' | 'camera' | 'route'
 }
 
-const { name } = Astro.props;
+const { name } = Astro.props
 ---
 
 {
-  name === "chat" && (
+  name === 'chat' && (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -29,7 +29,7 @@ const { name } = Astro.props;
 }
 
 {
-  name === "calendar" && (
+  name === 'calendar' && (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -47,7 +47,7 @@ const { name } = Astro.props;
 }
 
 {
-  name === "camera" && (
+  name === 'camera' && (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -70,7 +70,7 @@ const { name } = Astro.props;
 }
 
 {
-  name === "route" && (
+  name === 'route' && (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

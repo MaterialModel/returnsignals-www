@@ -6,27 +6,25 @@
  * Manages navigation and view switching between 5 sections
  */
 
-import OverviewView from "@components/analytics/OverviewView.astro";
-import InterventionsView from "@components/analytics/InterventionsView.astro";
-import ProductsView from "@components/analytics/ProductsView.astro";
-import ConfigurationView from "@components/analytics/ConfigurationView.astro";
+import OverviewView from '@components/analytics/OverviewView.astro'
+import InterventionsView from '@components/analytics/InterventionsView.astro'
+import ProductsView from '@components/analytics/ProductsView.astro'
+import ConfigurationView from '@components/analytics/ConfigurationView.astro'
 
 interface Props {
-  className?: string;
+  className?: string
 }
 
-const { className = "" } = Astro.props;
+const { className = '' } = Astro.props
 ---
 
 <section class={`bg-surface-subtle ${className}`}>
   <div class="container-lg py-20 sm:py-32">
     <div class="text-center mb-12 animate-on-scroll">
-      <h2 class="section-title mb-6">
-        Turn customer signals into actionable insights
-      </h2>
+      <h2 class="section-title mb-6">Turn customer signals into actionable insights</h2>
       <p class="section-description max-w-3xl mx-auto">
-        Our analytics dashboard surfaces patterns in returns, complaints, and
-        customer behavior, helping you reduce costs and improve products.
+        Our analytics dashboard surfaces patterns in returns, complaints, and customer behavior,
+        helping you reduce costs and improve products.
       </p>
     </div>
 
@@ -45,9 +43,7 @@ const { className = "" } = Astro.props;
           id="analytics-onboarding"
         >
           <!-- Desktop: Arrow to sidebar -->
-          <div
-            class="hidden sm:block absolute left-52 top-1/4 pointer-events-auto"
-          >
+          <div class="hidden sm:block absolute left-52 top-1/4 pointer-events-auto">
             <div class="bg-white rounded-xl shadow-2xl p-6 max-w-xs relative">
               <div class="text-center mb-4">
                 <div
@@ -67,15 +63,11 @@ const { className = "" } = Astro.props;
                       d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                   </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-primary mb-2">
-                  Explore sections
-                </h3>
+                <h3 class="text-lg font-semibold text-primary mb-2">Explore sections</h3>
                 <p class="text-sm text-secondary leading-relaxed mb-4">
                   Click the navigation items to view different sections
                 </p>
-                <button class="close-onboarding btn btn-primary w-full"
-                  >Got it</button
-                >
+                <button class="close-onboarding btn btn-primary w-full">Got it</button>
               </div>
               <!-- Arrow pointing left -->
               <div class="absolute right-full top-10 mr-3">
@@ -115,15 +107,11 @@ const { className = "" } = Astro.props;
                       d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                   </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-primary mb-2">
-                  Tap ☰ to explore
-                </h3>
+                <h3 class="text-lg font-semibold text-primary mb-2">Tap ☰ to explore</h3>
                 <p class="text-sm text-secondary leading-relaxed mb-4">
                   Open the menu to view different sections
                 </p>
-                <button class="close-onboarding btn btn-primary w-full"
-                  >Got it</button
-                >
+                <button class="close-onboarding btn btn-primary w-full">Got it</button>
               </div>
             </div>
           </div>
@@ -161,9 +149,7 @@ const { className = "" } = Astro.props;
           >
             <div class="sidebar-header px-4 py-5 border-b border-border/20">
               <div class="flex items-center gap-2">
-                <div
-                  class="w-7 h-7 rounded bg-accent-primary flex items-center justify-center"
-                >
+                <div class="w-7 h-7 rounded bg-accent-primary flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-4 w-4 text-inverse"
@@ -179,9 +165,7 @@ const { className = "" } = Astro.props;
                     ></path>
                   </svg>
                 </div>
-                <span class="text-sm font-semibold text-inverse"
-                  >Return Signals</span
-                >
+                <span class="text-sm font-semibold text-inverse">Return Signals</span>
               </div>
             </div>
 
@@ -232,8 +216,7 @@ const { className = "" } = Astro.props;
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                  ></path>
+                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                 </svg>
                 Products
               </button>
@@ -268,9 +251,7 @@ const { className = "" } = Astro.props;
                   <span class="text-xs font-semibold text-inverse">JD</span>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="text-xs font-medium text-inverse truncate">
-                    Jane Doe
-                  </p>
+                  <p class="text-xs font-medium text-inverse truncate">Jane Doe</p>
                   <p class="text-xs text-inverse/50 truncate">Admin</p>
                 </div>
               </div>
@@ -305,9 +286,7 @@ const { className = "" } = Astro.props;
             </div>
 
             <!-- Top Bar -->
-            <div
-              class="top-bar bg-surface-base border-b border-border px-4 sm:px-6 py-3"
-            >
+            <div class="top-bar bg-surface-base border-b border-border px-4 sm:px-6 py-3">
               <div class="flex items-center justify-between gap-4">
                 <div class="flex items-center gap-3 flex-1 min-w-0">
                   <button
@@ -328,11 +307,7 @@ const { className = "" } = Astro.props;
                     </svg>
                   </button>
                   <div class="flex-1 min-w-0">
-                    <h1
-                      class="view-title text-lg font-semibold text-primary mb-0.5"
-                    >
-                      Overview
-                    </h1>
+                    <h1 class="view-title text-lg font-semibold text-primary mb-0.5">Overview</h1>
                     <p class="view-subtitle text-xs text-secondary">
                       Prevention • Intervention • Insights
                     </p>
@@ -372,8 +347,7 @@ const { className = "" } = Astro.props;
                       <path
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                      ></path>
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                     </svg>
                     <span class="hidden sm:inline">Export</span>
                   </button>
@@ -382,9 +356,7 @@ const { className = "" } = Astro.props;
             </div>
 
             <!-- Views Container -->
-            <div
-              class="views-container p-4 sm:p-6 flex-1 overflow-y-auto relative"
-            >
+            <div class="views-container p-4 sm:p-6 flex-1 overflow-y-auto relative">
               <div data-view-content="overview" class="view-content active">
                 <OverviewView />
               </div>
@@ -407,13 +379,9 @@ const { className = "" } = Astro.props;
             <div
               class="mobile-nav-drawer absolute left-0 top-0 bottom-0 w-64 bg-surface-dark transform -translate-x-full transition-transform duration-300"
             >
-              <div
-                class="px-4 py-5 border-b border-border/20 flex items-center justify-between"
-              >
+              <div class="px-4 py-5 border-b border-border/20 flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <div
-                    class="w-7 h-7 rounded bg-accent-primary flex items-center justify-center"
-                  >
+                  <div class="w-7 h-7 rounded bg-accent-primary flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-4 w-4 text-inverse"
@@ -429,13 +397,9 @@ const { className = "" } = Astro.props;
                       ></path>
                     </svg>
                   </div>
-                  <span class="text-sm font-semibold text-inverse"
-                    >Return Signals</span
-                  >
+                  <span class="text-sm font-semibold text-inverse">Return Signals</span>
                 </div>
-                <button
-                  class="mobile-nav-close p-1 text-inverse/60 hover:text-inverse"
-                >
+                <button class="mobile-nav-close p-1 text-inverse/60 hover:text-inverse">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5"
@@ -444,25 +408,18 @@ const { className = "" } = Astro.props;
                     stroke="currentColor"
                     stroke-width="2"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M6 18L18 6M6 6l12 12"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"
+                    ></path>
                   </svg>
                 </button>
               </div>
 
               <div class="px-4 py-3 border-b border-border/20">
-                <p class="text-xs text-inverse/40 italic text-center">
-                  Tap any section to explore
-                </p>
+                <p class="text-xs text-inverse/40 italic text-center">Tap any section to explore</p>
               </div>
 
               <nav class="mobile-nav-menu px-3 py-4 space-y-1">
-                <button
-                  data-view="overview"
-                  class="nav-item mobile-nav-item active"
-                >
+                <button data-view="overview" class="nav-item mobile-nav-item active">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-4 w-4"
@@ -479,10 +436,7 @@ const { className = "" } = Astro.props;
                   </svg>
                   Overview
                 </button>
-                <button
-                  data-view="interventions"
-                  class="nav-item mobile-nav-item"
-                >
+                <button data-view="interventions" class="nav-item mobile-nav-item">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-4 w-4"
@@ -511,15 +465,11 @@ const { className = "" } = Astro.props;
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                    ></path>
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                   </svg>
                   Products
                 </button>
-                <button
-                  data-view="configuration"
-                  class="nav-item mobile-nav-item"
-                >
+                <button data-view="configuration" class="nav-item mobile-nav-item">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-4 w-4"
@@ -562,11 +512,7 @@ const { className = "" } = Astro.props;
     }
 
     .sidebar {
-      background: linear-gradient(
-        180deg,
-        rgb(15, 23, 42) 0%,
-        rgb(30, 41, 59) 100%
-      );
+      background: linear-gradient(180deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
     }
 
     .nav-item {
@@ -656,11 +602,7 @@ const { className = "" } = Astro.props;
 
     .mobile-nav-drawer {
       box-shadow: 2px 0 12px rgba(0, 0, 0, 0.3);
-      background: linear-gradient(
-        180deg,
-        rgb(15, 23, 42) 0%,
-        rgb(30, 41, 59) 100%
-      );
+      background: linear-gradient(180deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
     }
 
     /* Onboarding overlay */
@@ -707,173 +649,155 @@ const { className = "" } = Astro.props;
   </style>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const containers = Array.from(
-        document.querySelectorAll(".analytics-platform-section"),
-      );
+    document.addEventListener('DOMContentLoaded', () => {
+      const containers = Array.from(document.querySelectorAll('.analytics-platform-section'))
 
       const viewTitles = {
         overview: {
-          title: "Overview",
-          subtitle: "Prevention • Impact • Insights",
+          title: 'Overview',
+          subtitle: 'Prevention • Impact • Insights',
         },
         interventions: {
-          title: "Interventions",
-          subtitle: "Check-ins • Resolutions • Outcomes",
+          title: 'Interventions',
+          subtitle: 'Check-ins • Resolutions • Outcomes',
         },
         products: {
-          title: "Products",
-          subtitle: "SKU-level Intelligence • Trends",
+          title: 'Products',
+          subtitle: 'SKU-level Intelligence • Trends',
         },
         configuration: {
-          title: "Configuration",
-          subtitle: "Brand Voice • Policies • Settings",
+          title: 'Configuration',
+          subtitle: 'Brand Voice • Policies • Settings',
         },
-      };
+      }
 
       function switchView(container: HTMLElement, viewName: string) {
         // Update nav active states (desktop)
-        const navItems = Array.from(
-          container.querySelectorAll(".nav-item"),
-        ) as HTMLElement[];
+        const navItems = Array.from(container.querySelectorAll('.nav-item')) as HTMLElement[]
         navItems.forEach((item) => {
-          const itemView = item.getAttribute("data-view");
+          const itemView = item.getAttribute('data-view')
           if (itemView === viewName) {
-            item.classList.add("active");
+            item.classList.add('active')
           } else {
-            item.classList.remove("active");
+            item.classList.remove('active')
           }
-        });
+        })
 
         // Update view content
         const viewContents = Array.from(
-          container.querySelectorAll(".view-content"),
-        ) as HTMLElement[];
+          container.querySelectorAll('.view-content')
+        ) as HTMLElement[]
         viewContents.forEach((content) => {
-          const contentView = content.getAttribute("data-view-content");
+          const contentView = content.getAttribute('data-view-content')
           if (contentView === viewName) {
-            content.classList.add("active");
+            content.classList.add('active')
           } else {
-            content.classList.remove("active");
+            content.classList.remove('active')
           }
-        });
+        })
 
         // Update top bar title
-        const viewTitle = container.querySelector(".view-title") as HTMLElement;
-        const viewSubtitle = container.querySelector(
-          ".view-subtitle",
-        ) as HTMLElement;
+        const viewTitle = container.querySelector('.view-title') as HTMLElement
+        const viewSubtitle = container.querySelector('.view-subtitle') as HTMLElement
         if (viewTitle && viewTitles[viewName as keyof typeof viewTitles]) {
-          viewTitle.textContent =
-            viewTitles[viewName as keyof typeof viewTitles].title;
+          viewTitle.textContent = viewTitles[viewName as keyof typeof viewTitles].title
         }
         if (viewSubtitle && viewTitles[viewName as keyof typeof viewTitles]) {
-          viewSubtitle.textContent =
-            viewTitles[viewName as keyof typeof viewTitles].subtitle;
+          viewSubtitle.textContent = viewTitles[viewName as keyof typeof viewTitles].subtitle
         }
       }
 
       containers.forEach((containerEl) => {
-        const container = containerEl as HTMLElement;
+        const container = containerEl as HTMLElement
 
         // Add click handlers to nav items
         const navItems = Array.from(
-          container.querySelectorAll(".nav-item[data-view]"),
-        ) as HTMLElement[];
+          container.querySelectorAll('.nav-item[data-view]')
+        ) as HTMLElement[]
 
         navItems.forEach((navItem) => {
-          navItem.addEventListener("click", () => {
-            const viewName = navItem.getAttribute("data-view");
+          navItem.addEventListener('click', () => {
+            const viewName = navItem.getAttribute('data-view')
             if (viewName) {
-              switchView(container, viewName);
+              switchView(container, viewName)
 
               // Close mobile menu if open
-              const mobileOverlay = container.querySelector(
-                ".mobile-nav-overlay",
-              ) as HTMLElement;
+              const mobileOverlay = container.querySelector('.mobile-nav-overlay') as HTMLElement
               if (mobileOverlay) {
-                mobileOverlay.classList.remove("active");
+                mobileOverlay.classList.remove('active')
               }
             }
-          });
-        });
+          })
+        })
 
         // Mobile menu toggle
-        const mobileMenuButton = container.querySelector(
-          ".mobile-menu-button",
-        ) as HTMLElement;
-        const mobileOverlay = container.querySelector(
-          ".mobile-nav-overlay",
-        ) as HTMLElement;
-        const mobileNavClose = container.querySelector(
-          ".mobile-nav-close",
-        ) as HTMLElement;
+        const mobileMenuButton = container.querySelector('.mobile-menu-button') as HTMLElement
+        const mobileOverlay = container.querySelector('.mobile-nav-overlay') as HTMLElement
+        const mobileNavClose = container.querySelector('.mobile-nav-close') as HTMLElement
 
         if (mobileMenuButton && mobileOverlay) {
-          mobileMenuButton.addEventListener("click", () => {
-            mobileOverlay.classList.add("active");
-          });
+          mobileMenuButton.addEventListener('click', () => {
+            mobileOverlay.classList.add('active')
+          })
         }
 
         if (mobileNavClose && mobileOverlay) {
-          mobileNavClose.addEventListener("click", () => {
-            mobileOverlay.classList.remove("active");
-          });
+          mobileNavClose.addEventListener('click', () => {
+            mobileOverlay.classList.remove('active')
+          })
         }
 
         if (mobileOverlay) {
-          mobileOverlay.addEventListener("click", (e) => {
+          mobileOverlay.addEventListener('click', (e) => {
             if (e.target === mobileOverlay) {
-              mobileOverlay.classList.remove("active");
+              mobileOverlay.classList.remove('active')
             }
-          });
+          })
         }
 
         // Set initial view
-        switchView(container, "overview");
-      });
+        switchView(container, 'overview')
+      })
 
       // Onboarding overlay logic
-      const onboardingOverlay = document.getElementById("analytics-onboarding");
-      const closeButtons = document.querySelectorAll(".close-onboarding");
+      const onboardingOverlay = document.getElementById('analytics-onboarding')
+      const closeButtons = document.querySelectorAll('.close-onboarding')
 
       // Check if user has seen the onboarding
-      const hasSeenOnboarding = localStorage.getItem(
-        "analytics-onboarding-seen",
-      );
+      const hasSeenOnboarding = localStorage.getItem('analytics-onboarding-seen')
 
       if (hasSeenOnboarding) {
         // Hide overlay if already seen
         if (onboardingOverlay) {
-          onboardingOverlay.style.display = "none";
+          onboardingOverlay.style.display = 'none'
         }
       }
 
       // Close overlay and save preference
       closeButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener('click', () => {
           if (onboardingOverlay) {
-            onboardingOverlay.style.opacity = "0";
+            onboardingOverlay.style.opacity = '0'
             setTimeout(() => {
-              onboardingOverlay.style.display = "none";
-            }, 300);
+              onboardingOverlay.style.display = 'none'
+            }, 300)
           }
-          localStorage.setItem("analytics-onboarding-seen", "true");
-        });
-      });
+          localStorage.setItem('analytics-onboarding-seen', 'true')
+        })
+      })
 
       // Also close when clicking the overlay background
       if (onboardingOverlay) {
-        onboardingOverlay.addEventListener("click", (e) => {
+        onboardingOverlay.addEventListener('click', (e) => {
           if (e.target === onboardingOverlay) {
-            onboardingOverlay.style.opacity = "0";
+            onboardingOverlay.style.opacity = '0'
             setTimeout(() => {
-              onboardingOverlay.style.display = "none";
-            }, 300);
-            localStorage.setItem("analytics-onboarding-seen", "true");
+              onboardingOverlay.style.display = 'none'
+            }, 300)
+            localStorage.setItem('analytics-onboarding-seen', 'true')
           }
-        });
+        })
       }
-    });
+    })
   </script>
 </section>

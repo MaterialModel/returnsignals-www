@@ -1,16 +1,16 @@
 ---
-import { getCollection } from "astro:content";
-import BaseLayout from "@layouts/BaseLayout.astro";
-import Header from "@components/shared/Header.astro";
-import Footer from "@components/shared/Footer.astro";
-import BlogGrid from "@components/blog/BlogGrid.astro";
-import DarkCTASection from "@components/shared/DarkCTASection.astro";
+import { getCollection } from 'astro:content'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import Header from '@components/shared/Header.astro'
+import Footer from '@components/shared/Footer.astro'
+import BlogGrid from '@components/blog/BlogGrid.astro'
+import DarkCTASection from '@components/shared/DarkCTASection.astro'
 
-const posts = await getCollection("blog");
+const posts = await getCollection('blog')
 
-const title = "Return Signals Blog";
+const title = 'Return Signals Blog'
 const description =
-  "Insights on e-commerce returns, post-purchase experience, and how AI is transforming customer service.";
+  'Insights on e-commerce returns, post-purchase experience, and how AI is transforming customer service.'
 ---
 
 <BaseLayout {title} {description} url="/blog">
@@ -23,15 +23,13 @@ const description =
   />
   <Header />
 
-  <main
-    class="min-h-screen bg-gradient-to-b from-surface-subtle to-surface-base"
-  >
+  <main class="min-h-screen bg-gradient-to-b from-surface-subtle to-surface-base">
     <div class="container-narrow py-8 sm:py-20">
       <div class="text-center mb-12">
         <h1 class="page-title mb-4">Post-Purchase Intelligence</h1>
         <p class="text-xl text-secondary">
-          Insights on e-commerce returns, customer experience, and how proactive
-          engagement is transforming the post-purchase journey.
+          Insights on e-commerce returns, customer experience, and how proactive engagement is
+          transforming the post-purchase journey.
         </p>
       </div>
 
@@ -40,9 +38,7 @@ const description =
           <BlogGrid posts={posts} />
         ) : (
           <div class="text-center py-20">
-            <p class="text-secondary text-lg">
-              No blog posts available yet. Check back soon!
-            </p>
+            <p class="text-secondary text-lg">No blog posts available yet. Check back soon!</p>
           </div>
         )
       }
@@ -53,8 +49,8 @@ const description =
     title="Ready to reduce returns?"
     description="See how proactive post-purchase engagement can improve your margins and customer experience"
     primaryButton={{
-      text: "Book a Demo",
-      href: "https://calendly.com/alejandro-materialmodel/return-signals-introductory-call",
+      text: 'Book a Demo',
+      href: 'https://calendly.com/alejandro-materialmodel/return-signals-introductory-call',
       isExternal: true,
     }}
   >
