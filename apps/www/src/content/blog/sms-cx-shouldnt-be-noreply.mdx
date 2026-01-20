@@ -1,0 +1,215 @@
+---
+title: "SMS CX Shouldn’t Be NoReply"
+description: "Proactive texting after delivery turns the shipping thread into the default support surface, collapses channels into one, and becomes a surprisingly powerful customer intelligence loop."
+date: 2026-01-19
+author: "Ilya Valmianski"
+authorImage: "/blog/ilya-profile-pic.jpg"
+tags: ["sms", "customer experience", "customer support", "post-purchase", "e-commerce", "AI", "messaging"]
+featured: true
+image: "/blog/sms-cx-shouldnt-be-noreply/hero.jpg"
+imageAlt: "A package next to a phone showing a two-way support text thread."
+---
+
+import SupportDiscoveryComparison from '@components/blog/infographics/SupportDiscoveryComparison.astro';
+import ReachComparison from '@components/blog/infographics/ReachComparison.astro';
+import EngagementCurve from '@components/blog/infographics/EngagementCurve.astro';
+
+Most brands already have an SMS relationship with their customers. It starts the moment the order is placed.
+
+“Order confirmed.”
+“Shipped.”
+“Out for delivery.”
+“Delivered.”
+
+Then, for most brands, the relationship ends in the most modern way possible: the thread becomes a dead end. No one replies. The number is effectively “NoReply,” even if it is not literally called that.
+
+And that’s what I keep thinking about lately. Not “SMS marketing,” not “SMS as a channel,” not “we should send more texts.” I’m thinking about something narrower and more foundational: **SMS CX shouldn’t be NoReply.** If you’re going to show up on someone’s lock screen, you should be reachable. If you’re going to create a thread on someone’s phone, that thread should behave like a real thread.
+
+Because the moment you let customers reply, something weird happens. It stops being “a notification channel” and starts being a place. A place customers can return to without thinking. A place they can use when the feeling is still small, when they are not angry yet, when they are just slightly uncertain and want a quick nudge.
+
+And that turns out to matter more than we typically admit, because the oldest UX problem in support is not response time. It’s discovery.
+
+## The problem customers face is not “support.” It’s “where do I go?”
+
+If you sell anything physical, you know this moment.
+
+A customer opens the box. They try the thing. Something feels off. Not necessarily broken. Just off. A fit question, a “is this normal” question, a “did I do this right” question. Sometimes it’s a real issue, sometimes it’s just uncertainty.
+
+What do they do next?
+
+If they are motivated, they start hunting. They scroll for a “Contact” link. They land in a help center. They click around until they find the right taxonomy word for how they feel. They fill a form. Or they open chat, get a bot, retype their order number, and watch the conversation evaporate when they close the tab.
+
+If they are not motivated, which is most people most of the time, they do something else. They wait. They procrastinate. They tell themselves they’ll deal with it later. Then later comes, and it’s easier to return than to engage.
+
+It’s not that people hate support. People hate the work of finding support, and then translating their messy human problem into the clean internal categories your org can route.
+
+Salesforce’s research captures the vibe pretty well: in its “AI Connected Customer” research, **nearly 60% of consumers say they prefer using fewer touchpoints** to get information or complete a task, and **69% expect consistent interactions across departments** (<a href="https://www.salesforce.com/news/stories/ai-customer-research/" target="_blank" rel="noopener noreferrer">source</a>). That is a polite way of saying: “Stop making me bounce around and repeat myself.”
+
+Now pair that with the reality that basically everyone has a phone. Pew’s mobile fact sheet (updated Nov 20, 2025) says **98% of U.S. adults own a cellphone and 91% own a smartphone** (<a href="https://www.pewresearch.org/internet/fact-sheet/mobile/" target="_blank" rel="noopener noreferrer">source</a>). So when we argue about “channels,” we’re often arguing in an abstract way. In practice, there is one surface that almost every customer checks constantly, and it’s the messaging inbox.
+
+That is what makes proactive SMS interesting. It doesn’t just add a new door. It can remove doors.
+
+<SupportDiscoveryComparison />
+
+## The thread already exists. We just treat it like a billboard.
+
+The part that feels almost embarrassing is that the “support channel discovery” problem is already solved by default, but we keep undoing it.
+
+The customer receives a delivery message. The message lands in the exact place where they can ask a question. But the brand has trained them not to.
+
+If the message is from a short code that never responds, the customer learns “this is a one-way broadcast.” If it is from a number that technically receives replies but no one answers, the customer learns “this is theater.” Either way, the result is the same. The thread is not a place you can go. It’s just where logistics updates go to die.
+
+That’s why the phrasing matters to me. “SMS CX shouldn’t be NoReply” is not a slogan. It’s a product requirement. If a customer tries to use the thread, the thread has to work.
+
+And if it works, a bunch of other things quietly fall into place.
+
+## SMS collapses support channels because it is both present and flexible
+
+Email is asynchronous, which is good, but it is not reliably present. It competes with newsletters, receipts, work threads, spam, and whatever the inbox algorithm decided you should see today.
+
+Web chat is present, but only when you’re on the site. It is synchronous by design, and fragile by implementation. You leave the tab, you lose the moment. Even when transcripts exist, customers rarely experience them as a continuing conversation. They experience them as a session that ended.
+
+SMS is the rare thing that behaves naturally both ways.
+
+When a customer replies right away, it feels like chat. When they reply six hours later, it still feels normal. There’s no guilt, no “sorry for the late reply,” no need to reopen a ticket. It’s just a thread.
+
+That flexibility sounds small until you build around it. Once you build around it, it becomes the whole point. The customer can engage on their timeline without losing the context. The brand can respond quickly when it matters, but the channel itself does not force a call-center style “stay on the line” experience.
+
+And because the thread lives in the OS inbox, the customer always knows where to go. The support channel self-announces right after purchase and delivery. You do not need to teach customers where your help center lives. You do not need to convince them to download an app. The thread is already there.
+
+## Push is not a feature. It’s distribution. SMS wins on distribution.
+
+People talk about “push notifications” like it’s an app tactic. But push is really a distribution primitive: do you reliably reach the customer, in a place they will actually see, at a moment when they still care?
+
+Apps can do push well, but only after two big hurdles: install and opt-in. Those hurdles are not trivial. OneSignal’s benchmarks show that for the Shopping category, average mobile push opt-in rates are about **33.2% on iOS and 36% on Android** (<a href="https://onesignal.com/mobile-app-benchmarks-2024" target="_blank" rel="noopener noreferrer">source</a>). So if your plan is “post-purchase engagement happens in the app,” you are implicitly accepting that most customers will never see it.
+
+Email reaches a lot of people, but email is dealing with measurement and attention issues that keep getting worse. Apple’s Mail Privacy Protection and other inbox changes have made “open rate” an increasingly noisy signal, and Twilio’s recent write-up is blunt about it: **open tracking is still unreliable** (<a href="https://www.twilio.com/en-us/blog/insights/apple-mail-privacy-protection" target="_blank" rel="noopener noreferrer">source</a>). Validity has also documented how changes in Apple’s prefetch behavior shifted pixel firing patterns and impacted observed open rates (<a href="https://www.validity.com/blog/case-closed-the-mystery-of-declining-email-open-rates/" target="_blank" rel="noopener noreferrer">source</a>). Even if your emails are good, inbox visibility is not something you fully control.
+
+Meanwhile, the phone itself is where attention lives. Asurion-sponsored research (surveyed via Dynata in March 2022) found Americans reach for their phones **352 times per day** (<a href="https://www.asurion.com/connect/news/tech-usage/" target="_blank" rel="noopener noreferrer">source</a>). You can argue about whether it’s 352 or 200 or 144, but you don’t need the exact number to understand the behavior. The lock screen is the most viewed interface in modern life.
+
+So when you choose SMS, you’re not choosing “a channel.” You’re choosing the most reliable way to be seen that does not require an install.
+
+<ReachComparison />
+
+## Photos and video change support from “describe it” to “show it”
+
+A lot of support is visual. Especially in commerce.
+
+“Is this a defect or normal variation?”
+“Does this fit right on me?”
+“Is this color off or is it my lighting?”
+“Did I install this correctly?”
+“Is this stain removable or should I exchange?”
+
+If you force customers to describe a visual issue in words, you get worse information and slower resolution. If you let customers show you, you can often solve the issue in one or two messages.
+
+SMS and modern messaging inboxes make sharing photos and video feel effortless. Customers do it without instructions because the UI is built for it.
+
+This is also where messaging standards are improving in a way that helps support. Apple now supports RCS on iPhone in supported carrier contexts, and Apple’s own support documentation describes RCS as enabling texts, high resolution photos and videos, links, plus delivery and read receipts and typing indicators (<a href="https://support.apple.com/en-us/122195" target="_blank" rel="noopener noreferrer">source</a>). Google has said that in the U.S. alone there are now **more than a billion RCS messages sent every day** (based on a 28-day average) (<a href="https://blog.google/products-and-platforms/platforms/android/billion-rcs-messages/" target="_blank" rel="noopener noreferrer">source</a>).
+
+You do not need to bet on RCS to benefit from this, but it is a useful signal: the default inbox is getting richer. The “text thread” is becoming more like a lightweight native support app.
+
+And that’s exactly what we want. Not another portal. Not another login. Just the conversation, with enough media capability to make the conversation efficient.
+
+## The thing that surprised me in our first pilot was the engagement
+
+We recently started our first pilot with a brand. I went into it with a conservative mental model.
+
+I assumed the only people who would reply were the people with problems. I assumed most customers would ignore the first message. I assumed we’d get a trickle of inbound, mostly complaints.
+
+Instead, we got something closer to a crowd.
+
+About **40% of all buyers replied within an hour of the first text**, and about **85% replied within 24 hours**.
+
+That is not a typo. Most customers replied. Quickly.
+
+And the replies weren’t just “help me.” They were often normal, human, low-stakes messages that you rarely see in traditional support channels because the friction is too high.
+
+Here’s the kind of thing we see, over and over, and it matters precisely because it is not dramatic:
+
+> Brand: Hey, just checking in. Did everything arrive okay?  
+> Customer: Yep, got it. Haven’t tried it on yet.  
+> Brand: Totally. Want me to follow up tomorrow?  
+> Customer: Yes please.  
+>  
+> (Next day)  
+> Brand: Quick check, did you get a chance to try it?  
+> Customer: I did. The waist feels tight. Is that normal?  
+> Brand: If you send a photo, I can help. Also, what size did you get?  
+> Customer: [photo]
+
+That is not a “ticket.” That is a conversation. It’s the kind of conversation that would happen in a store, but instead it happens in the default inbox, after delivery, when the customer is forming an opinion.
+
+And once you see that level of engagement, you stop thinking about proactive SMS as just “support.” You start thinking about it as a customer intelligence loop.
+
+<EngagementCurve />
+
+## When conversations are two-way, support becomes a sensor network
+
+Traditional support data is biased. It mostly captures the extremes.
+
+You hear from the angriest customers because they are motivated enough to push through friction. You hear from the happiest customers because they leave reviews. The middle stays silent, even though the middle is where most of your product truth lives.
+
+Two-way SMS pulls the middle into the conversation because the cost of saying something is almost nothing. The customer does not have to decide, “Is this worth opening a ticket?” They can just reply.
+
+That changes what you learn.
+
+You learn which SKUs create confusion, not just which SKUs break.
+You learn which photos are misleading.
+You learn which size guidance is missing.
+You learn which packaging detail is creating a bad first impression.
+You learn which delivery timing patterns create anxiety.
+
+This matters because the economic stakes are huge. NRF and Happy Returns project that total retail returns will reach **$849.9B in 2025**, and that an estimated **19.3% of online sales will be returned** (<a href="https://nrf.com/research/2025-retail-returns-landscape" target="_blank" rel="noopener noreferrer">source</a>). In that same report, **82% of consumers say free returns are an important consideration when shopping online** (<a href="https://nrf.com/research/2025-retail-returns-landscape" target="_blank" rel="noopener noreferrer">source</a>). The industry has basically trained customers to treat returns as part of shopping, and then acts surprised when returns are expensive.
+
+The way out is not “make returns harder.” The way out is to reduce the number of times customers feel uncertain or disappointed after delivery, and to do it early enough that help feels like help.
+
+That’s what proactive SMS is good at. It catches the small moments.
+
+## This is not about being chatty. It’s about being timely.
+
+Zendesk’s CX stats page includes a few numbers that line up with what we’re seeing: **72% of customers want immediate service**, and customers are **2.4x more likely to stick with a brand when their problems are solved quickly** (they cite Forrester for the latter) (<a href="https://www.zendesk.com/blog/customer-experience-statistics/" target="_blank" rel="noopener noreferrer">source</a>). They also cite that **64% of customers will spend more if a business resolves their issues where they already are** (<a href="https://www.zendesk.com/blog/customer-experience-statistics/" target="_blank" rel="noopener noreferrer">source</a>).
+
+“Where they already are” is doing a lot of work there. The messaging inbox is one of the clearest examples of “already there.”
+
+So this is not a thesis about blasting texts. It’s not “let’s be in their pocket.” People hate that. They opt out, and they should.
+
+This is a thesis about one durable, trusted thread that customers can use whenever they need it. A thread that starts with delivery, because that’s when uncertainty begins, and that stays alive because the customer learns that replying actually works.
+
+That’s also why “NoReply” is such a trap. If your first SMS interaction teaches the customer that the thread is dead, you don’t get a second chance. You have trained them to go back to the maze.
+
+## AI makes this scalable, but customers don’t want AI as a gatekeeper
+
+There is an obvious reason this is suddenly feasible: AI is pushing down the marginal cost of a conversation.
+
+But there’s also an obvious risk: a lot of “AI customer service” is being deployed as a wall. Customers know what that feels like. They don’t hate AI as a technology. They hate being trapped in automation when they need real help.
+
+Gartner reported that **64% of customers would prefer companies didn’t use AI for customer service**, and **53% would consider switching** to a competitor if they found out a company was going to use AI for customer service (<a href="https://www.gartner.com/en/newsroom/press-releases/2024-07-09-gartner-survey-finds-64-percent-of-customers-would-prefer-that-companies-didnt-use-ai-for-customer-service" target="_blank" rel="noopener noreferrer">source</a>). That’s a strong signal. It’s not “never use AI.” It’s “don’t use AI to avoid talking to me.”
+
+Proactive SMS changes the emotional starting point. The customer is not fighting their way into a system. The brand is showing up first, in a low-friction way, offering help. If AI is used, it should make the interaction feel faster, more contextual, more human. It should interpret photos, remember context, and escalate edge cases cleanly. It should not pretend to be helpful while blocking outcomes.
+
+In other words, if you combine proactive timing with a real two-way thread, AI can finally play the role we all wanted it to play: the associate in the background, not the bouncer at the door.
+
+## The unsexy part matters: consent, compliance, and deliverability
+
+If you’re going to treat SMS as a real customer experience surface, you have to treat trust as the foundation. There are legal and carrier rules, yes, but even before that, there’s a simple product truth: people only keep a thread open if they feel in control.
+
+The FCC has reiterated in multiple places that the TCPA applies to text messages, and its documents discuss consent requirements and the consumer’s right to revoke consent (<a href="https://docs.fcc.gov/public/attachments/DOC-408396A1.pdf" target="_blank" rel="noopener noreferrer">example</a>). CTIA’s Messaging Principles and Best Practices also emphasize opt-in and opt-out expectations for messaging campaigns (<a href="https://api.ctia.org/wp-content/uploads/2023/05/230523-CTIA-Messaging-Principles-and-Best-Practices-FINAL.pdf" target="_blank" rel="noopener noreferrer">source</a>).
+
+On the operational side, the U.S. ecosystem has also shifted toward registration and vetting for application-to-person messaging. Twilio’s help center explains that **A2P 10DLC registration** is a multi-step process involving business profiles, brand registration, and campaign use cases (<a href="https://help.twilio.com/articles/1260800720410-What-is-A2P-10DLC-" target="_blank" rel="noopener noreferrer">source</a>), and their docs note that anyone sending SMS/MMS over a 10DLC number from an application to the U.S. needs to register (<a href="https://www.twilio.com/docs/messaging/compliance/a2p-10dlc" target="_blank" rel="noopener noreferrer">source</a>).
+
+I’m not a lawyer and this is not legal advice, but the practical takeaway is straightforward: if you want a durable two-way thread, you need clean consent, respectful frequency, and clear opt-out behavior. You cannot build “trusted support inbox” on top of spam tactics. The channel punishes you, and customers punish you faster.
+
+If you do the trust work, the upside is that the channel becomes a real surface you can rely on.
+
+## Where I think this goes
+
+I used to think of SMS as “one more channel.” Now I think that was the wrong mental model.
+
+Proactive SMS, done as a real conversation, collapses channels because it combines a set of properties that we normally have to stitch together across systems: it’s present by default, it’s both synchronous and asynchronous in a way that feels natural, it handles photos and video without special UX, and it solves the discovery problem because the thread self-announces at the moment the customer receives the item.
+
+And we’re seeing the engagement. In our pilot, the majority of customers reply, quickly, even when nothing is “wrong.” That’s the part that turns this from “support optimization” into “customer intelligence.” When customers feel like the conversation is genuine, they talk. When they talk, you learn. When you learn, you fix the real causes of dissatisfaction upstream, instead of just processing the downstream returns and complaints more efficiently.
+
+So if you take only one thing from this, it’s this: if you are texting customers today, you already have a support surface. The question is whether you are going to leave it as a NoReply billboard, or turn it into the one thread customers can actually trust.
+
+SMS CX shouldn’t be NoReply. It should be a door that opens.
