@@ -82,6 +82,27 @@ pnpm --filter @returnsignals/www <command>
 pnpm --filter @returnsignals/app <command>
 ```
 
+## Backend API
+
+The app connects to a backend API:
+- **Development**: `http://localhost:8000`
+- **Production**: `https://api.returnsignals.com`
+
+To view API documentation:
+```bash
+# Get API description/overview
+curl -s http://localhost:8000/openapi.json | jq '.info.description'
+
+# List all endpoints
+curl -s http://localhost:8000/openapi.json | jq '.paths | keys'
+
+# Get details for a specific endpoint
+curl -s http://localhost:8000/openapi.json | jq '.paths["/auth/login"]'
+
+# Get all schemas/types
+curl -s http://localhost:8000/openapi.json | jq '.components.schemas | keys'
+```
+
 ## Environment Variables
 
 ### www (Astro)
