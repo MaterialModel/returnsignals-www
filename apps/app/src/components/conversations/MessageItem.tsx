@@ -5,14 +5,14 @@
 
 import type { Message } from '@/types'
 import { formatTime } from '@/utils/formatters'
-import { MessageStatusIcon, statusLabels } from './MessageStatusIcon'
+import { MessageStatusIcon } from './MessageStatusIcon'
+import { statusLabels } from './constants'
 
 interface MessageItemProps {
   message: Message
-  showStatus?: boolean
 }
 
-export function MessageItem({ message, showStatus = true }: MessageItemProps) {
+export function MessageItem({ message }: MessageItemProps) {
   const isInbound = message.direction === 'inbound'
   const isBot = message.speaker === 'bot'
 

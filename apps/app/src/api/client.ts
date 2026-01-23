@@ -90,8 +90,8 @@ export async function apiClient<T>(endpoint: string, options: RequestInit = {}):
         return apiClient<T>(endpoint, options)
       }
 
-      // Refresh failed - redirect to login
-      window.location.href = '/login'
+      // Refresh failed - let AuthContext handle redirect via ProtectedRoute
+      throw new ApiError(401, 'Session expired')
     }
 
     throw new ApiError(

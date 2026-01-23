@@ -9,14 +9,6 @@ interface MessageStatusIconProps {
   status: MessageStatus
 }
 
-const statusLabels: Record<MessageStatus, string> = {
-  pending: 'Sending',
-  sent: 'Sent',
-  delivered: 'Delivered',
-  failed: 'Failed',
-  read: 'Read',
-}
-
 // iOS-style colors
 const colors = {
   gray: '#8e8e93',
@@ -99,5 +91,3 @@ export function MessageStatusIcon({ status }: MessageStatusIconProps) {
       return null
   }
 }
-
-export { statusLabels }
