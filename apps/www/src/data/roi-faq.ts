@@ -25,9 +25,9 @@ export const roiFaqItems: FAQItem[] = [
   {
     question: 'How does Return Signals calculate ROI?',
     answerHtml:
-      'We calculate value from three sources: (1) Exchange Value, which captures returns converted to exchanges that preserve revenue and reduce refunds, (2) Keep Item Value, where customers decide to keep items after receiving guidance or support, avoiding the return entirely, and (3) Retention Value, the increased repeat purchases from customers whose issues were resolved positively. See the <a href="#methodology" class="text-accent-primary hover:text-accent-hover underline">methodology section</a> above for the complete formulas.',
+      'We calculate value from three sources: (1) Exchange Value, which captures returns converted to exchanges that preserve revenue and reduce refunds, (2) Keep Item Value, where customers decide to keep items after receiving guidance or support, avoiding the return entirely, and (3) Retention Value, the increased repeat purchases from customers who engaged with Return Signals. See the <a href="#methodology" class="text-accent-primary hover:text-accent-hover underline">methodology section</a> above for the complete formulas.',
     answerText:
-      'We calculate value from three sources: (1) Exchange Value, which captures returns converted to exchanges that preserve revenue and reduce refunds, (2) Keep Item Value, where customers decide to keep items after receiving guidance or support, avoiding the return entirely, and (3) Retention Value, the increased repeat purchases from customers whose issues were resolved positively.',
+      'We calculate value from three sources: (1) Exchange Value, which captures returns converted to exchanges that preserve revenue and reduce refunds, (2) Keep Item Value, where customers decide to keep items after receiving guidance or support, avoiding the return entirely, and (3) Retention Value, the increased repeat purchases from customers who engaged with Return Signals.',
   },
   {
     question: 'What causes most apparel returns?',

@@ -9,7 +9,9 @@ export interface CalculationInputs {
   otherReturnRate: number
   multisizeFit: number
   resaleProbability: number
-  engagementRate: number
+  smsCollectionRate: number
+  problemEngagementRate: number
+  happyEngagementRate: number
   exchangeLift: number
   keepLift: number
   retentionLift: number
@@ -43,7 +45,9 @@ export function calculateROI(inputs: CalculationInputs): CalculationResults {
     otherReturnRate,
     multisizeFit,
     resaleProbability,
-    engagementRate,
+    smsCollectionRate,
+    problemEngagementRate,
+    happyEngagementRate,
     exchangeLift: lift_exch,
     keepLift: lift_keep,
     retentionLift: lift_retention_180,
@@ -55,7 +59,9 @@ export function calculateROI(inputs: CalculationInputs): CalculationResults {
   const pct_refund_other = otherReturnRate / 100
   const pct_multisize_fit = multisizeFit / 100
   const pct_resale = resaleProbability / 100
-  const eng = engagementRate / 100
+  const sms_rate = smsCollectionRate / 100
+  const eng_problem = problemEngagementRate / 100
+  const eng_happy = happyEngagementRate / 100
   const lift_ex = lift_exch / 100
   const lift_kp = lift_keep / 100
   const lift_ret = lift_retention_180 / 100
@@ -68,9 +74,16 @@ export function calculateROI(inputs: CalculationInputs): CalculationResults {
   const N_other_eligible = N_sold * pct_refund_other
   const N_eligible = N_fit_eligible + N_other_eligible
 
-  // Calculate engaged and resolved customers
-  const N_engaged = N_eligible * eng
-  const N_res = N_eligible * eng * (lift_ex + lift_kp)
+  // Calculate engaged customers with problems (for exchange/keep)
+  const N_engaged_problem = N_eligible * sms_rate * eng_problem
+  const N_res = N_engaged_problem * (lift_ex + lift_kp)
+
+  // Calculate engaged happy customers (for retention)
+  const N_happy = N_sold - N_eligible
+  const N_engaged_happy = N_happy * sms_rate * eng_happy
+
+  // Total engaged for retention
+  const N_engaged_retention = N_engaged_problem + N_engaged_happy
 
   // Calculate incremental value per intervention
   const delta_V_refund_to_exch = AUR - C_unit - AUC
@@ -80,16 +93,16 @@ export function calculateROI(inputs: CalculationInputs): CalculationResults {
   const V_repeat_order = UPO * (AUR - AUC - C_unit) - MCO_repeat
 
   // Calculate value components
-  const V_exch = N_eligible * eng * lift_ex * delta_V_refund_to_exch
-  const V_keep = N_eligible * eng * lift_kp * delta_V_refund_to_keep
-  const V_retention = N_res * lift_ret * V_repeat_order
+  const V_exch = N_engaged_problem * lift_ex * delta_V_refund_to_exch
+  const V_keep = N_engaged_problem * lift_kp * delta_V_refund_to_keep
+  const V_retention = N_engaged_retention * lift_ret * V_repeat_order
 
   // Calculate total value
   const totalMonthly = V_exch + V_keep + V_retention
   const totalAnnual = totalMonthly * 12
 
-  // Calculate returns prevented
-  const returnsPrevented = N_eligible * eng * (lift_ex + lift_kp)
+  // Calculate returns prevented (same as resolved customers)
+  const returnsPrevented = N_res
 
   // Calculate baseline revenue (units sold minus returns)
   const totalReturns = N_sold * (pct_refund_fit + pct_refund_other)
@@ -106,7 +119,7 @@ export function calculateROI(inputs: CalculationInputs): CalculationResults {
     keepValue: V_keep,
     retentionValue: V_retention,
     eligibleReturns: N_eligible,
-    engagedCustomers: N_engaged,
+    engagedCustomers: N_engaged_retention,
     resolvedCustomers: N_res,
     returnsPrevented,
     baselineMonthly: baselineRevenue,

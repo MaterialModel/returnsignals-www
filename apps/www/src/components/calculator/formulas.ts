@@ -16,14 +16,26 @@ export const inputVariables = {
     {
       symbol: 'AUC',
       html: 'AUC',
-      name: 'Average Unit Cost',
-      description: 'Manufacturing/procurement cost per unit',
+      name: 'Average Unit Cost / Landed Duty Paid',
+      description: 'Cost per unit including shipping, duties, and taxes',
     },
     {
       symbol: 'U',
       html: 'U',
       name: 'Units Per Order',
       description: 'Average number of units in an order',
+    },
+    {
+      symbol: 'S',
+      html: 'S',
+      name: 'Phone Number Collection Rate',
+      description: 'Fraction of customers who share phone number',
+    },
+    {
+      symbol: 'M_r',
+      html: 'M<sub>r</sub>',
+      name: 'Repeat Marketing Cost',
+      description: 'Marketing cost to acquire a repeat order',
     },
   ],
   costs: [
@@ -45,25 +57,19 @@ export const inputVariables = {
       name: 'Return Processing Cost',
       description: 'Cost to process and ship a return',
     },
-    {
-      symbol: 'M_r',
-      html: 'M<sub>r</sub>',
-      name: 'Repeat Marketing Cost',
-      description: 'Marketing cost to acquire a repeat order',
-    },
   ],
   returnRates: [
     {
       symbol: 'r_f',
       html: 'r<sub>f</sub>',
-      name: 'Fit Return Rate',
-      description: 'Fraction of units returned for fit issues',
+      name: 'Fit Refund Rate',
+      description: 'Fraction of units refunded for fit issues',
     },
     {
       symbol: 'r_o',
       html: 'r<sub>o</sub>',
-      name: 'Other Return Rate',
-      description: 'Fraction of units returned for non-fit reasons',
+      name: 'Other Refund Rate',
+      description: 'Fraction of units refunded for non-fit reasons',
     },
     {
       symbol: 'm',
@@ -80,10 +86,16 @@ export const inputVariables = {
   ],
   impact: [
     {
-      symbol: 'E',
-      html: 'E',
-      name: 'Engagement Rate',
-      description: 'Fraction of eligible customers who engage',
+      symbol: 'E_p',
+      html: 'E<sub>p</sub>',
+      name: 'Problem Engagement Rate',
+      description: 'Fraction of problem customers who engage when contacted',
+    },
+    {
+      symbol: 'E_h',
+      html: 'E<sub>h</sub>',
+      name: 'Happy Engagement Rate',
+      description: 'Fraction of happy customers who engage when contacted',
     },
     {
       symbol: 'L_{\\text{exch}}',
@@ -133,12 +145,12 @@ export const formulas = {
     intuition:
       'When converting a refund to an exchange, we keep the original sale revenue, pay to ship the replacement item, and use one additional unit of inventory.',
     intuitionBulletsHtml: [
-      'Keep the original revenue (AUR)',
-      'Pay to ship the replacement (C<sub>s</sub>)',
-      'Use one more unit of inventory (AUC)',
+      'N<sub>elig</sub> × S × E<sub>p</sub> = customers with return intent who engage with us',
+      'Multiplied by L<sub>exch</sub> = engaged customers who convert to exchange',
+      'Each exchange keeps original revenue (AUR), pays for replacement shipping (C<sub>s</sub>), uses one more unit of inventory (AUC)',
     ],
     mainFormula:
-      'V_{\\text{exch}} = N_{\\text{elig}} \\times E \\times L_{\\text{exch}} \\times \\Delta V_{\\text{exch}}',
+      'V_{\\text{exch}} = N_{\\text{elig}} \\times S \\times E_p \\times L_{\\text{exch}} \\times \\Delta V_{\\text{exch}}',
     subFormulas: [
       {
         latex: '\\Delta V_{\\text{exch}} = AUR - C_s - AUC',
@@ -153,12 +165,12 @@ export const formulas = {
     intuition:
       'When a customer keeps the item, we retain the original revenue, avoid the return processing cost entirely, but we lose the inventory value we would have recovered through resale.',
     intuitionBulletsHtml: [
-      'Keep the original revenue (AUR)',
-      'Avoid return processing cost (+C<sub>r</sub> saved)',
-      'Lose the inventory we would have recovered (AUC × p)',
+      'N<sub>elig</sub> × S × E<sub>p</sub> = customers with return intent who engage with us',
+      'Multiplied by L<sub>keep</sub> = engaged customers who decide to keep the item',
+      'Each kept item preserves revenue (AUR), avoids return processing cost (+C<sub>r</sub> saved), but loses inventory we would have recovered (AUC × p)',
     ],
     mainFormula:
-      'V_{\\text{keep}} = N_{\\text{elig}} \\times E \\times L_{\\text{keep}} \\times \\Delta V_{\\text{keep}}',
+      'V_{\\text{keep}} = N_{\\text{elig}} \\times S \\times E_p \\times L_{\\text{keep}} \\times \\Delta V_{\\text{keep}}',
     subFormulas: [
       {
         latex: '\\Delta V_{\\text{keep}} = AUR + C_r - AUC \\times p',
@@ -169,21 +181,22 @@ export const formulas = {
 
   retentionValue: {
     title: 'Step 4: Retention Value',
-    description: 'Value from increased repeat purchases by customers whose problems we resolved.',
+    description:
+      'Value from increased repeat purchases by customers who engaged with Return Signals.',
     intuition:
-      'Customers who have a positive resolution experience are more likely to purchase again. The value of each additional repeat order is the unit margin times units per order, minus any marketing cost to bring them back.',
+      'Customers who engage with Return Signals are more likely to purchase again. The value of each additional repeat order is the unit margin times units per order, minus any marketing cost to bring them back.',
     intuitionBulletsHtml: [
-      'Resolved customers = those who exchanged or kept',
-      'These customers have higher repeat purchase rates',
+      'Problem customers engaged = N<sub>elig</sub> × S × E<sub>p</sub>',
+      'Happy customers engaged = (N - N<sub>elig</sub>) × S × E<sub>h</sub>',
       'Each repeat order contributes margin minus marketing cost',
     ],
     mainFormula:
-      'V_{\\text{ret}} = N_{\\text{res}} \\times L_{\\text{ret}} \\times V_{\\text{repeat}}',
+      'V_{\\text{ret}} = N_{\\text{eng}} \\times L_{\\text{ret}} \\times V_{\\text{repeat}}',
     subFormulas: [
       {
         latex:
-          'N_{\\text{res}} = N_{\\text{elig}} \\times E \\times (L_{\\text{exch}} + L_{\\text{keep}})',
-        description: 'Number of resolved customers',
+          'N_{\\text{eng}} = (N_{\\text{elig}} \\times S \\times E_p) + (N - N_{\\text{elig}}) \\times S \\times E_h',
+        description: 'Total engaged customers (problem + happy)',
       },
       {
         latex: 'V_{\\text{repeat}} = U \\times (AUR - AUC - C_s) - M_r',

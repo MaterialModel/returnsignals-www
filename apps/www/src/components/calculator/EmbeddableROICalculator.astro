@@ -53,28 +53,35 @@ const {
       <!-- Input Form -->
       <div class="embed-inputs">
         <div class="input-group">
-          <label for="embed-unitsSold">Monthly Units Sold</label>
+          <label for="embed-unitsSold">Monthly Units</label>
           <input type="number" id="embed-unitsSold" value="30000" min="0" />
         </div>
         <div class="input-group">
-          <label for="embed-avgRevenue">Avg Unit Revenue ($)</label>
+          <label for="embed-avgRevenue">Unit Revenue ($)</label>
           <input type="number" id="embed-avgRevenue" value="200" min="0" step="0.01" />
         </div>
         <div class="input-group">
-          <label for="embed-avgCost">Avg Unit Cost ($)</label>
-          <input type="number" id="embed-avgCost" value="70" min="0" step="0.01" />
+          <label for="embed-avgCost">Unit Cost ($)</label>
+          <input type="number" id="embed-avgCost" value="60" min="0" step="0.01" />
         </div>
         <div class="input-group">
-          <label for="embed-fitReturnRate">Fit Return Rate (%)</label>
-          <input type="number" id="embed-fitReturnRate" value="18" min="0" max="100" step="0.1" />
+          <label for="embed-smsCollectionRate">Phone Collection (%)</label>
+          <input
+            type="number"
+            id="embed-smsCollectionRate"
+            value="40"
+            min="0"
+            max="100"
+            step="0.1"
+          />
         </div>
         <div class="input-group">
-          <label for="embed-otherReturnRate">Other Return Rate (%)</label>
-          <input type="number" id="embed-otherReturnRate" value="12" min="0" max="100" step="0.1" />
+          <label for="embed-fitReturnRate">Fit Refunds (%)</label>
+          <input type="number" id="embed-fitReturnRate" value="12" min="0" max="100" step="0.1" />
         </div>
         <div class="input-group">
-          <label for="embed-multisizeFit">Multi-size Orders (%)</label>
-          <input type="number" id="embed-multisizeFit" value="25" min="0" max="100" step="0.1" />
+          <label for="embed-otherReturnRate">Other Refunds (%)</label>
+          <input type="number" id="embed-otherReturnRate" value="18" min="0" max="100" step="0.1" />
         </div>
       </div>
 
@@ -142,7 +149,7 @@ const {
 
   .roi-calculator-embed {
     font-family: inherit;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1rem 0.75rem;
     background: theme('colors.surface.base');
   }
 
@@ -150,7 +157,7 @@ const {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
@@ -170,8 +177,9 @@ const {
 
   .embed-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    align-items: center;
   }
 
   @media (max-width: 640px) {
@@ -182,8 +190,8 @@ const {
 
   .embed-inputs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.6rem;
+    grid-template-columns: repeat(2, minmax(120px, 160px));
+    gap: 0.5rem 0.5rem;
   }
 
   @media (max-width: 480px) {
@@ -314,9 +322,9 @@ const {
       unitsSold: document.getElementById('embed-unitsSold') as HTMLInputElement,
       avgRevenue: document.getElementById('embed-avgRevenue') as HTMLInputElement,
       avgCost: document.getElementById('embed-avgCost') as HTMLInputElement,
+      smsCollectionRate: document.getElementById('embed-smsCollectionRate') as HTMLInputElement,
       fitReturnRate: document.getElementById('embed-fitReturnRate') as HTMLInputElement,
       otherReturnRate: document.getElementById('embed-otherReturnRate') as HTMLInputElement,
-      multisizeFit: document.getElementById('embed-multisizeFit') as HTMLInputElement,
     }
 
     const outputs = {
@@ -340,23 +348,30 @@ const {
       retentionValue: 0,
     }
 
+    // Helper to clamp percentage values between 0 and 100
+    function clampPercent(value: number): number {
+      return Math.max(0, Math.min(100, value))
+    }
+
     function runCalculation() {
       const inputValues = {
         unitsSold: parseFloat(inputs.unitsSold?.value || '0') || 0,
         avgRevenue: parseFloat(inputs.avgRevenue?.value || '0') || 0,
         avgCost: parseFloat(inputs.avgCost?.value || '0') || 0,
-        fitReturnRate: parseFloat(inputs.fitReturnRate?.value || '0') || 0,
-        otherReturnRate: parseFloat(inputs.otherReturnRate?.value || '0') || 0,
-        multisizeFit: parseFloat(inputs.multisizeFit?.value || '0') || 0,
+        smsCollectionRate: clampPercent(parseFloat(inputs.smsCollectionRate?.value || '0') || 0),
+        fitReturnRate: clampPercent(parseFloat(inputs.fitReturnRate?.value || '0') || 0),
+        otherReturnRate: clampPercent(parseFloat(inputs.otherReturnRate?.value || '0') || 0),
         // Hardcoded defaults for advanced parameters
-        unitsPerOrder: 1.7,
+        multisizeFit: 25,
+        unitsPerOrder: 2,
         orderShippingCost: 10,
         returnCost: 10,
         resaleProbability: 30,
-        engagementRate: 40,
+        problemEngagementRate: 95,
+        happyEngagementRate: 50,
         exchangeLift: 40,
         keepLift: 10,
-        retentionLift: 20,
+        retentionLift: 5,
         repeatMarketingCost: 0,
       }
 

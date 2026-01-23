@@ -138,15 +138,15 @@ import { roiFaqItems } from '@data/roi-faq'
               />
               <CalculatorInput
                 id="avgCost"
-                label="Average Unit Cost ($)"
-                value="70"
+                label="Average Unit Cost / Landed Duty Paid ($)"
+                value="60"
                 min="0"
                 step="0.01"
               />
               <CalculatorInput
                 id="unitsPerOrder"
                 label="Average Units Per Order"
-                value="1.7"
+                value="2"
                 min="0.1"
                 step="0.1"
                 wrapperId="input-unitsPerOrder"
@@ -167,12 +167,30 @@ import { roiFaqItems } from '@data/roi-faq'
                 step="0.01"
                 wrapperId="input-returnCost"
               />
+              <CalculatorInput
+                id="smsCollectionRate"
+                label="Phone Number Collection Rate (%)"
+                value="40"
+                min="0"
+                max="100"
+                step="0.1"
+                helpText="Percentage of customers who share their phone number"
+              />
+              <CalculatorInput
+                id="repeatMarketingCost"
+                label="Repeat Customer Marketing Cost ($)"
+                value="0"
+                min="0"
+                step="0.01"
+                helpText="Cost to acquire a repeat order from existing customers"
+                wrapperId="input-repeatMarketingCost"
+              />
             </InputSection>
 
             <InputSection title="Return Rates">
               <CalculatorInput
                 id="fitReturnRate"
-                label="Fit-Related Return Rate (%)"
+                label="Fit-Related Refund Rate (%)"
                 value="12"
                 min="0"
                 max="100"
@@ -180,7 +198,7 @@ import { roiFaqItems } from '@data/roi-faq'
               />
               <CalculatorInput
                 id="otherReturnRate"
-                label="Other Return Rate (%)"
+                label="Other Refund Rate (%)"
                 value="18"
                 min="0"
                 max="100"
@@ -188,7 +206,7 @@ import { roiFaqItems } from '@data/roi-faq'
               />
               <CalculatorInput
                 id="multisizeFit"
-                label="Multi-size Fit Orders (%)"
+                label="Multi-size Fit Orders / Bracketing (%)"
                 value="25"
                 min="0"
                 max="100"
@@ -208,13 +226,22 @@ import { roiFaqItems } from '@data/roi-faq'
 
             <InputSection title="Return Signals Impact" id="section-returnSignalsImpact">
               <CalculatorInput
-                id="engagementRate"
-                label="Customer Engagement Rate (%)"
-                value="40"
+                id="problemEngagementRate"
+                label="Problem Engagement Rate (%)"
+                value="95"
                 min="0"
                 max="100"
                 step="0.1"
-                helpText="Percentage of customers with problems who engage with Return Signals"
+                helpText="Percentage of customers with problems who engage when contacted"
+              />
+              <CalculatorInput
+                id="happyEngagementRate"
+                label="Happy Customer Engagement Rate (%)"
+                value="50"
+                min="0"
+                max="100"
+                step="0.1"
+                helpText="Percentage of happy customers who engage when contacted"
               />
               <CalculatorInput
                 id="exchangeLift"
@@ -235,22 +262,11 @@ import { roiFaqItems } from '@data/roi-faq'
               <CalculatorInput
                 id="retentionLift"
                 label="180-day Retention Lift (%)"
-                value="20"
+                value="5"
                 min="0"
                 max="100"
                 step="0.1"
-                helpText="Lift in repeat purchases for customers for whom we resolved their problem"
-              />
-            </InputSection>
-
-            <InputSection title="Marketing Costs" id="section-marketingCosts">
-              <CalculatorInput
-                id="repeatMarketingCost"
-                label="Repeat Customer Marketing Cost ($)"
-                value="0"
-                min="0"
-                step="0.01"
-                helpText="Cost to acquire a repeat order from existing customers"
+                helpText="Lift in repeat purchases for customers who engaged with Return Signals"
               />
             </InputSection>
           </div>
@@ -620,15 +636,17 @@ import { roiFaqItems } from '@data/roi-faq'
     unitsPerOrder: document.getElementById('unitsPerOrder') as HTMLInputElement,
     orderShippingCost: document.getElementById('orderShippingCost') as HTMLInputElement,
     returnCost: document.getElementById('returnCost') as HTMLInputElement,
+    smsCollectionRate: document.getElementById('smsCollectionRate') as HTMLInputElement,
+    repeatMarketingCost: document.getElementById('repeatMarketingCost') as HTMLInputElement,
     fitReturnRate: document.getElementById('fitReturnRate') as HTMLInputElement,
     otherReturnRate: document.getElementById('otherReturnRate') as HTMLInputElement,
     multisizeFit: document.getElementById('multisizeFit') as HTMLInputElement,
     resaleProbability: document.getElementById('resaleProbability') as HTMLInputElement,
-    engagementRate: document.getElementById('engagementRate') as HTMLInputElement,
+    problemEngagementRate: document.getElementById('problemEngagementRate') as HTMLInputElement,
+    happyEngagementRate: document.getElementById('happyEngagementRate') as HTMLInputElement,
     exchangeLift: document.getElementById('exchangeLift') as HTMLInputElement,
     keepLift: document.getElementById('keepLift') as HTMLInputElement,
     retentionLift: document.getElementById('retentionLift') as HTMLInputElement,
-    repeatMarketingCost: document.getElementById('repeatMarketingCost') as HTMLInputElement,
   }
 
   // Get output elements
@@ -670,8 +688,13 @@ import { roiFaqItems } from '@data/roi-faq'
     returnsPrevented: 0,
   }
 
+  // Helper to clamp percentage values between 0 and 100
+  function clampPercent(value: number): number {
+    return Math.max(0, Math.min(100, value))
+  }
+
   function runCalculation() {
-    // Gather inputs
+    // Gather inputs (clamp percentage values to 0-100)
     const inputValues: CalculationInputs = {
       unitsSold: parseFloat(inputs.unitsSold.value) || 0,
       avgRevenue: parseFloat(inputs.avgRevenue.value) || 0,
@@ -679,15 +702,17 @@ import { roiFaqItems } from '@data/roi-faq'
       unitsPerOrder: parseFloat(inputs.unitsPerOrder.value) || 1,
       orderShippingCost: parseFloat(inputs.orderShippingCost.value) || 0,
       returnCost: parseFloat(inputs.returnCost.value) || 0,
-      fitReturnRate: parseFloat(inputs.fitReturnRate.value) || 0,
-      otherReturnRate: parseFloat(inputs.otherReturnRate.value) || 0,
-      multisizeFit: parseFloat(inputs.multisizeFit.value) || 0,
-      resaleProbability: parseFloat(inputs.resaleProbability.value) || 0,
-      engagementRate: parseFloat(inputs.engagementRate.value) || 0,
-      exchangeLift: parseFloat(inputs.exchangeLift.value) || 0,
-      keepLift: parseFloat(inputs.keepLift.value) || 0,
-      retentionLift: parseFloat(inputs.retentionLift.value) || 0,
+      smsCollectionRate: clampPercent(parseFloat(inputs.smsCollectionRate.value) || 0),
       repeatMarketingCost: parseFloat(inputs.repeatMarketingCost.value) || 0,
+      fitReturnRate: clampPercent(parseFloat(inputs.fitReturnRate.value) || 0),
+      otherReturnRate: clampPercent(parseFloat(inputs.otherReturnRate.value) || 0),
+      multisizeFit: clampPercent(parseFloat(inputs.multisizeFit.value) || 0),
+      resaleProbability: clampPercent(parseFloat(inputs.resaleProbability.value) || 0),
+      problemEngagementRate: clampPercent(parseFloat(inputs.problemEngagementRate.value) || 0),
+      happyEngagementRate: clampPercent(parseFloat(inputs.happyEngagementRate.value) || 0),
+      exchangeLift: clampPercent(parseFloat(inputs.exchangeLift.value) || 0),
+      keepLift: clampPercent(parseFloat(inputs.keepLift.value) || 0),
+      retentionLift: clampPercent(parseFloat(inputs.retentionLift.value) || 0),
     }
 
     // Calculate results
@@ -788,9 +813,9 @@ import { roiFaqItems } from '@data/roi-faq'
     document.getElementById('input-unitsPerOrder'),
     document.getElementById('input-orderShippingCost'),
     document.getElementById('input-returnCost'),
+    document.getElementById('input-repeatMarketingCost'),
     document.getElementById('input-resaleProbability'),
     document.getElementById('section-returnSignalsImpact'),
-    document.getElementById('section-marketingCosts'),
   ]
 
   function setModeState(simplified: boolean) {
@@ -817,6 +842,31 @@ import { roiFaqItems } from '@data/roi-faq'
       if (el) el.classList.toggle('hidden', simplified)
     })
   }
+
+  // Clamp percentage inputs on blur (when user leaves the field)
+  const percentageInputs = [
+    inputs.smsCollectionRate,
+    inputs.fitReturnRate,
+    inputs.otherReturnRate,
+    inputs.multisizeFit,
+    inputs.resaleProbability,
+    inputs.problemEngagementRate,
+    inputs.happyEngagementRate,
+    inputs.exchangeLift,
+    inputs.keepLift,
+    inputs.retentionLift,
+  ]
+
+  percentageInputs.forEach((input) => {
+    if (input) {
+      input.addEventListener('blur', () => {
+        const value = parseFloat(input.value) || 0
+        if (value < 0) input.value = '0'
+        else if (value > 100) input.value = '100'
+        runCalculation()
+      })
+    }
+  })
 
   // Add event listeners to all inputs
   Object.values(inputs).forEach((input) => {

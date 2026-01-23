@@ -11,36 +11,44 @@ Based on typical e-commerce metrics:
 ### Input Values
 
 **Business Metrics:**
+
 - Monthly Units Sold: 30,000
 - Average Unit Revenue: $200
-- Average Unit Cost: $70
-- Units Per Order: 1.7
-
-**Costs:**
-- Outbound Shipping Cost per Order: $10
-- Return Processing Cost per Unit: $20
+- Average Unit Cost / Landed Duty Paid: $60
+- Units Per Order: 2
+- Phone Number Collection Rate: 40%
 - Repeat Marketing Cost: $0
 
+**Costs:**
+
+- Outbound Shipping Cost per Order: $10
+- Return Processing Cost per Unit: $20
+
 **Return Rates:**
-- Fit-Related Return Rate: 12%
-- Other Return Rate: 18%
-- Multi-size Fit Orders: 25%
+
+- Fit-Related Refund Rate: 12%
+- Other Refund Rate: 18%
+- Multi-size Fit Orders / Bracketing: 25%
 - Resale Probability: 30%
 
 **Return Signals Impact:**
-- Customer Engagement Rate: 40%
+
+- Problem Engagement Rate: 95%
+- Happy Customer Engagement Rate: 50%
 - Return to Exchange Lift: 40%
 - Return to Keep Item Lift: 10%
-- 180-day Retention Lift: 20%
+- 180-day Retention Lift: 5%
 
 ### Output Values
 
 **Total Impact:**
+
 - Annual Profit Increase: $3,524,358
 - Margin Expansion: 7.0%
 - Baseline Annual Net Sales: $50,400,000
 
 **Value Breakdown:**
+
 - Exchange Value: $1,930,278 (returns converted to exchanges)
 - Keep Item Value: $773,712 (returns avoided entirely)
 - Retention Value: $820,368 (increased customer lifetime value)
@@ -52,25 +60,31 @@ Based on typical e-commerce metrics:
 ### Input Variables
 
 #### Business Metrics
+
 - **N**: Monthly e-commerce units sold (before returns)
 - **AUR**: Revenue per unit after discounts, before refunds
-- **AUC**: Manufacturing/procurement cost per unit
+- **AUC**: Landed Duty Paid (LDP) cost per unit
 - **U**: Average number of units in an order
+- **S**: Fraction of customers who share phone number
+- **M_r**: Marketing cost to acquire a repeat order
 
 #### Costs
+
 - **C_o**: Outbound shipping cost per order
 - **C_s**: Per-unit shipping (C_o / U)
 - **C_r**: Cost to process and ship a return
-- **M_r**: Marketing cost to acquire a repeat order
 
 #### Return Rates
-- **r_f**: Fraction of units returned for fit issues
-- **r_o**: Fraction of units returned for non-fit reasons
+
+- **r_f**: Fraction of units refunded for fit issues
+- **r_o**: Fraction of units refunded for non-fit reasons
 - **m**: Fraction of fit orders with multiple sizes ordered
 - **p**: Probability a returned unit can be resold
 
 #### Return Signals Impact
-- **E**: Fraction of eligible customers who engage
+
+- **E_p**: Fraction of problem customers who engage when contacted
+- **E_h**: Fraction of happy customers who engage when contacted
 - **L_exch**: Uplift in customers who exchange
 - **L_keep**: Uplift in customers who keep the item
 - **L_ret**: Increase in 180-day repeat purchase rate
@@ -82,11 +96,13 @@ Based on typical e-commerce metrics:
 First, we identify which returns Return Signals can potentially convert to exchanges or keeps.
 
 **Formula:**
+
 ```
 N_elig = N_f + N_o
 ```
 
 **Where:**
+
 - `N_f = N * r_f * (1 - m)` -- Fit returns excluding intentional multi-size orders
 - `N_o = N * r_o` -- Non-fit related returns (quality, changed mind, etc.)
 
@@ -99,17 +115,20 @@ N_elig = N_f + N_o
 Value created when customers exchange instead of requesting a refund.
 
 **Formula:**
+
 ```
-V_exch = N_elig * E * L_exch * DeltaV_exch
+V_exch = N_elig * S * E_p * L_exch * DeltaV_exch
 ```
 
 **Where:**
+
 - `DeltaV_exch = AUR - C_s - AUC` -- Incremental value per exchange vs. refund
 
 **Why this formula works:**
-- Keep the original revenue (AUR)
-- Pay to ship the replacement (C_s)
-- Use one more unit of inventory (AUC)
+
+- N_elig × S × E_p = customers with return intent who engage with us
+- Multiplied by L_exch = engaged customers who convert to exchange
+- Each exchange keeps original revenue (AUR), pays for replacement shipping (C_s), uses one more unit of inventory (AUC)
 
 ---
 
@@ -118,36 +137,42 @@ V_exch = N_elig * E * L_exch * DeltaV_exch
 Value created when customers decide to keep the item instead of returning it.
 
 **Formula:**
+
 ```
-V_keep = N_elig * E * L_keep * DeltaV_keep
+V_keep = N_elig * S * E_p * L_keep * DeltaV_keep
 ```
 
 **Where:**
+
 - `DeltaV_keep = AUR + C_r - AUC * p` -- Incremental value per kept item vs. refund
 
 **Why this formula works:**
-- Keep the original revenue (AUR)
-- Avoid return processing cost (+C_r saved)
-- Lose the inventory we would have recovered (AUC * p)
+
+- N_elig × S × E_p = customers with return intent who engage with us
+- Multiplied by L_keep = engaged customers who decide to keep the item
+- Each kept item preserves revenue (AUR), avoids return processing cost (+C_r saved), but loses inventory we would have recovered (AUC × p)
 
 ---
 
 ### Step 4: Retention Value
 
-Value from increased repeat purchases by customers whose problems we resolved.
+Value from increased repeat purchases by customers who engaged with Return Signals.
 
 **Formula:**
+
 ```
-V_ret = N_res * L_ret * V_repeat
+V_ret = N_eng * L_ret * V_repeat
 ```
 
 **Where:**
-- `N_res = N_elig * E * (L_exch + L_keep)` -- Number of resolved customers
+
+- `N_eng = (N_elig * S * E_p) + (N - N_elig) * S * E_h` -- Total engaged customers (problem + happy)
 - `V_repeat = U * (AUR - AUC - C_s) - M_r` -- Contribution margin per repeat order
 
 **Why this formula works:**
-- Resolved customers = those who exchanged or kept
-- These customers have higher repeat purchase rates
+
+- Problem customers engaged = N_elig × S × E_p
+- Happy customers engaged = (N - N_elig) × S × E_h
 - Each repeat order contributes margin minus marketing cost
 
 ---
@@ -165,20 +190,23 @@ Sum of all three value components.
 ## Additional Metrics
 
 ### Baseline Revenue Calculation
+
 ```
 Total Returns = N * (r_f + r_o)
 Baseline Monthly Net Sales = (N - Total Returns) * AUR
 ```
 
 ### Margin Expansion
+
 ```
 Margin Expansion % = (V_total / Baseline Net Sales) * 100
 ```
 
 ### Customer Impact Metrics
+
 - **Eligible Returns**: N_elig
-- **Engaged Customers**: N_elig * E
-- **Returns Prevented**: N_elig * E * (L_exch + L_keep)
+- **Engaged Customers**: (N_elig _ S _ E_p) + (N - N_elig) _ S _ E_h
+- **Returns Prevented**: N_elig _ S _ E_p \* (L_exch + L_keep)
 
 ---
 
