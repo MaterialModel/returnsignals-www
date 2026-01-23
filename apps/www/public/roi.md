@@ -43,15 +43,15 @@ Based on typical e-commerce metrics:
 
 **Total Impact:**
 
-- Annual Profit Increase: $3,524,358
-- Margin Expansion: 7.0%
+- Annual Profit Increase: $3,948,847
+- Margin Expansion: 7.8%
 - Baseline Annual Net Sales: $50,400,000
 
 **Value Breakdown:**
 
-- Exchange Value: $1,930,278 (returns converted to exchanges)
-- Keep Item Value: $773,712 (returns avoided entirely)
-- Retention Value: $820,368 (increased customer lifetime value)
+- Exchange Value: $1,994,544 (returns converted to exchanges)
+- Keep Item Value: $746,107 (returns avoided entirely)
+- Retention Value: $1,208,196 (increased customer lifetime value)
 
 ---
 
@@ -205,8 +205,8 @@ Margin Expansion % = (V_total / Baseline Net Sales) * 100
 ### Customer Impact Metrics
 
 - **Eligible Returns**: N_elig
-- **Engaged Customers**: (N_elig _ S _ E_p) + (N - N_elig) _ S _ E_h
-- **Returns Prevented**: N_elig _ S _ E_p \* (L_exch + L_keep)
+- **Engaged Customers**: (N*elig * S _ E_p) + (N - N_elig) _ S \_ E_h
+- **Returns Prevented**: N*elig * S \_ E_p \* (L_exch + L_keep)
 
 ---
 
