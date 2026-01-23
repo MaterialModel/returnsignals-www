@@ -43,7 +43,7 @@ The problem is that by optimizing for frictionless returns, you've eliminated an
 
 Think about what happens after delivery. A customer opens the box, they want the item to succeed, that's why they bought it, but something is wrong.
 
-In a store, this is the moment an associate walks over. "How's it fitting? Can I grab you another size?" That moment is everything. It's where a return can become an exchange or even a kept item. It's where a one-time buyer becomes a repeat customer.
+In a store, this is the moment an associate walks over. "How's the fit? Do you want to try a size down?" That moment is everything. It's where a return can become an exchange or even a kept item. It's where a one-time buyer becomes a repeat customer.
 
 Online? That moment doesn't exist. The customer is alone with their uncertainty. And the path of least resistance is the return portal you've made so beautifully frictionless.
 
@@ -107,14 +107,14 @@ Unlike web chat, there's no "stay on the line" pressure. Unlike email, there's n
 
 **Channel comparison**
 
-|              | Email | Web Chat |    App |     **SMS** |
-| -----------: | ----: | -------: | -----: | ------: |
-|    Sync      |    No |      Yes |    Yes | **Yes** |
-|   Async      |   Yes |       No |  Partial | **Yes** |
-|  Photos      | Clunky |   Varies |    Yes | **Yes** |
-| No install   |   Yes |      Yes |     No | **Yes** |
-| Push         | Buried | Tab-based | 33% opt-in | **Lock screen** |
-| Self-announcing |    No |       No |     No | **Yes** |
+|              | **SMS** | Email | Web Chat | App |
+| -----------: | ------: | ----: | -------: | -----: |
+|    Sync      | **Yes** |    No |      Yes |    Yes |
+|   Async      | **Yes** |   Yes |       No |  Partial |
+|  Photos      | **Yes** | Clunky |   Varies |    Yes |
+| No install   | **Yes** |   Yes |      Yes |     No |
+| Push         | **Lock screen** | Buried | Tab-based | 33% opt-in |
+| Self-announcing | **Yes** |    No |       No |     No |
 
 ## The best push notification is the one that doesn't require an app
 
@@ -150,7 +150,7 @@ I assumed only people with problems would reply. I assumed most customers would 
 
 I was wrong.
 
-40% of buyers replied within an hour. 85% replied within 24 hours.
+40% of buyers replied within 24 hours. Among those who needed a return, the number was 100%.
 
 That is not a typo. Most customers replied. Quickly. And not just the angry ones; the vast majority of the replies were positive, expressing satisfaction with the item. Every customer who was part of the pilot and needed a return used the SMS thread instead of any of the other return methods.
 
