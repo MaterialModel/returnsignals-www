@@ -59,13 +59,13 @@ export function OutcomesBreakdown({ outcomes }: OutcomesBreakdownProps) {
       key: 'disposal',
       label: 'Disposal',
       count: outcomes.disposal,
-      colorClass: 'bg-amber-500',
+      colorClass: 'bg-accent-warning',
     },
     {
       key: 'returned',
       label: 'Returned',
       count: outcomes.returned,
-      colorClass: 'bg-red-500',
+      colorClass: 'bg-accent-error',
     },
     {
       key: 'pending',

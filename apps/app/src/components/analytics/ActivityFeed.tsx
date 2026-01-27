@@ -23,7 +23,7 @@ function getStatusColor(status: ConversationStatus): string {
   const colors: Record<ConversationStatus, string> = {
     active: 'bg-accent-primary/10 text-accent-primary',
     resolved: 'bg-accent-success/10 text-accent-success',
-    escalated: 'bg-amber-500/10 text-amber-600',
+    escalated: 'bg-accent-warning/10 text-accent-warning',
     expired: 'bg-surface-elevated text-secondary',
   }
   return colors[status] || 'bg-surface-elevated text-secondary'

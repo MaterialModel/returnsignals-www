@@ -13,7 +13,7 @@ function getStatusBadge(status: ConversationStatus): { label: string; className:
   const config: Record<ConversationStatus, { label: string; className: string }> = {
     active: { label: 'Active', className: 'bg-accent-primary/10 text-accent-primary' },
     resolved: { label: 'Resolved', className: 'bg-accent-success/10 text-accent-success' },
-    escalated: { label: 'Escalated', className: 'bg-amber-500/10 text-amber-600' },
+    escalated: { label: 'Escalated', className: 'bg-accent-warning/10 text-accent-warning' },
     expired: { label: 'Expired', className: 'bg-surface-elevated text-secondary' },
   }
   return config[status] || { label: status, className: 'bg-surface-elevated text-secondary' }
@@ -24,8 +24,8 @@ function getOutcomeBadge(outcome: OutcomeType | null): { label: string; classNam
   const config: Record<OutcomeType, { label: string; className: string }> = {
     kept: { label: 'Kept', className: 'bg-accent-success/10 text-accent-success' },
     exchanged: { label: 'Exchanged', className: 'bg-accent-primary/10 text-accent-primary' },
-    disposal: { label: 'Disposal', className: 'bg-amber-500/10 text-amber-600' },
-    returned: { label: 'Returned', className: 'bg-red-500/10 text-red-500' },
+    disposal: { label: 'Disposal', className: 'bg-accent-warning/10 text-accent-warning' },
+    returned: { label: 'Returned', className: 'bg-accent-error/10 text-accent-error' },
     pending: { label: 'Pending', className: 'bg-surface-elevated text-secondary' },
   }
   return config[outcome]
