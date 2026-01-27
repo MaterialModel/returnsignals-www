@@ -2,18 +2,15 @@
  * Registration page
  */
 
-import { useState } from 'react'
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
 import { RegisterForm } from '@/components/auth'
-import { Card, CheckCircleIcon } from '@/components/ui'
+import { Card } from '@/components/ui'
 
 export default function RegisterPage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { register, isAuthenticated, isLoading } = useAuth()
-  const [success, setSuccess] = useState(false)
-  const [registeredEmail, setRegisteredEmail] = useState<string>('')
 
   const next = searchParams.get('next')
 
@@ -23,11 +20,10 @@ export default function RegisterPage() {
   }
 
   const handleSuccess = (
-    email: string,
+    _email: string,
     emailVerificationRequired: boolean,
     token: string | null
   ) => {
-    setRegisteredEmail(email)
     if (emailVerificationRequired && token) {
       // Redirect to verification page with email and next params
       const verifyUrl = `/verify-email?email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`
@@ -37,30 +33,6 @@ export default function RegisterPage() {
       // No verification needed (already logged in), redirect to intended destination
       navigate(next || '/', { replace: true })
     }
-  }
-
-  if (success) {
-    return (
-      <div className="min-h-vh-fix flex items-center justify-center bg-surface-base px-4">
-        <div className="w-full max-w-md">
-          <Card className="text-center">
-            <div className="mb-4">
-              <div className="mx-auto w-12 h-12 rounded-full bg-accent-success/10 flex items-center justify-center">
-                <CheckCircleIcon className="w-6 h-6 text-accent-success" />
-              </div>
-            </div>
-            <h2 className="text-xl font-medium text-primary mb-2">Check your email</h2>
-            <p className="text-secondary mb-6">
-              If this email is not already registered, you will receive a verification email
-              shortly.
-            </p>
-            <Link to="/login" className="text-accent-primary hover:text-accent-hover font-medium">
-              Back to sign in
-            </Link>
-          </Card>
-        </div>
-      </div>
-    )
   }
 
   return (
