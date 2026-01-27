@@ -8,9 +8,10 @@ import { ApiError } from '@/api'
 
 interface LoginFormProps {
   onSubmit: (email: string, password: string) => Promise<void>
+  onVerificationRequired?: (token: string) => void
 }
 
-export function LoginForm({ onSubmit }: LoginFormProps) {
+export function LoginForm({ onSubmit, onVerificationRequired }: LoginFormProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -25,7 +26,15 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
       await onSubmit(email, password)
     } catch (err) {
       if (err instanceof ApiError) {
-        setError(err.detail)
+        // Check if email verification is required
+        if (err.isEmailVerificationRequired()) {
+          const token = err.getPendingAuthToken()
+          if (token && onVerificationRequired) {
+            onVerificationRequired(token)
+            return
+          }
+        }
+        setError(err.getDisplayMessage())
       } else {
         setError('An unexpected error occurred. Please try again.')
       }

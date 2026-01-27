@@ -25,6 +25,10 @@ export default function LoginPage() {
     navigate(from, { replace: true })
   }
 
+  const handleVerificationRequired = (token: string) => {
+    navigate(`/verify-email?token=${token}`)
+  }
+
   return (
     <div className="min-h-vh-fix flex items-center justify-center bg-surface-base px-4">
       <div className="w-full max-w-md">
@@ -34,7 +38,7 @@ export default function LoginPage() {
         </div>
 
         <Card>
-          <LoginForm onSubmit={handleLogin} />
+          <LoginForm onSubmit={handleLogin} onVerificationRequired={handleVerificationRequired} />
 
           <div className="mt-6 text-center text-sm">
             <span className="text-secondary">Don't have an account? </span>

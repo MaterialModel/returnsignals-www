@@ -7,7 +7,7 @@
 
 import { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { authApi, ApiError } from '@/api'
-import type { User, LoginRequest, RegisterRequest } from '@/types'
+import type { User, LoginRequest, RegisterRequest, RegisterResponse } from '@/types'
 
 interface AuthContextValue {
   user: User | null
@@ -15,7 +15,7 @@ interface AuthContextValue {
   isAuthenticated: boolean
   login: (credentials: LoginRequest) => Promise<void>
   logout: () => Promise<void>
-  register: (data: RegisterRequest) => Promise<{ message: string }>
+  register: (data: RegisterRequest) => Promise<RegisterResponse>
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null)
@@ -66,6 +66,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const register = useCallback(async (data: RegisterRequest) => {
     const response = await authApi.register(data)
+    // If no verification required, user is already logged in (session cookie set)
+    if (!response.email_verification_required && response.user) {
+      setUser(response.user)
+    }
     return response
   }, [])
 

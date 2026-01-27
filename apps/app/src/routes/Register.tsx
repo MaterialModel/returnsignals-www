@@ -3,12 +3,13 @@
  */
 
 import { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
 import { RegisterForm } from '@/components/auth'
 import { Card } from '@/components/ui'
 
 export default function RegisterPage() {
+  const navigate = useNavigate()
   const { register, isAuthenticated, isLoading } = useAuth()
   const [success, setSuccess] = useState(false)
 
@@ -17,8 +18,14 @@ export default function RegisterPage() {
     return <Navigate to="/" replace />
   }
 
-  const handleSuccess = () => {
-    setSuccess(true)
+  const handleSuccess = (emailVerificationRequired: boolean, token: string | null) => {
+    if (emailVerificationRequired && token) {
+      // Redirect to verification page
+      navigate(`/verify-email?token=${token}`)
+    } else {
+      // No verification needed (already logged in)
+      setSuccess(true)
+    }
   }
 
   if (success) {

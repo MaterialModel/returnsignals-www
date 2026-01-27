@@ -37,5 +37,19 @@ export interface RegisterRequest {
 }
 
 export interface RegisterResponse {
+  user: User | null
+  success: boolean
+  email_verification_required: boolean
+  pending_authentication_token: string | null
   message: string
+}
+
+export interface EmailVerificationRequest {
+  code: string
+  pending_authentication_token: string
+}
+
+export interface EmailVerificationResponse {
+  user: User
+  success: boolean
 }

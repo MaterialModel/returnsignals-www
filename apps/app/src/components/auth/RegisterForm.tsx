@@ -5,11 +5,11 @@
 import { useState, type FormEvent } from 'react'
 import { Button, Input, ErrorMessage } from '@/components/ui'
 import { ApiError } from '@/api'
-import type { RegisterRequest } from '@/types'
+import type { RegisterRequest, RegisterResponse } from '@/types'
 
 interface RegisterFormProps {
-  onSubmit: (data: RegisterRequest) => Promise<{ message: string }>
-  onSuccess: () => void
+  onSubmit: (data: RegisterRequest) => Promise<RegisterResponse>
+  onSuccess: (emailVerificationRequired: boolean, token: string | null) => void
 }
 
 export function RegisterForm({ onSubmit, onSuccess }: RegisterFormProps) {
@@ -40,16 +40,16 @@ export function RegisterForm({ onSubmit, onSuccess }: RegisterFormProps) {
     setIsLoading(true)
 
     try {
-      await onSubmit({
+      const response = await onSubmit({
         email: formData.email,
         password: formData.password,
         first_name: formData.first_name,
         last_name: formData.last_name,
       })
-      onSuccess()
+      onSuccess(response.email_verification_required, response.pending_authentication_token)
     } catch (err) {
       if (err instanceof ApiError) {
-        setError(err.detail)
+        setError(err.getDisplayMessage())
       } else {
         setError('An unexpected error occurred. Please try again.')
       }

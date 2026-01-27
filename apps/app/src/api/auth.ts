@@ -3,7 +3,15 @@
  */
 
 import { api } from './client'
-import type { User, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '@/types'
+import type {
+  User,
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+  RegisterResponse,
+  EmailVerificationRequest,
+  EmailVerificationResponse,
+} from '@/types'
 
 export const authApi = {
   /**
@@ -27,6 +35,13 @@ export const authApi = {
    * Register a new user account
    */
   register: (data: RegisterRequest) => api.post<RegisterResponse>('/auth/register', data),
+
+  /**
+   * Verify email with 6-digit code
+   * Completes email verification flow after registration
+   */
+  verifyEmail: (data: EmailVerificationRequest) =>
+    api.post<EmailVerificationResponse>('/auth/verify-email', data),
 
   /**
    * Refresh an expired session
