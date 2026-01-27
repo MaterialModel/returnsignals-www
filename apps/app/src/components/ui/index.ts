@@ -9,6 +9,8 @@ export { ErrorMessage } from './ErrorMessage'
 export { Input } from './Input'
 export { LoadingSpinner } from './LoadingSpinner'
 export { Modal } from './Modal'
+export { SignedImage } from './SignedImage'
+export { ImageLightbox } from './ImageLightbox'
 export {
   ChatIcon,
   ChartIcon,
@@ -22,4 +24,5 @@ export {
   InfoIcon,
   CheckCircleIcon,
   CheckIcon,
+  ImagePlaceholderIcon,
 } from './icons'
