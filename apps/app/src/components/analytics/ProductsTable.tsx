@@ -71,9 +71,9 @@ export function ProductsTable({ products }: ProductsTableProps) {
                 <span
                   className={`text-sm font-medium ${
                     product.return_rate > 0.25
-                      ? 'text-red-500'
+                      ? 'text-accent-error'
                       : product.return_rate > 0.15
-                        ? 'text-amber-500'
+                        ? 'text-accent-warning'
                         : 'text-accent-success'
                   }`}
                 >

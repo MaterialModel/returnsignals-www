@@ -17,9 +17,9 @@ const categoryLabels: Record<IssueCategory, string> = {
 
 const categoryColors: Record<string, string> = {
   fit_sizing: 'bg-accent-primary',
-  quality_defects: 'bg-amber-500',
+  quality_defects: 'bg-accent-warning',
   expectations_mismatch: 'bg-accent-success',
-  other: 'bg-purple-500',
+  other: 'bg-accent-secondary',
 }
 
 function IssueBreakdownBar({ breakdown }: { breakdown: ProductIssueBreakdown }) {

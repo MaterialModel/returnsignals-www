@@ -54,7 +54,7 @@ export function TrendingIssues({ issues }: TrendingIssuesProps) {
             </div>
             <div className="flex items-center gap-1 ml-2">
               {trend.direction === 'up' && (
-                <span className="flex items-center text-red-500 text-sm">
+                <span className="flex items-center text-accent-error text-sm">
                   <TrendUpIcon />+{trend.value}%
                 </span>
               )}

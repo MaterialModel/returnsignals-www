@@ -13,7 +13,7 @@ interface KPICardProps {
 export function KPICard({ label, value, description, trend, trendValue }: KPICardProps) {
   const trendColors = {
     positive: 'text-accent-success',
-    negative: 'text-red-500',
+    negative: 'text-accent-error',
     neutral: 'text-secondary',
   }
 
