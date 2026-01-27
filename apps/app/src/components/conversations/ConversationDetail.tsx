@@ -72,23 +72,25 @@ export function ConversationDetail({
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex-shrink-0 border-b border-border p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-lg font-medium text-primary">{displayName}</h2>
-            <p className="text-sm text-secondary">
-              {formatPhone(conversation.customer_phone)}
-              {conversation.customer_email && ` • ${conversation.customer_email}`}
-            </p>
+      <div className="flex-shrink-0 border-b border-border">
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-medium text-primary">{displayName}</h2>
+              <p className="text-sm text-secondary">
+                {formatPhone(conversation.customer_phone)}
+                {conversation.customer_email && ` • ${conversation.customer_email}`}
+              </p>
+            </div>
+            <StatusBadge status={conversation.status} />
           </div>
-          <StatusBadge status={conversation.status} />
+          {conversation.order_id && (
+            <p className="text-xs text-tertiary mt-2">Order: {conversation.order_id}</p>
+          )}
+          <p className="text-xs text-tertiary mt-1">
+            Started {formatDateTime(conversation.created_at)}
+          </p>
         </div>
-        {conversation.order_id && (
-          <p className="text-xs text-tertiary mt-2">Order: {conversation.order_id}</p>
-        )}
-        <p className="text-xs text-tertiary mt-1">
-          Started {formatDateTime(conversation.created_at)}
-        </p>
       </div>
 
       {/* Messages */}

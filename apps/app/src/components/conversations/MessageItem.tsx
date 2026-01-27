@@ -25,7 +25,7 @@ export function MessageItem({ message }: MessageItemProps) {
           padding: '8px 12px',
           borderRadius: '18px',
           boxShadow: '0 0.5px 1px rgba(0, 0, 0, 0.1)',
-          backgroundColor: isInbound ? '#dcdcde' : isBot ? '#34c759' : '#007aff',
+          backgroundColor: isInbound ? '#dcdcde' : '#007aff',
           color: isInbound ? '#000000' : '#ffffff',
         }}
       >

@@ -40,15 +40,16 @@ export default function ConversationsPage() {
 
   return (
     <div className="flex h-[calc(100vh-4rem)]">
-      {/* Conversation list - hide on mobile when viewing detail */}
+      {/* Left column: Conversations list */}
       <div
         className={`
           w-full md:w-80 lg:w-96 flex-shrink-0 border-r border-border
-          overflow-y-auto bg-surface-base
-          ${isDetailView ? 'hidden md:block' : 'block'}
+          flex flex-col bg-surface-base
+          ${isDetailView ? 'hidden md:flex' : 'flex'}
         `}
       >
-        <div className="sticky top-0 z-10 bg-surface-base border-b border-border p-4">
+        {/* Header */}
+        <div className="flex-shrink-0 border-b border-border p-4">
           <div className="flex items-center justify-between mb-3">
             <h1 className="text-lg font-medium text-primary">Conversations</h1>
             {canCreateConversation && (
@@ -67,10 +68,14 @@ export default function ConversationsPage() {
           </div>
           <StatusFilter value={status} onChange={setStatus} />
         </div>
-        <ConversationList conversations={conversations} isLoading={isLoading} error={error} />
+
+        {/* List */}
+        <div className="flex-1 overflow-y-auto">
+          <ConversationList conversations={conversations} isLoading={isLoading} error={error} />
+        </div>
       </div>
 
-      {/* Conversation detail - Outlet renders the nested route */}
+      {/* Right column: Conversation detail */}
       <div
         className={`
           flex-1 bg-surface-base

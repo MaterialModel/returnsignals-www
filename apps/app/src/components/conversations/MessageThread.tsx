@@ -24,7 +24,7 @@ export function MessageThread({ messages }: MessageThreadProps) {
       <div
         className="flex-1 flex items-center justify-center"
         style={{
-          backgroundColor: '#ECEDEF',
+          backgroundColor: '#ffffff',
           fontFamily:
             "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         }}
@@ -38,7 +38,7 @@ export function MessageThread({ messages }: MessageThreadProps) {
     <div
       className="flex-1 overflow-y-auto"
       style={{
-        backgroundColor: '#ECEDEF',
+        backgroundColor: '#ffffff',
         fontFamily:
           "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         padding: '12px',
