@@ -9,3 +9,15 @@ export { ErrorMessage } from './ErrorMessage'
 export { Input } from './Input'
 export { LoadingSpinner } from './LoadingSpinner'
 export { Modal } from './Modal'
+export {
+  ChatIcon,
+  ChartIcon,
+  SettingsIcon,
+  CloseIcon,
+  SearchIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  TrendUpIcon,
+  TrendDownIcon,
+  InfoIcon,
+} from './icons'
