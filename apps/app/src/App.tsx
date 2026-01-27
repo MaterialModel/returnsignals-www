@@ -10,6 +10,7 @@ import { AppLayout } from '@/components/layout'
 import Home from '@/routes/Home'
 import LoginPage from '@/routes/Login'
 import RegisterPage from '@/routes/Register'
+import VerifyEmailPage from '@/routes/VerifyEmail'
 import ConversationsPage from '@/routes/org/ConversationsPage'
 import ConversationDetailPage from '@/routes/org/ConversationDetailPage'
 import ConversationEmptyState from '@/routes/org/ConversationEmptyState'
@@ -30,6 +31,7 @@ function App() {
       {/* Public routes */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/verify-email" element={<VerifyEmailPage />} />
 
       {/* Protected routes */}
       <Route element={<ProtectedRoute />}>

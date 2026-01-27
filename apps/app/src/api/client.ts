@@ -7,10 +7,43 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 export class ApiError extends Error {
   constructor(
     public status: number,
-    public detail: string
+    public detail: string | Record<string, unknown>
   ) {
-    super(detail)
+    super(typeof detail === 'string' ? detail : JSON.stringify(detail))
     this.name = 'ApiError'
+  }
+
+  // Check if this is an email verification required error
+  isEmailVerificationRequired(): boolean {
+    return (
+      this.status === 403 &&
+      typeof this.detail === 'object' &&
+      this.detail !== null &&
+      'code' in this.detail &&
+      this.detail.code === 'email_verification_required'
+    )
+  }
+
+  // Get the pending authentication token from email verification error
+  getPendingAuthToken(): string | null {
+    if (this.isEmailVerificationRequired() && typeof this.detail === 'object') {
+      return (
+        (this.detail as { pending_authentication_token?: string }).pending_authentication_token ??
+        null
+      )
+    }
+    return null
+  }
+
+  // Get display message
+  getDisplayMessage(): string {
+    if (typeof this.detail === 'string') {
+      return this.detail
+    }
+    if (typeof this.detail === 'object' && this.detail !== null && 'message' in this.detail) {
+      return String(this.detail.message)
+    }
+    return 'An error occurred'
   }
 }
 
