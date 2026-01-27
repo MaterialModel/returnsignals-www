@@ -3,6 +3,7 @@
  */
 
 import { Link, useParams } from 'react-router-dom'
+import { SignedImage } from '@/components/ui'
 import type { ProblemProduct } from '@/types'
 
 interface ProductsTableProps {
@@ -44,13 +45,12 @@ export function ProductsTable({ products }: ProductsTableProps) {
                   to={`/org/${orgId}/analytics/products/${product.product_id}`}
                   className="flex items-center gap-3 hover:text-accent-primary transition-colors"
                 >
-                  {product.image_url && (
-                    <img
-                      src={product.image_url}
-                      alt={product.title}
-                      className="w-10 h-10 object-cover rounded"
-                    />
-                  )}
+                  <SignedImage
+                    src={product.image_url}
+                    alt={product.title}
+                    className="w-10 h-10 object-cover rounded"
+                    fallback="placeholder"
+                  />
                   <div>
                     <div className="text-sm font-medium text-primary">{product.title}</div>
                     {product.vendor && (

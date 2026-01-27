@@ -4,7 +4,7 @@
 
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useProductDetail } from '@/hooks'
-import { LoadingSpinner, ErrorMessage, Button, ChevronLeftIcon } from '@/components/ui'
+import { LoadingSpinner, ErrorMessage, Button, ChevronLeftIcon, SignedImage } from '@/components/ui'
 import type { IssueCategory, ProductIssueBreakdown } from '@/types'
 
 const categoryLabels: Record<IssueCategory, string> = {
@@ -110,13 +110,12 @@ export default function AnalyticsProductDetail() {
         </Button>
 
         <div className="flex items-start gap-4">
-          {product.product.image_url && (
-            <img
-              src={product.product.image_url}
-              alt={product.product.title}
-              className="w-20 h-20 object-cover rounded-lg"
-            />
-          )}
+          <SignedImage
+            src={product.product.image_url}
+            alt={product.product.title}
+            className="w-20 h-20 object-cover rounded-lg"
+            fallback="placeholder"
+          />
           <div>
             <h1 className="text-xl font-semibold text-primary">{product.product.title}</h1>
             {product.product.vendor && (
