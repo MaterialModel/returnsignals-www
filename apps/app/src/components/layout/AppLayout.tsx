@@ -11,13 +11,13 @@ export function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-vh-fix bg-surface-base">
+    <div className="h-vh-fix bg-surface-base flex flex-col overflow-hidden">
       <Navbar onMenuToggle={() => setSidebarOpen(!sidebarOpen)} showMenuButton />
 
-      <div className="flex">
+      <div className="flex flex-1 min-h-0">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-        <main className="flex-1 min-w-0">
+        <main className="flex-1 min-w-0 min-h-0 overflow-hidden">
           <Outlet />
         </main>
       </div>

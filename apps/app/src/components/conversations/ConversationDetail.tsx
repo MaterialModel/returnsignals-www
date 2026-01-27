@@ -70,10 +70,10 @@ export function ConversationDetail({
   const displayName = conversation.customer_name || formatPhone(conversation.customer_phone)
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Header */}
-      <div className="flex-shrink-0 border-b border-border">
-        <div className="p-4">
+    <div className="flex flex-col h-full w-full min-h-0">
+      {/* Header - fixed height to align with left panel */}
+      <div className="flex-shrink-0 border-b border-border h-[116px] flex flex-col justify-center">
+        <div className="px-4">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-medium text-primary">{displayName}</h2>
