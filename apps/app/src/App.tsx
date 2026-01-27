@@ -16,6 +16,14 @@ import ConversationEmptyState from '@/routes/org/ConversationEmptyState'
 import SettingsPage from '@/routes/org/SettingsPage'
 import MembersPage from '@/routes/org/MembersPage'
 
+// Analytics pages
+import AnalyticsPage from '@/routes/org/AnalyticsPage'
+import AnalyticsOverview from '@/routes/org/AnalyticsOverview'
+import AnalyticsInterventions from '@/routes/org/AnalyticsInterventions'
+import AnalyticsProducts from '@/routes/org/AnalyticsProducts'
+import AnalyticsProductDetail from '@/routes/org/AnalyticsProductDetail'
+import AnalyticsConfiguration from '@/routes/org/AnalyticsConfiguration'
+
 function App() {
   return (
     <Routes>
@@ -42,6 +50,16 @@ function App() {
           {/* Settings (admin+ only) */}
           <Route path="settings" element={<SettingsPage />} />
           <Route path="settings/members" element={<MembersPage />} />
+
+          {/* Analytics */}
+          <Route path="analytics" element={<AnalyticsPage />}>
+            <Route index element={<Navigate to="overview" replace />} />
+            <Route path="overview" element={<AnalyticsOverview />} />
+            <Route path="interventions" element={<AnalyticsInterventions />} />
+            <Route path="products" element={<AnalyticsProducts />} />
+            <Route path="products/:productId" element={<AnalyticsProductDetail />} />
+            <Route path="configuration" element={<AnalyticsConfiguration />} />
+          </Route>
         </Route>
       </Route>
 
