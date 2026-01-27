@@ -11,6 +11,7 @@ import type {
   ProductDetailResponse,
   TrendingIssuesResponse,
   DateRangeParams,
+  ComplaintSearchResponse,
 } from '@/types'
 
 /**
@@ -85,4 +86,12 @@ export const analyticsApi = {
       `/organizations/${orgId}/analytics/trending-issues${query}`
     )
   },
+
+  /**
+   * AI-powered complaint search
+   */
+  complaintSearch: (orgId: string, query: string) =>
+    api.post<ComplaintSearchResponse>(`/organizations/${orgId}/analytics/complaint-search`, {
+      query,
+    }),
 }
