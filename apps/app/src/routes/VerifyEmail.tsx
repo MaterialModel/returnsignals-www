@@ -3,13 +3,14 @@
  */
 
 import { useState, useEffect } from 'react'
-import { Link, Navigate, useSearchParams } from 'react-router-dom'
+import { Navigate, useSearchParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
-import { Button, Input, Card, ErrorMessage } from '@/components/ui'
+import { Button, Input, Card, ErrorMessage, CheckCircleIcon } from '@/components/ui'
 import { authApi, ApiError } from '@/api'
 
 export default function VerifyEmailPage() {
   const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
   const { isAuthenticated, isLoading: authLoading } = useAuth()
   const [code, setCode] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -17,6 +18,8 @@ export default function VerifyEmailPage() {
   const [success, setSuccess] = useState(false)
 
   const token = searchParams.get('token')
+  const email = searchParams.get('email')
+  const next = searchParams.get('next')
 
   useEffect(() => {
     // If no token in URL, redirect to login
@@ -43,19 +46,25 @@ export default function VerifyEmailPage() {
         pending_authentication_token: token,
       })
       setSuccess(true)
-      // Reload to update auth state (session cookie is set)
+      // Redirect to intended destination after verification
       setTimeout(() => {
-        window.location.href = '/'
+        window.location.href = next || '/'
       }, 1500)
     } catch (err) {
       if (err instanceof ApiError) {
-        setError(err.detail)
+        setError(err.getDisplayMessage())
       } else {
         setError('An unexpected error occurred. Please try again.')
       }
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleRequestNewCode = () => {
+    // Navigate to login with resend flag and preserve next param
+    const loginUrl = `/login?resend=true${next ? `&next=${encodeURIComponent(next)}` : ''}`
+    navigate(loginUrl)
   }
 
   if (success) {
@@ -65,19 +74,7 @@ export default function VerifyEmailPage() {
           <Card className="text-center">
             <div className="mb-4">
               <div className="mx-auto w-12 h-12 rounded-full bg-accent-success/10 flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-accent-success"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
+                <CheckCircleIcon className="w-6 h-6 text-accent-success" />
               </div>
             </div>
             <h2 className="text-xl font-medium text-primary mb-2">Email verified!</h2>
@@ -93,7 +90,12 @@ export default function VerifyEmailPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-medium text-primary mb-2">Verify your email</h1>
-          <p className="text-secondary">Enter the 6-digit code sent to your email</p>
+          {email && (
+            <p className="text-secondary mb-2">
+              We sent a code to <span className="font-medium text-primary">{email}</span>
+            </p>
+          )}
+          <p className="text-sm text-tertiary">Code expires in 10 minutes</p>
         </div>
 
         <Card>
@@ -114,19 +116,30 @@ export default function VerifyEmailPage() {
               className="text-center text-2xl tracking-widest"
             />
 
-            <Button type="submit" variant="primary" isLoading={isLoading} className="w-full">
+            <Button
+              type="submit"
+              variant="primary"
+              isLoading={isLoading}
+              disabled={code.length !== 6}
+              className="w-full"
+            >
               Verify email
             </Button>
           </form>
 
-          <div className="mt-6 text-center text-sm">
-            <span className="text-secondary">Didn't receive a code? </span>
-            <Link
-              to="/register"
-              className="text-accent-primary hover:text-accent-hover font-medium"
-            >
-              Try again
-            </Link>
+          <div className="mt-6 space-y-3">
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={handleRequestNewCode}
+                className="text-sm text-accent-primary hover:text-accent-hover font-medium"
+              >
+                Request new code
+              </button>
+            </div>
+            <div className="text-center text-xs text-tertiary">
+              Enter your password on the next page to receive a new code
+            </div>
           </div>
         </Card>
       </div>

@@ -9,7 +9,7 @@ import type { RegisterRequest, RegisterResponse } from '@/types'
 
 interface RegisterFormProps {
   onSubmit: (data: RegisterRequest) => Promise<RegisterResponse>
-  onSuccess: (emailVerificationRequired: boolean, token: string | null) => void
+  onSuccess: (email: string, emailVerificationRequired: boolean, token: string | null) => void
 }
 
 export function RegisterForm({ onSubmit, onSuccess }: RegisterFormProps) {
@@ -46,7 +46,11 @@ export function RegisterForm({ onSubmit, onSuccess }: RegisterFormProps) {
         first_name: formData.first_name,
         last_name: formData.last_name,
       })
-      onSuccess(response.email_verification_required, response.pending_authentication_token)
+      onSuccess(
+        formData.email,
+        response.email_verification_required,
+        response.pending_authentication_token
+      )
     } catch (err) {
       if (err instanceof ApiError) {
         setError(err.getDisplayMessage())
