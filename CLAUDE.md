@@ -235,6 +235,7 @@ When working with this codebase:
 7. When modifying shared packages, test both apps
 8. Keep styling consistent across both applications
 9. For www pages, create markdown versions in `apps/www/public/`
+10. **NEVER inline SVG icons** - always use the shared icons file at `apps/app/src/components/ui/icons.tsx`. Add new icons there and import them where needed.
 
 ## App-Specific Documentation
 
