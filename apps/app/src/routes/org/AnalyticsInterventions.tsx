@@ -49,86 +49,31 @@ export default function AnalyticsInterventions() {
 
   return (
     <div className="p-4 space-y-6">
-      {/* Pipeline stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <KPICard
-          label="Total Interventions"
-          value={total.toLocaleString()}
-          description="In selected period"
-        />
-        <KPICard
-          label="Resolution Rate"
-          value={
-            total > 0
-              ? `${(((outcomesSummary.kept + outcomesSummary.exchanged + outcomesSummary.disposal + outcomesSummary.returned) / total) * 100).toFixed(0)}%`
-              : '0%'
-          }
-          description="Completed outcomes"
-        />
-        <KPICard
-          label="Returns Prevented"
-          value={outcomesSummary.kept.toLocaleString()}
-          description="Items kept by customers"
-          trend={outcomesSummary.kept > 0 ? 'positive' : undefined}
-        />
-      </div>
-
-      {/* Filters */}
-      <div className="flex flex-wrap gap-4 items-center">
-        <div>
-          <label htmlFor="status-filter" className="sr-only">
-            Filter by status
-          </label>
-          <select
-            id="status-filter"
-            value={status || ''}
-            onChange={(e) => {
-              setStatus((e.target.value || undefined) as ConversationStatus | undefined)
-              setPage(0)
-            }}
-            className="px-3 py-2 bg-surface-base border border-border rounded text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/50"
-          >
-            {statusOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+      {/* Pipeline stats - only show when loaded */}
+      {!isLoading && !error && (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <KPICard
+            label="Total Interventions"
+            value={total.toLocaleString()}
+            description="In selected period"
+          />
+          <KPICard
+            label="Resolution Rate"
+            value={
+              total > 0
+                ? `${(((outcomesSummary.kept + outcomesSummary.exchanged + outcomesSummary.disposal + outcomesSummary.returned) / total) * 100).toFixed(0)}%`
+                : '0%'
+            }
+            description="Completed outcomes"
+          />
+          <KPICard
+            label="Returns Prevented"
+            value={outcomesSummary.kept.toLocaleString()}
+            description="Items kept by customers"
+            trend={outcomesSummary.kept > 0 ? 'positive' : undefined}
+          />
         </div>
-        <div>
-          <label htmlFor="outcome-filter" className="sr-only">
-            Filter by outcome
-          </label>
-          <select
-            id="outcome-filter"
-            value={outcomeType || ''}
-            onChange={(e) => {
-              setOutcomeType((e.target.value || undefined) as OutcomeType | undefined)
-              setPage(0)
-            }}
-            className="px-3 py-2 bg-surface-base border border-border rounded text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/50"
-          >
-            {outcomeOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-        {(status || outcomeType) && (
-          <Button
-            variant="text"
-            size="sm"
-            onClick={() => {
-              setStatus(undefined)
-              setOutcomeType(undefined)
-              setPage(0)
-            }}
-          >
-            Clear filters
-          </Button>
-        )}
-      </div>
+      )}
 
       {/* Content */}
       {isLoading ? (
@@ -139,6 +84,63 @@ export default function AnalyticsInterventions() {
         <ErrorMessage message={error.message} />
       ) : (
         <>
+          {/* Filters */}
+          <div className="flex flex-wrap gap-4 items-center">
+            <div>
+              <label htmlFor="status-filter" className="sr-only">
+                Filter by status
+              </label>
+              <select
+                id="status-filter"
+                value={status || ''}
+                onChange={(e) => {
+                  setStatus((e.target.value || undefined) as ConversationStatus | undefined)
+                  setPage(0)
+                }}
+                className="px-3 py-2 bg-surface-base border border-border rounded text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/50"
+              >
+                {statusOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="outcome-filter" className="sr-only">
+                Filter by outcome
+              </label>
+              <select
+                id="outcome-filter"
+                value={outcomeType || ''}
+                onChange={(e) => {
+                  setOutcomeType((e.target.value || undefined) as OutcomeType | undefined)
+                  setPage(0)
+                }}
+                className="px-3 py-2 bg-surface-base border border-border rounded text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/50"
+              >
+                {outcomeOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {(status || outcomeType) && (
+              <Button
+                variant="text"
+                size="sm"
+                onClick={() => {
+                  setStatus(undefined)
+                  setOutcomeType(undefined)
+                  setPage(0)
+                }}
+              >
+                Clear filters
+              </Button>
+            )}
+          </div>
+
           {/* Table */}
           <div className="bg-surface-base border border-border rounded-lg overflow-hidden">
             <InterventionTable interventions={interventions} />
