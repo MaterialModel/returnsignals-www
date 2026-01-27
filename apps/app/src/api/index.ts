@@ -8,6 +8,8 @@ export { organizationsApi } from './organizations'
 export { conversationsApi } from './conversations'
 export { membersApi } from './members'
 export { invitationsApi } from './invitations'
+export { analyticsApi } from './analytics'
+export { settingsApi } from './settings'
 export type {
   ConversationListParams,
   CreateConversationRequest,
