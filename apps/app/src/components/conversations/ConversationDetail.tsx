@@ -2,13 +2,16 @@
  * Full conversation detail view
  */
 
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { ConversationDetail as ConversationDetailType } from '@/types'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth, useOrganization } from '@/hooks'
 import { LoadingSpinner, ErrorMessage, EmptyState } from '@/components/ui'
+import { DevicePhoneIcon } from '@/components/ui/icons'
 import { StatusBadge } from './StatusBadge'
 import { MessageThread } from './MessageThread'
 import { MessageForm } from './MessageForm'
+import { CustomerViewModal } from './CustomerViewModal'
 import { formatPhone, formatDateTime } from '@/utils/formatters'
 
 interface ConversationDetailProps {
@@ -26,6 +29,8 @@ export function ConversationDetail({
 }: ConversationDetailProps) {
   const { orgId } = useParams<{ orgId: string }>()
   const { user } = useAuth()
+  const { organization } = useOrganization(orgId)
+  const [isCustomerViewOpen, setIsCustomerViewOpen] = useState(false)
 
   // Check if user can send messages (manager+ role in this org)
   const membership = user?.memberships.find((m) => m.organization_id === orgId)
@@ -33,7 +38,7 @@ export function ConversationDetail({
 
   if (isLoading) {
     return (
-      <div className="flex-1 flex items-center justify-center">
+      <div className="h-full w-full flex items-center justify-center">
         <LoadingSpinner />
       </div>
     )
@@ -41,7 +46,7 @@ export function ConversationDetail({
 
   if (error) {
     return (
-      <div className="flex-1 p-4">
+      <div className="h-full w-full flex items-center justify-center p-4">
         <ErrorMessage error={error} />
       </div>
     )
@@ -82,7 +87,17 @@ export function ConversationDetail({
                 {conversation.customer_email && ` • ${conversation.customer_email}`}
               </p>
             </div>
-            <StatusBadge status={conversation.status} />
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsCustomerViewOpen(true)}
+                className="btn btn-secondary btn-sm flex items-center gap-1.5"
+                aria-label="View as customer sees it"
+              >
+                <DevicePhoneIcon className="w-4 h-4" />
+                <span>Customer View</span>
+              </button>
+              <StatusBadge status={conversation.status} />
+            </div>
           </div>
           {conversation.order_id && (
             <p className="text-xs text-tertiary mt-2">Order: {conversation.order_id}</p>
@@ -107,6 +122,14 @@ export function ConversationDetail({
           <p className="text-sm text-secondary">You need manager permissions to send messages.</p>
         </div>
       )}
+
+      {/* Customer View Modal */}
+      <CustomerViewModal
+        isOpen={isCustomerViewOpen}
+        onClose={() => setIsCustomerViewOpen(false)}
+        messages={conversation.messages}
+        brandName={organization?.name}
+      />
     </div>
   )
 }
