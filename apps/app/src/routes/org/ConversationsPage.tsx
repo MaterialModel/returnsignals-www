@@ -39,7 +39,7 @@ export default function ConversationsPage() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-4rem)]">
+    <div className="flex h-full">
       {/* Left column: Conversations list */}
       <div
         className={`
@@ -49,7 +49,7 @@ export default function ConversationsPage() {
         `}
       >
         {/* Header */}
-        <div className="flex-shrink-0 border-b border-border p-4">
+        <div className="flex-shrink-0 border-b border-border p-4 h-[116px] flex flex-col justify-center">
           <div className="flex items-center justify-between mb-3">
             <h1 className="text-lg font-medium text-primary">Conversations</h1>
             {canCreateConversation && (
@@ -78,8 +78,8 @@ export default function ConversationsPage() {
       {/* Right column: Conversation detail */}
       <div
         className={`
-          flex-1 bg-surface-base
-          ${isDetailView ? 'block' : 'hidden md:block'}
+          flex-1 bg-surface-base h-full overflow-hidden flex flex-col min-h-0
+          ${isDetailView ? 'flex' : 'hidden md:flex'}
         `}
       >
         <Outlet />

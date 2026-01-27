@@ -83,6 +83,16 @@
   }
 }
 
+/* Fixed-height viewport utility to avoid document scrolling */
+.h-vh-fix {
+  height: 100vh;
+}
+@supports (height: 100dvh) {
+  .h-vh-fix {
+    height: 100dvh;
+  }
+}
+
 /* Safe area helpers for notched screens */
 .pt-safe {
   padding-top: env(safe-area-inset-top);
