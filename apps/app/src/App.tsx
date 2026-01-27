@@ -11,6 +11,8 @@ import Home from '@/routes/Home'
 import LoginPage from '@/routes/Login'
 import RegisterPage from '@/routes/Register'
 import VerifyEmailPage from '@/routes/VerifyEmail'
+import ForgotPasswordPage from '@/routes/ForgotPassword'
+import ResetPasswordPage from '@/routes/ResetPassword'
 import ConversationsPage from '@/routes/org/ConversationsPage'
 import ConversationDetailPage from '@/routes/org/ConversationDetailPage'
 import ConversationEmptyState from '@/routes/org/ConversationEmptyState'
@@ -32,6 +34,8 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/verify-email" element={<VerifyEmailPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
 
       {/* Protected routes */}
       <Route element={<ProtectedRoute />}>

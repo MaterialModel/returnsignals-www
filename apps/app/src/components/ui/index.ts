@@ -25,4 +25,6 @@ export {
   CheckCircleIcon,
   CheckIcon,
   ImagePlaceholderIcon,
+  ArrowLeftIcon,
+  LockClosedIcon,
 } from './icons'

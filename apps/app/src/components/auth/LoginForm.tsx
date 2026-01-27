@@ -3,6 +3,7 @@
  */
 
 import { useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Input, ErrorMessage } from '@/components/ui'
 import { ApiError } from '@/api'
 
@@ -59,17 +60,27 @@ export function LoginForm({ onSubmit, onVerificationRequired }: LoginFormProps) 
         autoFocus
       />
 
-      <Input
-        label="Password"
-        type="password"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter your password"
-        required
-        autoComplete="current-password"
-        minLength={8}
-      />
+      <div>
+        <Input
+          label="Password"
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter your password"
+          required
+          autoComplete="current-password"
+          minLength={8}
+        />
+        <div className="mt-1 text-right">
+          <Link
+            to="/forgot-password"
+            className="text-sm text-accent-primary hover:text-accent-hover"
+          >
+            Forgot password?
+          </Link>
+        </div>
+      </div>
 
       <Button type="submit" variant="primary" isLoading={isLoading} className="w-full">
         Sign in
