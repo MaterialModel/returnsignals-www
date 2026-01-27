@@ -45,7 +45,8 @@ export function ProductQueryInterface() {
       hasSearchedInitialQuery.current = true
       search(initialQuery)
     }
-  }, [initialQuery, search])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialQuery])
 
   // Configure marked to handle links
   const renderedAnswer = useMemo(() => {
@@ -184,8 +185,8 @@ export function ProductQueryInterface() {
 
       {/* Error message */}
       {error && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-sm text-red-700">{error}</p>
+        <div className="p-4 bg-accent-error/10 border border-accent-error/20 rounded-lg">
+          <p className="text-sm text-accent-error">{error}</p>
         </div>
       )}
 
