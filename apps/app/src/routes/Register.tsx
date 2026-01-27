@@ -3,28 +3,39 @@
  */
 
 import { useState } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
 import { RegisterForm } from '@/components/auth'
-import { Card } from '@/components/ui'
+import { Card, CheckCircleIcon } from '@/components/ui'
 
 export default function RegisterPage() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { register, isAuthenticated, isLoading } = useAuth()
   const [success, setSuccess] = useState(false)
+  const [registeredEmail, setRegisteredEmail] = useState<string>('')
+
+  const next = searchParams.get('next')
 
   // If already authenticated, redirect to home
   if (!isLoading && isAuthenticated) {
     return <Navigate to="/" replace />
   }
 
-  const handleSuccess = (emailVerificationRequired: boolean, token: string | null) => {
+  const handleSuccess = (
+    email: string,
+    emailVerificationRequired: boolean,
+    token: string | null
+  ) => {
+    setRegisteredEmail(email)
     if (emailVerificationRequired && token) {
-      // Redirect to verification page
-      navigate(`/verify-email?token=${token}`)
+      // Redirect to verification page with email and next params
+      const verifyUrl = `/verify-email?email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`
+      const finalUrl = next ? `${verifyUrl}&next=${encodeURIComponent(next)}` : verifyUrl
+      navigate(finalUrl)
     } else {
-      // No verification needed (already logged in)
-      setSuccess(true)
+      // No verification needed (already logged in), redirect to intended destination
+      navigate(next || '/', { replace: true })
     }
   }
 
@@ -34,20 +45,8 @@ export default function RegisterPage() {
         <div className="w-full max-w-md">
           <Card className="text-center">
             <div className="mb-4">
-              <div className="mx-auto w-12 h-12 rounded-full bg-accent-success-bg flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-accent-success"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
+              <div className="mx-auto w-12 h-12 rounded-full bg-accent-success/10 flex items-center justify-center">
+                <CheckCircleIcon className="w-6 h-6 text-accent-success" />
               </div>
             </div>
             <h2 className="text-xl font-medium text-primary mb-2">Check your email</h2>

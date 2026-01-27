@@ -8,7 +8,7 @@ import { ApiError } from '@/api'
 
 interface LoginFormProps {
   onSubmit: (email: string, password: string) => Promise<void>
-  onVerificationRequired?: (token: string) => void
+  onVerificationRequired?: (email: string, token: string) => void
 }
 
 export function LoginForm({ onSubmit, onVerificationRequired }: LoginFormProps) {
@@ -30,7 +30,7 @@ export function LoginForm({ onSubmit, onVerificationRequired }: LoginFormProps) 
         if (err.isEmailVerificationRequired()) {
           const token = err.getPendingAuthToken()
           if (token && onVerificationRequired) {
-            onVerificationRequired(token)
+            onVerificationRequired(email, token)
             return
           }
         }

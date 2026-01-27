@@ -20,4 +20,6 @@ export {
   TrendUpIcon,
   TrendDownIcon,
   InfoIcon,
+  CheckCircleIcon,
+  CheckIcon,
 } from './icons'
