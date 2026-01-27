@@ -11,6 +11,7 @@ import type {
   RegisterResponse,
   EmailVerificationRequest,
   EmailVerificationResponse,
+  MessageResponse,
 } from '@/types'
 
 export const authApi = {
@@ -48,4 +49,20 @@ export const authApi = {
    * Uses the refresh token embedded in the session to get a new access token
    */
   refresh: () => api.post<{ message: string }>('/auth/refresh'),
+
+  /**
+   * Request password reset email
+   * Always returns success to prevent email enumeration
+   */
+  requestPasswordReset: (email: string) =>
+    api.post<MessageResponse>('/auth/password-reset/request', { email }),
+
+  /**
+   * Confirm password reset with token from email
+   */
+  confirmPasswordReset: (token: string, newPassword: string) =>
+    api.post<MessageResponse>('/auth/password-reset/confirm', {
+      token,
+      new_password: newPassword,
+    }),
 }

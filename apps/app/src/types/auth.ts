@@ -53,3 +53,17 @@ export interface EmailVerificationResponse {
   user: User
   success: boolean
 }
+
+// Password reset types
+export interface PasswordResetRequest {
+  email: string
+}
+
+export interface PasswordResetConfirm {
+  token: string
+  new_password: string
+}
+
+export interface MessageResponse {
+  message: string
+}
