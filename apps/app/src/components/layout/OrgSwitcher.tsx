@@ -35,9 +35,9 @@ export function OrgSwitcher() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center gap-2 px-3 py-2">
+      <div className="flex items-center">
+        <span className="text-secondary mx-2">/</span>
         <LoadingSpinner size="sm" />
-        <span className="text-sm text-secondary">Loading...</span>
       </div>
     )
   }
@@ -49,27 +49,25 @@ export function OrgSwitcher() {
   // If only one org, just show the name without dropdown
   if (organizations.length === 1) {
     return (
-      <div className="px-3 py-2">
-        <span className="text-sm font-medium text-primary">
-          {currentOrg?.name || organizations[0].name}
-        </span>
+      <div className="flex items-center">
+        <span className="text-secondary mx-2">/</span>
+        <span className="text-sm text-secondary">{currentOrg?.name || organizations[0].name}</span>
       </div>
     )
   }
 
   return (
-    <div ref={menuRef} className="relative">
+    <div ref={menuRef} className="relative flex items-center">
+      <span className="text-secondary mx-2">/</span>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded hover:bg-surface-subtle transition-colors"
+        className="flex items-center gap-1.5 py-1 px-2 -ml-2 rounded hover:bg-surface-subtle transition-colors"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <span className="text-sm font-medium text-primary">
-          {currentOrg?.name || 'Select organization'}
-        </span>
+        <span className="text-sm text-secondary">{currentOrg?.name || 'Select organization'}</span>
         <svg
-          className={`w-4 h-4 text-secondary transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-3.5 h-3.5 text-tertiary transition-transform ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

@@ -38,15 +38,11 @@ export function Navbar({ onMenuToggle, showMenuButton = false }: NavbarProps) {
             </button>
           )}
 
-          <Link to="/" className="flex items-center gap-2">
-            <span className="text-lg font-semibold text-primary">Return Signals</span>
+          <Link to="/" className="flex items-center">
+            <img src="/images/logo/logo+txt-black.svg" alt="Return Signals" className="h-5" />
           </Link>
 
-          <div className="hidden sm:block border-l border-border h-6 mx-2" />
-
-          <div className="hidden sm:block">
-            <OrgSwitcher />
-          </div>
+          <OrgSwitcher />
         </div>
 
         <div className="flex items-center gap-4">
