@@ -14,7 +14,9 @@ import type {
   DateRangeParams,
   OutcomeType,
   ConversationStatus,
+  ComplaintSearchResponse,
 } from '@/types'
+import { ApiError } from '@/api/client'
 
 /**
  * Hook for managing date range state
@@ -274,4 +276,65 @@ export function useTrendingIssues(orgId: string | undefined, dateRange?: DateRan
     error,
     refetch: fetchTrending,
   }
+}
+
+/**
+ * Hook for AI-powered complaint search
+ */
+export function useComplaintSearch(orgId: string | undefined) {
+  const [result, setResult] = useState<ComplaintSearchResponse | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const search = useCallback(
+    async (query: string) => {
+      if (!orgId) {
+        setError('Organization not found')
+        return null
+      }
+
+      if (query.length < 10) {
+        setError('Query must be at least 10 characters')
+        return null
+      }
+
+      if (query.length > 500) {
+        setError('Query must be at most 500 characters')
+        return null
+      }
+
+      setIsLoading(true)
+      setError(null)
+      setResult(null)
+
+      try {
+        const data = await analyticsApi.complaintSearch(orgId, query)
+        setResult(data)
+        return data
+      } catch (err) {
+        if (err instanceof ApiError) {
+          if (err.status === 429) {
+            setError('Rate limit exceeded. Please try again later.')
+          } else if (err.status === 422) {
+            setError('Invalid query. Please check your input.')
+          } else {
+            setError(err.getDisplayMessage())
+          }
+        } else {
+          setError('An unexpected error occurred')
+        }
+        return null
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [orgId]
+  )
+
+  const reset = useCallback(() => {
+    setResult(null)
+    setError(null)
+  }, [])
+
+  return { result, isLoading, error, search, reset }
 }

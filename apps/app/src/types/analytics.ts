@@ -203,3 +203,25 @@ export interface DateRangeParams {
   from_date?: string
   to_date?: string
 }
+
+// Complaint search - product mention
+export interface ComplaintSearchProductMention {
+  product_id: string
+  title: string
+  url: string
+}
+
+// Complaint search - conversation mention
+export interface ComplaintSearchConversationMention {
+  conversation_id: string
+  url: string
+}
+
+// Complaint search response
+export interface ComplaintSearchResponse {
+  answer: string // Markdown with embedded links
+  products_mentioned: ComplaintSearchProductMention[]
+  conversations_mentioned: ComplaintSearchConversationMention[]
+  query_tokens: number
+  rate_limit_remaining: number
+}

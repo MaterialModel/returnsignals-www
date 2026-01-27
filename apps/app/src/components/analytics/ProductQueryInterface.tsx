@@ -1,166 +1,211 @@
 /**
- * Natural language query interface with animations
+ * AI-powered complaint search interface
+ * Natural language queries about product complaints
  */
 
-import { useState, useEffect, useCallback } from 'react'
-import { SearchIcon, InfoIcon } from '@/components/ui'
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
+import { useSearchParams, useNavigate, useParams } from 'react-router-dom'
+import { marked } from 'marked'
+import { SearchIcon, LoadingSpinner } from '@/components/ui'
+import { useComplaintSearch } from '@/hooks/useAnalytics'
 
 interface QuerySuggestion {
   query: string
-  category: string
-  description: string
-}
-
-interface ProductQueryInterfaceProps {
-  onQuerySelect?: (query: string) => void
+  label: string
 }
 
 const suggestions: QuerySuggestion[] = [
   {
-    query: 'What are common fit complaints for the wrap dress?',
-    category: 'fit_sizing',
-    description: 'Analyze fit and sizing issues',
-  },
-  {
-    query: 'Which products have the highest quality defect rate?',
-    category: 'quality_defects',
-    description: 'Find quality issues',
-  },
-  {
     query: 'What products are customers most disappointed with?',
-    category: 'expectations_mismatch',
-    description: 'Identify expectations gaps',
+    label: 'Most complaints',
+  },
+  {
+    query: 'Which products have fit or sizing issues?',
+    label: 'Fit issues',
+  },
+  {
+    query: 'What products have quality defect complaints?',
+    label: 'Quality defects',
   },
 ]
 
-export function ProductQueryInterface({ onQuerySelect }: ProductQueryInterfaceProps) {
-  const [displayText, setDisplayText] = useState('')
-  const [isTyping, setIsTyping] = useState(true)
-  const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0)
-  const [showAnswer, setShowAnswer] = useState(false)
+export function ProductQueryInterface() {
+  const { orgId } = useParams<{ orgId: string }>()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
 
-  const currentSuggestion = suggestions[currentSuggestionIndex]
+  const initialQuery = searchParams.get('q') || ''
+  const [inputValue, setInputValue] = useState(initialQuery)
+  const { result, isLoading, error, search, reset } = useComplaintSearch(orgId)
+  const hasSearchedInitialQuery = useRef(false)
 
-  // Typewriter effect
+  // Load initial query from URL on mount
   useEffect(() => {
-    if (!isTyping) return
+    if (!hasSearchedInitialQuery.current && initialQuery && initialQuery.length >= 10) {
+      hasSearchedInitialQuery.current = true
+      search(initialQuery)
+    }
+  }, [initialQuery, search])
 
-    const fullText = currentSuggestion.query
-    let index = 0
+  // Configure marked to handle links
+  const renderedAnswer = useMemo(() => {
+    if (!result?.answer) return ''
 
-    const typeInterval = setInterval(() => {
-      if (index <= fullText.length) {
-        setDisplayText(fullText.slice(0, index))
-        index++
-      } else {
-        clearInterval(typeInterval)
-        setIsTyping(false)
-        // Show answer after typing completes
-        setTimeout(() => setShowAnswer(true), 300)
+    // Custom renderer for links
+    const renderer = new marked.Renderer()
+    renderer.link = ({ href, text }) => {
+      // Internal links (starting with /) should be handled by React Router
+      if (href.startsWith('/')) {
+        return `<a href="${href}" class="text-accent-primary hover:underline font-medium" data-internal="true">${text}</a>`
       }
-    }, 40) // Typing speed
+      // External links open in new tab
+      return `<a href="${href}" class="text-accent-primary hover:underline" target="_blank" rel="noopener noreferrer">${text}</a>`
+    }
 
-    return () => clearInterval(typeInterval)
-  }, [isTyping, currentSuggestion.query])
+    return marked(result.answer, { renderer })
+  }, [result?.answer])
 
-  // Auto-cycle through suggestions
-  useEffect(() => {
-    if (isTyping) return
+  // Handle clicks on internal links to use React Router navigation
+  const handleAnswerClick = useCallback(
+    (e: React.MouseEvent) => {
+      const target = e.target as HTMLElement
+      const link = target.closest('a[data-internal="true"]') as HTMLAnchorElement
+      if (link) {
+        e.preventDefault()
+        navigate(link.getAttribute('href') || '/')
+      }
+    },
+    [navigate]
+  )
 
-    const cycleTimeout = setTimeout(() => {
-      setShowAnswer(false)
-      setTimeout(() => {
-        setDisplayText('')
-        setIsTyping(true)
-        setCurrentSuggestionIndex((prev) => (prev + 1) % suggestions.length)
-      }, 300)
-    }, 5000) // Show each suggestion for 5 seconds
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault()
+      const trimmedQuery = inputValue.trim()
 
-    return () => clearTimeout(cycleTimeout)
-  }, [isTyping])
+      if (trimmedQuery.length < 10) {
+        return
+      }
+
+      // Update URL with query
+      setSearchParams({ q: trimmedQuery })
+
+      await search(trimmedQuery)
+    },
+    [inputValue, search, setSearchParams]
+  )
 
   const handleSuggestionClick = useCallback(
     (suggestion: QuerySuggestion) => {
-      setDisplayText(suggestion.query)
-      setIsTyping(false)
-      setShowAnswer(true)
-      onQuerySelect?.(suggestion.query)
+      setInputValue(suggestion.query)
+      setSearchParams({ q: suggestion.query })
+      search(suggestion.query)
     },
-    [onQuerySelect]
+    [search, setSearchParams]
   )
+
+  const handleClear = useCallback(() => {
+    setInputValue('')
+    setSearchParams({})
+    reset()
+  }, [reset, setSearchParams])
+
+  const isValidQuery = inputValue.trim().length >= 10
 
   return (
     <div className="space-y-4">
-      {/* Search input with typewriter */}
-      <div className="relative">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-secondary">
-          <SearchIcon />
-        </div>
-        <input
-          type="text"
-          value={displayText}
-          readOnly
-          className="w-full pl-12 pr-4 py-3 bg-surface-base border-2 border-accent-primary/30 rounded-lg text-primary focus:outline-none focus:border-accent-primary transition-colors"
-          placeholder="Ask a question about your products..."
-        />
-        {isTyping && (
-          <span className="absolute right-4 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-accent-primary animate-pulse" />
-        )}
-      </div>
-
-      {/* Animated answer */}
-      {showAnswer && (
-        <div
-          className="bg-accent-primary/5 border border-accent-primary/20 rounded-lg p-4 animate-fadeIn"
-          style={{ animation: 'fadeIn 0.3s ease-out' }}
-        >
-          <div className="flex items-start gap-3">
-            <div className="p-2 bg-accent-primary/10 rounded-lg">
-              <InfoIcon className="w-5 h-5 text-accent-primary" />
-            </div>
-            <div className="flex-1">
-              <div className="text-sm font-medium text-primary mb-2">
-                {currentSuggestion.description}
-              </div>
-              <div className="text-sm text-secondary">
-                Select a product from the table below to see detailed issue analytics, or use the
-                category breakdown to filter by issue type.
-              </div>
-            </div>
+      {/* Search form */}
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <div className="relative">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-secondary">
+            <SearchIcon />
           </div>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            className="w-full pl-12 pr-4 py-3 bg-surface-base border-2 border-border rounded-lg text-primary placeholder:text-tertiary focus:outline-none focus:border-accent-primary transition-colors"
+            placeholder="Ask about product complaints..."
+            minLength={10}
+            maxLength={500}
+            disabled={isLoading}
+          />
         </div>
-      )}
+
+        <div className="flex items-center gap-3">
+          <button
+            type="submit"
+            disabled={!isValidQuery || isLoading}
+            className="px-4 py-2 bg-accent-primary text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-accent-primary/90 transition-colors flex items-center gap-2"
+          >
+            {isLoading ? (
+              <>
+                <LoadingSpinner className="w-4 h-4" />
+                Searching...
+              </>
+            ) : (
+              'Search'
+            )}
+          </button>
+
+          {(result || error) && (
+            <button
+              type="button"
+              onClick={handleClear}
+              className="px-4 py-2 text-secondary hover:text-primary transition-colors"
+            >
+              Clear
+            </button>
+          )}
+
+          {!isValidQuery && inputValue.length > 0 && (
+            <span className="text-sm text-tertiary">
+              {10 - inputValue.trim().length} more characters needed
+            </span>
+          )}
+        </div>
+      </form>
 
       {/* Quick suggestions */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs text-secondary">Try:</span>
         {suggestions.map((suggestion, index) => (
           <button
             key={index}
+            type="button"
             onClick={() => handleSuggestionClick(suggestion)}
-            className={`text-xs px-3 py-1.5 rounded-full transition-colors ${
-              index === currentSuggestionIndex
-                ? 'bg-accent-primary text-white'
-                : 'bg-surface-subtle text-secondary hover:bg-surface-elevated hover:text-primary'
-            }`}
+            disabled={isLoading}
+            className="text-xs px-3 py-1.5 rounded-full bg-surface-subtle text-secondary hover:bg-surface-elevated hover:text-primary disabled:opacity-50 transition-colors"
           >
-            {suggestion.description}
+            {suggestion.label}
           </button>
         ))}
       </div>
 
-      <style>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(-8px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+      {/* Error message */}
+      {error && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-sm text-red-700">{error}</p>
+        </div>
+      )}
+
+      {/* Search result */}
+      {result && (
+        <div className="bg-surface-subtle border border-border rounded-lg p-5 space-y-4">
+          {/* Markdown answer */}
+          <div
+            className="prose prose-sm max-w-none text-primary [&_a]:text-accent-primary [&_a]:no-underline hover:[&_a]:underline [&_strong]:text-primary [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-4"
+            onClick={handleAnswerClick}
+            dangerouslySetInnerHTML={{ __html: renderedAnswer }}
+          />
+
+          {/* Rate limit info */}
+          <div className="pt-3 border-t border-border flex items-center justify-between text-xs text-tertiary">
+            <span>{result.query_tokens} tokens used</span>
+            <span>{result.rate_limit_remaining.toLocaleString()} queries remaining this hour</span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

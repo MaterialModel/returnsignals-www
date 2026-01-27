@@ -15,12 +15,14 @@
   "dependencies": {
     "@returnsignals/styles": "workspace:*",
     "@returnsignals/tailwind-config": "workspace:*",
+    "marked": "^17.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
+    "@types/marked": "^6.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
