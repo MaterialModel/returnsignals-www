@@ -2,7 +2,7 @@
  * Re-export all API modules
  */
 
-export { api, apiClient, ApiError } from './client'
+export { api, apiClient, ApiError, onSessionExpired } from './client'
 export { authApi } from './auth'
 export { organizationsApi } from './organizations'
 export { conversationsApi } from './conversations'

@@ -51,6 +51,28 @@ export class ApiError extends Error {
 let isRefreshing = false
 let refreshPromise: Promise<boolean> | null = null
 
+// Session expiration event system
+type SessionEventHandler = () => void
+const sessionExpiredHandlers: Set<SessionEventHandler> = new Set()
+
+/**
+ * Subscribe to session expiration events.
+ * Called when token refresh fails and user needs to re-authenticate.
+ * Returns an unsubscribe function.
+ */
+export function onSessionExpired(handler: SessionEventHandler): () => void {
+  sessionExpiredHandlers.add(handler)
+  return () => sessionExpiredHandlers.delete(handler)
+}
+
+function notifySessionExpired() {
+  sessionExpiredHandlers.forEach((handler) => handler())
+}
+
+// Endpoints that should NOT attempt refresh on 401
+// (to prevent infinite loops or unnecessary refresh attempts)
+const SKIP_REFRESH_ENDPOINTS = ['/auth/login', '/auth/register', '/auth/refresh', '/auth/logout']
+
 /**
  * Attempt to refresh the session
  * Returns true if refresh succeeded, false otherwise
@@ -113,8 +135,11 @@ export async function apiClient<T>(endpoint: string, options: RequestInit = {}):
     const errorData = data as { detail?: string }
 
     // Handle session expiration with automatic refresh
-    // Skip for auth endpoints to avoid loops
-    if (response.status === 401 && !endpoint.startsWith('/auth/')) {
+    // Skip refresh for specific auth endpoints to avoid loops
+    const shouldAttemptRefresh =
+      response.status === 401 && !SKIP_REFRESH_ENDPOINTS.some((e) => endpoint.startsWith(e))
+
+    if (shouldAttemptRefresh) {
       // Try to refresh the session
       const refreshed = await tryRefreshSession()
 
@@ -123,7 +148,8 @@ export async function apiClient<T>(endpoint: string, options: RequestInit = {}):
         return apiClient<T>(endpoint, options)
       }
 
-      // Refresh failed - let AuthContext handle redirect via ProtectedRoute
+      // Refresh failed - notify AuthContext to clear user state
+      notifySessionExpired()
       throw new ApiError(401, 'Session expired')
     }
 
