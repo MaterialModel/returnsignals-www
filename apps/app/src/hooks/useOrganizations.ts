@@ -9,6 +9,14 @@ import type { Organization } from '@/types'
 // Module-level cache for organizations
 let cachedOrganizations: Organization[] | null = null
 
+/**
+ * Clear the organizations cache.
+ * Should be called on logout or session expiration to prevent data leakage between users.
+ */
+export function clearOrganizationsCache() {
+  cachedOrganizations = null
+}
+
 export function useOrganizations() {
   // Initialize with cached data if available
   const [organizations, setOrganizations] = useState<Organization[]>(cachedOrganizations || [])

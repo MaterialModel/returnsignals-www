@@ -24,9 +24,9 @@ export default function VerifyEmailPage() {
   useEffect(() => {
     // If no token in URL, redirect to login
     if (!authLoading && !token) {
-      window.location.href = '/login'
+      navigate('/login', { replace: true })
     }
-  }, [token, authLoading])
+  }, [token, authLoading, navigate])
 
   // If already authenticated, redirect to home
   if (!authLoading && isAuthenticated) {
@@ -48,7 +48,7 @@ export default function VerifyEmailPage() {
       setSuccess(true)
       // Redirect to intended destination after verification
       setTimeout(() => {
-        window.location.href = next || '/'
+        navigate(next || '/', { replace: true })
       }, 1500)
     } catch (err) {
       if (err instanceof ApiError) {

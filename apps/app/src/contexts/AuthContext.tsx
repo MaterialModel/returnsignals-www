@@ -6,7 +6,8 @@
 /* eslint-disable react-refresh/only-export-components */
 
 import { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { authApi, ApiError } from '@/api'
+import { authApi, ApiError, onSessionExpired } from '@/api'
+import { clearOrganizationsCache } from '@/hooks/useOrganizations'
 import type { User, LoginRequest, RegisterRequest, RegisterResponse } from '@/types'
 
 interface AuthContextValue {
@@ -50,6 +51,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     checkSession()
   }, [])
 
+  // Subscribe to session expiration events from the API client
+  // When token refresh fails, this clears user state and triggers redirect to login
+  useEffect(() => {
+    const unsubscribe = onSessionExpired(() => {
+      clearOrganizationsCache()
+      setUser(null)
+    })
+    return unsubscribe
+  }, [])
+
   const login = useCallback(async (credentials: LoginRequest) => {
     const response = await authApi.login(credentials)
     setUser(response.user)
@@ -59,7 +70,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       await authApi.logout()
     } finally {
-      // Always clear user state even if logout request fails
+      // Always clear user state and caches even if logout request fails
+      clearOrganizationsCache()
       setUser(null)
     }
   }, [])

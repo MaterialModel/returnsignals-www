@@ -20,7 +20,7 @@ export default function RegisterPage() {
   }
 
   const handleSuccess = (
-    _email: string,
+    email: string,
     emailVerificationRequired: boolean,
     token: string | null
   ) => {
