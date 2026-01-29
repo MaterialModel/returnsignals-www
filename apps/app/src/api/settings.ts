@@ -3,12 +3,7 @@
  */
 
 import { api } from './client'
-import type {
-  AISettingsResponse,
-  AISettingsUpdate,
-  IntegrationResponse,
-  IntegrationUpdate,
-} from '@/types'
+import type { AISettingsResponse, AISettingsUpdate } from '@/types'
 
 export const settingsApi = {
   /**
@@ -22,16 +17,4 @@ export const settingsApi = {
    */
   updateAISettings: (orgId: string, data: AISettingsUpdate) =>
     api.put<AISettingsResponse>(`/organizations/${orgId}/settings/ai`, data),
-
-  /**
-   * Get integration settings (admin+)
-   */
-  getIntegrations: (orgId: string) =>
-    api.get<IntegrationResponse>(`/organizations/${orgId}/settings/integrations`),
-
-  /**
-   * Update integration settings (admin+)
-   */
-  updateIntegrations: (orgId: string, data: IntegrationUpdate) =>
-    api.put<IntegrationResponse>(`/organizations/${orgId}/settings/integrations`, data),
 }

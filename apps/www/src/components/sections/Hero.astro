@@ -1,6 +1,7 @@
 ---
 import FullViewportSection from '@layouts/FullViewportSection.astro'
 import SMSMockup from '@components/ui/SMSMockup.astro'
+import type { Message } from '../../types'
 
 interface Props {
   ctaUrl: string
@@ -8,16 +9,6 @@ interface Props {
 }
 
 const { ctaUrl, blogBadge } = Astro.props
-
-// Message type definition
-type Message = {
-  type: 'incoming' | 'outgoing'
-  content?: 'text' | 'image'
-  text?: string
-  imageSrc?: string
-  imageAlt?: string
-  timestamp?: string
-}
 
 // Exchange conversation - Emma's dress exchange story
 const heroMessages: Message[] = [
