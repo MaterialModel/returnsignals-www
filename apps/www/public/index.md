@@ -7,44 +7,45 @@ Return Signals is an AI-powered platform that helps e-commerce brands reduce ret
 ## How It Works
 
 ### 1. Check in
+
 A proactive text that feels like a real associate.
 
 ### 2. Follow up
+
 If they haven't tried it yet, no problem. We'll reach out again later.
 
 ### 3. Resolve
+
 Support that saves the sale: fit & styling guidance, plus tailored exchange recommendations.
 
 ### 4. Exchange or return
+
 Make it right in-thread. If a return is needed, use photos to decide: restock, rework, or keep‑it.
 
-## Turn Returns Into Loyalty
+## Customers Love Engaging with Return Signals
 
-When something isn't right, customers remember how you respond. Support after delivery is where repeat purchase is won.
+Real results from our customers.
 
-### Fit Uncertainty (39% of return requests)
-**Customer Signal:** Wrong size or cut for their preferences.
-**Concierge Response:** Thoughtful personal sizing advice. Confirm the issue then recommend the best size or a better-fitting style.
+### Key Metrics
 
-### Expectation Mismatch (28% of return requests)
-**Customer Signal:** Color or fabric not as expected.
-**Concierge Response:** Check their photo, listen to their story. Help them find what they will love.
-
-### Quality Concern ($27 avg. handling cost)
-**Customer Signal:** Minor flaw or a real defect.
-**Concierge Response:** Photo-based resolution. Decide the right fix: replace, rework, or keep.
+- **60%** reply rate from happy customers
+- **78%** reply rate from customers needing help
+- **71%** of return requests resulted in exchanges
 
 **Outcome:** A good return experience leads to 3x more repeat purchases. The next purchase depends on how this one ends.
 
 ## Real Examples
 
 ### Preventing Returns Through Problem-Solving
+
 Jacky buys a wrap dress and gets a friendly fit check-in. She hasn't tried it yet, so Return Signals schedules a follow-up. When the neckline gaps, we suggest a quick adjustment and a simple fix, avoiding a return entirely.
 
 ### Making Smart Disposition Decisions
+
 Bob's gym shirt looks great, until a run leaves a painful rub. Return Signals requests a quick photo, confirms a seam defect, and routes him straight to an exchange—no unnecessary shipping of defective products.
 
 ### Turning Complaints into Exchanges
+
 Priya's leggings fit perfectly, but the color is darker than expected. Return Signals helps her articulate what she wants, sends a photo of a lighter option, and sets up an exchange that keeps the customer happy.
 
 ## Analytics Platform
@@ -59,7 +60,7 @@ Return Signals is a product of Material Model, Inc., backed by Y Combinator. We'
 
 - Website: https://www.returnsignals.com
 - Email: hello@returnsignals.com
-- Book a Demo: https://calendly.com/alejandro-materialmodel/return-signals-introductory-call
+- Book a Demo: https://cal.com/alejandro-zaniolo-yzbwf0/30min?overlayCalendar=true
 
 ## Legal
 
