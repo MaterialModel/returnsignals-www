@@ -39,42 +39,15 @@ const flowSteps = [
     icon: 'route' as const,
   },
 ]
-
-const items = [
-  {
-    stat: '39%',
-    statNote: 'of return requests',
-    problem: 'Fit uncertainty',
-    problemDesc: 'Wrong size or cut for their preferences.',
-    solution: 'Thoughtful personal advice.',
-    solutionDesc: 'Confirm the issue then recommend the best size or a better-fitting style.',
-  },
-  {
-    stat: '28%',
-    statNote: 'of return requests',
-    problem: 'Expectation mismatch',
-    problemDesc: 'Color or fabric not as expected.',
-    solution: 'Listen and check their photo.',
-    solutionDesc: 'Help them find what they will love.',
-  },
-  {
-    stat: '$27',
-    statNote: 'avg. handling cost',
-    problem: 'Quality concern',
-    problemDesc: 'Minor flaw or a real defect.',
-    solution: 'Photo-based resolution',
-    solutionDesc: 'Decide the right fix: replace, rework, or keep.',
-  },
-]
 ---
 
 <FullViewportSection class={className} bg="bg-surface-subtle">
   <div id="problem-section" class="problem-wrapper">
     <!-- Header -->
     <div class="text-center mb-10 sm:mb-14 pt-8 sm:pt-24">
-      <h2 class="section-title mb-4">Turn returns into loyalty</h2>
+      <h2 class="section-title mb-4">Customers love engaging with Return Signals</h2>
       <p class="text-lg sm:text-xl text-primary leading-relaxed max-w-3xl mx-auto">
-        When something isn't right, customers remember how you respond.
+        Real results from our customers.
       </p>
     </div>
 
@@ -120,34 +93,44 @@ const items = [
       </div>
     </div>
 
-    <!-- Problem Cards -->
-    <div class="problem-cards">
-      {
-        items.map((item) => (
-          <div class="problem-card" role="group" aria-label="Problem and response">
-            <div class="stat-header">
-              <span class="stat-value">{item.stat}</span>
-              <span class="stat-note" aria-label="stat note">
-                {item.statNote}
-              </span>
-            </div>
+    <!-- Pilot Results Cards -->
+    <div class="results-cards">
+      <!-- Happy Customers Reply Rate -->
+      <div class="result-card">
+        <div class="result-stat">
+          <span class="result-value">60%</span>
+          <span class="result-label">reply rate</span>
+        </div>
+        <div class="result-detail">
+          <p class="result-description">
+            Customers happy with their order still engaged with our check-ins.
+          </p>
+        </div>
+      </div>
 
-            <div class="sections-container">
-              <div class="problem-section-card">
-                <div class="eyebrow-label">Customer signal</div>
-                <h3 class="card-title">{item.problem}</h3>
-                <p class="card-desc">{item.problemDesc}</p>
-              </div>
+      <!-- Return Customers Reply Rate -->
+      <div class="result-card">
+        <div class="result-stat">
+          <span class="result-value">78%</span>
+          <span class="result-label">reply rate</span>
+        </div>
+        <div class="result-detail">
+          <p class="result-description">
+            Customers with issues engaged, letting us offer exchanges.
+          </p>
+        </div>
+      </div>
 
-              <div class="solution-section-card">
-                <div class="eyebrow-label">Concierge response</div>
-                <h3 class="card-title">{item.solution}</h3>
-                <p class="card-desc">{item.solutionDesc}</p>
-              </div>
-            </div>
-          </div>
-        ))
-      }
+      <!-- Exchange Rate Card -->
+      <div class="result-card">
+        <div class="result-stat">
+          <span class="result-value">71%</span>
+          <span class="result-label">exchange rate</span>
+        </div>
+        <div class="result-detail">
+          <p class="result-description">Of return requests were converted into exchanges.</p>
+        </div>
+      </div>
     </div>
 
     <!-- Outcome -->
@@ -176,21 +159,20 @@ const items = [
     }
   }
 
-  /* Problem cards grid */
-  .problem-cards {
+  /* Results Cards Grid */
+  .results-cards {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    align-items: stretch;
   }
   @media (min-width: 768px) {
-    .problem-cards {
+    .results-cards {
       grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
     }
   }
 
-  .problem-card {
+  .result-card {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -207,7 +189,7 @@ const items = [
       border-color 200ms ease;
   }
 
-  .problem-card:hover {
+  .result-card:hover {
     border-color: var(--color-border-hover);
     transform: translateY(-2px);
     box-shadow:
@@ -215,80 +197,37 @@ const items = [
       0 14px 30px rgba(15, 23, 42, 0.1);
   }
 
-  .stat-header {
+  .result-stat {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1.25rem 1.25rem 1rem;
+    align-items: baseline;
+    gap: 0.625rem;
+    padding: 1.5rem 1.5rem 1rem;
     background: linear-gradient(180deg, var(--color-surface-subtle), transparent 80%);
   }
 
-  .stat-value {
-    font-size: 2rem;
+  .result-value {
+    font-size: 2.5rem;
     font-weight: 700;
     line-height: 1;
     color: var(--color-text-primary);
     letter-spacing: -0.02em;
   }
 
-  .stat-note {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-text-secondary);
-    padding: 0.25rem 0.5rem;
-    border-radius: 9999px;
-    background-color: var(--color-surface-subtle);
-    border: 1px solid var(--color-border-subtle);
-  }
-
-  .sections-container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .problem-section-card,
-  .solution-section-card {
-    padding: 1rem 1.25rem 1.25rem;
-  }
-
-  .problem-section-card {
-    background-color: transparent;
-    min-height: 140px;
-  }
-
-  .solution-section-card {
-    background-color: var(--color-surface-elevated);
-    border-top: 1px solid var(--color-border);
-    flex: 1;
-  }
-
-  .eyebrow-label {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.075em;
-    color: var(--color-text-tertiary);
-    margin-bottom: 0.35rem;
-  }
-
-  .card-title {
+  .result-label {
     font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: 0.25rem;
-    letter-spacing: -0.01em;
+    font-weight: 500;
+    color: var(--color-text-secondary);
   }
 
-  .card-desc {
-    font-size: 0.9rem;
-    line-height: 1.65;
-    color: var(--color-text-secondary);
+  .result-detail {
+    padding: 0 1.5rem 1.5rem;
+    flex: 1;
+  }
+
+  .result-description {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-tertiary);
   }
 
   /* Outcome callout */
@@ -298,18 +237,18 @@ const items = [
     flex-direction: column;
     align-items: center;
     gap: 1.25rem;
-    background-color: var(--color-surface-subtle);
+    background-color: var(--color-surface-base);
     padding: 2rem 1.5rem;
-    border-radius: 0.75rem;
+    border-radius: 1rem;
     border: 1px solid var(--color-border);
   }
   @media (min-width: 640px) {
     .outcome {
-      margin-top: 4rem;
+      margin-top: 2.5rem;
       flex-direction: row;
       justify-content: center;
       gap: 2rem;
-      padding: 2rem 3rem;
+      padding: 1.75rem 2.5rem;
     }
   }
 
@@ -325,7 +264,7 @@ const items = [
   }
   @media (min-width: 640px) {
     .outcome-text {
-      font-size: 1.125rem;
+      font-size: 1.0625rem;
     }
   }
 </style>
