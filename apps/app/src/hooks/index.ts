@@ -15,5 +15,6 @@ export {
   useAnalyticsProducts,
   useProductDetail,
   useTrendingIssues,
+  useComplaintSearch,
 } from './useAnalytics'
 export { useAISettings } from './useAISettings'

@@ -20,7 +20,6 @@
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/rss": "^4.0.12",
-    "@flaticon/flaticon-uicons": "^3.3.1",
     "@returnsignals/styles": "workspace:*",
     "@returnsignals/tailwind-config": "workspace:*",
     "astro": "^5.16.4"
